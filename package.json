@@ -1,0 +1,23 @@
+{
+  "name": "CSCI3100-project",
+  "version": "1.0.0",
+  "description": "This is the project of CSCI3100 in 2021-2022 2nd semester.\r Hello\r ## Updates",
+  "main": "Test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KelvinChim-ComSci/CSCI3100-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KelvinChim-ComSci/CSCI3100-project/issues"
+  },
+  "homepage": "https://github.com/KelvinChim-ComSci/CSCI3100-project#readme",
+  "dependencies": {
+    "http": "*"
+  }
+}
