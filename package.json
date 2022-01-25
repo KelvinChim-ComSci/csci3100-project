@@ -4,6 +4,7 @@
   "description": "This is the project of CSCI3100 in 2021-2022 2nd semester.\r Hello\r ## Updates",
   "main": "Test.js",
   "scripts": {
+    "start": "node Test.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
