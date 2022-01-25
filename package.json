@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/KelvinChim-ComSci/CSCI3100-project/issues"
   },
-  "homepage": "https://github.com/KelvinChim-ComSci/CSCI3100-project#readme"
+  "homepage": "https://github.com/KelvinChim-ComSci/CSCI3100-project#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
