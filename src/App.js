@@ -1,29 +1,37 @@
 import logo from './logo.svg';
+import React from "react";
 import './App.css';
 import Login from "./frontend/Login.js";
+import ForgetPassword from "./frontend/ForgetPassword.js";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+class App extends React.Component {
+  /*constructor(props) {
+    super(props);
+    this.state = {
+      forgetPassword: false
+    }
+  }*/
+
+  render() {
+    return (
+      <div className="App" >
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. oOo
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <br></br>
+        CU Simulator
+        <br></br>
 
-        <p>below is the login component</p>
-        <Login />
-      </header>
-    </div>
-  );
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgetPassword" element={<ForgetPassword />} />
+          </Routes>
+          <Link to={"/forgetPassword"}>Forget Password</Link>
+        </Router>
+      </div >
+    );
+  }
 }
 
 export default App;
