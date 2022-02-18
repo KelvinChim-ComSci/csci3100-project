@@ -6,8 +6,7 @@ class Login extends React.Component {
     }
 
     async send_request() {
-        const portNumber = process.env.PORT||2096
-        await fetch("http://localhost:" + portNumber + "/login", {
+        await fetch(process.env.REACT_APP_BASE_URL + "/login", {
         method: "GET",
         headers: new Headers({
           "Content-Type": 'application/json',
@@ -41,8 +40,8 @@ class Login extends React.Component {
                 <br></br>
                 <div id="test">
                     <div>
-                    <h1></h1>
-                    <p></p>
+                    <h1>aaaa</h1>
+                    <p>{process.env.REACT_APP_BASE_URL}</p>
                     </div>
                 </div>
                 -------------------------------

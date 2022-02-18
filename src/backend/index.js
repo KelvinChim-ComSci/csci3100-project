@@ -15,6 +15,7 @@ dotenv.config();
 
 const { MongoClient } = require('mongodb');
 const uri = process.env.MONGODB_URI;
+console.log(uri);
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -51,5 +52,6 @@ app.get('/login', async function (req,res) {
 //
 //});
 
-app.listen(process.env.PORT || 2096);
+const portNumber = process.env.PORT || 2096;
+app.listen(portNumber);
 console.log("Connected successfully to server...");
