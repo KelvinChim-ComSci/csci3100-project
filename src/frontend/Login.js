@@ -6,8 +6,27 @@ class Login extends React.Component {
     }
 
     async send_request() {
-        console.log('you clicked the button OoO!')
-
+        await fetch("http://localhost:2096/login", {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Allow-Credentials": true,
+                }),
+            }
+        )
+        .then((res) => res.json())
+        .then((res) => {
+            console.log("hi\n");
+            console.log(res);
+            //const parsedData = res.text();
+            //console.log(parsedData);
+        
+            const detailsElement = document.getElementById("test");
+            detailsElement.getElementsByTagName("h1")[0].innerText = res.name;
+            //detailsElement.getElementsByTagName("p")[0].innerText = data.name;
+        })
     }
 
     render() {
@@ -16,8 +35,14 @@ class Login extends React.Component {
                 -------------------------------<br></br>
                 Login Component
                 <h5>OuO Login</h5>
-                <button onClick={this.send_request}>send request to database</button>
+                <button onClick={this.send_request}>get a data from backend</button>
                 <br></br>
+                <div id="test">
+                    <div>
+                    <h1></h1>
+                    <p></p>
+                    </div>
+                </div>
                 -------------------------------
             </div>
         )
