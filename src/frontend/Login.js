@@ -17,6 +17,8 @@ class Login extends React.Component {
                 Login Component
                 <h5>OuO Login</h5>
                 <button onClick={this.send_request}>send request to database</button>
+                <br></br>
+                -------------------------------
             </div>
         )
     }
