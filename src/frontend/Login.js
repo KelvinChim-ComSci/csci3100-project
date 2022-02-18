@@ -6,7 +6,7 @@ class Login extends React.Component {
     }
 
     async send_request() {
-        await fetch("http://localhost:2096/login", {
+        await fetch("/login", {
         method: "GET",
         headers: new Headers({
           "Content-Type": 'application/json',
