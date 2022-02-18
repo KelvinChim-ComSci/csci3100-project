@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+#main{
+  height: 100vh;
+  background: green;
+  background-image: url('/src/backend/background/main.jpeg');  
+}
+
+.mainButton{
+  padding: 100px;
+  font-size: xx-large;
+}
