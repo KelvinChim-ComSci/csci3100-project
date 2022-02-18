@@ -6,10 +6,12 @@ class Login extends React.Component {
     }
 
     async send_request() {
-        await fetch("/login", {
+        const portNumber = process.env.PORT||2096
+        await fetch("http://localhost:" + portNumber + "/login", {
         method: "GET",
         headers: new Headers({
           "Content-Type": 'application/json',
+          "Accept": 'application/json',
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
           "Access-Control-Allow-Credentials": true,
