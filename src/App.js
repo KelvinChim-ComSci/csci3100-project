@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React from "react";
 import './App.css';
 import Login from "./frontend/Login.js";
@@ -17,10 +16,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" >
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <br></br>
+        {/* <img src={logo} className="App-logo" alt="logo" /> 
         CU Simulator
-        <br></br>
+        <br></br>  */}
+
         <Router>
           <Routes>
             <Route exact path="/" element={<Login />} />
@@ -28,8 +27,11 @@ class App extends React.Component {
             <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/main" element={<Main />} />
           </Routes>
-          <Link to={"/forgetPassword"}>Forget Password</Link>
-          <Link style= {{padding: 5}} to={"/main"}> Main </Link>
+
+          {/*
+          <Link style= {{padding: 5}} to={"/login"}>Log in</Link>
+          <Link style= {{padding: 5}} to={"/forgetPassword"}>Forget Password</Link>
+          <Link style= {{padding: 5}} to={"/main"}> Main </Link> */}
         </Router>
       </div >
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import './Main.css';
 
 class Main extends React.Component {
     constructor(props) {

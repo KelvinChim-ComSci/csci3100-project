@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import './Login.css';
 
 class Login extends React.Component {
     constructor(props) {
@@ -33,19 +34,38 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                -------------------------------<br></br>
-                Login Component
-                <h5>OuO Login</h5>
-                <button className="btn btn-outline-primary" onClick={this.send_request}>get a data from backend</button>
+            <div id="background">
+                
+                <div className="container">
+                    <div id="box1">
+                      CU Simulator
+                    </div>
+                    <div id="box2">
+                      form
+                    </div>
+                    <div id="box3">
+                      Forget password?
+                    </div>
+                    <div id="box4">
+                      Register new account
+                    </div>
+                    
+                </div>
+
+
+
+
+
+
+
+                {/*<button className="btn btn-outline-primary" onClick={this.send_request}>get a data from backend</button>
                 <br></br>
                 <div id="test">
                     <div>
                         <h1>aaaa</h1>
                         <p>{process.env.REACT_APP_BASE_URL}</p>
                     </div>
-                </div>
-                -------------------------------
+                </div> */}
             </div>
         )
     }
