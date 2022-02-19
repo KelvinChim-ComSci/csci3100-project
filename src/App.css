@@ -47,3 +47,14 @@
   padding: 100px;
   font-size: xx-large;
 }
+
+.statchild {
+  display: inline-block;
+  width: 105px;
+  height: 105px;
+  background-color: rgb(76, 168, 196);
+  position: absolute;
+  top: 50px;
+  left: 16px;
+  font-size: 10px;
+}
