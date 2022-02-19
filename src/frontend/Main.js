@@ -19,7 +19,7 @@ class Main extends React.Component {
     }
 
     popSchdule(){
-        console.log("pop schdule");
+        console.log("pop schedule");
     }
 
     popMessageBox(){

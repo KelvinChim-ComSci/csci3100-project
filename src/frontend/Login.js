@@ -6,10 +6,11 @@ class Login extends React.Component {
     }
 
     async send_request() {
-        await fetch("http://localhost:2096/login", {
+        await fetch(process.env.REACT_APP_BASE_URL + "/login", {
         method: "GET",
         headers: new Headers({
           "Content-Type": 'application/json',
+          "Accept": 'application/json',
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
           "Access-Control-Allow-Credentials": true,
@@ -39,8 +40,8 @@ class Login extends React.Component {
                 <br></br>
                 <div id="test">
                     <div>
-                    <h1></h1>
-                    <p></p>
+                    <h1>aaaa</h1>
+                    <p>{process.env.REACT_APP_BASE_URL}</p>
                     </div>
                 </div>
                 -------------------------------
