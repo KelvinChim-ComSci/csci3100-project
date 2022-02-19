@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class Main extends React.Component {
     constructor(props) {
@@ -9,32 +10,32 @@ class Main extends React.Component {
         this.popMessageBox = this.popMessageBox.bind(this);
         this.state = { color: "#282c34" };
     }
-    
-    popFriendLlist(){
+
+    popFriendLlist() {
         console.log("pop friend list");
     }
 
-    popCheckStatus(){
+    popCheckStatus() {
         console.log("Check status");
     }
 
-    popSchdule(){
+    popSchdule() {
         console.log("pop schedule");
     }
 
-    popMessageBox(){
+    popMessageBox() {
         console.log("pop message box");
     }
 
     render() {
         return (
-            <div id = "main">
+            <div id="main">
                 <p> Welcome to CU Simulator! </p>
-                <div style  = {{top:10, right:10}}> Health point: 100 </div>
-                <button class = "mainButton" onClick={this.popFriendLlist}>Friend List</button>
-                <button class = "mainButton" onClick={this.popCheckStatus}>Check status</button>
-                <button class = "mainButton" onClick={this.popSchdule}>Open schdule</button>
-                <button class = "mainButton" onClick={this.popMessageBox}> Message box </button>
+                <div style={{ top: 10, right: 10 }}> Health point: 100 </div>
+                <button className="mainButton" onClick={this.popFriendLlist}>Friend List</button>
+                <button className="mainButton" onClick={this.popCheckStatus}>Check status</button>
+                <button className="mainButton" onClick={this.popSchdule}>Open schdule</button>
+                <button className="mainButton" onClick={this.popMessageBox}> Message box </button>
             </div>
         )
     }
