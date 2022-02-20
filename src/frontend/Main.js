@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
+import PopSchdule from './Main_button_component/schdule';
+
 
 class Main extends React.Component {
+
     constructor(props) {
         super(props);
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
-        this.state = { color: "#282c34" };
+        this.state = { color: "#282c34", schedulePop : false, scheduleOpenText: "Open schedule"};
+
+    }
+
+    closeSchedule(){
+        this.setState({schedulePop: false});
     }
 
     popFriendLlist() {
@@ -21,10 +29,18 @@ class Main extends React.Component {
     }
 
     popSchdule() {
-        console.log("pop schedule");
+        console.log("open schedule");
+        this.setState({schedulePop : !this.state.schedulePop});   
+        if (this.state.scheduleOpenText == "Open schedule"){
+            this.setState({scheduleOpenText : "Close schedule"});
+        }
+        else{
+            this.setState({scheduleOpenText : "Open schedule"});
+        }
     }
 
     popMessageBox() {
+        alert(this.state.schedulePop)
         console.log("pop message box");
     }
 
@@ -54,7 +70,7 @@ class Main extends React.Component {
         return (
             <div id="main">
                 <p> Welcome to CU Simulator! </p>
-                <div style={{ top: 10, right: 10 }}> </div>
+                <div style={{ top: 10, right: 10 }}> 
                 <table className="statchild" >
                 <thead><tr>
                         <th scope="col">Statistics</th>
@@ -76,11 +92,18 @@ class Main extends React.Component {
                     </tr>
                 </tbody>
                 </table>
-
-                <button className="mainButton" onClick={this.popFriendLlist}>Friend List</button>
-                <button className="mainButton" onClick={this.popCheckStatus}>Check status</button>
-                <button className="mainButton" onClick={this.popSchdule}>Open schdule</button>
-                <button className="mainButton" onClick={this.popMessageBox}> Message box </button>
+                </div>
+                <div className="d-flex justify-content-center">
+                <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
+                <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
+                <button className="btn btn-success" onClick={this.popSchdule}>{this.state.scheduleOpenText}</button>
+                <button className="btn btn-success" onClick={this.popMessageBox}> Message box </button>
+                </div>
+                <div className="d-flex justify-content-center">
+                <PopSchdule trigger = {this.state.schedulePop} close_handler = {this.closeSchedule.bind(this)}>
+                    <h1> This is the pop up schdule</h1>
+                </PopSchdule>
+                </div>
             </div>
         )
     }
