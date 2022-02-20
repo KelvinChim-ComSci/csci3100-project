@@ -1,10 +1,19 @@
 import React from "react";
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 import Login from "./frontend/Login.js";
 import ForgetPassword from "./frontend/ForgetPassword.js";
 import Main from "./frontend/Main.js";
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+export function withRouter(Children){
+  return(props)=>{
+     const match  = {params: useParams()};
+     return <Children {...props}  match = {match}/>
+  }
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +64,6 @@ class App extends React.Component {
 
 
 
-
   render() {
       return (
         <div className="App" >
@@ -66,13 +74,6 @@ class App extends React.Component {
                 element={<Login />} 
               />
               <Route path = "/login">
-                <Login
-                  handleLogin = {this.handleLogin}
-                  handleLogout = {this.handleLogout}
-                  username = {this.state.username}
-                  accessLevel = {this.state.accessLevel}
-                  loggedInStatus = {this.state.loggedInStatus} // not yet working
-                />
               </Route>
               {/*<Route path="/forgetPassword" element={<ForgetPassword />} />
               <Route path="/main" element={<Main />} />*/}

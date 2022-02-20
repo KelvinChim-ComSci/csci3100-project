@@ -15,25 +15,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-const { MongoClient } = require('mongodb');
-const uri = process.env.MONGODB_URI;
-console.log(uri);
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-MONGODB_URI='mongodb+srv://chim:kelvin1155126571@cluster0.x9iai.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-
-mongoose.connect(MONGODB_URI);
-
+mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
-
 db.on('error', console.error.bind(console, 'connection error:'));
-
 db.once('open', function() {
   console.log("Mongoose is connected!");
 });
+
 
 // Schema
 
@@ -57,22 +45,27 @@ var UserSchema = Schema({
 var User = mongoose.model('User', UserSchema);    
 var Statistic = mongoose.model('Statistic', StatSchema);
 
-
-
 app.post('/login', async function (req,res) {
     try {
-        //await client.connect();
-        //const db = client.db("myFirstDatabase");
-        //const collection = db.collection('users');
-        //let req.body.
-        const user = await collection.findOne( {name: "PikaChu"});
+        // const user = await User.findOne( {name: "PikaChu"});
+        console.log("yay");
+        return res.send({username: req.body.username});
+
+    } catch(error) {
+        console.log(error);
+    }
+    
+
+});
+
+app.get('/test', async function (req,res) {
+    try {
+        const user = await User.findOne( {name: "PikaChu"});
         return res.json(user);
 
         
     } catch(error) {
         console.log(error);
-    } finally {
-        await client.close();
     }
     
 
@@ -92,10 +85,15 @@ app.get('/stat', async function (req,res) {
 
 });
 
+app.post('/', async function (req,res) {
+    return res.json('0');
+})
 //app.all('/*', async function (req, res) { // When this callback function is called, send this to client
 //    res.send('Hello World :3');
 //
 //});
+
+
 
 const portNumber = process.env.PORT || 2096;
 app.listen(portNumber);
