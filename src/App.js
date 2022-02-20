@@ -20,6 +20,7 @@ class App extends React.Component {
         CU Simulator
         <br></br>  */}
 
+        
         <Router>
           <Routes>
             <Route exact path="/" element={<Login />} />
@@ -31,8 +32,9 @@ class App extends React.Component {
           {/*
           <Link style= {{padding: 5}} to={"/login"}>Log in</Link>
           <Link style= {{padding: 5}} to={"/forgetPassword"}>Forget Password</Link>
-          <Link style= {{padding: 5}} to={"/main"}> Main </Link> */}
-        </Router>
+          <Link style= {{padding: 5}} to={"/main"}> Main </Link> 
+          */}
+        </Router> 
       </div >
     );
   }

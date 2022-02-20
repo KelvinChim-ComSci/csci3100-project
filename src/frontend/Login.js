@@ -1,6 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
+/*
+import ForgetPassword from "./ForgetPassword.js";
+import Main from "./Main.js";
+import Registration from "./Registration.js";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+*/
 
 class Login extends React.Component {
     constructor(props) {
@@ -37,35 +43,54 @@ class Login extends React.Component {
             <div id="background">
                 
                 <div className="container">
-                    <div id="box1">
-                      CU Simulator
-                    </div>
-                    <div id="box2">
-                      form
-                    </div>
-                    <div id="box3">
-                      Forget password?
-                    </div>
-                    <div id="box4">
-                      Register new account
-                    </div>
+                  
+                    <h1>CU Simulator</h1>
+            
+                    <form method="post" autocomplete="on">
+            
+                      <div className="txt_field">
+                        <label for="username">Username</label>
+                        <br></br>
+                        <input type="text" name="username" required></input>
+                        <label for="password">Password</label>
+                        <br></br>
+                        <input type="password" name="password" required></input>
+                      </div>
+
+                      <div className="buttons">
+                      
+                      
+                      {/*<Router>
+                          <Routes>
+                            <Route path="/forgetPassword" element={<ForgetPassword />} />
+                            <Route path="/registration" element={<Registration />} />
+                          </Routes>
+                          <Link to={"/forgetPassword"}>Forgot password?</Link>
+                          <Link to={"/registration"}>Register now!</Link>
+                        </Router> */}
+                        
+                        
+                        <a href="./ForgetPassword.js">Forgot password?</a>
+                        <input id="submit_box" type="submit" value="Login"></input>
+                        <p className="register">Don't have an account? <a href="./Registration.js">Register now!</a></p>
+                      </div>
+            
+                    </form>
                     
                 </div>
 
-
-
-
-
-
-
-                {/*<button className="btn btn-outline-primary" onClick={this.send_request}>get a data from backend</button>
-                <br></br>
-                <div id="test">
-                    <div>
-                        <h1>aaaa</h1>
-                        <p>{process.env.REACT_APP_BASE_URL}</p>
+                <div className="copyright">
+                    CSCI3100 project B4 (Below is for testing)
+                    <br></br>
+                    <button className="btn btn-outline-primary" onClick={this.send_request}>get a data from backend</button>
+                    <br></br>
+                    <div id="test">
+                        <div>
+                            <h3>aaaa</h3>
+                            <p>{process.env.REACT_APP_BASE_URL}</p>
+                        </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         )
     }
