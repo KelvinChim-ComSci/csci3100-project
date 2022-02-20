@@ -13,6 +13,31 @@ class Login extends React.Component {
         super(props);
     }
 
+    async userLogin() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/login", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                username: document.getElementsByName("username").value,
+                password: document.getElementsByName("password").value
+            }),
+        }
+    )
+        .then((response) => response.json())
+        .then((response) => {
+            console.log("hi\n");
+            console.log(response);
+        })
+    }
+
+
+
     async send_request() {
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
             method: "GET",
@@ -33,7 +58,7 @@ class Login extends React.Component {
                 //console.log(parsedData);
 
                 const detailsElement = document.getElementById("test");
-                detailsElement.getElementsByTagName("h1")[0].innerText = res.name;
+                detailsElement.getElementsByTagName("h3")[0].innerText = res.name;
                 //detailsElement.getElementsByTagName("p")[0].innerText = data.name;
             })
     }
@@ -49,15 +74,15 @@ class Login extends React.Component {
                     <form method="post" autocomplete="on">
             
                       <div className="txt_field">
-                        <label for="username">Username</label>
+                        <label htmlFor="username">Username</label>
                         <br></br>
                         <input type="text" name="username" required></input>
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <br></br>
                         <input type="password" name="password" required></input>
                       </div>
 
-                      <div className="buttons">
+                      <div className="buttons" onClick={this.userLogin}>
                       
                       
                       {/*<Router>

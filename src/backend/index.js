@@ -8,7 +8,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors());
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,27 +37,34 @@ db.once('open', function() {
 
 // Schema
 
-var StatSchema = mongoose.Schema({ 
-    //user: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
+var StatSchema = Schema({ 
+    user: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
     gpa: { type: Number, required: true },
     sports: { type: Number, required: true },
     happiness: { type: Number, required: true },
     money: { type: Number, required: true },
-    });
-    
-//var User = mongoose.model('User', UserSchema);    
+});
+
+var UserSchema = Schema({
+    userId: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true},
+    password: { type: String, required: true },
+    status: {  type: Boolean, required: true},
+    adminStatus: { type: Boolean, required: true} //Online or not
+}); 
+
+
+var User = mongoose.model('User', UserSchema);    
 var Statistic = mongoose.model('Statistic', StatSchema);
 
 
 
-app.get('/login', async function (req,res) {
-
+app.post('/login', async function (req,res) {
     try {
-        await client.connect();
-
-        const db = client.db("myFirstDatabase");
-        const collection = db.collection('users');
-
+        //await client.connect();
+        //const db = client.db("myFirstDatabase");
+        //const collection = db.collection('users');
+        //let req.body.
         const user = await collection.findOne( {name: "PikaChu"});
         return res.json(user);
 
