@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import Login from "./frontend/Login.js";
 import ForgetPassword from "./frontend/ForgetPassword.js";
 import Main from "./frontend/Main.js";
+import Registration from "./frontend/Registration";
 
 
 class App extends React.Component {
@@ -36,7 +37,7 @@ class App extends React.Component {
       username: user,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
-      isLoggedIn : 1
+      isLoggedIn: 1
     });
     console.log("username: " + this.state.username + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
@@ -46,40 +47,40 @@ class App extends React.Component {
       username: "",
       accessLevel: "",
       loggedInStatus: "Not Logged in",
-      isLoggedIn : 0,
+      isLoggedIn: 0,
       forgetPassword: false
     });
   }
 
   render() {
-      return (
-        <div className="App" >
-          <Router>
-            <Routes>
-              <Route 
-                exact path="/" 
-                element={this.state.isLoggedIn ? <Main /> : 
+    return (
+      <div className="App" >
+        <Router>
+          <Routes>
+            <Route
+              exact path="/"
+              element={this.state.isLoggedIn ? <Main /> :
                 <Login
-                  handleLogin={this.handleLogin} 
-                  />
-                  } 
-              />
-              <Route
-                path = "/main"
-                element={<Main />}
-              />
-              {/*<Route path="/forgetPassword" element={<ForgetPassword />} />
+                  handleLogin={this.handleLogin}
+                />
+              }
+            />
+            <Route path="/main"
+              element={<Main />}
+            />
+            <Route path="/registration" element={<Registration />} />
+            {/*<Route path="/forgetPassword" element={<ForgetPassword />} />
               <Route path="/main" element={<Main />} />*/}
           </Routes>
 
-            {/*
+          {/*
             <Link style= {{padding: 5}} to={"/login"}>Log in</Link>
             <Link style= {{padding: 5}} to={"/forgetPassword"}>Forget Password</Link>
             <Link style= {{padding: 5}} to={"/main"}> Main </Link> 
             */}
-          </Router>
-        </div>
-      );
+        </Router>
+      </div>
+    );
   }
 }
 
