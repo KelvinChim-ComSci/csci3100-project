@@ -64,8 +64,10 @@ class App extends React.Component {
                   />
                   } 
               />
-              <Route path = "/login">
-              </Route>
+              <Route
+                path = "/main"
+                element={<Main />}
+              />
               {/*<Route path="/forgetPassword" element={<ForgetPassword />} />
               <Route path="/main" element={<Main />} />*/}
           </Routes>
