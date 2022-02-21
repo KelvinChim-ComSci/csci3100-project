@@ -47,8 +47,8 @@ var Statistic = mongoose.model('Statistic', StatSchema);
 
 app.post('/login', async function (req,res) {
     try {
-        // const user = await User.findOne( {name: "PikaChu"});
-        console.log("yay");
+       //await User.findOne( {name: "PikaChu"})
+        console.log({username: req.body.username});
         return res.send({username: req.body.username});
 
     } catch(error) {

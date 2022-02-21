@@ -29,7 +29,8 @@ class Login extends React.Component {
                 password: document.getElementsByName("password")[0].value
             }),
         })
-        .then((res) => console.log("hi"));
+        .then((res) => res.json())
+        .then((res) => console.log(res.username + "yay"));
         /*.then((response) => {
             console.log("hi\n");
             console.log(response);

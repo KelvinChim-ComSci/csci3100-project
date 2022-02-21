@@ -7,12 +7,6 @@ import Login from "./frontend/Login.js";
 import ForgetPassword from "./frontend/ForgetPassword.js";
 import Main from "./frontend/Main.js";
 
-export function withRouter(Children){
-  return(props)=>{
-     const match  = {params: useParams()};
-     return <Children {...props}  match = {match}/>
-  }
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -71,7 +65,9 @@ class App extends React.Component {
             <Routes>
               <Route 
                 exact path="/" 
-                element={<Login />} 
+                element={<Login
+                  handleLogin={this.handleLogin}
+                  />} 
               />
               <Route path = "/login">
               </Route>
