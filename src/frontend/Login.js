@@ -30,7 +30,7 @@ class Login extends React.Component {
             }),
         })
         .then((res) => res.json())
-        .then((res) => console.log(res.username + "yay"));
+        .then((res) => console.log(res.username + " " + res.empty));
         /*.then((response) => {
             console.log("hi\n");
             console.log(response);

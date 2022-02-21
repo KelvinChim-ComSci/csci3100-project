@@ -9,7 +9,6 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +24,7 @@ db.once('open', function() {
 
 // Schema
 
-var StatSchema = Schema({ 
+var StatSchema = mongoose.Schema({ 
     user: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
     gpa: { type: Number, required: true },
     sports: { type: Number, required: true },
@@ -33,7 +32,7 @@ var StatSchema = Schema({
     money: { type: Number, required: true },
 });
 
-var UserSchema = Schema({
+var UserSchema = mongoose.Schema({
     userId: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true},
     password: { type: String, required: true },
@@ -47,10 +46,16 @@ var Statistic = mongoose.model('Statistic', StatSchema);
 
 app.post('/login', async function (req,res) {
     try {
-       //await User.findOne( {name: "PikaChu"})
-        console.log({username: req.body.username});
-        return res.send({username: req.body.username});
-
+        await User.findOne({}, async function(error, response) {
+            console.log(response);
+            console.log(response.name + " " + response.id);
+            if (!response) {
+                return res.send({username: req.body.username, empty: "yes"});
+            }
+            else {
+                return res.send({username: response.name})
+            }
+        }).clone().catch(function(error){console.log(error)});
     } catch(error) {
         console.log(error);
     }
