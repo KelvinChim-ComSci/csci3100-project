@@ -14,8 +14,9 @@ class App extends React.Component {
 
     this.state = {
       username: "",
-      accessLevel: "",
-      loggedInStatus: "NotLoggedIn",
+      isAdmin: 0,
+      loggedInStatus: "Not Logged In",
+      isLoggedIn: 0,
       forgetPassword: false
     }
 
@@ -25,38 +26,30 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    console.log(window.localStorage.getItem("username") + " username");
-    console.log(window.localStorage.getItem("loggedInStatus") + " logged in status");
+    console.log("username: " + this.state.username);
+    console.log("logged in status: " + this.state.loggedInStatus);
+    console.log(this.state.isLoggedIn)
   }
 
-  handleLogin() {
+  handleLogin(user, checkAdmin) {
     this.setState({
-      username: this.getUsername(),
-      accessLevel: this.getAccessLevel(),
-      loggedInStatus: "loggedIn"
+      username: user,
+      isAdmin: checkAdmin,
+      loggedInStatus: "Logged in",
+      isLoggedIn : 1
     });
+    console.log("username: " + this.state.username + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
   handleLogout() {
     this.setState({
       username: "",
       accessLevel: "",
-      loggedInStatus: "NotLoggedIn",
+      loggedInStatus: "Not Logged in",
+      isLoggedIn : 0,
       forgetPassword: false
     });
   }
-
-  getUsername() {
-    const placeholder = "placeholder";
-    return placeholder;
-  }
-
-  getAccessLevel() {
-    const placeholder = "placeholder";
-    return placeholder;
-  }
-
-
 
   render() {
       return (
@@ -65,9 +58,11 @@ class App extends React.Component {
             <Routes>
               <Route 
                 exact path="/" 
-                element={<Login
-                  handleLogin={this.handleLogin}
-                  />} 
+                element={this.state.isLoggedIn ? <Main /> : 
+                <Login
+                  handleLogin={this.handleLogin} 
+                  />
+                  } 
               />
               <Route path = "/login">
               </Route>

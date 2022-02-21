@@ -11,10 +11,22 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        this.userLogin = this.userLogin.bind(this);
     }
+
 
     async userLogin(event) {
         event.preventDefault();
+        let inputUsername = document.getElementsByName("username")[0].value;
+        let inputPassword = document.getElementsByName("password")[0].value;
+
+        if (this.isEmpty(inputUsername)) {
+            return console.log("Please enter a username."); // subject to change
+        }
+        else if (this.isEmpty(inputPassword)) {
+            return console.log("Please enter a password."); // subject to change
+        }
+
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
             method: "POST",
             headers: new Headers({
@@ -25,18 +37,20 @@ class Login extends React.Component {
                 "Access-Control-Allow-Credentials": true,
             }),
             body: JSON.stringify({
-                username: document.getElementsByName("username")[0].value,
-                password: document.getElementsByName("password")[0].value
+                username: inputUsername,
+                password: inputPassword
             }),
         })
         .then((res) => res.json())
-        .then((res) => console.log(res.username + " " + res.empty));
-        /*.then((response) => {
-            console.log("hi\n");
-            console.log(response);
-        })*/
+        .then((res) => {
+            if (this.isLoginValid(res.errorMsg)) {
+                this.props.handleLogin(res.username, res.accessLevel);
+            }
+            else {
+                console.log(res.errorMsg);
+            }
+        });
     }
-
 
 
     async send_request() {
@@ -62,6 +76,20 @@ class Login extends React.Component {
                 detailsElement.getElementsByTagName("h3")[0].innerText = res.name;
                 //detailsElement.getElementsByTagName("p")[0].innerText = data.name;
             })
+    }
+
+    isLoginValid(errorMessage) {
+        if (errorMessage === "none") {
+            return 1;
+        }
+        else return 0;
+    }
+
+    isEmpty(input) {
+        if (input === "" || input === null) {
+            return 1;
+        }
+        else return 0;
     }
 
     render() {

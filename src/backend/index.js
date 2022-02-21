@@ -1,8 +1,6 @@
 // use node index.js to run
 
-//const bcrypt = require("bcryptjs");
-//const cors = require('cors');
-//app.use(cors());
+//const bcrypt = require("bcrypt");
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
@@ -34,10 +32,11 @@ var StatSchema = mongoose.Schema({
 
 var UserSchema = mongoose.Schema({
     userId: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true},
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    status: {  type: Boolean, required: true},
-    adminStatus: { type: Boolean, required: true} //Online or not
+    email: { type: String, unique: true },
+    status: { type: Boolean, required: true }, // 0 is offline, 1 is online
+    adminStatus: { type: Boolean, required: true } // 0 is user, 1 is admin
 }); 
 
 
@@ -45,15 +44,24 @@ var User = mongoose.model('User', UserSchema);
 var Statistic = mongoose.model('Statistic', StatSchema);
 
 app.post('/login', async function (req,res) {
+    let inputUsername = req.body.username;
+    let inputPassword = req.body.password;
     try {
-        await User.findOne({}, async function(error, response) {
-            console.log(response);
-            console.log(response.name + " " + response.id);
+        await User.findOne({username: inputUsername}, async function(error, response) {
             if (!response) {
-                return res.send({username: req.body.username, empty: "yes"});
+                return res.send({errorMsg: "No such user is found. Please try again."}); // subject to change by panda
             }
             else {
-                return res.send({username: response.name})
+                if (!(inputPassword === response.password)) {
+                    return res.send({errorMsg: "Invalid Password. Please try again."}); // subject to change
+                }
+                else {
+                    return res.send({
+                        errorMsg: "none",
+                        username: response.username,
+                        accessLevel: response.adminStatus
+                    });
+                }
             }
         }).clone().catch(function(error){console.log(error)});
     } catch(error) {
@@ -89,7 +97,6 @@ app.get('/stat', async function (req,res) {
         });
 
 });
-
 app.post('/', async function (req,res) {
     return res.json('0');
 })
