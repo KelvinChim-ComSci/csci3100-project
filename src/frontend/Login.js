@@ -53,7 +53,7 @@ class Login extends React.Component {
     }
 
 
-    async send_request() {
+    async sendRequest() {
         await fetch(process.env.REACT_APP_BASE_URL + "/test", {
             method: "GET",
             headers: new Headers({
@@ -65,31 +65,21 @@ class Login extends React.Component {
             }),
         }
         )
-            .then((res) => res.json())
-            .then((res) => {
-                console.log("hi\n");
-                console.log(res);
-                //const parsedData = res.text();
-                //console.log(parsedData);
-
-                const detailsElement = document.getElementById("test");
-                detailsElement.getElementsByTagName("h3")[0].innerText = res.name;
-                //detailsElement.getElementsByTagName("p")[0].innerText = data.name;
-            })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log("hi\n");
+            console.log(res);
+            const detailsElement = document.getElementById("test");
+            detailsElement.getElementsByTagName("h3")[0].innerText = res.username + '\n' + res.password;
+        });
     }
 
     isLoginValid(errorMessage) {
-        if (errorMessage === "none") {
-            return 1;
-        }
-        else return 0;
+        return (errorMessage === "none") ? 1 : 0;
     }
 
     isEmpty(input) {
-        if (input === "" || input === null) {
-            return 1;
-        }
-        else return 0;
+        return (input === "" || input === null) ? 1 : 0;
     }
 
     render() {
@@ -136,12 +126,11 @@ class Login extends React.Component {
                 <div className="copyright">
                     CSCI3100 project B4 (Below is for testing)
                     <br></br>
-                    <button className="btn btn-outline-primary" onClick={this.send_request}>get a data from backend</button>
+                    <button className="btn btn-outline-primary" onClick={this.sendRequest}>get admin account</button>
                     <br></br>
                     <div id="test">
                         <div>
-                            <h3>aaaa</h3>
-                            <p>{process.env.REACT_APP_BASE_URL}</p>
+                            <h3></h3>
                         </div>
                     </div>
                 </div>

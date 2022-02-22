@@ -1,13 +1,13 @@
 // use node index.js to run
 
-//const bcrypt = require("bcrypt");
-const mailer = require('./emailsender.js')
+const mailer = require('./emailsender.js');
+const accountHandling = require('./accountHandler.js');
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors());
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +20,6 @@ db.once('open', function () {
     console.log("Mongoose is connected!");
 });
 
-
 // Schema
 
 var StatSchema = mongoose.Schema({
@@ -31,61 +30,16 @@ var StatSchema = mongoose.Schema({
     money: { type: Number, required: true },
 });
 
-var UserSchema = mongoose.Schema({
-    userId: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    email: { type: String, unique: true },
-    status: { type: Boolean, required: true }, // 0 is offline, 1 is online
-    adminStatus: { type: Boolean, required: true } // 0 is user, 1 is admin
-});
-
-
-var User = mongoose.model('User', UserSchema);
 var Statistic = mongoose.model('Statistic', StatSchema);
 
 app.post('/login', async function (req, res) {
-    let inputUsername = req.body.username;
-    let inputPassword = req.body.password;
-    try {
-        await User.findOne({ username: inputUsername }, async function (error, response) {
-            if (!response) {
-                return res.send({ errorMsg: "No such user is found. Please try again." }); // subject to change by panda
-            }
-            else {
-                if (!(inputPassword === response.password)) {
-                    return res.send({ errorMsg: "Invalid Password. Please try again." }); // subject to change
-                }
-                else {
-                    return res.send({
-                        errorMsg: "none",
-                        username: response.username,
-                        accessLevel: response.adminStatus
-                    });
-                }
-            }
-        }).clone().catch(function (error) { console.log(error) });
-    } catch (error) {
-        console.log(error);
-    }
-
-
+    return accountHandling.login(req, res);
 });
 
 app.get('/test', async function (req, res) {
-    try {
-        const user = await User.findOne({ name: "PikaChu" });
-        return res.json(user);
-
-
-    } catch (error) {
-        console.log(error);
-    }
-
-
+    return accountHandling.test(req,res);
 });
 
-//(req,res) =>{
 app.get('/stat', async function (req, res) {
 
     Statistic.findOne({})
@@ -119,14 +73,6 @@ app.post('/email', async function (req, res) {
 app.get('/', async function (req, res) {
     return res.json('0');
 })
-
-
-//app.all('/*', async function (req, res) { // When this callback function is called, send this to client
-//    res.send('Hello World :3');
-//
-//});
-
-
 
 const portNumber = process.env.PORT || 2096;
 app.listen(portNumber);
