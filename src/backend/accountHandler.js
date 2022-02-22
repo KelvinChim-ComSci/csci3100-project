@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const mailer = require('./emailsender.js');
 
 var UserSchema = mongoose.Schema({
     userId: { type: String, required: true, unique: true },
@@ -31,15 +32,33 @@ module.exports.login = async function (req, res) {
                 }
             }
         }).clone().catch(function (error) { console.log(error) });
-    } catch (error) {console.log(error)};
+    } catch (error) { console.log(error) };
 }
 
-module.exports.test = async function (req,res) {
+module.exports.email = async function (req, res) {
+    let mailOptions = {
+        from: 'cusimulator3100@gmail.com',
+        to: req.body.to,
+        subject: req.body.subject,
+        text: req.body.text,
+    };
+    try {
+        console.log('no worry, it is fine');
+        mailer(mailOptions);
+        return (res.send({ message: "Email sent!" }))
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports.test = async function (req, res) {
     try {
         const user = await User.findOne({ username: "administrator" });
         return res.send({
             username: user.username,
             password: user.password
         });
-    } catch (error) {console.log(error)};
+    } catch (error) { console.log(error) };
 }
+

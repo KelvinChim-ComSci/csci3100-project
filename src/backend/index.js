@@ -1,6 +1,5 @@
 // use node index.js to run
 
-const mailer = require('./emailsender.js');
 const accountHandling = require('./accountHandler.js');
 const dotenv = require('dotenv');
 const express = require('express');
@@ -36,8 +35,12 @@ app.post('/login', async function (req, res) {
     return accountHandling.login(req, res);
 });
 
+app.post('/email', async function (req, res) {
+    return accountHandling.email(req, res)
+})
+
 app.get('/test', async function (req, res) {
-    return accountHandling.test(req,res);
+    return accountHandling.test(req, res);
 });
 
 app.get('/stat', async function (req, res) {
@@ -52,23 +55,6 @@ app.get('/stat', async function (req, res) {
         });
 
 });
-
-app.post('/email', async function (req, res) {
-    try {
-        let mailOptions = {
-            from: 'cusimulator3100@gmail.com',
-            to: 'cusimulator3100@gmail.com',
-            subject: 'Testing mail from CU Simulator',
-            text: '3100 be with you :3',
-        };
-        console.log('no worry, it is fine');
-        mailer(mailOptions);
-        return (res.send({ message: "Email sent!" }))
-
-    } catch (error) {
-        console.log(error);
-    }
-})
 
 app.get('/', async function (req, res) {
     return res.json('0');
