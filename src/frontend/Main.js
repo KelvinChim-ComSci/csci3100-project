@@ -70,41 +70,64 @@ class Main extends React.Component {
         return (
             <div id="main">
                 <p> Welcome to CU Simulator! </p>
-                <div style={{ top: 10, right: 10 }}> 
-                <table className="statchild" >
-                <thead><tr>
-                        <th scope="col">Statistics</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>GPA :</td>
-                        <td id="gpa">?</td>
-                    </tr>
-                    <tr><td>Sports :</td>
-                        <td id="sports">?</td>
-                    </tr>
-                    <tr><td>Happiness :</td>
-                        <td id="happiness">?</td>
-                    </tr>
-                    <tr><td>Money :</td>
-                        <td id="money">?</td>
-                    </tr>
-                </tbody>
-                </table>
-                </div>
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                 <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
                 <button className="btn btn-success" onClick={this.popSchdule}>{this.state.scheduleOpenText}</button>
                 <button className="btn btn-success" onClick={this.popMessageBox}> Message box </button>
                 </div>
-                <div className="d-flex justify-content-center">
+
+                <div className='container-fluid'>
+                <div className = "row">
+                <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
+                    {/* <table className="statchild" > */}
+                    <table>
+                    <thead><tr>
+                            <th scope="col">Statistics</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GPA :</td>
+                            <td id="gpa">?</td>
+                        </tr>
+                        <tr><td>Sports :</td>
+                            <td id="sports">?</td>
+                        </tr>
+                        <tr><td>Happiness :</td>
+                            <td id="happiness">?</td>
+                        </tr>
+                        <tr><td>Money :</td>
+                            <td id="money">?</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </section>
+
+                <section id = "schedule" className="col-sm-6 col-lg-6 col-xl-6" > 
                 <PopSchdule trigger = {this.state.schedulePop} close_handler = {this.closeSchedule.bind(this)}>
-                    <h1> This is the pop up schdule</h1>
+                    <h1 className = "text-center text-white"> Schedule</h1>
+                    <h2 className='text-center text-white'> Click on activities to plan your Ulife!</h2>
+                    <ul className="list-group">
+                    <li className="list-group-item list-group-item-action">Study</li>
+                    <li className="list-group-item list-group-item-action">Part time</li>
+                    <li className="list-group-item list-group-item-action">Gym</li>
+                    <li className="list-group-item list-group-item-action">Hang out with friends</li>
+                    <li className="list-group-item list-group-item-action">Rest</li>
+                    <li className="list-group-item list-group-item-action">Explore CUHK!</li>
+                    </ul>
                 </PopSchdule>
-                </div>
-            </div>
+                </section>
+
+                <section id="friendList" className = "col-sm-3 col-lg-3 col-xl-3">
+                        <h2>Friends</h2>
+                </section>
+                </div> {/* row */}
+                </div> {/* container-fluid */}
+            
+                <div className = "statBottomRight bg-success text-white rounded text-center"> Year x sem y </div>
+
+            </div> 
         )
     }
 }

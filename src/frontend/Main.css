@@ -20,3 +20,23 @@
     left: 16px;
     font-size: 10px;
 }
+
+.statBottomRight{
+    display: inline-block;
+    width: 200px;
+    height: 60px;
+    position: absolute;
+    bottom: 50px;
+    right: 16px;
+    font-size: 30px;
+}
+
+.statBottomLeft{
+    display: inline-block;
+    width: 200px;
+    height: 60px;
+    position: absolute;
+    bottom: 50px;
+    left: 16px;
+    font-size: 30px;
+}
