@@ -10,14 +10,6 @@ var transporter = nodemailer.createTransport({
     },
 });
 
-/*var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'cusimulator3100@gmail.com',
-        pass: 'fubpnlruszxbocws'
-    },
-});*/
-
 let sendMail = (mailOptions) => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
