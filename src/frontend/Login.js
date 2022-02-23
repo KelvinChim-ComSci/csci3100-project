@@ -12,6 +12,10 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.userLogin = this.userLogin.bind(this);
+        this.state = {
+            usernameError : "",
+            passwordError : ""
+        }
     }
 
 
@@ -21,9 +25,11 @@ class Login extends React.Component {
         let inputPassword = document.getElementsByName("password")[0].value;
 
         if (this.isEmpty(inputUsername)) {
+            this.setState({usernameError : "Please enter a username.", passwordError : ""});
             return console.log("Please enter a username."); // subject to change
         }
         else if (this.isEmpty(inputPassword)) {
+            this.setState({usernameError : "", passwordError : "Please enter a password."});
             return console.log("Please enter a password."); // subject to change
         }
 
@@ -48,6 +54,7 @@ class Login extends React.Component {
             }
             else {
                 console.log(res.errorMsg);
+                this.displayError(res.errorMsg);
             }
         });
     }
@@ -82,6 +89,28 @@ class Login extends React.Component {
         return (input === "" || input === null) ? 1 : 0;
     }
 
+    displayError(errorMessage) {
+        if (errorMessage === "No such user is found. Please try again."){
+            console.log("test username");
+            this.setState({usernameError : errorMessage, passwordError : ""});
+        }
+        else if (errorMessage === "Invalid Password. Please try again."){
+            console.log("test password");
+            this.setState({usernameError : "", passwordError : errorMessage});
+        }
+        else this.setState({usernameError : "", passwordError : ""});
+        console.log("test");
+    }
+
+/*    invalidUsername() {    
+        console.log("it works?");
+        return (
+          <div className="username_error">
+            <p>{this.usernameError}</p>
+          </div>
+        )
+    } */
+
     render() {
         return (
             <div id="background">
@@ -94,29 +123,23 @@ class Login extends React.Component {
             
                       <div className="txt_field">
                         <label htmlFor="username">Username</label>
-                        <br></br>
                         <input type="text" name="username" required></input>
+                        <div className="error">{this.state.usernameError}</div>
                         <label htmlFor="password">Password</label>
                         <br></br>
                         <input type="password" name="password" required></input>
+                        <div className="error">{this.state.passwordError}</div>
                       </div>
 
+                      <div className="links">
+                        <a href="./ForgetPassword">Forget password?</a>
+                      </div>
+                      
                       <div className="buttons" onClick={this.userLogin}>
-                      
-                      
-                      {/*<Router>
-                          <Routes>
-                            <Route path="/forgetPassword" element={<ForgetPassword />} />
-                            <Route path="/registration" element={<Registration />} />
-                          </Routes>
-                          <Link to={"/forgetPassword"}>Forgot password?</Link>
-                          <Link to={"/registration"}>Register now!</Link>
-                        </Router> */}
-                        
-                        
-                        <a href="./ForgetPassword.js">Forgot password?</a>
                         <input id="submit_box" type="submit" value="Login"></input>
-                        <p className="register">Don't have an account? <a href="./Registration.js">Register now!</a></p>
+                      </div>
+                      <div className="links">
+                        <p>Don't have an account? <a href="./Registration">Register now!</a></p>
                       </div>
             
                     </form>
