@@ -39,6 +39,14 @@ app.post('/email', async function (req, res) {
     return accountHandling.email(req, res)
 })
 
+app.post('/addStat', async function (req, res) {
+    console.log(req.body.gpa);
+    let userStat = await Statistic.findOneAndUpdate({sports: 80}, {gpa: req.body.gpa + 1});
+    console.log(userStat);
+    console.log("testing");
+    return res.send(userStat)
+})
+
 app.get('/test', async function (req, res) {
     return accountHandling.test(req, res);
 });
