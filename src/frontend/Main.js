@@ -12,7 +12,9 @@ class Main extends React.Component {
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
-        this.state = { color: "#282c34", schedulePop : false, scheduleOpenText: "Open schedule"};
+        this.state = { schedulePop : false, scheduleOpenText: "Open schedule"};
+        this.addStat = this.addStat.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
 
     }
 
@@ -62,10 +64,34 @@ class Main extends React.Component {
                 document.getElementById("gpa").innerText = res.gpa;
                 document.getElementById("sports").innerText = res.sports;
                 document.getElementById("happiness").innerText = res.happiness;
-                document.getElementById("money").innerText = res.money;
+                document.getElementById("money").innerText = res.money;      
             })
     }
- 
+    
+    addStat() {
+        console.log("123");
+        console.log(document.getElementById("gpa").value);
+        fetch(process.env.REACT_APP_BASE_URL + "/addStat", {
+           method: "POST",
+           headers: new Headers({
+               "Content-Type": 'application/json',
+               "Accept": 'application/json',
+               "Access-Control-Allow-Origin": "*",
+               "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+               "Access-Control-Allow-Credentials": true,
+           }),
+           body: JSON.stringify({
+            gpa: parseInt(document.getElementById("gpa").innerText),
+        }),
+       }
+       )
+           .then((res) => res.json())
+           .then((res) => {
+               console.log(res.gpa);
+               this.componentDidMount();
+           })
+   }
+
     render() {
         return (
             <div id="main">
@@ -109,7 +135,7 @@ class Main extends React.Component {
                     <h1 className = "text-center text-white"> Schedule</h1>
                     <h2 className='text-center text-white'> Click on activities to plan your Ulife!</h2>
                     <ul className="list-group">
-                    <li className="list-group-item list-group-item-action">Study</li>
+                    <li className="list-group-item list-group-item-action" onClick={this.addStat}>Study</li>
                     <li className="list-group-item list-group-item-action">Part time</li>
                     <li className="list-group-item list-group-item-action">Gym</li>
                     <li className="list-group-item list-group-item-action">Hang out with friends</li>
