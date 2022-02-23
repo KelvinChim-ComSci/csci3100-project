@@ -1,5 +1,74 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import './ForgotPassword.css';
+
+
+class ForgotPassword extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            usernameError : "",
+        }
+    }
+
+    sendEmail() {
+        console.log("wow")
+    }
+
+
+    render() {
+        return (
+            <div id="registration">
+                
+                <div className="container">
+                  
+                    <h1>CU Simulator</h1>
+            
+                    <form autoComplete="on">
+            
+                      <div className="txt_field">
+
+                        <label htmlFor="username">Username</label>
+                        <input type="text" name="username" required></input>
+                        <div className="error">{this.state.usernameError}</div>
+
+                      </div>
+
+                      <div className="buttons" onClick={this.sendMail}>
+                        <input id="submit_box" type="submit" value="Send email"></input>
+                      </div>
+                      <div className="links">
+                        <p><a href="./">Return to log in</a></p>
+                      </div>
+            
+                    </form>
+                    
+                </div>
+            </div>
+        )
+    }
+}
+
+export default ForgotPassword;
+
+
+
+
+
+
+
+/*
+            <div id="forgot_password">
+                Forgot Password Component
+                <hr></hr>
+                <button onClick={this.sendEmail} className="btn btn-outline-primary">Send Email</button>
+            </div>
+
+
+
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import './Registration.css';
 
 class Registration extends React.Component {
@@ -17,7 +86,7 @@ class Registration extends React.Component {
         let usermail = document.getElementsByName("email")[0].value;
         let mailsubject = "Verification mail from CU Simulator";
         let mailcontent = "3100 be with U";
-/*
+
         await fetch(process.env.REACT_APP_BASE_URL + "/email", {
             method: "POST",
             headers: new Headers({
@@ -36,7 +105,7 @@ class Registration extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res)
-            });        */
+            });        
     }
 
     render() {
@@ -87,4 +156,4 @@ export default Registration;
 
 
 
-
+*/

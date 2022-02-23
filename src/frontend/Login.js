@@ -1,12 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
-/*
-import ForgetPassword from "./ForgetPassword.js";
-import Main from "./Main.js";
-import Registration from "./Registration.js";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-*/
 
 class Login extends React.Component {
     constructor(props) {
@@ -26,11 +20,11 @@ class Login extends React.Component {
 
         if (this.isEmpty(inputUsername)) {
             this.setState({usernameError : "Please enter a username.", passwordError : ""});
-            return console.log("Please enter a username."); // subject to change
+            return console.log("No username.");
         }
         else if (this.isEmpty(inputPassword)) {
             this.setState({usernameError : "", passwordError : "Please enter a password."});
-            return console.log("Please enter a password."); // subject to change
+            return console.log("No password."); 
         }
 
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
@@ -91,29 +85,17 @@ class Login extends React.Component {
 
     displayError(errorMessage) {
         if (errorMessage === "No such user is found. Please try again."){
-            console.log("test username");
             this.setState({usernameError : errorMessage, passwordError : ""});
         }
         else if (errorMessage === "Invalid Password. Please try again."){
-            console.log("test password");
             this.setState({usernameError : "", passwordError : errorMessage});
         }
         else this.setState({usernameError : "", passwordError : ""});
-        console.log("test");
     }
-
-/*    invalidUsername() {    
-        console.log("it works?");
-        return (
-          <div className="username_error">
-            <p>{this.usernameError}</p>
-          </div>
-        )
-    } */
 
     render() {
         return (
-            <div id="background">
+            <div id="login">
                 
                 <div className="container">
                   
@@ -132,7 +114,7 @@ class Login extends React.Component {
                       </div>
 
                       <div className="links">
-                        <a href="./ForgetPassword">Forget password?</a>
+                        <a href="./ForgotPassword">Forgot password?</a>
                       </div>
                       
                       <div className="buttons" onClick={this.userLogin}>

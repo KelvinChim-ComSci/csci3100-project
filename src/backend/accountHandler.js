@@ -19,10 +19,10 @@ module.exports.login = async function (req, res) {
     try {
         await User.findOne({ username: inputUsername }, async function (error, response) {
             if (!response)
-                return res.send({ errorMsg: "No such user is found. Please try again." }); // subject to change by panda
+                return res.send({ errorMsg: "No such user is found. Please try again." });
             else {
                 if (!(inputPassword === response.password))
-                    return res.send({ errorMsg: "Invalid Password. Please try again." }); // subject to change
+                    return res.send({ errorMsg: "Invalid Password. Please try again." });
                 else {
                     return res.send({
                         errorMsg: "none",

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import Login from "./frontend/Login.js";
-import ForgetPassword from "./frontend/ForgetPassword.js";
+import ForgotPassword from "./frontend/ForgotPassword.js";
 import Main from "./frontend/Main.js";
 import Registration from "./frontend/Registration";
 
@@ -65,17 +65,16 @@ class App extends React.Component {
                 />
               }
             />
-            <Route path="/main"
-              element={<Main />}
-            />
+
             <Route path="/registration" element={<Registration />} />
-            <Route path="/forgetPassword" element={<ForgetPassword />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/main" element={<Main />} />
           </Routes>
 
           
-            <Link style= {{padding: 5}} to={"/login"}>Log in</Link>
-            <Link style= {{padding: 5}} to={"/forgetPassword"}>Forget Password</Link>
+            <Link style= {{padding: 5}} to={"/"}>Log in</Link>
+            <Link style= {{padding: 5}} to={"/registration"}>Registration</Link>
+            <Link style= {{padding: 5}} to={"/forgotPassword"}>Forgot Password</Link>
             <Link style= {{padding: 5}} to={"/main"}> Main </Link> 
            
         </Router>
