@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
+import { withRouter } from './withRouter.js';
 
 class Login extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class Login extends React.Component {
         .then((res) => {
             if (this.isLoginValid(res.errorMsg)) {
                 this.props.handleLogin(res.username, res.accessLevel);
+                this.props.navigate('/main');
             }
             else {
                 console.log(res.errorMsg);
@@ -144,4 +146,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

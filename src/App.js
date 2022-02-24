@@ -59,7 +59,7 @@ class App extends React.Component {
           <Routes>
             <Route
               exact path="/"
-              element={this.state.isLoggedIn ? <Main /> :
+              element={
                 <Login
                   handleLogin={this.handleLogin}
                 />
