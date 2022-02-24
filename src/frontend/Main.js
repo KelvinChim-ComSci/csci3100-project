@@ -132,6 +132,9 @@ class Main extends React.Component {
                         <tr><td>Money :</td>
                             <td id="money">?</td>
                         </tr>
+                        <tr><td>Stamina :</td>
+                            <td id="Stamina">?</td>
+                        </tr>
                     </tbody>
                     </table>
                 </section>
@@ -146,7 +149,7 @@ class Main extends React.Component {
                     <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("sports")}>Gym</li>
                     <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("happiness")}>Hang out with friends</li>
                     <li className="list-group-item list-group-item-action">Rest</li>
-                    <li className="list-group-item list-group-item-action">Explore CUHK!</li>
+                    <a href="./Event" className="list-group-item list-group-item-action" >Explore CUHK! </a>
                     </ul>
                 </PopSchdule>
                 </section>

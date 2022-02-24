@@ -1,0 +1,20 @@
+#event{
+    height: 100vh;
+    background: green;
+    background-image: url('/src/backend/background/na.jpeg');
+    background-size: 100%;
+}
+
+.topLeft{
+    position: absolute;
+    top: 50px;
+    left: 16px;
+}
+
+.topRight{
+    position: absolute;
+    top: 50px;
+    right: 16px;
+}
+
+a { color: inherit; } 
