@@ -65,12 +65,13 @@ class Main extends React.Component {
                 document.getElementById("sports").innerText = res.sports;
                 document.getElementById("happiness").innerText = res.happiness;
                 document.getElementById("money").innerText = res.money;      
+                document.getElementById("_id").innerText = res._id;
             })
     }
     
-    addStat() {
+    addStat(toadd) {
         console.log("123");
-        console.log(document.getElementById("gpa").value);
+        console.log(document.getElementById(toadd).value);
         fetch(process.env.REACT_APP_BASE_URL + "/addStat", {
            method: "POST",
            headers: new Headers({
@@ -81,7 +82,9 @@ class Main extends React.Component {
                "Access-Control-Allow-Credentials": true,
            }),
            body: JSON.stringify({
-            gpa: parseInt(document.getElementById("gpa").innerText),
+            id: document.getElementById("_id").innerText,
+            corr: toadd,
+            val: parseInt(document.getElementById(toadd).innerText),
         }),
        }
        )
@@ -114,6 +117,9 @@ class Main extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
+                        <tr><td>User id :</td>
+                            <td id="_id">?</td>
+                        </tr>
                         <tr><td>GPA :</td>
                             <td id="gpa">?</td>
                         </tr>
@@ -135,10 +141,10 @@ class Main extends React.Component {
                     <h1 className = "text-center text-white"> Schedule</h1>
                     <h2 className='text-center text-white'> Click on activities to plan your Ulife!</h2>
                     <ul className="list-group">
-                    <li className="list-group-item list-group-item-action" onClick={this.addStat}>Study</li>
-                    <li className="list-group-item list-group-item-action">Part time</li>
-                    <li className="list-group-item list-group-item-action">Gym</li>
-                    <li className="list-group-item list-group-item-action">Hang out with friends</li>
+                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("gpa")}>Study</li>
+                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("money")}>Part time</li>
+                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("sports")}>Gym</li>
+                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("happiness")}>Hang out with friends</li>
                     <li className="list-group-item list-group-item-action">Rest</li>
                     <li className="list-group-item list-group-item-action">Explore CUHK!</li>
                     </ul>

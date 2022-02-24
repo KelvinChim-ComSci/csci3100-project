@@ -40,11 +40,27 @@ app.post('/email', async function (req, res) {
 })
 
 app.post('/addStat', async function (req, res) {
-    console.log(req.body.gpa);
-    let userStat = await Statistic.findOneAndUpdate({sports: 80}, {gpa: req.body.gpa + 1});
-    console.log(userStat);
-    console.log("testing");
-    return res.send(userStat)
+    console.log(req.body.val);
+    console.log("req.body.corr", req.body.corr);
+    let corr = String(req.body.corr);
+    let userId = req.body.id;
+    switch(corr){
+        case "gpa":{
+            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {gpa: req.body.val + 1});
+            return res.send(userStat);}
+        case "sports":{
+            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {sports: req.body.val + 1});
+            return res.send(userStat);}
+        case "happiness":{
+            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {happiness: req.body.val + 1});
+            return res.send(userStat);}
+        case "money":{
+            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {money: req.body.val + 1});
+            return res.send(userStat);}
+        default:
+            console.log("not into any case")
+        
+    }
 })
 
 app.get('/test', async function (req, res) {
