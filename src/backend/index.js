@@ -27,6 +27,9 @@ var StatSchema = mongoose.Schema({
     sports: { type: Number, required: true },
     happiness: { type: Number, required: true },
     money: { type: Number, required: true },
+    stamina: { type: Number, required: true },
+    year: { type: Number, required: true },
+    sem: { type: Number, required: true },
 });
 
 var Statistic = mongoose.model('Statistic', StatSchema);
