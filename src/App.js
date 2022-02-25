@@ -43,13 +43,11 @@ class App extends React.Component {
   }
 
   handleLogout() {
-    this.setState({
-      username: "",
-      accessLevel: "",
-      loggedInStatus: "Not Logged in",
-      isLoggedIn: 0,
-      forgetPassword: false
-    });
+    this.state.username = "";
+    this.state.isAdmin = 0;
+    this.state.loggedInStatus = "Not Logged in";
+    this.state.isLoggedIn = 0;
+    this.state.forgetPassword = false;
   }
 
   render() {
@@ -68,7 +66,15 @@ class App extends React.Component {
 
             <Route path="/registration" element={<Registration />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
-              <Route path="/main" element={<Main />} />
+            <Route 
+            path="/main" 
+            element={
+            <Main 
+              handleLogout={this.handleLogout}
+              username={this.state.username}
+                />
+              } 
+            />
               <Route path="/event" element={<Event/>} />
 
           </Routes>

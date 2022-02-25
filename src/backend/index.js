@@ -38,6 +38,10 @@ app.post('/login', async function (req, res) {
     return accountHandling.login(req, res);
 });
 
+app.post('/logout', async function (req, res) {
+    return accountHandling.logout(req, res);
+});
+
 app.post('/email', async function (req, res) {
     return accountHandling.email(req, res)
 })
