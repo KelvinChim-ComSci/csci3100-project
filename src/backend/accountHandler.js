@@ -17,7 +17,7 @@ module.exports.login = async function (req, res) {
     let inputUsername = req.body.username;
     let inputPassword = req.body.password;
     try {
-        await User.findOne({ username: inputUsername }, async function (error, response) {
+        await User.findOneAndUpdate({ username: inputUsername }, { status: 1 }, async function (error, response) {
             if (!response)
                 return res.send({ errorMsg: "No such user is found. Please try again." });
             else {
@@ -31,6 +31,17 @@ module.exports.login = async function (req, res) {
                     });
                 }
             }
+        }).clone().catch(function (error) { console.log(error) });
+    } catch (error) { console.log(error) };
+}
+
+module.exports.logout = async function (req, res) {
+    let inputUsername = req.body.username;
+    try {
+        await User.findOneAndUpdate({ username: inputUsername }, { status: 0 }, async function (error, response) {
+            return res.send({
+                logoutMsg: "You have successfully logged out!"
+            });
         }).clone().catch(function (error) { console.log(error) });
     } catch (error) { console.log(error) };
 }
