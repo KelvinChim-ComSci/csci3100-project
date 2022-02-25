@@ -77,6 +77,9 @@ class Main extends React.Component {
                 document.getElementById("happiness").innerText = res.happiness;
                 document.getElementById("money").innerText = res.money;      
                 document.getElementById("_id").innerText = res._id;
+                document.getElementById("stamina").innerText = res.stamina;
+                document.getElementById("sem").innerText = res.sem;
+                document.getElementById("year").innerText = res.year;
             })
     }
     
@@ -185,7 +188,7 @@ class Main extends React.Component {
                             <td id="money">?</td>
                         </tr>
                         <tr><td>Stamina :</td>
-                            <td id="Stamina">?</td>
+                            <td id="stamina">?</td>
                         </tr>
                     </tbody>
                     </table>
@@ -215,7 +218,7 @@ class Main extends React.Component {
 
                 {this.popUp(this.state.popUpBar)}
             
-                <div className = "statBottomRight bg-success text-white rounded text-center"> Year x sem y </div>
+                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "sem">x</b> sem <b id= "year">y</b> </b></div>
 
             </div> 
         )
