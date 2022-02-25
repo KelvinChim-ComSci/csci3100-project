@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
+import { withRouter } from './withRouter.js';
 import PopSchdule from './Main_button_component/schdule';
 import displayStatus from './Main_button_component/status';
 
@@ -9,6 +10,7 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
+        this.userLogout = this.userLogout.bind(this);
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
@@ -119,6 +121,28 @@ class Main extends React.Component {
     }
 
 
+    async userLogout() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                username: this.props.username
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res.logoutMsg);
+            this.props.handleLogout();
+            this.props.navigate("../");
+        })
+    }
+
     render() {
         return (
             <div id="main">
@@ -180,6 +204,7 @@ class Main extends React.Component {
 
                 <section id="friendList" className = "col-sm-3 col-lg-3 col-xl-3">
                         <h2>Friends</h2>
+                        <button onClick={this.userLogout}>Logout</button>
                 </section>
                 </div> {/* row */}
                 </div> {/* container-fluid */}
@@ -193,4 +218,4 @@ class Main extends React.Component {
     }
 }
 
-export default Main;
+export default withRouter(Main);
