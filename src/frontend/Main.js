@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
 import PopSchdule from './Main_button_component/schdule';
+import displayStatus from './Main_button_component/status';
 
 
 class Main extends React.Component {
@@ -12,7 +13,11 @@ class Main extends React.Component {
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
-        this.state = { schedulePop : false, scheduleOpenText: "Open schedule"};
+        this.state = {
+            schedulePop : false,
+            scheduleOpenText: "Open schedule",
+            popUpBar : ""
+        };
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -24,16 +29,19 @@ class Main extends React.Component {
 
     popFriendLlist() {
         console.log("pop friend list");
+        this.popUp("friend");
     }
 
     popCheckStatus() {
         console.log("Check status");
+        this.setState({popUpBar : "status"});
+        displayStatus();
     }
 
     popSchdule() {
         console.log("open schedule");
         this.setState({schedulePop : !this.state.schedulePop});   
-        if (this.state.scheduleOpenText == "Open schedule"){
+        if (this.state.scheduleOpenText === "Open schedule"){
             this.setState({scheduleOpenText : "Close schedule"});
         }
         else{
@@ -44,6 +52,7 @@ class Main extends React.Component {
     popMessageBox() {
         alert(this.state.schedulePop)
         console.log("pop message box");
+        this.popUp("message");
     }
 
     componentDidMount() {
@@ -93,7 +102,22 @@ class Main extends React.Component {
                console.log(res.gpa);
                this.componentDidMount();
            })
-   }
+    }
+
+    popUp(option) {
+        console.log(this.state.popUpBar);
+        if (option === "status")
+            return (
+                <div id="pop-up">
+                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                    <div id="content"></div>
+                </div>
+            )
+        else {
+            return 
+        }
+    }
+
 
     render() {
         return (
@@ -159,6 +183,8 @@ class Main extends React.Component {
                 </section>
                 </div> {/* row */}
                 </div> {/* container-fluid */}
+
+                {this.popUp(this.state.popUpBar)}
             
                 <div className = "statBottomRight bg-success text-white rounded text-center"> Year x sem y </div>
 
