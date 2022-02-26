@@ -34,6 +34,10 @@ var StatSchema = mongoose.Schema({
 
 var Statistic = mongoose.model('Statistic', StatSchema);
 
+app.post('/register', async function (req, res) {
+    return accountHandling.register(req, res);
+});
+
 app.post('/login', async function (req, res) {
     return accountHandling.login(req, res);
 });
@@ -51,22 +55,26 @@ app.post('/addStat', async function (req, res) {
     console.log("req.body.corr", req.body.corr);
     let corr = String(req.body.corr);
     let userId = req.body.id;
-    switch(corr){
-        case "gpa":{
-            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {gpa: req.body.val + 1});
-            return res.send(userStat);}
-        case "sports":{
-            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {sports: req.body.val + 1});
-            return res.send(userStat);}
-        case "happiness":{
-            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {happiness: req.body.val + 1});
-            return res.send(userStat);}
-        case "money":{
-            let userStat = await Statistic.findOneAndUpdate({_id: userId}, {money: req.body.val + 1});
-            return res.send(userStat);}
+    switch (corr) {
+        case "gpa": {
+            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { gpa: req.body.val + 1 });
+            return res.send(userStat);
+        }
+        case "sports": {
+            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { sports: req.body.val + 1 });
+            return res.send(userStat);
+        }
+        case "happiness": {
+            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { happiness: req.body.val + 1 });
+            return res.send(userStat);
+        }
+        case "money": {
+            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { money: req.body.val + 1 });
+            return res.send(userStat);
+        }
         default:
             console.log("not into any case")
-        
+
     }
 })
 

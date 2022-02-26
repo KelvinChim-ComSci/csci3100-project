@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
 
 var UserSchema = mongoose.Schema({
-    userId: { type: String, required: true, unique: true },
+    userId: { type: Number, required: true, unique: true },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     email: { type: String, unique: true },
@@ -12,6 +12,29 @@ var UserSchema = mongoose.Schema({
 });
 
 var User = mongoose.model('User', UserSchema);
+
+module.exports.register = async function (req, res) {
+
+    let inputUsername = req.body.username;
+    let inputPassword = req.body.password;
+    let inputEmail = req.body.email;
+
+    try {
+
+        //get the lastest userID and do auto-increment
+        lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
+
+        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: inputPassword, email: inputEmail, status: false, adminStatus: false },
+            async function (err, response) {
+                if (err) {
+                    console.log(err)
+                    return res.status(422).json({ message: "Database Error" })
+                }
+                console.log(response)
+                return res.send({ message: "Account created!" })
+            })
+    } catch (error) { console.log(error) };
+}
 
 module.exports.login = async function (req, res) {
     let inputUsername = req.body.username;
