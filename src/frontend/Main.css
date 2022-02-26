@@ -42,17 +42,30 @@
 }
 
 #pop-up{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: black;
+    opacity: 50%;
+}
+
+.window{
+    z-index: 2000;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     height: 90%;
-    width: 90%;
+    width: 90%; 
     background-color: rgb(255, 247, 130);
     border: 6px solid rgb(139, 95, 0);
+    opacity: 100%;
 }
 
-#pop-up .closeButton{
+.window .closeButton{
     position: relative;
     background-color: rgb(255, 123, 0);
     left: 100%;

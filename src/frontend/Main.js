@@ -31,17 +31,17 @@ class Main extends React.Component {
 
     popFriendLlist() {
         console.log("pop friend list");
-        this.popUp("friend");
+        this.setState({popUpBar : "friend"});
     }
 
     popCheckStatus() {
         console.log("Check status");
         this.setState({popUpBar : "status"});
-        displayStatus();
     }
 
     popSchdule() {
         console.log("open schedule");
+        this.setState({popUpBar : "schedule"});
         this.setState({schedulePop : !this.state.schedulePop});   
         if (this.state.scheduleOpenText === "Open schedule"){
             this.setState({scheduleOpenText : "Close schedule"});
@@ -54,7 +54,7 @@ class Main extends React.Component {
     popMessageBox() {
         alert(this.state.schedulePop)
         console.log("pop message box");
-        this.popUp("message");
+        this.setState({popUpBar : "message"});
     }
 
     componentDidMount() {
@@ -113,10 +113,14 @@ class Main extends React.Component {
         console.log(this.state.popUpBar);
         if (option === "status")
             return (
-                <div id="pop-up">
-                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                    <div id="content"></div>
+                <div>
+                    <div id="pop-up"></div>
+                    <div className="window">
+                        <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                        {displayStatus()}
+                    </div>
                 </div>
+
             )
         else {
             return 
