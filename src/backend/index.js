@@ -59,7 +59,7 @@ var Profile = mongoose.model('Profile', ProfileSchema);
 
 var EventSchema = mongoose.Schema({
     EventName: { type: String , required: true},
-    EventTextfile:{ data: Buffer, contentType: String, required: true}
+    EventTextfile:{ data: Buffer, contentType: String} //required: true
   });
 var Event = mongoose.model('Event', EventSchema);
 
