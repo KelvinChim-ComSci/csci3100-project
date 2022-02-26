@@ -18,3 +18,37 @@
 }
 
 a { color: inherit; } 
+
+.text span {
+    opacity: 0;
+ }
+ .text span.revealed {
+    opacity: 1;
+ }
+
+ 
+ /* Demo styles */
+ .text {
+     
+    word-spacing: 0.2em;
+    margin: 0 auto;
+    background: rgb(255, 255, 255);
+    padding: 1em;
+    border-bottom: 1vw solid #4f80a1;
+    line-height: 1.2em;
+
+    display: inline-block;
+    width: 1000px;
+    height: 100px;
+    position: absolute;
+    bottom: 90px;
+    right: 200px;
+    font-size: 30px;
+ }
+ .corner {
+    position:absolute;
+    width: 10vw;
+    right:2vw;
+    bottom:0;
+    transform: translateY(80%); 
+ }
