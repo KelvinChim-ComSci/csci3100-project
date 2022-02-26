@@ -4,7 +4,7 @@ import './Main.css';
 import { withRouter } from './withRouter.js';
 import PopSchdule from './Main_button_component/schdule';
 import displayStatus from './Main_button_component/status';
-
+import displayMap from './Main_button_component/map';
 
 class Main extends React.Component {
 
@@ -55,6 +55,11 @@ class Main extends React.Component {
         alert(this.state.schedulePop)
         console.log("pop message box");
         this.setState({popUpBar : "message"});
+    }
+
+    popMap(){
+        console.log("pop map");
+        this.setState({popUpBar : "map"});
     }
 
     componentDidMount() {
@@ -122,6 +127,18 @@ class Main extends React.Component {
                 </div>
 
             )
+        if (option === "map"){
+            return (
+                <div>
+                    <div id="pop-up"></div>
+                    <div className="window">
+                        <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                        {displayMap()}
+                    </div>
+                </div>
+
+            )
+        }
         else {
             return 
         }
@@ -204,7 +221,7 @@ class Main extends React.Component {
                     <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("sports")}>Gym</li>
                     <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("happiness")}>Hang out with friends</li>
                     <li className="list-group-item list-group-item-action">Rest</li>
-                    <a href="./Event" className="list-group-item list-group-item-action" >Explore CUHK! </a>
+                    <li className="list-group-item list-group-item-action" onClick={()=>this.popMap()}>Explore CUHK! </li>
                     </ul>
                 </PopSchdule>
                 </section>
