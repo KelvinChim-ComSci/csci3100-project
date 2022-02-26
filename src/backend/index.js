@@ -20,7 +20,6 @@ db.once('open', function () {
 });
 
 // Schema
-
 var StatSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     gpa: { type: Number, required: true },
@@ -30,16 +29,39 @@ var StatSchema = mongoose.Schema({
     stamina: { type: Number, required: true },
     year: { type: Number, required: true },
     sem: { type: Number, required: true },
+    eventProgress: { type: mongoose.Schema.Types.ObjectId, ref: 'Event'}
 });
-
 var Statistic = mongoose.model('Statistic', StatSchema);
 
-
 var FriendListSchema = mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    friendlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    recipent: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    accepted: { type: Boolean, required: true } // 0 is false, 1 is true
   });
 var FriendList = mongoose.model('FriendList', FriendListSchema);
+
+var MessageSchema = mongoose.Schema({
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    message: { type: String } ,
+    date: { type: String  } ,
+    time: { type: String } 
+  });
+var Message = mongoose.model('Message', MessageSchema);
+
+var ProfileSchema = mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    stat: { type: mongoose.Schema.Types.ObjectId, ref: 'Statistic' },
+    img: { data: Buffer, contentType: String }, //data: imgPath, contentType: imgFormat(png/jpg)
+    awards: [{ type: String }]
+  });
+var Profile = mongoose.model('Profile', ProfileSchema);
+
+var EventSchema = mongoose.Schema({
+    EventName: { type: String , required: true},
+    EventTextfile:{ data: Buffer, contentType: String} //required: true
+  });
+var Event = mongoose.model('Event', EventSchema);
 
 app.post('/register', async function (req, res) {
     return accountHandling.register(req, res);
