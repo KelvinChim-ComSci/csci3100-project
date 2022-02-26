@@ -34,6 +34,13 @@ var StatSchema = mongoose.Schema({
 
 var Statistic = mongoose.model('Statistic', StatSchema);
 
+
+var FriendListSchema = mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    friendlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+  });
+var FriendList = mongoose.model('FriendList', FriendListSchema);
+
 app.post('/register', async function (req, res) {
     return accountHandling.register(req, res);
 });
