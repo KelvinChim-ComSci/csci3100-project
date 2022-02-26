@@ -4,11 +4,13 @@ const mailer = require('./emailsender.js');
 
 var UserSchema = mongoose.Schema({
     userId: { type: Number, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true },   // used for login
+    displayName: { type: String },
     password: { type: String, required: true },
-    email: { type: String, unique: true },
-    status: { type: Boolean, required: true }, // 0 is offline, 1 is online
-    adminStatus: { type: Boolean, required: true } // 0 is user, 1 is admin
+    email: { type: String, required: true, unique: true },
+    verified: { type: Boolean, default: false },
+    status: { type: Boolean, default: false }, // false is offline, true is online
+    adminStatus: { type: Boolean, default: false } // false is user, true is admin
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -20,11 +22,26 @@ module.exports.register = async function (req, res) {
     let inputEmail = req.body.email;
 
     try {
+        // check username and email has been used or not
+        // if yes, send response to frontend and ask 
+        const duplicateName = await User.findOne({ username: inputUsername })
+        const duplicateEmail = await User.findOne({ email: inputEmail })
+
+        if (duplicateName || duplicateEmail) {
+            let problem = {}
+            if (duplicateName) {
+                problem['usernameError'] = "Username has been used";
+            }
+            if (duplicateEmail) {
+                problem['emailError'] = "Email has been used";
+            }
+            return res.status(422).json(problem)
+        }
 
         //get the lastest userID and do auto-increment
-        lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
+        const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
 
-        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: inputPassword, email: inputEmail, status: false, adminStatus: false },
+        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: inputPassword, email: inputEmail },
             async function (err, response) {
                 if (err) {
                     console.log(err)
