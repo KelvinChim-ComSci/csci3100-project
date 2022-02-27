@@ -20,7 +20,6 @@ class Registration extends React.Component {
     checkUserName() {
         let username = document.getElementById("usernameid").value;
         if (username === "") {
-            console.log(username)
             this.setState({ usernameError: "Please fill in the username." });
         }
         else if (username.length < 4 || username.length > 20) {
@@ -42,6 +41,47 @@ class Registration extends React.Component {
         }
     }
 
+    checkNonBlank() {
+
+    }
+
+    async createAccount(event) {
+        event.preventDefault();
+
+        let inputUsername = document.getElementById("usernameid").value;
+        let inputPassword = document.getElementById("passwordid").value;
+        let inputEmail = document.getElementById("emailid").value;
+
+        await fetch(process.env.REACT_APP_BASE_URL + "/register", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                username: inputUsername,
+                password: inputPassword,
+                email: inputEmail
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.usernameError) {
+                    alert(res.usernameError) // modify later
+                }
+                if (res.emailError) {
+                    alert(res.emailError) // modify later
+                }
+                if (!(res.usernameError || res.emailError)) {
+                    alert("Successfully Created account") // modify later
+                }
+            });
+    }
+
+    //send verification email to user (not complete yet)
     async sendMail(event) {
         event.preventDefault();
         let usermail = document.getElementsByName("email")[0].value;
@@ -92,7 +132,7 @@ class Registration extends React.Component {
                             <div className="error">{this.state.emailError}</div>
 
                             <label htmlFor="password">Password</label>
-                            <input type="password" name="password" required></input>
+                            <input type="password" id="passwordid" name="password" required></input>
                             <div className="error">{this.state.passwordError}</div>
 
                             <label htmlFor="confirmPassword">Confirm Password</label>
@@ -101,8 +141,7 @@ class Registration extends React.Component {
                         </div>
 
                         <div className="buttons">
-                            <button id="submit_box">Submit</button>
-                            {/*<input id="submit_box" type="submit" value="Send email"></input>*/}
+                            <input id="submit_box" type="submit" value="Create Account!" onClick={this.createAccount}></input>
                         </div>
                         <div className="links">
                             <p><a href="./">Return to log in</a></p>
