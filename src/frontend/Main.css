@@ -1,6 +1,5 @@
 #main{
     height: 100vh;
-    background: green;
     background-image: url('/src/backend/background/main.jpeg');
     background-size: auto 100%;
 }
@@ -41,7 +40,7 @@
     font-size: 30px;
 }
 
-#pop-up{
+#shadowLayer{
     height: 100%;
     width: 100%;
     position: absolute;
@@ -52,7 +51,7 @@
     opacity: 50%;
 }
 
-.window{
+.popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;
@@ -60,19 +59,48 @@
     transform: translate(-50%, -50%);
     height: 90%;
     width: 90%; 
-    background-color: rgb(255, 247, 130);
-    border: 6px solid rgb(139, 95, 0);
+    background-color: rgb(214, 213, 213);
+    border: 6px solid rgb(0, 100, 5);
     opacity: 100%;
+    
 }
 
-.window .closeButton{
+.popUp .closeButton{
     position: relative;
     background-color: rgb(255, 123, 0);
     left: 100%;
-    transform: translate(-50%, -50%);
+    transform: translate(-40%, -50%);
     border-radius: 50%;
     width: 25px;
     height: 25px;
     text-align: center;
     font-size: 13px;
 }
+
+#logout{
+    height: auto;
+    width: auto; 
+    padding: 30px;
+}
+
+.btn{
+    padding: 10px 20px 10px 20px;
+}
+
+/*
+.logoutButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: green;
+    text-align: center;
+    width: 75px;
+    height: 75px;
+    color: white;
+    border-radius: 10%;
+}
+
+.logoutButton:active{
+    transform: translate(0,2px);
+}
+*/

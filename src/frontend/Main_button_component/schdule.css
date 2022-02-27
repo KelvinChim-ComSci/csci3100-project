@@ -1,16 +1,3 @@
-.PopSchule{
-    display : flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-
-.schdule-content{
-    justify-content: center;
-    padding: 32px;
-    width : 50%;
-    /* max-width: 640px; */
-    background-color: white;
-
+.schedule{
+    text-align: center;
 }
