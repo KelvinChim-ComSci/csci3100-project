@@ -3,7 +3,7 @@ import "./status.css";
 
 function displayStatus() {
     return (
-        <div>
+        <div className="status">
             <h2>Status</h2>
             
 

@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
 import { withRouter } from './withRouter.js';
-import PopSchdule from './Main_button_component/schdule';
+import displaySchedule from './Main_button_component/schdule';
 import displayStatus from './Main_button_component/status';
 import displayMap from './Main_button_component/map';
 
@@ -15,6 +15,8 @@ class Main extends React.Component {
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
+        this.popMap = this.popMap.bind(this);
+        this.popLogout = this.popLogout.bind(this);
         this.state = {
             schedulePop : false,
             scheduleOpenText: "Open schedule",
@@ -57,7 +59,12 @@ class Main extends React.Component {
         this.setState({popUpBar : "message"});
     }
 
-    popMap(){
+    popLogout() {
+        console.log("pop logout");
+        this.setState({popUpBar : "logout"});
+    }
+
+    popMap() {
         console.log("pop map");
         this.setState({popUpBar : "map"});
     }
@@ -119,8 +126,8 @@ class Main extends React.Component {
         if (option === "status")
             return (
                 <div>
-                    <div id="pop-up"></div>
-                    <div className="window">
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                         {displayStatus()}
                     </div>
@@ -130,20 +137,48 @@ class Main extends React.Component {
         if (option === "map"){
             return (
                 <div>
-                    <div id="pop-up"></div>
-                    <div className="window">
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                         {displayMap()}
                     </div>
                 </div>
-
             )
         }
+        if (option === "logout"){
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <div className="popUp" id="logout">
+                        <h4>Are you sure to log out?</h4>
+                        <br></br>
+                        <div className="d-flex justify-content-around">
+                            <button className="btn btn-success" onClick={this.userLogout}>Yes</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""})}}>No</button>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        if (option === "schedule"){
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
+                        <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                        {displaySchedule()}
+                    </div>
+                </div>
+            )
+        }
+
+
+
         else {
             return 
         }
     }
-
 
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
@@ -170,12 +205,17 @@ class Main extends React.Component {
     render() {
         return (
             <div id="main">
+
+                
+
                 <p> Welcome to CU Simulator! </p>
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                 <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
                 <button className="btn btn-success" onClick={this.popSchdule}>{this.state.scheduleOpenText}</button>
-                <button className="btn btn-success" onClick={this.popMessageBox}> Message box </button>
+                <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
+                <button className="btn btn-success" onClick={this.popMap}>Explore CUHK!</button>
+                <button className="btn btn-success" onClick={this.popLogout}>Logout</button>
                 </div>
 
                 <div className='container-fluid'>
@@ -211,25 +251,11 @@ class Main extends React.Component {
                     </table>
                 </section>
 
-                <section id = "schedule" className="col-sm-6 col-lg-6 col-xl-6" > 
-                <PopSchdule trigger = {this.state.schedulePop} close_handler = {this.closeSchedule.bind(this)}>
-                    <h1 className = "text-center text-white"> Schedule</h1>
-                    <h2 className='text-center text-white'> Click on activities to plan your Ulife!</h2>
-                    <ul className="list-group">
-                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("gpa")}>Study</li>
-                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("money")}>Part time</li>
-                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("sports")}>Gym</li>
-                    <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("happiness")}>Hang out with friends</li>
-                    <li className="list-group-item list-group-item-action">Rest</li>
-                    <li className="list-group-item list-group-item-action" onClick={()=>this.popMap()}>Explore CUHK! </li>
-                    </ul>
-                </PopSchdule>
-                </section>
-
                 <section id="friendList" className = "col-sm-3 col-lg-3 col-xl-3">
                         <h2>Friends</h2>
-                        <button onClick={this.userLogout}>Logout</button>
                 </section>
+
+
                 </div> {/* row */}
                 </div> {/* container-fluid */}
 
