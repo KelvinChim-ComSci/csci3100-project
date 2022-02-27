@@ -8,8 +8,8 @@ class Login extends React.Component {
         super(props);
         this.userLogin = this.userLogin.bind(this);
         this.state = {
-            usernameError : "",
-            passwordError : ""
+            usernameError: "",
+            passwordError: ""
         }
     }
 
@@ -20,12 +20,12 @@ class Login extends React.Component {
         let inputPassword = document.getElementsByName("password")[0].value;
 
         if (this.isEmpty(inputUsername)) {
-            this.setState({usernameError : "Please enter a username.", passwordError : ""});
+            this.setState({ usernameError: "Please enter a username.", passwordError: "" });
             return console.log("No username.");
         }
         else if (this.isEmpty(inputPassword)) {
-            this.setState({usernameError : "", passwordError : "Please enter a password."});
-            return console.log("No password."); 
+            this.setState({ usernameError: "", passwordError: "Please enter a password." });
+            return console.log("No password.");
         }
 
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
@@ -42,23 +42,23 @@ class Login extends React.Component {
                 password: inputPassword
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            if (this.isLoginValid(res.errorMsg)) {
-                this.props.handleLogin(res.username, res.accessLevel);
-                this.props.navigate('/main');
-            }
-            else {
-                console.log(res.errorMsg);
-                this.displayError(res.errorMsg);
-            }
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                if (this.isLoginValid(res.errorMsg)) {
+                    this.props.handleLogin(res.username, res.accessLevel);
+                    this.props.navigate('/main');
+                }
+                else {
+                    console.log(res.errorMsg);
+                    this.displayError(res.errorMsg);
+                }
+            });
     }
 
-    
+
 
     async sendRequest() {
-        await fetch(process.env.REACT_APP_BASE_URL + "/test", {
+        /*await fetch(process.env.REACT_APP_BASE_URL + "/test", {
             method: "GET",
             headers: new Headers({
                 "Content-Type": 'application/json',
@@ -75,7 +75,9 @@ class Login extends React.Component {
             console.log(res);
             const detailsElement = document.getElementById("test");
             detailsElement.getElementsByTagName("h3")[0].innerText = res.username + '\n' + res.password;
-        });
+        });*/
+        const detailsElement = document.getElementById("test");
+        detailsElement.getElementsByTagName("h3")[0].innerText = "admin" + '\n' + "aa11";
     }
 
     isLoginValid(errorMessage) {
@@ -87,48 +89,48 @@ class Login extends React.Component {
     }
 
     displayError(errorMessage) {
-        if (errorMessage === "No such user is found. Please try again."){
-            this.setState({usernameError : errorMessage, passwordError : ""});
+        if (errorMessage === "No such user is found. Please try again.") {
+            this.setState({ usernameError: errorMessage, passwordError: "" });
         }
-        else if (errorMessage === "Invalid Password. Please try again."){
-            this.setState({usernameError : "", passwordError : errorMessage});
+        else if (errorMessage === "Invalid Password. Please try again.") {
+            this.setState({ usernameError: "", passwordError: errorMessage });
         }
-        else this.setState({usernameError : "", passwordError : ""});
+        else this.setState({ usernameError: "", passwordError: "" });
     }
 
     render() {
         return (
             <div id="login">
-                
-                <div className="container">
-                  
-                    <h1>CU Simulator</h1>
-            
-                    <form autoComplete="on">
-            
-                      <div className="txt_field">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" name="username" required></input>
-                        <div className="error">{this.state.usernameError}</div>
-                        <label htmlFor="password">Password</label>
-                        <br></br>
-                        <input type="password" name="password" required></input>
-                        <div className="error">{this.state.passwordError}</div>
-                      </div>
 
-                      <div className="links">
-                        <a href="./ForgotPassword">Forgot password?</a>
-                      </div>
-                      
-                      <div className="buttons" onClick={this.userLogin}>
-                        <input id="submit_box" type="submit" value="Login"></input>
-                      </div>
-                      <div className="links">
-                        <p>Don't have an account? <a href="./Registration">Register now!</a></p>
-                      </div>
-            
+                <div className="container">
+
+                    <h1>CU Simulator</h1>
+
+                    <form autoComplete="on">
+
+                        <div className="txt_field">
+                            <label htmlFor="username">Username</label>
+                            <input type="text" name="username" required></input>
+                            <div className="error">{this.state.usernameError}</div>
+                            <label htmlFor="password">Password</label>
+                            <br></br>
+                            <input type="password" name="password" required></input>
+                            <div className="error">{this.state.passwordError}</div>
+                        </div>
+
+                        <div className="links">
+                            <a href="./ForgotPassword">Forgot password?</a>
+                        </div>
+
+                        <div className="buttons" onClick={this.userLogin}>
+                            <input id="submit_box" type="submit" value="Login"></input>
+                        </div>
+                        <div className="links">
+                            <p>Don't have an account? <a href="./Registration">Register now!</a></p>
+                        </div>
+
                     </form>
-                    
+
                 </div>
 
                 <div className="copyright">
