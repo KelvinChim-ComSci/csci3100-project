@@ -38,10 +38,17 @@ module.exports.register = async function (req, res) {
             return res.status(422).json(problem)
         }
 
+        //encrypt user password before store it into database
+        const saltRounds = 10;
+        hashedPassword = await bcrypt.hash(inputPassword, saltRounds);
+        /*console.log("hashedPassword", hashedPassword)
+        
+        console.log(match)*/
+
         //get the lastest userID and do auto-increment
         const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
 
-        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: inputPassword, email: inputEmail },
+        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: hashedPassword, email: inputEmail },
             async function (err, response) {
                 if (err) {
                     console.log(err)
@@ -61,7 +68,8 @@ module.exports.login = async function (req, res) {
             if (!response)
                 return res.send({ errorMsg: "No such user is found. Please try again." });
             else {
-                if (!(inputPassword === response.password))
+                const match = await bcrypt.compare(inputPassword, response.password);
+                if (!match)
                     return res.send({ errorMsg: "Invalid Password. Please try again." });
                 else {
                     return res.send({
