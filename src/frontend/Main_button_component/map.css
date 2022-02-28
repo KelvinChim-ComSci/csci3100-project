@@ -13,4 +13,16 @@ h2 {
     flex-shrink: 0;
     min-width: 100%;
     min-height: 100%
+
 }
+
+.map-img {
+    background-image: url('/src/backend/background/map.png');
+    min-height: 550px;
+    max-width: 1000px;
+    /* Center and scale the image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
