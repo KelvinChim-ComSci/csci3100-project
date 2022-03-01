@@ -12,21 +12,16 @@ class Main extends React.Component {
         super(props);
         this.state = {
             popUpBar : "",
-            res : null,
+            stat : null,
         };
 
         this.userLogout = this.userLogout.bind(this);
-        
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.popMap = this.popMap.bind(this);
         this.popLogout = this.popLogout.bind(this);
-        this.state = {
-            popUpBar : "",
-            stat : null,
-        };
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
