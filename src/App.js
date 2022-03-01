@@ -7,6 +7,7 @@ import ForgotPassword from "./frontend/ForgotPassword.js";
 import Main from "./frontend/Main.js";
 import Registration from "./frontend/Registration.js";
 import Event from "./frontend/Event.js";
+import EmailVerified from "./frontend/EmailVerified.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -65,33 +66,33 @@ class App extends React.Component {
                 />
               }
             />
-
+            <Route path="/email/confirm/:id" element={<EmailVerified />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route 
-            path="/main" 
-            element={
-            <Main 
-              handleLogout={this.handleLogout}
-              username={this.state.username}
-              userId={this.state.userId}
+            <Route
+              path="/main"
+              element={
+                <Main
+                  handleLogout={this.handleLogout}
+                  username={this.state.username}
+                  userId={this.state.userId}
                 />
-              } 
+              }
             />
-              <Route path="/event" element={<Event/>} />
+            <Route path="/event" element={<Event />} />
 
-          </Routes>
+          </Routes >
 
-          
-            <Link style= {{padding: 5}} to={"/"}>Log in</Link>
-            <Link style= {{padding: 5}} to={"/registration"}>Registration</Link>
-            <Link style= {{padding: 5}} to={"/forgotPassword"}>Forgot Password</Link>
-            <Link style= {{padding: 5}} to={"/main"}> Main </Link> 
-            <Link style= {{padding: 5}} to={"/event"}> Event </Link> 
 
-           
-        </Router>
-      </div>
+          <Link style={{ padding: 5 }} to={"/"}>Log in</Link>
+          <Link style={{ padding: 5 }} to={"/registration"}>Registration</Link>
+          <Link style={{ padding: 5 }} to={"/forgotPassword"}>Forgot Password</Link>
+          <Link style={{ padding: 5 }} to={"/main"}> Main </Link>
+          <Link style={{ padding: 5 }} to={"/event"}> Event </Link>
+
+
+        </Router >
+      </div >
     );
   }
 }
