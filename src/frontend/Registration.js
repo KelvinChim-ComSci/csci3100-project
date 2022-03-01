@@ -13,7 +13,7 @@ class Registration extends React.Component {
             usernameErrMsg: "",
             passwordErrMsg: "",
             emailErrorMsg: "",
-            confirmPasswordErrMsg: ""
+            confirmPasswordErrMsg: "",
         }
 
         this.checkUserName = this.checkUserName.bind(this);
@@ -23,7 +23,7 @@ class Registration extends React.Component {
         this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
     }
 
-    // check user input username, may add part to check username is unique or not later
+    // check user input username
     checkUserName() {
         const usernameFormat = /^[0-9a-zA-Z\-_]+$/;
         let username = document.getElementById("usernameid").value;
@@ -59,6 +59,7 @@ class Registration extends React.Component {
         }
     }
 
+    // check user input password
     checkPassword() {
         let password = document.getElementById("passwordid").value;
         if (password === "") {
@@ -73,6 +74,7 @@ class Registration extends React.Component {
         }
     }
 
+    // check user input confirm password
     checkConfirmPassword() {
         let password = document.getElementById("passwordid").value;
         let confirmpassword = document.getElementById("confirmpasswordid").value;
@@ -134,15 +136,14 @@ class Registration extends React.Component {
                         this.setState({ emailError: true });
                     }
                     if (!(res.usernameError || res.emailError)) {
-                        this.sendMail();
-                        alert("Successfully Created account! Please check your email for verification") // modify later
+                        alert("Successfully Created account! Please check your email for verification")
                     }
                 });
         }
     }
 
     //send verification email to user (not complete yet)
-    async sendMail() {
+    /*async sendMail() {
 
         let username = document.getElementById("usernameid").value;
         let usermail = document.getElementById("emailid").value;
@@ -168,8 +169,9 @@ class Registration extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res)
+                alert("Successfully Created account! Please check your email for verification") // modify later
             });
-    }
+    }*/
 
 
 

@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
+const dotenv = require('dotenv');
+dotenv.config();
 
 var UserSchema = mongoose.Schema({
     userId: { type: Number, required: true, unique: true },
@@ -15,6 +17,26 @@ var UserSchema = mongoose.Schema({
 
 var User = mongoose.model('User', UserSchema);
 
+//send verification email
+function sendVerifyMail(mail, username, id) {
+    let context = "Welcome to CU Simulator, " + username + "\n\n" +
+        "Thank you for signing up with CU Simulator. Please activate your accoount by the following link:\n\n"
+        + process.env.FRONTEND_URL + "/email/confirm/" + id;
+    let mailOptions = {
+        from: 'cusimulator3100@gmail.com',
+        to: mail,
+        subject: "[CU Simulator] Email address Confirmation",
+        text: context
+    };
+    try {
+        console.log('no worry, it is fine');
+        mailer(mailOptions);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//user registration including send verification
 module.exports.register = async function (req, res) {
 
     let inputUsername = req.body.username;
@@ -22,8 +44,8 @@ module.exports.register = async function (req, res) {
     let inputEmail = req.body.email;
 
     try {
-        // check username and email has been used or not
-        // if yes, send response to frontend and ask 
+        // check username / email has been used or not
+        // if yes, send response to frontend and ask user to enter another username / email
         const duplicateName = await User.findOne({ username: inputUsername })
         const duplicateEmail = await User.findOne({ email: inputEmail })
 
@@ -41,9 +63,6 @@ module.exports.register = async function (req, res) {
         //encrypt user password before store it into database
         const saltRounds = 10;
         hashedPassword = await bcrypt.hash(inputPassword, saltRounds);
-        /*console.log("hashedPassword", hashedPassword)
-        
-        console.log(match)*/
 
         //get the lastest userID and do auto-increment
         const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
@@ -54,10 +73,36 @@ module.exports.register = async function (req, res) {
                     console.log(err)
                     return res.status(422).json({ message: "Database Error" })
                 }
-                console.log(response)
+                console.log(response._id)
+
+                //send mail here
+                await sendVerifyMail(inputEmail, inputUsername, response._id);
                 return res.send({ message: "Account created!" })
             })
     } catch (error) { console.log(error) };
+}
+
+//check the email verification id is valid or not and the 
+module.exports.confirmEmail = async function (req, res) {
+    const id = req.params.id
+
+    try {
+        const user = await User.findById(id)
+        if (!user) {
+            return res.send({ message: "Invalid URL" }) // may route to another page later
+        }
+        else {
+            if (user.verified == true) {
+                return res.send({ message: user.username + ", your email has been verified" }) // email already verified
+            } else {
+                await User.findOneAndUpdate({ username: user.username }, { verified: true }); // verify email
+                return res.send({ message: user.username + ", you have successfully verified your email!" })
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        return res.send({ message: "Invalid URL" })
+    };
 }
 
 module.exports.login = async function (req, res) {
@@ -94,11 +139,13 @@ module.exports.logout = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//use later for resend email
 module.exports.email = async function (req, res) {
     let mailOptions = {
         from: 'cusimulator3100@gmail.com',
         to: req.body.to,
-        subject: req.body.subject,
+        //subject: req.body.subject,
+        subject: "[CU Simulator] Email adddress Confirmation",
         text: req.body.text,
     };
     try {
@@ -111,9 +158,6 @@ module.exports.email = async function (req, res) {
     }
 }
 
-module.exports.confirmEmail = async function (req, res) {
-
-}
 
 module.exports.test = async function (req, res) {
     try {
