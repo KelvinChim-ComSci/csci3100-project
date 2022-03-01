@@ -75,7 +75,8 @@ module.exports.login = async function (req, res) {
                     return res.send({
                         errorMsg: "none",
                         username: response.username,
-                        accessLevel: response.adminStatus
+                        accessLevel: response.adminStatus,
+                        userId: response._id
                     });
                 }
             }
@@ -109,6 +110,10 @@ module.exports.email = async function (req, res) {
     } catch (error) {
         console.log(error);
     }
+}
+
+module.exports.confirmEmail = async function (req, res) {
+
 }
 
 module.exports.test = async function (req, res) {
