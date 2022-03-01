@@ -15,13 +15,8 @@ class Main extends React.Component {
             stat : null,
         };
 
-        this.userLogout = this.userLogout.bind(this);
         this.popFriendLlist = this.popFriendLlist.bind(this);
-        this.popCheckStatus = this.popCheckStatus.bind(this);
-        this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
-        this.popMap = this.popMap.bind(this);
-        this.popLogout = this.popLogout.bind(this);
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -32,30 +27,10 @@ class Main extends React.Component {
         this.setState({popUpBar : "friend"});
     }
 
-    popCheckStatus() {
-        console.log("Check status");
-        this.setState({popUpBar : "status"});
-    }
-
-    popSchdule() {
-        console.log("open schedule");
-        this.setState({popUpBar : "schedule"});
-    }
-
     popMessageBox() {
         alert(this.state.schedulePop)
         console.log("pop message box");
         this.setState({popUpBar : "message"});
-    }
-
-    popLogout() {
-        console.log("pop logout");
-        this.setState({popUpBar : "logout"});
-    }
-
-    popMap() {
-        console.log("pop map");
-        this.setState({popUpBar : "map"});
     }
 
     componentDidMount() {
@@ -118,7 +93,7 @@ class Main extends React.Component {
 
     popUp(option) {
         
-        console.log(this.state.popUpBar);
+        console.log("current Pop-up: ", this.state.popUpBar);
         if (option === "status")
             return (
                 <div>
@@ -207,11 +182,11 @@ class Main extends React.Component {
                 <p> Welcome to CU Simulator! </p>
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
-                <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
-                <button className="btn btn-success" onClick={this.popSchdule}>Open schedule</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "status"})}>Check status</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                 <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
-                <button className="btn btn-success" onClick={this.popMap}>Explore CUHK!</button>
-                <button className="btn btn-success" onClick={this.popLogout}>Logout</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                 </div>
 
                 <div className='container-fluid'>
