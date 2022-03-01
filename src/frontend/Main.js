@@ -14,7 +14,8 @@ class Main extends React.Component {
             popUpBar : "",
             stat : null,
         };
-
+        
+        this.userLogout = this.userLogout.bind(this);
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.addStat = this.addStat.bind(this);
@@ -150,6 +151,8 @@ class Main extends React.Component {
             return 
         }
     }
+
+    
 
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {

@@ -1,13 +1,12 @@
 import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 import Login from "./frontend/Login.js";
 import ForgotPassword from "./frontend/ForgotPassword.js";
 import Main from "./frontend/Main.js";
-import Registration from "./frontend/Registration";
-import Event from "./frontend/Event";
+import Registration from "./frontend/Registration.js";
+import Event from "./frontend/Event.js";
 
 class App extends React.Component {
   constructor(props) {

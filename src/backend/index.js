@@ -111,9 +111,6 @@ app.post('/addStat', async function (req, res) {
     }
 })
 
-app.get('/test', async function (req, res) {
-    return accountHandling.test(req, res);
-});
 
 app.post('/stat', async function (req, res) {
     console.log(req.body.userId);

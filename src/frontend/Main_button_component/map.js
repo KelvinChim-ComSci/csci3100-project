@@ -1,5 +1,6 @@
 import React from "react";
 import "./map.css";
+import { withRouter } from '../withRouter.js';
 
 class Map extends React.Component {
     render(){
@@ -13,6 +14,7 @@ class Map extends React.Component {
            
         )
     }
+
 }
 
 export default Map;
