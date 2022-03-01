@@ -4,23 +4,20 @@ import './Main.css';
 import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schdule';
 import Status from './Main_button_component/status';
-import displayMap from './Main_button_component/map';
+import Map from './Main_button_component/map';
 
 class Main extends React.Component {
 
     constructor(props) {
         super(props);
-        this.userLogout = this.userLogout.bind(this);
-        this.popFriendLlist = this.popFriendLlist.bind(this);
-        this.popCheckStatus = this.popCheckStatus.bind(this);
-        this.popSchdule = this.popSchdule.bind(this);
-        this.popMessageBox = this.popMessageBox.bind(this);
-        this.popMap = this.popMap.bind(this);
-        this.popLogout = this.popLogout.bind(this);
         this.state = {
             popUpBar : "",
-            res : null,
+            stat : null,
         };
+        
+        this.userLogout = this.userLogout.bind(this);
+        this.popFriendLlist = this.popFriendLlist.bind(this);
+        this.popMessageBox = this.popMessageBox.bind(this);
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -31,35 +28,15 @@ class Main extends React.Component {
         this.setState({popUpBar : "friend"});
     }
 
-    popCheckStatus() {
-        console.log("Check status");
-        this.setState({popUpBar : "status"});
-    }
-
-    popSchdule() {
-        console.log("open schedule");
-        this.setState({popUpBar : "schedule"});
-    }
-
     popMessageBox() {
         alert(this.state.schedulePop)
         console.log("pop message box");
         this.setState({popUpBar : "message"});
     }
 
-    popLogout() {
-        console.log("pop logout");
-        this.setState({popUpBar : "logout"});
-    }
-
-    popMap() {
-        console.log("pop map");
-        this.setState({popUpBar : "map"});
-    }
-
     componentDidMount() {
          fetch(process.env.REACT_APP_BASE_URL + "/stat", {
-            method: "GET",
+            method: "POST",
             headers: new Headers({
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
@@ -67,6 +44,9 @@ class Main extends React.Component {
                 "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
                 "Access-Control-Allow-Credentials": true,
             }),
+            body: JSON.stringify({
+                userId: this.props.userId,
+            })
         }
         )
             .then((res) => res.json())
@@ -81,7 +61,7 @@ class Main extends React.Component {
                 document.getElementById("sem").innerText = res.sem;
                 document.getElementById("year").innerText = res.year;
                 this.setState({
-                    res: res
+                    stat: res
                 })
             })
     }
@@ -114,14 +94,14 @@ class Main extends React.Component {
 
     popUp(option) {
         
-        console.log(this.state.popUpBar);
+        console.log("current Pop-up: ", this.state.popUpBar);
         if (option === "status")
             return (
                 <div>
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        <Status res={this.state.res} />
+                        <Status stat={this.state.stat} />
                     </div>
                 </div>
 
@@ -132,7 +112,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        {displayMap()}
+                        <Map />
                     </div>
                 </div>
             )
@@ -172,6 +152,8 @@ class Main extends React.Component {
         }
     }
 
+    
+
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
@@ -203,11 +185,11 @@ class Main extends React.Component {
                 <p> Welcome to CU Simulator! </p>
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
-                <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
-                <button className="btn btn-success" onClick={this.popSchdule}>Open schedule</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "status"})}>Check status</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                 <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
-                <button className="btn btn-success" onClick={this.popMap}>Explore CUHK!</button>
-                <button className="btn btn-success" onClick={this.popLogout}>Logout</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                 </div>
 
                 <div className='container-fluid'>
@@ -239,6 +221,9 @@ class Main extends React.Component {
                         <tr><td>Stamina :</td>
                             <td id="stamina">?</td>
                         </tr>
+                        <tr><td><button onClick={()=>this.addStat("gpa")}>Study</button></td>
+                        </tr>
+                        
                     </tbody>
                     </table>
                 </section>
@@ -253,7 +238,7 @@ class Main extends React.Component {
 
                 {this.popUp(this.state.popUpBar)}
             
-                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "sem">x</b> sem <b id= "year">y</b> </b></div>
+                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
 
             </div> 
         )

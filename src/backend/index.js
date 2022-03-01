@@ -111,13 +111,10 @@ app.post('/addStat', async function (req, res) {
     }
 })
 
-app.get('/test', async function (req, res) {
-    return accountHandling.test(req, res);
-});
 
-app.get('/stat', async function (req, res) {
-
-    Statistic.findOne({})
+app.post('/stat', async function (req, res) {
+    console.log(req.body.userId);
+    Statistic.findOne({ user: req.body.userId })
         .then((data) => {
             console.log('Data: ', data);
             res.json(data);
@@ -125,7 +122,6 @@ app.get('/stat', async function (req, res) {
         .catch((error) => {
             console.log('error: ', error);
         });
-
 });
 
 app.get('/', async function (req, res) {

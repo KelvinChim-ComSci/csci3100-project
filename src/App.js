@@ -1,14 +1,13 @@
 import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 import Login from "./frontend/Login.js";
 import ForgotPassword from "./frontend/ForgotPassword.js";
 import Main from "./frontend/Main.js";
-import Registration from "./frontend/Registration";
-import Event from "./frontend/Event";
-import EmailVerified from "./frontend/EmailVerified";
+import Registration from "./frontend/Registration.js";
+import Event from "./frontend/Event.js";
+import EmailVerified from "./frontend/EmailVerified.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +15,7 @@ class App extends React.Component {
 
     this.state = {
       username: "",
+      userId: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged In",
       isLoggedIn: 0,
@@ -29,18 +29,20 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("username: " + this.state.username);
+    console.log("userID: " + this.state.userId);
     console.log("logged in status: " + this.state.loggedInStatus);
-    console.log(this.state.isLoggedIn)
+    console.log(this.state.isLoggedIn);
   }
 
-  handleLogin(user, checkAdmin) {
+  handleLogin(user, userId, checkAdmin) {
     this.setState({
       username: user,
+      userId: userId,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
     });
-    console.log("username: " + this.state.username + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
+    console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
   handleLogout() {
@@ -73,12 +75,13 @@ class App extends React.Component {
                 <Main
                   handleLogout={this.handleLogout}
                   username={this.state.username}
+                  userId={this.state.userId}
                 />
               }
             />
             <Route path="/event" element={<Event />} />
 
-          </Routes>
+          </Routes >
 
 
           <Link style={{ padding: 5 }} to={"/"}>Log in</Link>
@@ -88,8 +91,8 @@ class App extends React.Component {
           <Link style={{ padding: 5 }} to={"/event"}> Event </Link>
 
 
-        </Router>
-      </div>
+        </Router >
+      </div >
     );
   }
 }
