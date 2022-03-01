@@ -4,7 +4,7 @@ import './Main.css';
 import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schdule';
 import Status from './Main_button_component/status';
-import displayMap from './Main_button_component/map';
+import Map from './Main_button_component/map';
 
 class Main extends React.Component {
 
@@ -111,7 +111,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        {displayMap()}
+                        <Map />
                     </div>
                 </div>
             )
