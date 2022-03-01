@@ -45,6 +45,7 @@ a { color: inherit; }
     right: 200px;
     font-size: 30px;
  }
+
  .corner {
     position:absolute;
     width: 10vw;
@@ -52,3 +53,36 @@ a { color: inherit; }
     bottom:0;
     transform: translateY(80%); 
  }
+
+
+#shadowLayer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: black;
+    opacity: 20%;
+}
+
+.popUp{
+    z-index: 2000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    width: 90%; 
+    background-color: rgb(214, 213, 213);
+    border: 6px solid rgb(0, 100, 5);
+    opacity: 100%;
+    
+}
+
+
+#choiceWindow{
+    height: auto;
+    width: auto; 
+    padding: 30px;
+}
