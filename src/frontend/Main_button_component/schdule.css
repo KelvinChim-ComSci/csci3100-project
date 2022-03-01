@@ -2,7 +2,35 @@
     text-align: center;
 }
 
-.item{
-    background-color: rgb(0, 109, 233);
+.task{
+    background-color: rgb(30, 255, 0);
     border: 1px solid green;
+    padding: 5px;
+    margin: 5px;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+}
+
+
+.column{
+    width: 30%;
+    padding: calc(3%/2);
+    border: 1px solid rgb(0, 217, 255);
+}
+
+.confirm{
+    background-color: green;
+    color: white;
+    padding: 10px;
+    position: relative;
+    border-radius: 10%;
+    left: 95%;
+    transform: translate(-100%,20%);
+}
+
+#test{
+    border: 1px solid rgb(255, 0, 212);
 }

@@ -5,14 +5,15 @@ import Column from './schedule_drag_drop/Column';
 import './schdule.css';
 
 class Schedule extends React.Component {
-  state = data;
+
+  constructor(props) {
+    super(props);
+    this.submitPlan = this.submitPlan.bind(this);
+    this.state = data;
+  }
 
   onDragStart = start => {
-    const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
-
-    this.setState({
-      homeIndex,
-    })
+    
   }
 
   onDragEnd = result => {
@@ -62,59 +63,117 @@ class Schedule extends React.Component {
       return;
     }
 
-    //different col movement
     const newSourceTaskIds = Array.from(sourceColumn.taskIds);
     const newDestinationTaskIds = Array.from(destinationColumn.taskIds);
-    newSourceTaskIds.splice(source.index, 1);  //remove 1 element at source.index
-    newDestinationTaskIds.splice(destination.index, 0, draggableId);  //remove 0 element at destination.index, add draggableId to that position
-    
-    //update columns
-    const newSourceColumn = {
-      ...sourceColumn,
-      taskIds: newSourceTaskIds,
-    }
-    
-    const newDestinationColumn = {
-      ...destinationColumn,
-      taskIds: newDestinationTaskIds,
-    }
-    
-    //update whole state
-    const newState = {
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newSourceColumn.id]: newSourceColumn,
-        [newDestinationColumn.id]: newDestinationColumn,
-      }
-    };
 
-    this.setState(newState);
-    return;
+    //from col 1 to col 2
+    if (sourceColumn.id === "column-1" && destinationColumn.id === "column-2"){  
+
+      const newId = draggableId[0]+this.state.index[draggableId[0]];
+
+      newDestinationTaskIds.splice(destination.index, 0, newId); 
+  
+      const newDestinationColumn = {
+        ...destinationColumn,
+        taskIds: newDestinationTaskIds,
+      }
+      
+      const newState = {
+        ...this.state,
+        tasks: {
+          ...this.state.tasks,
+          [newId]: { id: newId, content: this.state.tasks[draggableId].content},
+        },
+        columns: {
+          ...this.state.columns,
+          [newDestinationColumn.id]: newDestinationColumn,
+        },
+        index: {
+          ...this.state.index,
+          [draggableId[0]]: this.state.index[draggableId[0]]+1,
+        }
+      };
+  
+      this.setState(newState);
+      return;
+
+    }
+
+    //from col 1 to col 3
+    if (sourceColumn.id === "column-1" && destinationColumn.id === "column-3"){   
+
+      return;
+
+    }
+
+    //from col 2 to col 3
+    if (sourceColumn.id === "column-2" && destinationColumn.id === "column-3"){   
+      newSourceTaskIds.splice(source.index, 1);   
+      
+      const newSourceColumn = {
+        ...sourceColumn,
+        taskIds: newSourceTaskIds,
+      }
+      
+      const newState = {
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newSourceColumn.id]: newSourceColumn,
+        }
+      };
+  
+      this.setState(newState);
+      return;
+
+    }
   };
+
+  submitPlan() {
+    const plan = this.state.columns['column-2'].taskIds.map(s => s[0]);
+    console.log(plan);      
+
+    /*
+    sequence of events stored in plan
+    's'->study
+    'w'->part time
+    'g'->gym
+    'f'->hang out with friends
+    'r'->rest
+    */
+   
+    return;
+  }
 
   render() {
     return (
+      <div>
       <div className="schedule">
-      <DragDropContext 
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-      >
-        {this.state.columnOrder.map((columnId, index) => {
-          const column = this.state.columns[columnId];
-          const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+        <h2>Schedule</h2>
+        <h3>Drag and drop to plan your schedule!</h3>
+        <div className="d-flex justify-content-center">
+          <DragDropContext 
+            onDragStart={this.onDragStart}
+            onDragEnd={this.onDragEnd}
+          >
+            {this.state.columnOrder.map((columnId, index) => {
+              const column = this.state.columns[columnId];
+              const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-          const isDropDisabled = index === 2;
-          return (
-            <Column 
-              key={column.id}
-              column={column}
-              tasks={tasks}
-              isDropDisabled={isDropDisabled}
-            />
-          );
-        })}
-      </DragDropContext>
+              const isDropDisabled = index === 0;
+              return (
+                <Column 
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                  isDropDisabled={isDropDisabled}
+                />
+              );
+            })}
+          </DragDropContext>
+        </div>
+      </div>
+      <button className="confirm" onClick={this.submitPlan}>Done!</button>
       </div>
     );
   }

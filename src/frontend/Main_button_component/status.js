@@ -6,39 +6,24 @@ class Status extends React.Component {
         return (
             <div className="status">
                 <h2>Status</h2>
-                GPA: {this.props.res.gpa}
+                GPA: {this.props.stat.gpa}
                 <br></br>
-                Sports: {this.props.res.sports}
+                Sports: {this.props.stat.sports}
                 <br></br>
-                Happiness: {this.props.res.happiness}
+                Happiness: {this.props.stat.happiness}
                 <br></br>
-                Money: {this.props.res.money}
+                Money: {this.props.stat.money}
                 <br></br>
-                _id: {this.props.res._id}
+                _id: {this.props.stat._id}
                 <br></br>
-                Stamina: {this.props.res.stamina}
+                Stamina: {this.props.stat.stamina}
                 <br></br>
-                Sem: {this.props.res.sem}
+                Sem: {this.props.stat.sem}
                 <br></br>
-                Year: {this.props.res.year}
-
-                
-
-                
-    
+                Year: {this.props.stat.year}  
             </div>
         )
     }
 }
-
-/*
-        document.getElementById("sports").innerText = res.sports;
-        document.getElementById("happiness").innerText = res.happiness;
-        document.getElementById("money").innerText = res.money;      
-        document.getElementById("_id").innerText = res._id;
-        document.getElementById("stamina").innerText = res.stamina;
-        document.getElementById("sem").innerText = res.sem;
-        document.getElementById("year").innerText = res.year;
-                */
 
 export default Status;

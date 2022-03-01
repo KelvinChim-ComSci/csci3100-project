@@ -1,29 +1,36 @@
 const Data = {
     tasks: {
-        'task-1': { id: 'task-1', content: 'Study'},
-        'task-2': { id: 'task-2', content: 'Part time'},
-        'task-3': { id: 'task-3', content: 'Gym'},
-        'task-4': { id: 'task-4', content: 'Hang out with friends'},
-        'task-5': { id: 'task-5', content: 'Rest'},
+        's1': { id: 's1', content: 'Study'},
+        'w1': { id: 'w1', content: 'Part time'},
+        'g1': { id: 'g1', content: 'Gym'},
+        'f1': { id: 'f1', content: 'Hang out with friends'},
+        'r1': { id: 'r1', content: 'Rest'},
     },
     columns: {
         'column-1': {
             id: 'column-1',
-            title: 'To do',
-            taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
+            title: 'Events',
+            taskIds: ['s1', 'w1', 'g1', 'f1', 'r1'],
         },
         'column-2': {
             id: 'column-2',
-            title: 'In progress',
+            title: 'Your Plan',
             taskIds: [],
         },
         'column-3': {
             id: 'column-3',
-            title: 'Done',
+            title: 'Discard',
             taskIds: [],
         }
     },
     columnOrder: ['column-1', 'column-2', 'column-3'],
+    index: {
+        's': 2,
+        'w': 2,
+        'g': 2,
+        'f': 2,
+        'r': 2,
+    }
 }
 
 export default Data;

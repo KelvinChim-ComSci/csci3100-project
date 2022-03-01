@@ -19,7 +19,7 @@ class Main extends React.Component {
         this.popLogout = this.popLogout.bind(this);
         this.state = {
             popUpBar : "",
-            res : null,
+            stat : null,
         };
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -81,7 +81,7 @@ class Main extends React.Component {
                 document.getElementById("sem").innerText = res.sem;
                 document.getElementById("year").innerText = res.year;
                 this.setState({
-                    res: res
+                    stat: res
                 })
             })
     }
@@ -121,7 +121,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        <Status res={this.state.res} />
+                        <Status stat={this.state.stat} />
                     </div>
                 </div>
 
@@ -239,6 +239,9 @@ class Main extends React.Component {
                         <tr><td>Stamina :</td>
                             <td id="stamina">?</td>
                         </tr>
+                        <tr><td><button onClick={()=>this.addStat("gpa")}>Study</button></td>
+                        </tr>
+                        
                     </tbody>
                     </table>
                 </section>
