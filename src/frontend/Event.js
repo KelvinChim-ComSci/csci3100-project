@@ -4,7 +4,7 @@ import './Event.css';
 import dia from './EventScript/GateOfWisdom.txt';
 import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
-import displayChoice from './choiceWindow';
+import Choice from './choiceWindow';
 
 class Event extends React.Component {
     constructor(props) {
@@ -43,11 +43,14 @@ class Event extends React.Component {
         this.props.navigate('../main');
     }
 
-    handleClick = () => {
+    handleClick() {
         console.log("script line #", this.state.script_count);
         var dia_line = this.script_list[this.state.script_count];
+        console.log("string:", dia_line);
 
-        if (dia_line == "(End of event)"){
+        // end event if # is detected
+        if (dia_line[0] === "#"){
+            console.log("")
             this.returnToMain();
         }
 
@@ -74,13 +77,24 @@ class Event extends React.Component {
                 popUpChoice : "choice",
                 script_count: this.state.script_count + 1
             });
+            return;
         }
     } 
+
+    async handleChoice(choiceId) {
+        this.setState({
+            popUpChoice: "",
+            chosenChoice: choiceId,
+            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])
+          })
+
+        await new Promise(resolve => setTimeout(resolve, 1));
+        console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
+        this.handleClick();
+      }
+      
     
-    handleChoice(choiceId){
-        this.setState({popUpChoice: "", chosenChoice: choiceId, script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])});
-        console.log("choice Id", choiceId);
-    }
+
 
 
     // choiceList(){
@@ -99,7 +113,7 @@ class Event extends React.Component {
                 <div>
                     <div id="shadowLayer"></div>
                     <div className="popUp" id = "choiceWindow">
-                        {displayChoice({script_answer : this.script_answer, handleChoice: this.handleChoice})}
+                        <Choice script_answer={this.script_answer} handleChoice={this.handleChoice} />
                     </div>
                 </div>
                 )
