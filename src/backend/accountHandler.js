@@ -111,6 +111,10 @@ module.exports.email = async function (req, res) {
     }
 }
 
+module.exports.confirmEmail = async function (req, res) {
+
+}
+
 module.exports.test = async function (req, res) {
     try {
         const user = await User.findOne({ username: "administrator" });
