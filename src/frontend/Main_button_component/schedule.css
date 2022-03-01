@@ -3,9 +3,9 @@
 }
 
 .task{
-    background-color: rgb(30, 255, 0);
-    border: 1px solid green;
-    padding: 5px;
+    background-color: rgb(123, 161, 117);
+    border: 1px solid rgba(0, 128, 0, 0);
+    padding: 20px;
     margin: 5px;
     position: relative !important;
     top: auto !important;
@@ -16,9 +16,9 @@
 
 
 .column{
-    width: 30%;
+    width: 17.5%;
     padding: calc(3%/2);
-    border: 1px solid rgb(0, 217, 255);
+    border: 1px solid rgb(41, 35, 15);
 }
 
 .confirm{
@@ -32,5 +32,5 @@
 }
 
 .schedule #test{
-    border: 1px solid rgb(255, 0, 212);
+    border: 1px solid rgb(59, 53, 14);
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import data from './schedule_drag_drop/Data';
 import Column from './schedule_drag_drop/Column';
-import './schdule.css';
+import './schedule.css';
 
 class Schedule extends React.Component {
 

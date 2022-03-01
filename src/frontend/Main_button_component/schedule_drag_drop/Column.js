@@ -12,14 +12,16 @@ export default class Column extends React.Component {
           isDropDisabled={this.props.isDropDisabled} //cannot drop on this column
         >
          
-          {provided => (
+         {provided => {
+            const hold = (this.props.column.id === "column-1")? "" : provided.placeholder;
+            return (
             <div ref={provided.innerRef} {...provided.droppableProps} id="test">
               {this.props.tasks.map((task, index) => (
                 <Task key={task.id} task={task} index={index} />
               ))}
-              {provided.placeholder}         
+              {hold}
             </div>
-          )}
+          )}}
         </Droppable>
       </div>
     );

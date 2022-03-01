@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
 import { withRouter } from './withRouter.js';
-import Schedule from './Main_button_component/schdule';
+import Schedule from './Main_button_component/schedule';
 import Status from './Main_button_component/status';
 import Map from './Main_button_component/map';
 
