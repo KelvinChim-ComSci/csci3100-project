@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
-import { withRouter } from './withRouter.js';
+import { withRouter } from './withRouter.js'; // router
 
 class Login extends React.Component {
     constructor(props) {
@@ -12,7 +12,6 @@ class Login extends React.Component {
             passwordError: ""
         }
     }
-
 
     async userLogin(event) {
         event.preventDefault();
@@ -46,7 +45,7 @@ class Login extends React.Component {
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
                     this.props.handleLogin(res.username, res.userId, res.accessLevel);
-                    this.props.navigate('/main');
+                    this.navigator('./main')
                 }
                 else {
                     console.log(res.errorMsg);
@@ -55,29 +54,14 @@ class Login extends React.Component {
             });
     }
 
+    navigator(page) {
+        this.props.navigate(page);
+    }
 
 
     async sendRequest() {
-        /*await fetch(process.env.REACT_APP_BASE_URL + "/test", {
-            method: "GET",
-            headers: new Headers({
-                "Content-Type": 'application/json',
-                "Accept": 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-                "Access-Control-Allow-Credentials": true,
-            }),
-        }
-        )
-        .then((res) => res.json())
-        .then((res) => {
-            console.log("hi\n");
-            console.log(res);
-            const detailsElement = document.getElementById("test");
-            detailsElement.getElementsByTagName("h3")[0].innerText = res.username + '\n' + res.password;
-        });*/
         const detailsElement = document.getElementById("test");
-        detailsElement.getElementsByTagName("h3")[0].innerText = "admin" + '\n' + "aa11";
+        detailsElement.getElementsByTagName("h3")[0].innerText = "administrator" + '\n' + "testing3100";
     }
 
     isLoginValid(errorMessage) {

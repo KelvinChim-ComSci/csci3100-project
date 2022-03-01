@@ -176,6 +176,8 @@ class Main extends React.Component {
         }
     }
 
+    
+
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",

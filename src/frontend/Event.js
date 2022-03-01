@@ -3,16 +3,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Event.css';
 import dia from './EventScript/GateOfWisdom.txt';
 import { Button } from 'bootstrap';
+import { withRouter } from './withRouter.js';
 import displayChoice from './choiceWindow';
 
 class Event extends React.Component {
-    
-
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.popChoices = this.popChoices.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
+        this.returnToMain = this.returnToMain.bind(this);
 
         fetch(dia)
         .then(r => r.text())
@@ -40,12 +40,15 @@ class Event extends React.Component {
         
     }
 
+    returnToMain() {
+        this.props.navigate('../main');
+    }
 
     handleClick = () => {
         console.log(this.state.script_count);
         var dia_line = this.script_list[this.state.script_count];
         if (dia_line == "(End of event)"){
-            window.location.href = "./Main";
+            this.returnToMain();
         }
 
         // pop choice window if @Q is detected while reading script
@@ -109,7 +112,7 @@ class Event extends React.Component {
       
         return (<div id = "event">
                 <div className = "container topLeft"><h1  id='Location'>LOCATION</h1></div>
-                <div><a href="./Main" className="container topRight" >Back to main page</a></div>
+                <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
                 <div className="text" onClick={()=>this.handleClick()}>
                 <p id = "dialogue"> ??? </p>
                 <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +125,7 @@ class Event extends React.Component {
     }
 }
 
-export default Event;
+export default withRouter(Event);
 
 
 
