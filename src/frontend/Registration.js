@@ -134,18 +134,21 @@ class Registration extends React.Component {
                         this.setState({ emailError: true });
                     }
                     if (!(res.usernameError || res.emailError)) {
-                        alert("Successfully Created account") // modify later
+                        this.sendMail();
+                        alert("Successfully Created account! Please check your email for verification") // modify later
                     }
                 });
         }
     }
 
     //send verification email to user (not complete yet)
-    async sendMail(event) {
-        event.preventDefault();
-        let usermail = document.getElementsByName("email")[0].value;
-        let mailsubject = "Verification mail from CU Simulator";
-        let mailcontent = "3100 be with U";
+    async sendMail() {
+
+        let username = document.getElementById("usernameid").value;
+        let usermail = document.getElementById("emailid").value;
+
+        let mailsubject = "[CU Simulator] Email adddress Confirmation";
+        let mailcontent = "Welcome to CU Simulator, " + username + "\n\n" + "Thank you for signing up with CU Simulator. Please activate your accoount by the following link:";
 
         await fetch(process.env.REACT_APP_BASE_URL + "/email", {
             method: "POST",

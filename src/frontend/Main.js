@@ -2,14 +2,19 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
 import { withRouter } from './withRouter.js';
-import displaySchedule from './Main_button_component/schdule';
-import displayStatus from './Main_button_component/status';
+import Schedule from './Main_button_component/schdule';
+import Status from './Main_button_component/status';
 import displayMap from './Main_button_component/map';
 
 class Main extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            popUpBar : "",
+            stat : null,
+        };
+
         this.userLogout = this.userLogout.bind(this);
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popCheckStatus = this.popCheckStatus.bind(this);
@@ -17,18 +22,9 @@ class Main extends React.Component {
         this.popMessageBox = this.popMessageBox.bind(this);
         this.popMap = this.popMap.bind(this);
         this.popLogout = this.popLogout.bind(this);
-        this.state = {
-            schedulePop : false,
-            scheduleOpenText: "Open schedule",
-            popUpBar : ""
-        };
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
-    }
-
-    closeSchedule(){
-        this.setState({schedulePop: false});
     }
 
     popFriendLlist() {
@@ -44,13 +40,6 @@ class Main extends React.Component {
     popSchdule() {
         console.log("open schedule");
         this.setState({popUpBar : "schedule"});
-        this.setState({schedulePop : !this.state.schedulePop});   
-        if (this.state.scheduleOpenText === "Open schedule"){
-            this.setState({scheduleOpenText : "Close schedule"});
-        }
-        else{
-            this.setState({scheduleOpenText : "Open schedule"});
-        }
     }
 
     popMessageBox() {
@@ -71,7 +60,7 @@ class Main extends React.Component {
 
     componentDidMount() {
          fetch(process.env.REACT_APP_BASE_URL + "/stat", {
-            method: "GET",
+            method: "POST",
             headers: new Headers({
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
@@ -79,6 +68,9 @@ class Main extends React.Component {
                 "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
                 "Access-Control-Allow-Credentials": true,
             }),
+            body: JSON.stringify({
+                userId: this.props.userId,
+            })
         }
         )
             .then((res) => res.json())
@@ -92,6 +84,9 @@ class Main extends React.Component {
                 document.getElementById("stamina").innerText = res.stamina;
                 document.getElementById("sem").innerText = res.sem;
                 document.getElementById("year").innerText = res.year;
+                this.setState({
+                    stat: res
+                })
             })
     }
     
@@ -122,6 +117,7 @@ class Main extends React.Component {
     }
 
     popUp(option) {
+        
         console.log(this.state.popUpBar);
         if (option === "status")
             return (
@@ -129,7 +125,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        {displayStatus()}
+                        <Status stat={this.state.stat} />
                     </div>
                 </div>
 
@@ -167,7 +163,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                        {displaySchedule()}
+                        <Schedule />
                     </div>
                 </div>
             )
@@ -212,7 +208,7 @@ class Main extends React.Component {
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                 <button className="btn btn-success" onClick={this.popCheckStatus}>Check status</button>
-                <button className="btn btn-success" onClick={this.popSchdule}>{this.state.scheduleOpenText}</button>
+                <button className="btn btn-success" onClick={this.popSchdule}>Open schedule</button>
                 <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
                 <button className="btn btn-success" onClick={this.popMap}>Explore CUHK!</button>
                 <button className="btn btn-success" onClick={this.popLogout}>Logout</button>
@@ -221,7 +217,7 @@ class Main extends React.Component {
                 <div className='container-fluid'>
                 <div className = "row">
                 <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
-                    {/* <table className="statchild" > */}
+
                     <table>
                     <thead><tr>
                             <th scope="col">Statistics</th>
@@ -247,6 +243,9 @@ class Main extends React.Component {
                         <tr><td>Stamina :</td>
                             <td id="stamina">?</td>
                         </tr>
+                        <tr><td><button onClick={()=>this.addStat("gpa")}>Study</button></td>
+                        </tr>
+                        
                     </tbody>
                     </table>
                 </section>
@@ -261,7 +260,7 @@ class Main extends React.Component {
 
                 {this.popUp(this.state.popUpBar)}
             
-                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "sem">x</b> sem <b id= "year">y</b> </b></div>
+                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
 
             </div> 
         )

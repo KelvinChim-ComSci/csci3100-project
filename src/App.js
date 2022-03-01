@@ -15,6 +15,7 @@ class App extends React.Component {
 
     this.state = {
       username: "",
+      userId: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged In",
       isLoggedIn: 0,
@@ -28,18 +29,20 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("username: " + this.state.username);
+    console.log("userID: " + this.state.userId);
     console.log("logged in status: " + this.state.loggedInStatus);
-    console.log(this.state.isLoggedIn)
+    console.log(this.state.isLoggedIn);
   }
 
-  handleLogin(user, checkAdmin) {
+  handleLogin(user, userId, checkAdmin) {
     this.setState({
       username: user,
+      userId: userId,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
     });
-    console.log("username: " + this.state.username + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
+    console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
   handleLogout() {
@@ -72,6 +75,7 @@ class App extends React.Component {
             <Main 
               handleLogout={this.handleLogout}
               username={this.state.username}
+              userId={this.state.userId}
                 />
               } 
             />
