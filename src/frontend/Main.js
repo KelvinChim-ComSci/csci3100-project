@@ -10,17 +10,19 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            popUpBar : "",
+            res : null,
+        };
+
         this.userLogout = this.userLogout.bind(this);
+        
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popCheckStatus = this.popCheckStatus.bind(this);
         this.popSchdule = this.popSchdule.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.popMap = this.popMap.bind(this);
         this.popLogout = this.popLogout.bind(this);
-        this.state = {
-            popUpBar : "",
-            res : null,
-        };
         this.addStat = this.addStat.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
 
@@ -59,7 +61,7 @@ class Main extends React.Component {
 
     componentDidMount() {
          fetch(process.env.REACT_APP_BASE_URL + "/stat", {
-            method: "GET",
+            method: "POST",
             headers: new Headers({
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
@@ -67,6 +69,9 @@ class Main extends React.Component {
                 "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
                 "Access-Control-Allow-Credentials": true,
             }),
+            body: JSON.stringify({
+                userId: this.props.userId,
+            })
         }
         )
             .then((res) => res.json())
@@ -253,7 +258,7 @@ class Main extends React.Component {
 
                 {this.popUp(this.state.popUpBar)}
             
-                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "sem">x</b> sem <b id= "year">y</b> </b></div>
+                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
 
             </div> 
         )

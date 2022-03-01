@@ -75,7 +75,8 @@ module.exports.login = async function (req, res) {
                     return res.send({
                         errorMsg: "none",
                         username: response.username,
-                        accessLevel: response.adminStatus
+                        accessLevel: response.adminStatus,
+                        userId: response._id
                     });
                 }
             }

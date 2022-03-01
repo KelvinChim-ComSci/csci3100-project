@@ -45,7 +45,7 @@ class Login extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
-                    this.props.handleLogin(res.username, res.accessLevel);
+                    this.props.handleLogin(res.username, res.userId, res.accessLevel);
                     this.props.navigate('/main');
                 }
                 else {
