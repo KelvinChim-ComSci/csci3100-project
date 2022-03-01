@@ -4,13 +4,12 @@ import './Event.css';
 import dia from './EventScript/GateOfWisdom.txt';
 import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
-import displayChoice from './choiceWindow.js';
+import displayChoice from './choiceWindow';
 
 class Event extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
-        this.popChoices = this.popChoices.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
 
@@ -100,7 +99,7 @@ class Event extends React.Component {
                 <div>
                     <div id="shadowLayer"></div>
                     <div className="popUp" id = "choiceWindow">
-                        <displayChoice script_answer={this.script_answer} handleChoice={this.handleChoice} />
+                        {displayChoice({script_answer : this.script_answer, handleChoice: this.handleChoice})}
                     </div>
                 </div>
                 )
