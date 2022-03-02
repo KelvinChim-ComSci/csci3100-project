@@ -17,12 +17,26 @@ h2 {
 }
 
 .map-img {
-    background-image: url('/src/backend/background/map.png');
-    min-height: 550px;
-    max-width: 1000px;
+    /*background-image: url('/src/backend/background/map.png');*/
+    min-height: 500px;
+    max-width: 850px;
     /* Center and scale the image */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
   }
+
+  .detail {
+    position: absolute;
+    top: 80px;
+    right: 200px;
+    font-size: 18px;
+  }
+  .describe_content {
+    position: absolute;
+    top: 120px;
+    right: 200px;
+    font-size: 18px;
+  }
+
