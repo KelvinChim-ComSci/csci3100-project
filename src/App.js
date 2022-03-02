@@ -8,6 +8,7 @@ import Main from "./frontend/Main.js";
 import Registration from "./frontend/Registration.js";
 import Event from "./frontend/Event.js";
 import EmailVerified from "./frontend/EmailVerified.js";
+import AdminPage from "./frontend/AdminPage";
 
 class App extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class App extends React.Component {
               }
             />
             <Route path="/event" element={<Event />} />
-
+            <Route path="/adminPage" element={<AdminPage />} />
           </Routes >
 
 
