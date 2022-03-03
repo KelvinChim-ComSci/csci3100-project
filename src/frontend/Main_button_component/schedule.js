@@ -8,8 +8,14 @@ class Schedule extends React.Component {
 
   constructor(props) {
     super(props);
-    this.submitPlan = this.submitPlan.bind(this);
     this.state = data;
+    this.state = {
+      ...this.state,
+      popUpBar: "",
+    }
+
+    this.popUp = this.popUp.bind(this);
+      
   }
 
   onDragStart = start => {
@@ -68,6 +74,11 @@ class Schedule extends React.Component {
 
     //from col 1 to col 2
     if (sourceColumn.id === "column-1" && destinationColumn.id === "column-2"){  
+
+      if (this.state.columns["column-2"].taskIds.length === 8){
+        alert("Too many events!");
+        return;
+      }
 
       const newId = draggableId[0]+this.state.index[draggableId[0]];
 
@@ -129,20 +140,23 @@ class Schedule extends React.Component {
     }
   };
 
-  submitPlan() {
+  popUp(option) {
     const plan = this.state.columns['column-2'].taskIds.map(s => s[0]);
-    console.log(plan);      
-
-    /*
-    sequence of events stored in plan
-    's'->study
-    'w'->part time
-    'g'->gym
-    'f'->hang out with friends
-    'r'->rest
-    */
-   
-    return;
+    console.log("current Pop-up in schedule: ", this.state.popUpBar);
+    if (option === "confirm")
+        return (
+            <div>
+                <div id="shadowLayer2"></div>
+                <div className="popUp" id="confirmWindow">
+                <h4>Are you sure to submit this plan?</h4>
+                        <br></br>
+                        <div className="d-flex justify-content-around">
+                            <button className="btn btn-success" onClick={() => {this.props.handleSchedulePlan(plan)}}>Yes</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""})}}>No</button>
+                        </div>
+                </div>
+            </div>
+        )
   }
 
   render() {
@@ -151,7 +165,8 @@ class Schedule extends React.Component {
       <div className="schedule">
         <h2>Schedule</h2>
         <h3>Drag and drop to plan your schedule!</h3>
-        <div className="d-flex justify-content-center">
+        <div className="content">
+        <div className="d-flex justify-content-between">
           <DragDropContext 
             onDragStart={this.onDragStart}
             onDragEnd={this.onDragEnd}
@@ -171,9 +186,14 @@ class Schedule extends React.Component {
               );
             })}
           </DragDropContext>
+          
         </div>
-      </div>
-      <button className="confirm" onClick={this.submitPlan}>Done!</button>
+      <p className="leftText">Note: You can plan at most 8 events.</p>
+      <button className="confirm" onClick={()=>{this.setState({popUpBar: "confirm"})}}>Done!</button> 
+      </div> 
+        </div>
+        {this.popUp(this.state.popUpBar)}
+        
       </div>
     );
   }

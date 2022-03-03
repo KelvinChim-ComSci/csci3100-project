@@ -2,6 +2,14 @@
     text-align: center;
 }
 
+.schedule h2{
+    padding: 10px 0 0 0;
+}
+
+.schedule h3{
+    padding: 5px 0 10px 0;
+}
+
 .task{
     background-color: rgb(123, 161, 117);
     border: 1px solid rgba(0, 128, 0, 0);
@@ -16,7 +24,7 @@
 
 
 .column{
-    width: 17.5%;
+    width: 22.5%;
     padding: calc(3%/2);
     border: 1px solid rgb(41, 35, 15);
 }
@@ -27,10 +35,40 @@
     padding: 10px;
     position: relative;
     border-radius: 10%;
-    left: 95%;
-    transform: translate(-100%,20%);
+    left: 50%;
+    transform: translate(-50%,-80%);
 }
 
-.schedule #test{
+.schedule .colBorder{
     border: 1px solid rgb(59, 53, 14);
+}
+
+.schedule .content{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 90%;
+}
+
+.leftText{
+    padding: 10px 0 0 0;
+    text-align: left;
+}
+
+#shadowLayer2{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+    background-color: black;
+    opacity: 25%;
+}
+
+#confirmWindow{
+    height: auto;
+    width: auto; 
+    padding: 30px;
+    z-index: 6000;
 }

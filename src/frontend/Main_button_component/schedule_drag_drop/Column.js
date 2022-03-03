@@ -15,7 +15,7 @@ export default class Column extends React.Component {
          {provided => {
             const hold = (this.props.column.id === "column-1")? "" : provided.placeholder;
             return (
-            <div ref={provided.innerRef} {...provided.droppableProps} id="test">
+            <div ref={provided.innerRef} {...provided.droppableProps} className="colBorder">
               {this.props.tasks.map((task, index) => (
                 <Task key={task.id} task={task} index={index} />
               ))}
