@@ -81,7 +81,15 @@ class App extends React.Component {
               }
             />
             <Route path="/event" element={<Event />} />
-            <Route path="/adminPage" element={<AdminPage />} />
+            <Route 
+              path="/adminPage" 
+                element={<AdminPage
+                  handleLogout={this.handleLogout}
+                  username={this.state.username}
+                  userId={this.state.userId}
+                />
+              } 
+            />
           </Routes >
 
 
