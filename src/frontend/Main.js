@@ -21,6 +21,7 @@ class Main extends React.Component {
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
+
     }
 
     popFriendLlist() {
@@ -32,6 +33,17 @@ class Main extends React.Component {
         alert(this.state.schedulePop)
         console.log("pop message box");
         this.setState({popUpBar : "message"});
+    }
+
+    statUpdateFromFrontend() {
+        document.getElementById("gpa").innerText = this.state.stat.gpa;
+        document.getElementById("sports").innerText = this.state.stat.sports;
+        document.getElementById("happiness").innerText = this.state.stat.happiness;
+        document.getElementById("money").innerText = this.state.stat.money;      
+        document.getElementById("_id").innerText = this.state.stat._id;
+        document.getElementById("stamina").innerText = this.state.stat.stamina;
+        document.getElementById("sem").innerText = this.state.stat.sem;
+        document.getElementById("year").innerText = this.state.stat.year;
     }
 
     statUpdateFromBackend() {
@@ -51,17 +63,10 @@ class Main extends React.Component {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            document.getElementById("gpa").innerText = res.gpa;
-            document.getElementById("sports").innerText = res.sports;
-            document.getElementById("happiness").innerText = res.happiness;
-            document.getElementById("money").innerText = res.money;      
-            document.getElementById("_id").innerText = res._id;
-            document.getElementById("stamina").innerText = res.stamina;
-            document.getElementById("sem").innerText = res.sem;
-            document.getElementById("year").innerText = res.year;
             this.setState({
                 stat: res
             });
+            this.statUpdateFromFrontend();
         })
     }
 
@@ -134,9 +139,12 @@ class Main extends React.Component {
         console.log("Before: ", newStat);
         newStat = statUpdateFrontend.statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
-        statUpdateBackend.statBackendUpdate(newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        this.statUpdateFromBackend();
+        statUpdateBackend.statBackendUpdate(newStat);
+        this.setState({
+            stat: newStat
+        })
+        this.statUpdateFromFrontend();
         return;
     }
 
