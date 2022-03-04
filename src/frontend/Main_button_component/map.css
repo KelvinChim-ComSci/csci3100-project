@@ -17,9 +17,13 @@ h2 {
 }
 
 .map-img {
-    /*background-image: url('/src/backend/background/map.png');*/
+    /*background-image: url('/src/backend/background/map.png');
     min-height: 500px;
     max-width: 850px;
+    height: auto;
+    max-width: 60%;
+    min-height: 500px;
+    max-width: 850px;*/
     /* Center and scale the image */
     background-position: center;
     background-repeat: no-repeat;
@@ -27,16 +31,49 @@ h2 {
     position: relative;
   }
 
-  .detail {
-    position: absolute;
-    top: 80px;
-    right: 200px;
-    font-size: 18px;
-  }
   .describe_content {
-    position: absolute;
+    position: fixed;
     top: 120px;
-    right: 200px;
+    right: 60px;
     font-size: 18px;
   }
 
+  .img {
+    position: fixed;
+    top: 100px;
+    left: 40px;
+    font-size: 18px;
+  }
+
+ .tdC {
+    background: rgb(65, 109, 65);
+    color: #fff;   
+    font-size: 16px;
+    text-align: center;
+    padding: 12px 35px;
+    width: 400px;
+    border-collapse: collapse;
+    border: 1px solid #eee;
+    overflow-wrap: break-word;
+  }
+
+  
+  .link:hover {
+    background-color:  rgba(72, 92, 117, 0.555);
+    /*padding: 5px 10px;*/
+  }
+  .link {
+    position: fixed;
+    top: 612px;
+    left: 850px;
+    background-color: rgb(65, 85, 109);
+    padding: 8px 13px;
+    overflow: hidden;
+    border-radius: 100px;
+    width: 200px;
+  }
+
+  td > a {
+    display: block; /*it's all clickable in the whole cell */ 
+  }
+  
