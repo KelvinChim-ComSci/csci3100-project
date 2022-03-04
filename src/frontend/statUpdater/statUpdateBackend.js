@@ -1,4 +1,4 @@
-module.exports.statBackendUpdate = function(newStat) {
+export function statBackendUpdate(newStat) {
     fetch(process.env.REACT_APP_BASE_URL + "/stat/update", {
         method: "POST",
         headers: new Headers({

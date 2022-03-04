@@ -1,4 +1,4 @@
-module.exports.statScheduleUpdate = function(newStat, plan) {
+export function statScheduleUpdate(newStat, plan) {
         //transition here
         
         /*

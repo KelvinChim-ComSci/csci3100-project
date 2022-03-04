@@ -5,8 +5,8 @@ import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schedule';
 import Status from './Main_button_component/status';
 import Map from './Main_button_component/map';
-import statUpdateFrontend from './statUpdater/statUpdateFrontend.js';
-import statUpdateBackend from './statUpdater/statUpdateBackend.js';
+import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
+import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 
 class Main extends React.Component {
 
@@ -145,10 +145,10 @@ class Main extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1));
         let newStat = this.state.stat;
         console.log("Before: ", newStat);
-        newStat = statUpdateFrontend.statScheduleUpdate(newStat,plan);
+        newStat = statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        statUpdateBackend.statBackendUpdate(newStat);
+        statBackendUpdate(newStat);
         this.setState({
             stat: newStat
         })
