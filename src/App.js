@@ -25,6 +25,7 @@ class App extends React.Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
 
 
@@ -34,6 +35,16 @@ class App extends React.Component {
     console.log("logged in status: " + this.state.loggedInStatus);
     console.log(this.state.isLoggedIn);
   }
+  
+  handleSessionRefresh() {
+    this.setState({
+      username: window.sessionStorage.getItem("username"),
+      userId: window.sessionStorage.getItem("userId"),
+      isAdmin: window.sessionStorage.getItem("isAdmin"),
+      loggedInStatus: window.sessionStorage.getItem("loggedInStatus"),
+      isLoggedIn: window.sessionStorage.getItem("isLoggedIn")
+    });
+  }
 
   handleLogin(user, userId, checkAdmin) {
     this.setState({
@@ -42,16 +53,29 @@ class App extends React.Component {
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
-    });
+  });
+    window.sessionStorage.setItem("username", user);
+    window.sessionStorage.setItem("userId", userId);
+    window.sessionStorage.setItem("isAdmin", checkAdmin);
+    window.sessionStorage.setItem("loggedInStatus", "Logged in");
+    window.sessionStorage.setItem("isLoggedIn", 1);
+
     console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
   handleLogout() {
-    this.state.username = "";
-    this.state.isAdmin = 0;
-    this.state.loggedInStatus = "Not Logged in";
-    this.state.isLoggedIn = 0;
-    this.state.forgetPassword = false;
+    this.setState({
+      username: "",
+      isAdmin: 0,
+      loggedInStatus: "Not Logged in",
+      isLoggedIn: 0,
+      forgetPassword: false
+    });
+    window.sessionStorage.removeItem("username");
+    window.sessionStorage.removeItem("userId");
+    window.sessionStorage.removeItem("isAdmin");
+    window.sessionStorage.removeItem("loggedInStatus");
+    window.sessionStorage.removeItem("isLoggedIn");
   }
 
   render() {
@@ -74,6 +98,7 @@ class App extends React.Component {
               path="/main"
               element={
                 <Main
+                  handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
                   username={this.state.username}
                   userId={this.state.userId}

@@ -21,6 +21,7 @@ class Main extends React.Component {
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
+        this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
     }
 
     popFriendLlist() {
@@ -45,7 +46,7 @@ class Main extends React.Component {
             "Access-Control-Allow-Credentials": true,
         }),
         body: JSON.stringify({
-            userId: this.props.userId,
+            userId: this.props.userId
             })
         })
         .then((res) => res.json())
@@ -65,12 +66,20 @@ class Main extends React.Component {
         })
     }
 
+    
     componentDidMount() {
-        this.statUpdateFromBackend();
+        this.checkRefreshAndUpdate();
     }
     
+    async checkRefreshAndUpdate() {
+        if (window.sessionStorage.getItem("isLoggedIn")) {
+            await this.props.handleSessionRefresh();
+        }
+        this.statUpdateFromBackend();
+    }
+
+
     popUp(option) {
-        
         console.log("current Pop-up: ", this.state.popUpBar);
         if (option === "status")
             return (
