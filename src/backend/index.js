@@ -71,12 +71,12 @@ app.get('/email/confirm/:id', async function (req, res) {
     return accountHandling.confirmEmail(req, res);
 })
 
-app.post('/addStat', async function (req, res) {
-    return statisticHandling.addStat(req, res);
+app.post('/stat/update', async function (req, res) {
+    return statisticHandling.statUpdate(req, res);
 })
 
 
-app.post('/stat', async function (req, res) {
+app.post('/stat/retrieve', async function (req, res) {
     return statisticHandling.stat(req, res);
 });
 

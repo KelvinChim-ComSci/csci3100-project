@@ -13,37 +13,27 @@ var StatSchema = mongoose.Schema({
 });
 var Statistic = mongoose.model('Statistic', StatSchema);
 
-module.exports.addStat = async function(req, res) {
-    console.log(req.body.val);
-    console.log("req.body.corr", req.body.corr);
-    let corr = String(req.body.corr);
-    let userId = req.body.id;
-    switch (corr) {
-        case "gpa": {
-            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { gpa: req.body.val + 1 });
-            return res.send(userStat);
-        }
-        case "sports": {
-            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { sports: req.body.val + 1 });
-            return res.send(userStat);
-        }
-        case "happiness": {
-            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { happiness: req.body.val + 1 });
-            return res.send(userStat);
-        }
-        case "money": {
-            let userStat = await Statistic.findOneAndUpdate({ _id: userId }, { money: req.body.val + 1 });
-            return res.send(userStat);
-        }
-        default: console.log("not into any case");
-    }
+module.exports.statUpdate = async function(req, res) {
+    Statistic.findOneAndUpdate({ user: req.body.userId }, { $set:{
+        gpa: parseInt(req.body.gpa),
+        happiness: parseInt(req.body.happiness),
+        money: parseInt(req.body.money),
+        sem: parseInt(req.body.sem),
+        year: parseInt(req.body.year),
+        sports: parseInt(req.body.sports),
+        stamina: parseInt(req.body.stamina),
+    }}, {
+        new: true
+    }, async function(error, response) {
+        if (error) return console.log(error)
+        else return console.log("Data saved successfully.");
+    })
 }
 
 module.exports.stat = async function(req, res) {
-    console.log(req.body.userId);
     Statistic.findOne({ user: req.body.userId })
     .then((data) => {
-        console.log('Data: ', data);
+        console.log('Data updated!');
         res.json(data);
     })
     .catch((error) => {

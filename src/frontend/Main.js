@@ -5,6 +5,8 @@ import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schedule';
 import Status from './Main_button_component/status';
 import Map from './Main_button_component/map';
+import statUpdateFrontend from './statUpdater/statUpdateFrontend.js';
+import statUpdateBackend from './statUpdater/statUpdateBackend.js';
 
 class Main extends React.Component {
 
@@ -14,14 +16,11 @@ class Main extends React.Component {
             popUpBar : "",
             stat : null,
         };
-        
+
         this.userLogout = this.userLogout.bind(this);
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
-        this.addStat = this.addStat.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
-
     }
 
     popFriendLlist() {
@@ -35,65 +34,41 @@ class Main extends React.Component {
         this.setState({popUpBar : "message"});
     }
 
-    componentDidMount() {
-         fetch(process.env.REACT_APP_BASE_URL + "/stat", {
-            method: "POST",
-            headers: new Headers({
-                "Content-Type": 'application/json',
-                "Accept": 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-                "Access-Control-Allow-Credentials": true,
-            }),
-            body: JSON.stringify({
-                userId: this.props.userId,
-            })
-        }
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-                document.getElementById("gpa").innerText = res.gpa;
-                document.getElementById("sports").innerText = res.sports;
-                document.getElementById("happiness").innerText = res.happiness;
-                document.getElementById("money").innerText = res.money;      
-                document.getElementById("_id").innerText = res._id;
-                document.getElementById("stamina").innerText = res.stamina;
-                document.getElementById("sem").innerText = res.sem;
-                document.getElementById("year").innerText = res.year;
-                this.setState({
-                    stat: res
-                })
-            })
-    
-    }
-    
-    addStat(toadd) {
-        console.log("123");
-        console.log(document.getElementById(toadd).value);
-        fetch(process.env.REACT_APP_BASE_URL + "/addStat", {
-           method: "POST",
-           headers: new Headers({
-               "Content-Type": 'application/json',
-               "Accept": 'application/json',
-               "Access-Control-Allow-Origin": "*",
-               "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-               "Access-Control-Allow-Credentials": true,
-           }),
-           body: JSON.stringify({
-            id: document.getElementById("_id").innerText,
-            corr: toadd,
-            val: parseInt(document.getElementById(toadd).innerText),
+    statUpdateFromBackend() {
+        fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
+        method: "POST",
+        headers: new Headers({
+            "Content-Type": 'application/json',
+            "Accept": 'application/json',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+            "Access-Control-Allow-Credentials": true,
         }),
-       }
-       )
-           .then((res) => res.json())
-           .then((res) => {
-               console.log(res.gpa);
-               this.componentDidMount();
-           })
+        body: JSON.stringify({
+            userId: this.props.userId,
+            })
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            document.getElementById("gpa").innerText = res.gpa;
+            document.getElementById("sports").innerText = res.sports;
+            document.getElementById("happiness").innerText = res.happiness;
+            document.getElementById("money").innerText = res.money;      
+            document.getElementById("_id").innerText = res._id;
+            document.getElementById("stamina").innerText = res.stamina;
+            document.getElementById("sem").innerText = res.sem;
+            document.getElementById("year").innerText = res.year;
+            this.setState({
+                stat: res
+            });
+        })
     }
 
+    componentDidMount() {
+        this.statUpdateFromBackend();
+    }
+    
     popUp(option) {
         
         console.log("current Pop-up: ", this.state.popUpBar);
@@ -146,9 +121,6 @@ class Main extends React.Component {
                 </div>
             )
         }
-
-
-
         else {
             return 
         }
@@ -158,91 +130,16 @@ class Main extends React.Component {
         this.setState({popUpBar : ""});
         console.log(plan);
         await new Promise(resolve => setTimeout(resolve, 1));
-
-        //transition here
-        
-        /*
-        sequence of events stored in plan
-        's'->study                    gpa+1, stamina-20
-        'w'->part time                money+1, stamina-20
-        'g'->gym                      sports+1, stamina-20
-        'f'->hang out with friends    happiness+1, stamina-20
-        'r'->rest                     stamina-50
-        */
-
         let newStat = this.state.stat;
         console.log("Before: ", newStat);
-
-        for (let i = 0; i < plan.length; i++) {
-            switch(plan[i]) {
-                case "s":
-                    newStat = {
-                        ...newStat,
-                        gpa: newStat.gpa+1,
-                        stamina: newStat.stamina-20,
-                    }
-                    break;
-                case "w":
-                    newStat = {
-                        ...newStat,
-                        money: newStat.money+1,
-                        stamina: newStat.stamina-20,
-                    }
-                    break;
-                case "g":
-                    newStat = {
-                        ...newStat,
-                        sports: newStat.sports+1,
-                        stamina: newStat.stamina-20,
-                    }
-                    break;
-                case "f":
-                    newStat = {
-                        ...newStat,
-                        happiness: newStat.happiness+1,
-                        stamina: newStat.stamina-20,
-                    }
-                    break;
-                case "r":
-                    let newStamina = ((newStat.stamina>50) ? 100 : newStat.stamina+50);
-                    console.log(newStamina);
-                    newStat = {
-                        ...newStat,
-                        stamina: newStamina,
-                    }
-                    break;
-            }
-            if (newStat.stamina < 0){
-                alert("You died. F");
-                newStat = {
-                    ...newStat,
-                    stamina: 50,
-                }
-                break;
-            }
-            console.log(i);
-        }
-        if (newStat.sem === 2)
-            newStat = {
-                ...newStat,
-                sem: 1,
-                year: newStat.year+1,
-            }
-        else
-            newStat = {
-                ...newStat,
-                sem: newStat.sem+1,
-            }
-
+        newStat = statUpdateFrontend.statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
-        this.setState({
-            stat: newStat,
-        })
-
+        statUpdateBackend.statBackendUpdate(newStat);
+        await new Promise(resolve => setTimeout(resolve, 1));
+        this.statUpdateFromBackend();
         return;
     }
 
-    
 
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
@@ -310,8 +207,6 @@ class Main extends React.Component {
                         </tr>
                         <tr><td>Stamina :</td>
                             <td id="stamina">?</td>
-                        </tr>
-                        <tr><td><button onClick={()=>this.addStat("gpa")}>Study</button></td>
                         </tr>
                         
                     </tbody>
