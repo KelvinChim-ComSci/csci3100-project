@@ -1,5 +1,6 @@
 h2 {
     text-align: center;
+   
 }
 
 .map{
@@ -17,14 +18,6 @@ h2 {
 }
 
 .map-img {
-    /*background-image: url('/src/backend/background/map.png');
-    min-height: 500px;
-    max-width: 850px;
-    height: auto;
-    max-width: 60%;
-    min-height: 500px;
-    max-width: 850px;*/
-    /* Center and scale the image */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -49,12 +42,35 @@ h2 {
     background: rgb(65, 109, 65);
     color: #fff;   
     font-size: 16px;
-    text-align: center;
-    padding: 12px 35px;
+    padding: 12px 15px;
     width: 400px;
     border-collapse: collapse;
     border: 1px solid #eee;
     overflow-wrap: break-word;
+  }
+
+  .tdT {  
+    background: rgb(47, 80, 47);
+    color: #fff;   
+    font-size: 17px;
+    /*text-align: center;*/
+    width: 400px;
+    border-collapse: collapse;
+    border: 1px solid #eee;
+    overflow-wrap: break-word;
+    padding: 3px 15px;
+  }
+
+  .tdB {  
+    background: rgb(47, 80, 47);
+    color: #fff;   
+    font-size: 14px;
+    text-align: center;
+    width: 500px;
+    border-collapse: collapse;
+    border: 1px solid #eee;
+    overflow-wrap: break-word;
+    padding: 3px 15px;
   }
 
   
