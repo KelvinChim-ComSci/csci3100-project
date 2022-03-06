@@ -7,6 +7,7 @@ import Status from './Main_button_component/status';
 import Map from './Main_button_component/map';
 import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
+import FriendList from './friendList';
 
 class Main extends React.Component {
 
@@ -240,7 +241,7 @@ class Main extends React.Component {
                 {this.popUp(this.state.popUpBar)}
             
                 <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
-
+                <FriendList />
             </div> 
         )
     }
