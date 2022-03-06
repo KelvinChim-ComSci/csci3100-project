@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Login.css';
-import { withRouter } from './withRouter.js'; // router
+import { withRouter } from '../withRouter.js'; // router
 
 class Login extends React.Component {
     constructor(props) {

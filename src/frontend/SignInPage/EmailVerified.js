@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from './withRouter.js';
+import { withRouter } from '../withRouter.js';
 
 
 class EmailVerified extends React.Component {
