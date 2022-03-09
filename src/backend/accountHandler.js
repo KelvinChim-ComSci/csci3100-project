@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
+const statisticHandling = require('./statisticHandler.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -74,6 +75,9 @@ module.exports.register = async function (req, res) {
                     return res.status(422).json({ message: "Database Error" })
                 }
                 console.log(response._id)
+
+                // intialize user statistics
+                await statisticHandling.initalizeStat(response.id);
 
                 //send mail here
                 await sendVerifyMail(inputEmail, inputUsername, response._id);
