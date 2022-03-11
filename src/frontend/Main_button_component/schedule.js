@@ -151,7 +151,7 @@ class Schedule extends React.Component {
                 <h4>Are you sure to submit this plan?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => {this.props.handleSchedulePlan(plan)}}>Yes</button>
+                            <button className="btn btn-success" onClick={() => {this.props.handleSchedulePlan(plan); this.props.popMainEvent();}}>Yes</button>
                             <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""})}}>No</button>
                         </div>
                 </div>

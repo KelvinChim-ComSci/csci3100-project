@@ -74,10 +74,14 @@ class Map extends React.Component {
     constructor(props) {
         super(props);
         this.navigator = this.navigator.bind(this);
+        this.state = {
+            location : "",
+        };
     }
-
+    
     navigator() {
-        this.props.navigate("../event");
+        console.log(this.state.location)
+        this.props.navigate("../event", {screen:'../event', params:{location: this.state.location}});
     }
     displayDescription(area) {
     document.getElementById("detail").innerText ="Place Details";
@@ -108,7 +112,10 @@ class Map extends React.Component {
                     <h2>Map</h2>
                     <div className="img">
                     <ImageMapper src={URL} map={MAP} width={800} 
-                    onClick={area => this.displayDescription(area)}
+                    onClick={area => {this.displayDescription(area); 
+                                      this.setState({location: document.getElementById("place").innerText});
+                                      }
+                    }
                     onMouseEnter={area => this.showHover(area)}
                 	onMouseLeave={area => this.leaveHover(area)}/>
                     </div>

@@ -1,13 +1,9 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import './Event.css';
-import dia from './EventScript/GateOfWisdom.txt';
-import { Button } from 'bootstrap';
-import { withRouter } from './withRouter.js';
-import Choice from './choiceWindow';
-import { useRoutes } from 'react-router-dom';
+import React from "react";
+import "./mainEvent.css";
+import dia from "../EventScript/Introduction.txt"
+import Choice from '../choiceWindow';
 
-class Event extends React.Component {
+class MainEvent extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -41,7 +37,7 @@ class Event extends React.Component {
     }
 
     returnToMain() {
-        this.props.navigate('../main');
+        this.props.handlePopClose();
     }
 
     handleClick() {
@@ -93,20 +89,6 @@ class Event extends React.Component {
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
       }
-      
-    
-
-
-
-    // choiceList(){
-    //     this.script_answer.map(function(answer){
-    //         return (
-    //             <div>
-    //                 <button> </button>
-    //             </div>
-    //         )
-    //     }
-    // }
 
     popUp(option) {
         if (option === "choice")
@@ -122,18 +104,11 @@ class Event extends React.Component {
             return
         }
     }
-
-    render() {
-        console.log(this.props.params);
+    render(){
         return (
-            <div id = "event">
-                <div className = "container topLeft"><h1  id='Location'>LOCATION</h1></div>
-                <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
+            <div id = "text">
                 <div className="text" onClick={()=>this.handleClick()}>
                     <p id = "dialogue"> ??? </p>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
                 </div>
                 {this.popUp(this.state.popUpChoice)}      
             </div>
@@ -141,8 +116,4 @@ class Event extends React.Component {
     }
 }
 
-export default withRouter(Event);
-
-
-
-
+export default MainEvent;

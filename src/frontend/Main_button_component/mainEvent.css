@@ -1,0 +1,48 @@
+.text {
+    word-spacing: 0.2em;
+    margin: 0 auto;
+    background: rgb(255, 255, 255);
+    padding: 1em;
+    border-bottom: 1vw solid #4f80a1;
+    line-height: 1.2em;
+
+    display: inline-block;
+    width: 80%;
+    height: 200px;
+    position: absolute;
+    bottom: 90px;
+    right: 200px;
+    font-size: 30px;
+ }
+
+ #shadowLayer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: black;
+    opacity: 20%;
+}
+
+.popUp{
+    z-index: 2000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    width: 90%; 
+    background-color: rgb(214, 213, 213);
+    border: 6px solid rgb(0, 100, 5);
+    opacity: 100%;
+    
+}
+
+
+#choiceWindow{
+    height: auto;
+    width: auto; 
+    padding: 30px;
+}

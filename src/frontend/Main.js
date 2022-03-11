@@ -8,6 +8,7 @@ import Map from './Main_button_component/map';
 import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 import FriendList from './friendList';
+import MainEvent from './Main_button_component/mainEvent';
 
 class Main extends React.Component {
 
@@ -23,6 +24,9 @@ class Main extends React.Component {
         this.popMessageBox = this.popMessageBox.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
+        this.popMainEvent = this.popMainEvent.bind(this);
+        this.handlePopClose = this.handlePopClose.bind(this);
+
     }
 
     popFriendLlist() {
@@ -34,6 +38,15 @@ class Main extends React.Component {
         alert(this.state.schedulePop)
         console.log("pop message box");
         this.setState({popUpBar : "message"});
+    }
+
+    popMainEvent() {
+        console.log("pop mainEvent");
+        this.setState({popUpBar : "mainEvent"});
+    }
+
+    handlePopClose() {
+        this.setState({popUpBar : ""});
     }
 
     statUpdateFromFrontend() {
@@ -130,7 +143,18 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Schedule handleSchedulePlan={this.handleSchedulePlan}/>
+                        <Schedule popMainEvent = {this.popMainEvent} handleSchedulePlan={this.handleSchedulePlan}/>
+                    </div>
+                </div>
+            )
+        }
+
+        if ((option === "mainEvent")){
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
+                        <MainEvent handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )
@@ -138,6 +162,7 @@ class Main extends React.Component {
         else {
             return 
         }
+
     }
 
     async handleSchedulePlan(plan){
