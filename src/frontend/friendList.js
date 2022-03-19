@@ -21,7 +21,7 @@ class FriendList extends React.Component {
                 <div id="shadowLayer"></div>
                 <button className="closeButton" onClick={() => {this.setState({addFriendPopUp : "hide"})}}>x</button>
                 <div className="popUp">
-                    <AddFriend />
+                    <AddFriend userId = {this.props.stat.user}/>
                 </div>
             </div>
 

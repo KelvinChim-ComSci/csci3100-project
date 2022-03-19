@@ -32,6 +32,7 @@ class Main extends React.Component {
     popFriendLlist() {
         console.log("pop friend list");
         this.setState({popUpBar : "friend"});
+        console.log(this.state.stat._id)
     }
 
     popMessageBox() {
@@ -54,7 +55,7 @@ class Main extends React.Component {
         document.getElementById("sports").innerText = this.state.stat.sports;
         document.getElementById("happiness").innerText = this.state.stat.happiness;
         document.getElementById("money").innerText = this.state.stat.money;      
-        document.getElementById("_id").innerText = this.state.stat._id;
+        document.getElementById("_id").innerText = this.state.stat.user;
         document.getElementById("stamina").innerText = this.state.stat.stamina;
         document.getElementById("sem").innerText = this.state.stat.sem;
         document.getElementById("year").innerText = this.state.stat.year;
@@ -257,6 +258,7 @@ class Main extends React.Component {
 
                 <section id="friendList" className = "col-sm-3 col-lg-3 col-xl-3">
                         <h2>Friends</h2>
+                        <FriendList stat = {this.state.stat}/>
                 </section>
 
 
@@ -266,7 +268,7 @@ class Main extends React.Component {
                 {this.popUp(this.state.popUpBar)}
             
                 <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
-                <FriendList />
+                
             </div> 
         )
     }

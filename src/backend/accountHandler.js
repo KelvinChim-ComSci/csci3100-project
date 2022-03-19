@@ -163,6 +163,17 @@ module.exports.email = async function (req, res) {
     }
 }
 
+module.exports.findFriendId = async function (username) {
+    try {
+        const user = await User.findOne({ username: username });
+        if (user === null) return { error: 1 };
+        return {
+            friendId: user._id
+        };
+    } catch (error) { console.log(error) };
+}
+
+
 
 module.exports.test = async function (req, res) {
     try {

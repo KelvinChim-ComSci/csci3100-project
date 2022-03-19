@@ -2,6 +2,7 @@
 
 const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
+const friendHandling = require('./friendHandler.js');
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
@@ -21,12 +22,6 @@ db.once('open', function () {
 });
 
 // Schema
-var FriendListSchema = mongoose.Schema({
-    requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    recipent: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    accepted: { type: Boolean, required: true } // 0 is false, 1 is true
-});
-var FriendList = mongoose.model('FriendList', FriendListSchema);
 
 var MessageSchema = mongoose.Schema({
     sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -75,11 +70,18 @@ app.post('/stat/update', async function (req, res) {
     return statisticHandling.statUpdate(req, res);
 })
 
-
 app.post('/stat/retrieve', async function (req, res) {
     return statisticHandling.stat(req, res);
 });
 
+
+
+app.post('/friend/sendRequest', async function (req, res) {
+    return friendHandling.sendRequest(req, res);
+});
+
+
+// General
 app.get('/', async function (req, res) {
     return res.json('Server-side of the game: CU Simulator.');
 })
