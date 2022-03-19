@@ -40,7 +40,7 @@
     font-size: 30px;
 }
 
-#shadowLayer{
+.mainPopUp #shadowLayer{
     height: 100%;
     width: 100%;
     position: absolute;
@@ -51,7 +51,7 @@
     opacity: 50%;
 }
 
-.popUp{
+.mainPopUp .popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;
@@ -65,7 +65,7 @@
     overflow: auto;
 }
 
-.closeButton{
+.mainPopUp .closeButton{
     z-index: 3000;
     position: absolute;
     background-color: rgb(255, 123, 0);

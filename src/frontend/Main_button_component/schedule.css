@@ -24,7 +24,7 @@
 
 
 .column{
-    width: 22.5%;
+    width: 25%;
     padding: calc(3%/2);
     border: 1px solid rgb(41, 35, 15);
 }
@@ -53,6 +53,7 @@
 .leftText{
     padding: 10px 0 0 0;
     text-align: left;
+    font-size: 20px;
 }
 
 #shadowLayer2{

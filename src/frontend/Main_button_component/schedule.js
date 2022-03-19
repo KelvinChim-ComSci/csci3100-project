@@ -166,7 +166,7 @@ class Schedule extends React.Component {
         <h2>Schedule</h2>
         <h3>Drag and drop to plan your schedule!</h3>
         <div className="content">
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-evenly">
           <DragDropContext 
             onDragStart={this.onDragStart}
             onDragEnd={this.onDragEnd}
@@ -198,28 +198,6 @@ class Schedule extends React.Component {
     );
   }
 }
-
-
-
-/*
-function displaySchedule(){
-    return (
-    <div className="schedule"> 
-        <h1>Schedule</h1>
-        <h2>Click on activities to plan your Ulife!</h2>
-        <ul className="list-group">
-            <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("gpa")}>Study</li>
-            <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("money")}>Part time</li>
-            <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("sports")}>Gym</li>
-            <li className="list-group-item list-group-item-action" onClick={()=>this.addStat("happiness")}>Hang out with friends</li>
-            <li className="list-group-item list-group-item-action">Rest</li>
-        </ul>
-
-    </div>
-    );
-}
-
-*/
 
 export default Schedule
 

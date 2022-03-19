@@ -1,0 +1,43 @@
+.profile {
+    padding: 10px;
+}
+
+.profile h2 {
+    padding: 10px 0 15px 0;
+    text-align: center;
+    
+}
+
+.profile .container {
+    width: 100%;
+    transform: translateY(0%);
+    background-color: transparent;
+}
+
+.profile .row {
+    color: black;
+    font-size: 25px;
+    padding: 10px 0 10px 0;
+}
+
+.profile #image {
+    text-align: center;
+    overflow: auto;
+}
+
+.profile img {
+    height: 100%;
+    max-height: 500px;
+    width: auto;
+}
+
+.profile #textbox {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.profile .edit {
+    background-color: green;
+    color: white;
+    border-radius: 10%;
+}

@@ -93,7 +93,7 @@ class MainEvent extends React.Component {
     popUp(option) {
         if (option === "choice")
             return (
-                <div>
+                <div className="mainEventPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp" id = "choiceWindow">
                         <Choice script_answer={this.script_answer} handleChoice={this.handleChoice} />

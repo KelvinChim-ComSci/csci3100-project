@@ -67,14 +67,15 @@ a { color: inherit; }
     opacity: 20%;
 }
 
-.popUp{
+
+#event .popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: 90%;
-    width: 90%; 
+    height: auto;
+    width: auto;
     background-color: rgb(214, 213, 213);
     border: 6px solid rgb(0, 100, 5);
     opacity: 100%;

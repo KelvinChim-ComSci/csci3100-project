@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Main.css';
 import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schedule';
-import Status from './Main_button_component/status';
+import Profile from './Main_button_component/profile';
 import Map from './Main_button_component/map';
 import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
@@ -61,7 +61,7 @@ class Main extends React.Component {
         document.getElementById("year").innerText = this.state.stat.year;
     }
 
-    statUpdateFromBackend() {
+    statUpdateFromBackend(ID) {
         fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
         method: "POST",
         headers: new Headers({
@@ -72,7 +72,7 @@ class Main extends React.Component {
             "Access-Control-Allow-Credentials": true,
         }),
         body: JSON.stringify({
-            userId: this.props.userId
+            userId: ID
             })
         })
         .then((res) => res.json())
@@ -94,26 +94,26 @@ class Main extends React.Component {
         if (window.sessionStorage.getItem("isLoggedIn")) {
             await this.props.handleSessionRefresh();
         }
-        this.statUpdateFromBackend();
+        this.statUpdateFromBackend(this.props.userId);
     }
 
 
     popUp(option) {
         console.log("current Pop-up: ", this.state.popUpBar);
-        if (option === "status")
+        if (option === "profile")
             return (
-                <div>
+                <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Status stat={this.state.stat} />
+                        <Profile stat={this.state.stat} />
                     </div>
                 </div>
 
             )
         if (option === "map"){
             return (
-                <div>
+                <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
@@ -124,7 +124,7 @@ class Main extends React.Component {
         }
         if (option === "logout"){
             return (
-                <div>
+                <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp" id="logout">
                         <h4>Are you sure to log out?</h4>
@@ -140,7 +140,7 @@ class Main extends React.Component {
 
         if (option === "schedule"){
             return (
-                <div>
+                <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
@@ -150,9 +150,9 @@ class Main extends React.Component {
             )
         }
 
-        if ((option === "mainEvent")){
+        if (option === "mainEvent"){
             return (
-                <div>
+                <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                         <MainEvent handlePopClose = {this.handlePopClose}/>
@@ -160,6 +160,19 @@ class Main extends React.Component {
                 </div>
             )
         }
+
+        if (option === "friend"){
+            return (
+                <div className="mainPopUp">
+                    <div id="shadowLayer"></div>
+                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                    <div className="popUp">
+                        <FriendList stat = {this.state.stat}/>
+                    </div>
+                </div>
+            )
+        }
+        
         else {
             return 
         }
@@ -215,7 +228,7 @@ class Main extends React.Component {
                 <p> Welcome to CU Simulator! </p>
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
-                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "status"})}>Check status</button>
+                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                 <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                 <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
                 <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
@@ -255,12 +268,6 @@ class Main extends React.Component {
                     </tbody>
                     </table>
                 </section>
-
-                <section id="friendList" className = "col-sm-3 col-lg-3 col-xl-3">
-                        <h2>Friends</h2>
-                        <FriendList stat = {this.state.stat}/>
-                </section>
-
 
                 </div> {/* row */}
                 </div> {/* container-fluid */}

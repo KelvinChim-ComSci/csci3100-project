@@ -1,5 +1,6 @@
 import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
+import './friendList.css';
 
 // fetch friends from backend, if no friends put a message to tell player to add friends by pressing the + button.
 // There will be a list of friends with no lights on and green lights depending on the status.
@@ -29,12 +30,17 @@ class FriendList extends React.Component {
     }
     render() {
         return (
-            <div class="FriendList">
+            <div className="friendList">
+                <p>Let there be friend.</p>
+
+                <div className="onlineFriends">
+                    It is supposed to show your friends but you don't have any.. F
+                </div>
+
                 <div>
-                    <button onClick={()=>this.setState({addFriendPopUp: "show"})}> + </button>
+                    <button onClick={()=>this.setState({addFriendPopUp: "show"})}> friend++ </button>
                 </div>
-                <div class="onlineFriends">
-                </div>
+                
                 {this.addFriend()}
             </div>
         )
