@@ -1,14 +1,7 @@
-.event-NA{
+.event{
     height: 100vh;
     background: green;
     background-image: url('/src/backend/background/na.jpeg');
-    background-size: 100%;
-}
-
-.event-ULib{
-    height: 100vh;
-    background: green;
-    background-image: url('/src/backend/background/The Chinese University of Hong Kong University Library (U Lib).jpeg');
     background-size: 100%;
 }
 
@@ -75,7 +68,7 @@ a { color: inherit; }
 }
 
 
-#event .popUp{
+.event .popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;

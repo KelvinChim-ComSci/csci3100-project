@@ -6,6 +6,16 @@ import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
 import Choice from './choiceWindow';
 import { useRoutes } from 'react-router-dom';
+import ulib_bg from '../backend/background/ULib.png'
+import na_bg from '../backend/background/na.jpeg'
+import unistation_bg from '../backend/background/unistation.png'
+import haddoncave_bg from '../backend/background/haddoncave.png'
+import weiyuanlake_bg from '../backend/background/weiyuanlake.png'
+import uc_bg from '../backend/background/uc.png'
+import unimall_bg from '../backend/background/unimall.png'
+import medcan_bg from '../backend/background/medcan.png'
+import swimmingpool_bg from '../backend/background/swimmingpool.png'
+import cclib_bg from '../backend/background/cclib.png'
 
 class Event extends React.Component {
     constructor(props) {
@@ -13,7 +23,7 @@ class Event extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
-
+        this.bgchoice = this.bgchoice.bind(this);
         fetch(dia)
         .then(r => r.text())
         .then(text => {
@@ -29,7 +39,6 @@ class Event extends React.Component {
                 //   this.script_reaction.push(this.script_list[k+1]);
               }
           }
-        document.getElementById('event').className = 'event-'+this.props.location.replace(/\s/g, '');;
 
         //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
 
@@ -43,6 +52,22 @@ class Event extends React.Component {
 
     }
 
+    bgchoice(location){
+        console.log("1231231232")
+        console.log(location)
+        if (location == "U Lib"){return ulib_bg}
+        if (location == "NA"){return na_bg}
+        if (location == "University Station"){return unistation_bg}
+        if (location == "Haddon-Cave"){return haddoncave_bg}
+        if (location == "Weiyuan Lake"){return weiyuanlake_bg}
+        if (location == "UC"){return uc_bg}
+        if (location == "The University Mall"){return unimall_bg}
+        if (location == "MedCan"){return medcan_bg}
+        if (location == "Swimming Pool"){return swimmingpool_bg}
+        if (location == "CC Lib"){return cclib_bg}
+
+
+    }
     returnToMain() {
         this.props.navigate('../main');
     }
@@ -130,7 +155,7 @@ class Event extends React.Component {
         console.log(this.props.params);
 
         return (
-            <div id = 'event' className = "event-na">
+            <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
                 <div className = "container topLeft"><h1  id='Location'>{this.props.location}</h1></div>
                 <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
                 <div className="text" onClick={()=>this.handleClick()}>
