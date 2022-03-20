@@ -117,7 +117,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Map />
+                        <Map handleLocation = {this.props.handleLocation}/>
                     </div>
                 </div>
             )

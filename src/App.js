@@ -20,10 +20,12 @@ class App extends React.Component {
       isAdmin: 0,
       loggedInStatus: "Not Logged In",
       isLoggedIn: 0,
-      forgetPassword: false
+      forgetPassword: false,
+      location: "",
     }
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLocation = this.handleLocation.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
@@ -78,6 +80,10 @@ class App extends React.Component {
     window.sessionStorage.removeItem("isLoggedIn");
   }
 
+  handleLocation(location){
+    this.setState({location: location});
+  }
+
   render() {
     return (
       <div className="App" >
@@ -100,12 +106,15 @@ class App extends React.Component {
                 <Main
                   handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
+                  handleLocation = {this.handleLocation}
+                  location = {this.state.location}
                   username={this.state.username}
                   userId={this.state.userId}
                 />
               }
             />
-            <Route path="/event" element={<Event />} />
+            <Route path="/event" element={<Event
+            location = {this.state.location}/>} />
             <Route 
               path="/adminPage" 
                 element={<AdminPage

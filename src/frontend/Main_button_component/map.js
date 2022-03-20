@@ -3,6 +3,9 @@ import "./map.css";
 import { withRouter } from '../withRouter.js';
 import img from '../../backend/background/map.png';
 import ImageMapper from 'react-img-mapper';
+import { NavigationType } from "react-router-dom";
+import Main from "../Main";
+import App from "../../App";
 
 var URL = img;
 var MAP = {
@@ -78,11 +81,13 @@ class Map extends React.Component {
             location : "",
         };
     }
-    
+
     navigator() {
         console.log(this.state.location)
-        this.props.navigate("../event", {screen:'../event', params:{location: this.state.location}});
+        this.props.handleLocation(this.state.location);    
+        this.props.navigate("../event");
     }
+
     displayDescription(area) {
     document.getElementById("detail").innerText ="Place Details";
     document.getElementById("detail").className = "tdT";
@@ -113,7 +118,7 @@ class Map extends React.Component {
                     <div className="img">
                     <ImageMapper src={URL} map={MAP} width={800} 
                     onClick={area => {this.displayDescription(area); 
-                                      this.setState({location: document.getElementById("place").innerText});
+                                      this.setState({location: area.name});
                                       }
                     }
                     onMouseEnter={area => this.showHover(area)}

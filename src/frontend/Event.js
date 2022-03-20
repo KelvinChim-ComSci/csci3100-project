@@ -29,15 +29,18 @@ class Event extends React.Component {
                 //   this.script_reaction.push(this.script_list[k+1]);
               }
           }
-          console.log("script_reaction_count", this.script_reaction_count);
-        });
+        document.getElementById('event').className = 'event-'+this.props.location.replace(/\s/g, '');;
+
+        //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
+
+    });
 
         this.state = {
             script_count : 1,
             popUpChoice : "",
             chosenChoice: -1,
         }
-        
+
     }
 
     returnToMain() {
@@ -45,13 +48,13 @@ class Event extends React.Component {
     }
 
     handleClick() {
-        console.log("script line #", this.state.script_count);
+        // console.log("script line #", this.state.script_count);
         var dia_line = this.script_list[this.state.script_count];
-        console.log("string:", dia_line);
+        // console.log("string:", dia_line);
 
         // end event if # is detected
         if (dia_line[0] === "#"){
-            console.log("")
+            // console.log("")
             this.returnToMain();
         }
 
@@ -73,7 +76,7 @@ class Event extends React.Component {
         if (dia_line[0] === "@" && dia_line[1] === "Q"){
             dia_line = dia_line.substring(4);
             document.getElementById('dialogue').innerHTML = dia_line;
-            console.log("pop choice");
+            // console.log("pop choice");
             this.setState({
                 popUpChoice : "choice",
                 script_count: this.state.script_count + 1
@@ -90,7 +93,7 @@ class Event extends React.Component {
           })
 
         await new Promise(resolve => setTimeout(resolve, 1));
-        console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
+        // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
       }
       
@@ -125,9 +128,10 @@ class Event extends React.Component {
 
     render() {
         console.log(this.props.params);
+
         return (
-            <div id = "event">
-                <div className = "container topLeft"><h1  id='Location'>LOCATION</h1></div>
+            <div id = 'event' className = "event-na">
+                <div className = "container topLeft"><h1  id='Location'>{this.props.location}</h1></div>
                 <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
                 <div className="text" onClick={()=>this.handleClick()}>
                     <p id = "dialogue"> ??? </p>
