@@ -1,0 +1,7 @@
+Internship (end of year 3 sem 2)
+[pop to ask if you want to apply for internship, research helper or doing nothing]
+
+@A1@ Internship (+money, - happiness)
+@A2@ Research helper (+ GPA, - happiness)
+@A3@ Doing nothing (unchanged)
+

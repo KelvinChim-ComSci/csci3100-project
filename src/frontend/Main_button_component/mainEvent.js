@@ -1,8 +1,34 @@
 import React from "react";
 import "./mainEvent.css";
-import dia from "../EventScript/Introduction.txt"
-import Choice from '../choiceWindow';
+import event1 from "../EventScript/event1.txt"
+import event2 from "../EventScript/event2.txt"
+import event3 from "../EventScript/event3.txt"
+import event4 from "../EventScript/event4.txt"
+import event5 from "../EventScript/event5.txt"
+import event6 from "../EventScript/event6.txt"
+import event7 from "../EventScript/event7.txt"
+import event8 from "../EventScript/event8.txt"
+import event9 from "../EventScript/event9.txt"
+import event10 from "../EventScript/event10.txt"
+import event11 from "../EventScript/event11.txt"
+import event12 from "../EventScript/event12.txt"
+import event13 from "../EventScript/event13.txt"
+import event14 from "../EventScript/event14.txt"
+import event15 from "../EventScript/event15.txt"
+import event16 from "../EventScript/event16.txt"
+import event17 from "../EventScript/event17.txt"
+import event18 from "../EventScript/event18.txt"
+import event19 from "../EventScript/event19.txt"
+import event20 from "../EventScript/event20.txt"
+import event21 from "../EventScript/event21.txt"
+import event22 from "../EventScript/event22.txt"
+import event23 from "../EventScript/event23.txt"
+import event24 from "../EventScript/event24.txt"
 
+
+
+
+import Choice from '../choiceWindow';
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
@@ -10,7 +36,13 @@ class MainEvent extends React.Component {
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
 
-        fetch(dia)
+
+        function eventChoice(year,sem){
+            if (year ==1 && sem == 1){return event2}   
+            return event6
+        }
+
+        fetch(eventChoice(this.props.year, this.props.sem))
         .then(r => r.text())
         .then(text => {
           this.script_list = text.split('\n');
@@ -22,6 +54,12 @@ class MainEvent extends React.Component {
               if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
                   this.script_answer.push(this.script_list[k].substring(6));
                   this.script_reaction_count.push(this.script_list[k][4]);
+                  if (this.script_list[k][5]!="@"){
+                      this.script_reaction_count.pop()
+                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
+                      this.script_answer.pop();
+                      this.script_answer.push(this.script_list[k].substring(7));
+                  }
                 //   this.script_reaction.push(this.script_list[k+1]);
               }
           }

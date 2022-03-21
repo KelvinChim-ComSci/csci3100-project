@@ -1,0 +1,20 @@
+~First Lesson~
+Entering the classroom, although you arrive 15 mins early, half of the seats are occupied. You go for an empty seat next to a boy.
+You: Hi, may I take this seat?
+The boy: Sure! Is it your first lesson?
+You: Yes, My name is (User name). How about you?
+Ken : My name is Ken. Nice to meet you.
+Lecturer: Good morning guys. Welcome to our lecture. Today I will briefly introduce this course and we will run through the course outline together.
+(Having lesson)
+@QQ@The lesson has ended, do you want to invite Ken for lunch?
+@A1,2@ Yes
+@A2,7@ No
+@R1@ You: Shall we have lunch together?
+@R1@ Ken: Sure!
+@R1@ You two went to the canteen near the medical center, so-called med can,  and had a great time. However, you lose some time to review the lecture materials. (+happiness, - GPA)
+#
+@R2@ Since you want to review the lecture, you decide not to invite Ken for lunch. You go to the canteen near the medical center, so-called med can, and have a quick lunch. 
+@R2@After that you review material in the lecture in the University Library and end your day.(+GPA)
+#
+
+

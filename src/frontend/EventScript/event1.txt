@@ -1,0 +1,18 @@
+~Introduction~
+Walking out from the MTR station, the first thing that gets into your eyes is the Democratic Goddess, which reminds you of the fact that you are currently a university student. Today you come to the campus to join the orientation day.
+You: Oh… CUHK is really a large place, where can I find Yasumoto International Academic (YIA) Park?
+After this pops into mind, you see a sign pointing to the YIA immediately. 
+(Walking to YIA)
+You arrive at YIA.
+Senior A: Hey! Come to join our Chung Chi College! We have lots of scholarships available and there are various activities!
+Senior B: No, you should join Shaw College! We have plenty of exchange opportunities!
+After some considerations, you choose to join _____.
+@QQ@Immediately you were asked to join the Orientation Camp, do you want to join it?
+@A1,2@ Yes
+@A2,4@ No
+@R1@ Decided to join the orientation camp, you loss some money for application and time for previewing materials to prepare for the class. Still, you have a fun time with peers. (-money, +happiness, - GPA)
+@R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
+#
+@R2@ Decided not to join the orientation camp, you save some money and time for previewing materials to prepare for the class. (+money, +GPA)
+@R2@ After the orientation day, the semester starts and you are going to have your first lesson.
+#

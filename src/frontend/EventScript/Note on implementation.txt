@@ -1,0 +1,25 @@
+** How to make new event:
+
+~(TITLE)~
+line
+line
+line
+@QQ@ line
+@A1,(# of lines to target script from A1, 10 - 8 = 2 in this case)@ Choice
+@A2,(# of lines to target script from A1, 14 - 8 = 6 in this case)@ Choice
+@R1@ line
+@R1@ line
+@R1@ line
+#
+@R2@ line
+@R2@ line
+@R2@ line
+
+
+
+*******************
+
+TODO List on main event:
+
+(1) Event 12,13,15 logic
+

@@ -1,0 +1,11 @@
+~Cultural activity~
+Missing some important events such as hostel registration, high table dinner etc.. You have learnt that it is important to check email regularly to see if there is anything you may miss.
+Scrolling through the mail, you saw that there is an activity where people from different countries in CUHK are gathered together and have dinner. You suddenly remembered that CUHK ranks one of the top in Asia in terms of cultural diversity. 
+@QQ@ Do you want to join it ?
+@A1,2@ Yes 
+@A2,4@ No  
+@R1@ You decided to join the event. You learnt a lot by talking with people coming from Japan, UK, or even some countries that you have never heard of. (+happiness, -money)
+#
+@R2@ You chose to ignore this email as usual.
+#
+

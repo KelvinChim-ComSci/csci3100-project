@@ -1,0 +1,17 @@
+~High table dinner~
+You have been keeping good relationships with your friends in the same college. One day, you are having lunch with them in the canteen of your college.
+Ken: Hey, are you going to join the high table dinner tonight?
+You: What? High table dinner?
+Ken: Yes! There is a high table dinner regularly and students must join it to fulfill the requirement! Didn’t you join it last year?
+You suddenly remember about it. You were not available to attend the high table dinner last year and applied for exemption. 
+Ken: Go with me today! It would be fun!
+@QQ@ Do you want to go with Ken?
+@A1,2@ No
+@A2,5@ Yes
+@R1@ Ken: Okay, maybe you have dated others. It’s fine.
+@R1@ You attended the high table dinner alone and not many people are talking to you.
+# 
+@R2@ Ken: Great! See you there!
+@R2@ You guys have fun and meet a lot of friends. 
+#
+

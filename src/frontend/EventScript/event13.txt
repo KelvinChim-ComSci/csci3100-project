@@ -1,0 +1,31 @@
+~Exchange~
+Scrolling on Instagram, you see that many of your friends have joined different exchange programmes and went to different countries.
+You suddenly remember that, the summer exchange programme from OEA and the college are both near the deadline of application.
+You meet Joyce when you are thinking about whether to join it or not.
+Joyce: Hey (User name), what are you thinking?
+You: Great! I was thinking about whether to go on an exchange programme.
+Joyce: Oh, I actually applied the one to UK from my college yesterday, Hope that I can get an offer,
+You: Oh really? 
+@QQ@What would you do?@QQ@
+@A1@ Go on a different exchange programme (+GPA, +happiness, -money)
+@A2@ Apply to the same exchange programme with Joyce (+happiness, become couple with Joyce if not yet, +happiness, - money)
+@A3@ Do not go for an exchange (unchanged)
+@R1,2@[ if GPA<M/2] You tried to apply for the exchange programme, but you didn’t get any offer.
+@R1@[if GPA > M/2] You: I am planning to go to America! It seems that we cannot be on the same trip!
+
+@R2@[if not couple with Joyce yet and GPA>M/2]
+You: Oh, I was also planning to go to that school. 
+Joyce: Really? Hope that we can go there together! 
+You applied for the same school and got an offer. 
+[become couple with Joyce at the end of summer sem/year 2 sem 2]
+
+
+@R2@[if couple with Joyce yet and GPA>M/2]
+You: Oh, I was also planning to go to that school. 
+Joyce: Really? Hope that we can go there together! 
+You applied for the same school and got an offer. You can imagine how happy it would be to have a trip to UK with your girlfriend.
+
+@R3@ 
+You chose to stay at home for your summer.
+
+

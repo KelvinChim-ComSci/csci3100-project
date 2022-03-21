@@ -1,0 +1,15 @@
+~FYP~
+This is your last year in CUHK, and you need to work on your final year project (FYP). Currently you are at the stage of seeking supervisor of your individual project. You are thinking which professor would be better for you.
+@QQ@ Which one would you choose?
+@A1,3@ Prof. Leung 
+@A2,6@ Prof. Li 
+@A3,9@ Prof. Yu 
+@R1@ You have chosen Prof. Leung as your supervisor. He has strict requirements on your work, and his field of research is very difficult. However, you have learnt a lot and have done quite well.
+@R1@Prof. Leung also offered you a position of undergraduate research helper. (-happiness, +GPA, +money)
+#
+@R2@ Prof. Li is an easy going professor. You got good grades but you didn’t not learn much from the FYP. (+GPA)
+#
+@R3@ Prof Yu is a strange teacher that students always gossip about. However, he has the same research interest as you so   you have chosen him as you supervisor. You found him an interesting person, but he assigned you a very difficult research topic, which you cannot understand every academic paper in this area. 
+@R3@ You have learnt nothing and got a bad grade. (- happiness, -GPA)
+#
+

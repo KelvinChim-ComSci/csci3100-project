@@ -1,0 +1,16 @@
+~Buying an ipad?~
+It is common for university students to have an iPad. It increases effectiveness in learning and helps to document your notes really well. You are talking to Joyce about it. 
+Joyce: Do you have an iPad?
+You: No. But I think it would definitely be good for my studies.
+Joyce: Yeah I think so too. I plan to buy one next week. Do you want to get one too?
+@QQ@ How would you reply?
+@A1,3@ Me too! Shall we go to buy it together next week?
+@A2,5@ Me too! I think I will get it this week
+@A3,7@ No, it is too expensive.
+@R1@ Joyce: Sure! (-money, + GPA, +happiness)
+#
+@R2@ Joyce: Great! Let me know if it's good after you buy it.  (-money, + GPA)
+#
+@R3@ Joyce: That’s also true. Maybe I need to think again whether I really need it.
+#
+

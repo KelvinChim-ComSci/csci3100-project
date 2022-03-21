@@ -1,0 +1,12 @@
+~Research Opportunity~
+While scrolling the mailbox, you suddenly discover the following email:
+“Undergraduate Research Helper Recruitment”
+You are going to help with a research project on data collecting and analyzing. Regular meetings of the research team will be held. An interview will be conducted and selected candidates will be recruited as a research assistant with $60/h.
+@QQ@ Would you apply for it?
+@A1,2@ Yes.
+@A2,4@ No.
+@R1@ You joined the research team of Prof. Chan. You get in touch with what real academic research looks like and it would definitely be helpful for your graduate studies. (+GPA, + money)
+#
+@R2@ You decided to ignore the email.
+#
+
