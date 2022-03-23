@@ -1,9 +1,44 @@
 #main{
     height: 100vh;
-    background-image: url('/src/backend/background/main.jpeg');
-    background-size: auto 100%;
+}
+
+#main .split {
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
   
+#main .left {
+    height: 100%;
+    width: 80%;
+    left: 0;
+    top: 0;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+  
+#main .right-top {
+    height: 50%;
+    width: 20%;
+    top: 0;
+    right: 0;
+    background-color: rgb(182, 182, 182);
+}
+  
+#main .right-bot {
+    height: 50%;
+    width: 20%;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(109, 109, 109);
+}
+
+
+
+
+
+
 .mainButton{
     padding: 100px;
     font-size: xx-large;

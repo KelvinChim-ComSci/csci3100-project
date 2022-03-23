@@ -9,6 +9,29 @@ import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 import FriendList from './friendList';
 import MainEvent from './Main_button_component/mainEvent';
+import main_bg from '../backend/background/main.jpeg';
+import StatDisplay from './statDisplay';
+
+function statUpdateFromFrontend(res) {
+    console.log(res);
+    if (res === null)
+        return;
+
+    this.setState({stat: res})
+
+    /*
+    document.getElementById("gpa").innerText = stat.gpa;
+    document.getElementById("sports").innerText = stat.sports;
+    document.getElementById("happiness").innerText = stat.happiness;
+    document.getElementById("money").innerText = stat.money;      
+    document.getElementById("_id").innerText = stat.user;
+    document.getElementById("stamina").innerText = stat.stamina;
+    document.getElementById("sem").innerText = stat.sem;
+    document.getElementById("year").innerText = stat.year;
+    */
+    
+    console.log("Hi");
+}
 
 class Main extends React.Component {
 
@@ -17,6 +40,7 @@ class Main extends React.Component {
         this.state = {
             popUpBar : "",
             stat : null,
+            bg : main_bg,
         };
 
         this.userLogout = this.userLogout.bind(this);
@@ -50,17 +74,6 @@ class Main extends React.Component {
         this.setState({popUpBar : ""});
     }
 
-    statUpdateFromFrontend() {
-        document.getElementById("gpa").innerText = this.state.stat.gpa;
-        document.getElementById("sports").innerText = this.state.stat.sports;
-        document.getElementById("happiness").innerText = this.state.stat.happiness;
-        document.getElementById("money").innerText = this.state.stat.money;      
-        document.getElementById("_id").innerText = this.state.stat.user;
-        document.getElementById("stamina").innerText = this.state.stat.stamina;
-        document.getElementById("sem").innerText = this.state.stat.sem;
-        document.getElementById("year").innerText = this.state.stat.year;
-    }
-
     statUpdateFromBackend(ID) {
         fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
         method: "POST",
@@ -81,11 +94,10 @@ class Main extends React.Component {
             this.setState({
                 stat: res
             });
-            this.statUpdateFromFrontend();
         })
+        statUpdateFromFrontend(this.state.stat);
     }
 
-    
     componentDidMount() {
         this.checkRefreshAndUpdate();
     }
@@ -96,7 +108,6 @@ class Main extends React.Component {
         }
         this.statUpdateFromBackend(this.props.userId);
     }
-
 
     popUp(option) {
         console.log("current Pop-up: ", this.state.popUpBar);
@@ -223,9 +234,30 @@ class Main extends React.Component {
         return (
             <div id="main">
 
-                
+                <div className="split left" style={{backgroundImage: `url(${this.state.bg})`}}>
+                    <h2>Welcome to CU Simulator!</h2>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
+                </div>
 
-                <p> Welcome to CU Simulator! </p>
+                <div className="split right-top">
+                    <StatDisplay stat={this.state.stat} />
+                </div>
+
+                <div className="split right-bot">
+                    <h2>buttons</h2>
+                </div>
+
+                {this.popUp(this.state.popUpBar)}
+
+            </div>
+
+        )
+    }
+}
+
+export default withRouter(Main);
+
+/*
                 <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                 <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
@@ -235,50 +267,5 @@ class Main extends React.Component {
                 <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                 </div>
 
-                <div className='container-fluid'>
-                <div className = "row">
-                <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
-
-                    <table>
-                    <thead><tr>
-                            <th scope="col">Statistics</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>User id :</td>
-                            <td id="_id">?</td>
-                        </tr>
-                        <tr><td>GPA :</td>
-                            <td id="gpa">?</td>
-                        </tr>
-                        <tr><td>Sports :</td>
-                            <td id="sports">?</td>
-                        </tr>
-                        <tr><td>Happiness :</td>
-                            <td id="happiness">?</td>
-                        </tr>
-                        <tr><td>Money :</td>
-                            <td id="money">?</td>
-                        </tr>
-                        <tr><td>Stamina :</td>
-                            <td id="stamina">?</td>
-                        </tr>
-                        
-                    </tbody>
-                    </table>
-                </section>
-
-                </div> {/* row */}
-                </div> {/* container-fluid */}
-
-                {this.popUp(this.state.popUpBar)}
-            
-                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
                 
-            </div> 
-        )
-    }
-}
-
-export default withRouter(Main);
+*/
