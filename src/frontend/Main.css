@@ -1,12 +1,10 @@
 #main{
-    height: 100vh;
+    height: 100%; 
 }
 
 #main .split {
     position: fixed;
-    z-index: 1;
-    overflow-x: hidden;
-    padding-top: 20px;
+    overflow: auto;
 }
   
 #main .left {
@@ -33,9 +31,6 @@
     right: 0;
     background-color: rgb(109, 109, 109);
 }
-
-
-
 
 
 

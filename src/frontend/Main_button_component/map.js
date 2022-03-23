@@ -84,8 +84,8 @@ class Map extends React.Component {
 
     navigator() {
         console.log(this.state.location)
-        this.props.handleLocation(this.state.location);    
-        this.props.navigate("../event");
+        this.props.handleLocation(this.state.location);  
+        this.props.handlePopClose();
     }
 
     displayDescription(area) {
