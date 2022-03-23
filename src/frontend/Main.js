@@ -11,18 +11,7 @@ import FriendList from './friendList';
 import MainEvent from './Main_button_component/mainEvent';
 import main_bg from '../backend/background/main.jpeg';
 import Event from './Event';
-
-
-function statUpdateFromFrontend(res) {
-    document.getElementById("gpa").innerText = res.gpa;
-    document.getElementById("sports").innerText = res.sports;
-    document.getElementById("happiness").innerText = res.happiness;
-    document.getElementById("money").innerText = res.money;      
-    document.getElementById("_id").innerText = res.user;
-    document.getElementById("stamina").innerText = res.stamina;
-    document.getElementById("sem").innerText = res.sem;
-    document.getElementById("year").innerText = res.year;
-}
+import StatDisplay from './statDisplay';
 
 
 class Main extends React.Component {
@@ -35,15 +24,20 @@ class Main extends React.Component {
             location : "main",
         };
 
+        this.statRef = React.createRef();
+
         this.userLogout = this.userLogout.bind(this);
-        this.popFriendLlist = this.popFriendLlist.bind(this);
-        this.popMessageBox = this.popMessageBox.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
-        this.popMainEvent = this.popMainEvent.bind(this);
+
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
 
+    }
+
+    updateStat(stat){
+        this.statRef.current.update(stat);
+        this.setState({ stat: { ...this.state.stat, ...stat } });
     }
  
     handleLocation(location){
@@ -72,6 +66,7 @@ class Main extends React.Component {
     }
 
     statUpdateFromBackend(ID) {
+
         fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
         method: "POST",
         headers: new Headers({
@@ -88,17 +83,14 @@ class Main extends React.Component {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            this.setState({
-                stat: res
-            });
-            statUpdateFromFrontend(res);
+            this.updateStat(res);
         })  
     }
 
     componentDidMount() {
         this.checkRefreshAndUpdate();
     }
-    
+
     async checkRefreshAndUpdate() {
         if (window.sessionStorage.getItem("isLoggedIn")) {
             await this.props.handleSessionRefresh();
@@ -217,10 +209,7 @@ class Main extends React.Component {
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
         statBackendUpdate(newStat);
-        this.setState({
-            stat: newStat
-        })
-        statUpdateFromFrontend(newStat);
+        this.updateStat(newStat);
         return;
     }
 
@@ -256,7 +245,7 @@ class Main extends React.Component {
                 </div>
 
                 <div className="split right-top">
-                    <StatDisplay stat={this.state.stat} />
+                    <StatDisplay stat={this.state.stat} ref={this.statRef}/>
                 </div>
 
                 <div className="split right-bot d-flex flex-column justify-content-center">
@@ -275,46 +264,5 @@ class Main extends React.Component {
     }
 }
 
-
-class StatDisplay extends React.Component {
-    render(){
-        return (
-            <div className="container-fluid">
-                <div className = "row">
-                    <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
-
-                        <table>
-
-                        <thead>
-                            <tr>
-                                <th scope="col">Statistics</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr><td>User id: </td>
-                                <td id="_id"/></tr>
-                            <tr><td>GPA: </td>
-                                <td id="gpa"/></tr>
-                            <tr><td>Sports: </td>
-                                <td id="sports"/></tr>
-                            <tr><td>Happiness: </td>
-                                <td id="happiness"/></tr>
-                            <tr><td>Money: </td>
-                                <td id="money"/></tr>
-                            <tr><td>Stamina: </td>
-                                <td id="stamina"/></tr>
-                            <tr><td>Semester: </td>
-                                <td>Year <span id= "year"/> sem <span id= "sem"/></td></tr>
-                        </tbody>
-
-                        </table>
-                    </section>
-                </div>
-            </div>
-        )
-    }
-}
-
 export default withRouter(Main);
+
