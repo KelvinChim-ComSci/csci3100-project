@@ -12,9 +12,9 @@ Lecturer: Good morning guys. Welcome to our lecture. Today I will briefly introd
 @R1@ You: Shall we have lunch together?
 @R1@ Ken: Sure!
 @R1@ You two went to the canteen near the medical center, so-called med can,  and had a great time. However, you lose some time to review the lecture materials. (+happiness, - GPA)
-#
+#(-1,0,0,1)
 @R2@ Since you want to review the lecture, you decide not to invite Ken for lunch. You go to the canteen near the medical center, so-called med can, and have a quick lunch. 
 @R2@After that you review material in the lecture in the University Library and end your day.(+GPA)
-#
+#(1,0,0,0)
 
 

@@ -4,9 +4,8 @@ In front of you is the famous “Gate of Wisdom”, which stands on the so-calle
 @A1,2@Yes
 @A2,5@No
 @R1@Ken : haha, actually there is a saying that if you pass through the gate with your back facing the library, you will not be able to graduate. But if you do it in the opposite direction, you will have good grades!
-@R1@(GPA -1)
+@R1@(-gpa)
 #
 @R2@Ken : haha, how smart you are. Actually there is a saying that if you pass through the gate with your back facing the library, you will not be able to graduate. But if you do it in the opposite direction, you will have good grades!
-@R2@(GPA unchanged)
-@R2@123123123
+@R2@
 #

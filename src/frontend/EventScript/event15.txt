@@ -1,7 +1,12 @@
-Internship (end of year 3 sem 2)
-[pop to ask if you want to apply for internship, research helper or doing nothing]
-
-@A1@ Internship (+money, - happiness)
-@A2@ Research helper (+ GPA, - happiness)
+~Internship~
+The next semester would be your last year in CUHK, which intership you want to apply for during you summer?
+@A1,3@ Internship (+money, - happiness)
+@A2@ Research helper (+ GPA)
 @A3@ Doing nothing (unchanged)
+@R1@ You worked a typical company as a clerk during summer, you earned some money but you think it is a bit useless.(+money, -happiness)
+#
+@R2@ You worked as a research helper in CUHK. You didn't get much salary but you have learned a lot and it was fruitful. (+money, +happiness)
+#
+@R3@ You did nothing in your summer.
+#
 

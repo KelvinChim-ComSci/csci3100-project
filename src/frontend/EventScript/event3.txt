@@ -1,7 +1,7 @@
 ~Joining committee~
-This is your second week in CUHK. You started to apated to university life and made some friends, including Ken. 
+You started to apated to university life and made some friends, including Ken. 
 Recently, they are talking about joining the student committee together. Joyce, a girl you met in one of your major courses, is talking about this.
-Joyce : Hey (User name), do you want to join the committee with us? Ken and I have already decided to join that. 
+Joyce : Hey, do you want to join the committee with us? Ken and I have already decided to join that. 
 @QQ@ How would you reply?
 @A1,4@ No, I need to study and I don’t want to waste time on it. 
 @A2,6@ Sorry about that. I am busy with other part time jobs so I may not be able to join. 

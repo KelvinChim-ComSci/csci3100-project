@@ -155,7 +155,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent handlePopClose = {this.handlePopClose}/>
+                        <MainEvent stat = {this.state.stat} handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )

@@ -24,7 +24,7 @@ import event21 from "../EventScript/event21.txt"
 import event22 from "../EventScript/event22.txt"
 import event23 from "../EventScript/event23.txt"
 import event24 from "../EventScript/event24.txt"
-
+import event25 from "../EventScript/event24.txt"
 
 
 
@@ -38,11 +38,62 @@ class MainEvent extends React.Component {
 
 
         function eventChoice(year,sem){
-            if (year ==1 && sem == 1){return event2}   
-            return event6
+            // since the event pops up after the schdules end, the time in the story should -1 sem in here
+            if (year == 1 && sem == 1){console.log(this.props.stat); return  event2}   
+            if (year == 1 && sem == 2){return event3}
+            if (year == 1 && sem == 3){return event20}
+            if (year == 1 && sem == 4){
+                let highest = Math.max(this.props.stat.gpa, this.props.stat.sports, this.props.stat.happiness, this.props.stat.money);
+                if (this.props.stat.sports == highest){return event4}
+                if (this.props.stat.gpa == highest) {return event5}
+                if (this.props.stat.happiness == highest) {return event6}
+                if (this.props.stat.money == highest) {return event8}
+            }
+            if (year == 2 && sem == 1){return event7}
+            if (year == 2 && sem == 2){return event9}
+            if (year == 2 && sem == 3){
+                if (this.props.stat.sports > 10){
+                    return event10
+                }
+                if (this.props.stat.money > 10){
+                    return event19
+                }
+                if (this.props.stat.gpa > 10){
+                    return event25
+                }
+                if (this.props.stat.happiness > 10){
+                    return event18
+                }
+
+            }
+            if (year == 2 && sem == 4){return event11}
+            if (year == 3 && sem == 1){return event12}
+            if (year == 3 && sem == 2){return event13}
+            if (year == 3 && sem == 3){return event14}
+            if (year == 3 && sem == 4){return event15}
+            if (year == 4 && sem == 1){
+                console.log("year 4 sem 1")
+                if (this.props.stat.sports > 20){
+                    return event24
+                }
+                if (this.props.stat.money > 20){
+                    return event23
+                }
+                if (this.props.stat.gpa > 20){
+                    return event21
+                }
+                if (this.props.stat.happiness > 20){
+                    return event22
+                }
+            }
+            if (year == 4 && sem == 2){console.log("year 4 sem 2"); return event16}
+            if (year == 4 && sem == 3){return event17}
+            if (year == 4 && sem == 4){
+                //handle endings, to be implemented
+            }
         }
 
-        fetch(eventChoice(this.props.year, this.props.sem))
+        fetch(eventChoice(this.props.stat.year, this.props.stat.sem))
         .then(r => r.text())
         .then(text => {
           this.script_list = text.split('\n');
@@ -86,6 +137,8 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (dia_line[0] === "#"){
             console.log("")
+            // handle stat change
+            
             this.returnToMain();
         }
 
