@@ -59,7 +59,7 @@ export function statScheduleUpdate(newStat, plan) {
         }
         console.log(i);
     }
-    if (newStat.sem === 2)
+    if (newStat.sem === 4)
         newStat = {
             ...newStat,
             sem: 1,

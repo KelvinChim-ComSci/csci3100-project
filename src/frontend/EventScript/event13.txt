@@ -6,7 +6,7 @@ Joyce: Hey (User name), what are you thinking?
 You: Great! I was thinking about whether to go on an exchange programme.
 Joyce: Oh, I actually applied the one to UK from my college yesterday, Hope that I can get an offer,
 You: Oh really? 
-@QQ@What would you do?
+@QQ@ What would you do?
 @A1,3@ Go on a different exchange programme 
 @A2,5@ Apply to the same exchange programme with Joyce
 @A3,9@ Do not go for an exchange (unchanged)

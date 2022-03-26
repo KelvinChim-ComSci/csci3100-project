@@ -9,6 +9,7 @@ import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 import FriendList from './friendList';
 import MainEvent from './Main_button_component/mainEvent';
+import {statEventUpdate} from './statUpdater/statEventUpdate.js';
 
 class Main extends React.Component {
 
@@ -26,7 +27,7 @@ class Main extends React.Component {
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
         this.popMainEvent = this.popMainEvent.bind(this);
         this.handlePopClose = this.handlePopClose.bind(this);
-
+        this.handleMaineventStat = this.handleMaineventStat.bind(this);
     }
 
     popFriendLlist() {
@@ -56,8 +57,8 @@ class Main extends React.Component {
         document.getElementById("happiness").innerText = this.state.stat.happiness;
         document.getElementById("money").innerText = this.state.stat.money;      
         document.getElementById("_id").innerText = this.state.stat.user;
-        document.getElementById("stamina").innerText = this.state.stat.stamina;
-        document.getElementById("sem").innerText = this.state.stat.sem;
+        document.getElementById("stamina").innerText = this.state.stat.stamina;        
+        document.getElementById("sem").innerText = Math.ceil(parseInt(this.state.stat.sem)/2);
         document.getElementById("year").innerText = this.state.stat.year;
     }
 
@@ -155,7 +156,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent stat = {this.state.stat} handlePopClose = {this.handlePopClose}/>
+                        <MainEvent stat = {this.state.stat} handleMaineventStat = {this.handleMaineventStat} handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )
@@ -196,6 +197,21 @@ class Main extends React.Component {
         return;
     }
 
+    async handleMaineventStat(dia_line_sub){
+        this.setState({popUpBar : ""});
+        await new Promise(resolve => setTimeout(resolve, 1));
+        let newStat = this.state.stat;
+        console.log("Before: ", newStat);
+        newStat = statEventUpdate(newStat,dia_line_sub);
+        console.log("handle Main event After: ", newStat);
+        await new Promise(resolve => setTimeout(resolve, 1));
+        statBackendUpdate(newStat);
+        this.setState({
+            stat: newStat
+        })
+        this.statUpdateFromFrontend();
+        return;
+    }
 
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {

@@ -12,7 +12,7 @@ After some considerations, you choose to join one of the colleges.
 @A2,4@ No
 @R1@ Decided to join the orientation camp, you loss some money for application and time for previewing materials to prepare for the class. Still, you have a fun time with peers. (-money, +happiness, - GPA)
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
-#(0,0,0,0)
+#0,0,0,0
 @R2@ Decided not to join the orientation camp, you save some money and time for previewing materials to prepare for the class. (+money, +GPA)
 @R2@ After the orientation day, the semester starts and you are going to have your first lesson.
-#(1,0,1,0)
+#1,0,1,0
