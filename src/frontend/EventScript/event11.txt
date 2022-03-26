@@ -5,7 +5,7 @@ Scrolling through the mail, you saw that there is an activity where people from 
 @A1,2@ Yes 
 @A2,4@ No  
 @R1@ You decided to join the event. You learnt a lot by talking with people coming from Japan, UK, or even some countries that you have never heard of. (+happiness, -money)
-#
+#0,0,-1,1
 @R2@ You chose to ignore this email as usual.
-#
+#0,0,0,0
 

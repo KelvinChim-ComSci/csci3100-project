@@ -1,18 +1,19 @@
 ~Joining committee~
-This is your second week in CUHK. You started to apated to university life and made some friends, including Ken. 
+You started to apated to university life and made some friends, including Ken. 
 Recently, they are talking about joining the student committee together. Joyce, a girl you met in one of your major courses, is talking about this.
-Joyce : Hey (User name), do you want to join the committee with us? Ken and I have already decided to join that. 
+Joyce : Hey, do you want to join the committee with us? Ken and I have already decided to join that. 
 @QQ@ How would you reply?
 @A1,4@ No, I need to study and I don’t want to waste time on it. 
 @A2,6@ Sorry about that. I am busy with other part time jobs so I may not be able to join. 
 @A3,9@ Sure! Shall we discuss this more? 
 @A4,10@ No, I need to workout everyday and I plan to join the University Team soon! 
 @R1@ Joyce: Okay, what a pity. I thought you would join us. (+GPA, - happiness)
-#
+#1,0,0,-1
 @R2@ Joyce: Okay, what a pity. I thought you would join us.
 @R2@ You: Yea that is what I have planned, forgive me! (+money, -GPA, - happiness)
-#
+#-1,0,1,-1
 @R3@ Joyce: Yeaa I bet with Ken that you will join us, Let’s go to have lunch together and talk about it! (+happiness, -GPA, - money)
+#-1,0,-1,1
 @R4@ Joyce: Okay, what a pity. I thought you would join us.
 @R4@ You: Yea that is what I have planned, forgive me! (+sport)
-#
+#0,1,0,0

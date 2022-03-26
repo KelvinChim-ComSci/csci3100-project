@@ -12,7 +12,7 @@ import MainEvent from './Main_button_component/mainEvent';
 import main_bg from '../backend/background/main.jpeg';
 import Event from './Event';
 import StatDisplay from './statDisplay';
-
+import {statEventUpdate} from './statUpdater/statEventUpdate.js';
 
 class Main extends React.Component {
 
@@ -31,6 +31,7 @@ class Main extends React.Component {
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
 
         this.handlePopClose = this.handlePopClose.bind(this);
+        this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
 
     }
@@ -42,6 +43,7 @@ class Main extends React.Component {
  
     handleLocation(location){
         this.setState({location: location});
+
     }
 
     popFriendLlist() {
@@ -155,7 +157,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent handlePopClose = {this.handlePopClose}/>
+                        <MainEvent stat = {this.state.stat} handleMaineventStat = {this.handleMaineventStat} handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )
@@ -213,6 +215,21 @@ class Main extends React.Component {
         return;
     }
 
+    async handleMaineventStat(dia_line_sub){
+        this.setState({popUpBar : ""});
+        await new Promise(resolve => setTimeout(resolve, 1));
+        let newStat = this.state.stat;
+        console.log("Before: ", newStat);
+        newStat = statEventUpdate(newStat,dia_line_sub);
+        console.log("handle Main event After: ", newStat);
+        await new Promise(resolve => setTimeout(resolve, 1));
+        statBackendUpdate(newStat);
+        this.setState({
+            stat: newStat
+        })
+        this.statUpdateFromFrontend();
+        return;
+    }
 
     async userLogout() {
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {

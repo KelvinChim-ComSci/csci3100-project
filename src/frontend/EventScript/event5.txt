@@ -7,11 +7,11 @@ You : Ummmm Should I choose a minor that is more related to my major? Or should 
 @A3,8@ Minor in Japanese 
 @A4,10@ Do not take a minor
 @R1@ After consideration, you chose to minor in Mathematics. (+GPA, - happiness, -sport)
-#
+#1,-1,0,-1
 @R2@ After consideration, you chose to minor in Finance.(+money, - happiness, -sport)
-#
+#0,-1,1,-1
 @R3@ After consideration, you chose to minor in Japanese.(+ happiness, -sport)
-#
+#0,-1,0,1
 @R4@ After consideration, you chose not to take a minor.
-#
+#0,0,0,0
 

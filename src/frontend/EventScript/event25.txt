@@ -10,9 +10,9 @@ You: What?
 Student A: We are one man missing from joining the competition, come and join us!
 @QQ@ What would you do ?
 @A1,2@ You: Sure! I would love to.
-@A2,4@ You: No… Sorry that I cannot help. I will be busy next month.
+@A2,4@ You: No… Sorry that I cannot help. I will be busy next month. (no change)
 @R1@ You joined them and trained with them for weeks and participated in the competition. Although you lose, you have gained precious experience in it. (+sport, - money)
-#0,1,-1,0
+#
 @R2@ Student A: It's fine. Let us know if you change your mind!
-#0,0,0,0
+#
 
