@@ -22,6 +22,7 @@ class Main extends React.Component {
             popUpBar : "",
             stat : null,
             location : "main",
+            started : 0,
         };
 
         this.statRef = React.createRef();
@@ -33,7 +34,13 @@ class Main extends React.Component {
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
+        this.popMainEvent = this.popMainEvent.bind(this);
+        this.setEvent = this.setEvent.bind(this);
 
+    }
+
+    setEvent(started){
+        this.setState({started : started});
     }
 
     updateStat(stat){
@@ -53,7 +60,7 @@ class Main extends React.Component {
     }
 
     popMessageBox() {
-        alert(this.state.schedulePop)
+        alert(this.state.schedulePop);
         console.log("pop message box");
         this.setState({popUpBar : "message"});
     }
@@ -119,7 +126,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose}/>
+                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose} available = {!this.state.started}/>
                     </div>
                 </div>
             )
@@ -194,7 +201,7 @@ class Main extends React.Component {
         else {
             return (
                 <div className="split left">
-                    <Event location = {this.state.location} handleLocation = {this.handleLocation}/>
+                    <Event location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
                 
             )
@@ -227,7 +234,7 @@ class Main extends React.Component {
         this.setState({
             stat: newStat
         })
-        this.statUpdateFromFrontend();
+        this.updateStat(newStat);
         return;
     }
 

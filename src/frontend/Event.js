@@ -27,9 +27,10 @@ class Event extends React.Component {
         this.returnToMain = this.returnToMain.bind(this);
 
         this.state = {
-            script_count : 1,
-            popUpChoice : "",
+            script_count: 1,
+            popUpChoice: "",
             chosenChoice: -1,
+            started: 0
         }
 
     }
@@ -51,9 +52,13 @@ class Event extends React.Component {
               }
           }
 
-        //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
 
-        });
+        //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
+        
+
+        })
+        .then(this.setState({started: 1}))
+        .then(this.props.setEvent(1));
     }
 
     bgchoice(location){
@@ -74,6 +79,7 @@ class Event extends React.Component {
 
     returnToMain(){
         console.log("clicked return to main");
+        this.props.setEvent(0);
         this.props.handleLocation("main");
     }
 
@@ -125,9 +131,27 @@ class Event extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1));
         // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
-      }
+    }
       
-    
+    dialogueWindow() {
+        if (this.state.started === 1)
+            return(
+                <div className="text" onClick={()=>this.handleClick()}>
+                    <p id = "dialogue"></p>
+                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
+                    </svg>
+                </div>
+            )
+        else
+            return(
+                <div>
+                    <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
+                    <button onClick={this.beginEvent} id="eventStarter">Click to start</button>
+                </div>
+            );
+        
+    }
 
 
 
@@ -161,15 +185,8 @@ class Event extends React.Component {
 
         return (
             <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
-                <button onClick={this.beginEvent}>Click to start</button>
                 <div className = "container topLeft"><h1 id='Location'>{this.props.location}</h1></div>
-                <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
-                <div className="text" onClick={()=>this.handleClick()}>
-                    <p id = "dialogue"> ??? </p>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
-                </div>
+                {this.dialogueWindow()}
                 {this.popUp(this.state.popUpChoice)}      
             </div>
         )

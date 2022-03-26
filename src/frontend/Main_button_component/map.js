@@ -83,9 +83,13 @@ class Map extends React.Component {
     }
 
     navigator() {
-        console.log(this.state.location)
-        this.props.handleLocation(this.state.location);  
-        this.props.handlePopClose();
+        if (this.props.available){
+            console.log(this.state.location)
+            this.props.handleLocation(this.state.location);  
+            this.props.handlePopClose();
+        }
+        else
+            alert("You cannot visit other places during event!");
     }
 
     displayDescription(area) {

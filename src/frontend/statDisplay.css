@@ -1,0 +1,12 @@
+#statDisplay table {
+    width: 90%;
+    margin: 5%;
+}
+
+#statDisplay #year {
+    display: inline;
+}
+
+#statDisplay #sem {
+    display: inline;
+}

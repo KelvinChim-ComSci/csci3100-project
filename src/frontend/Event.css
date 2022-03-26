@@ -92,3 +92,10 @@ a { color: inherit; }
     width: auto; 
     padding: 30px;
 }
+
+.event #eventStarter {
+    position: absolute;
+    left: 50%;
+    transform: translate(0, -50%);
+    top: 70%;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import './statDisplay.css';
 
 class StatDisplay extends React.Component {
 
@@ -16,24 +17,20 @@ class StatDisplay extends React.Component {
 
     render(){
         return (
-            <div className="container-fluid">
+            <div className="container-fluid" id="statDisplay">
                 <div className = "row">
-                    <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
+                   
 
                         <table>
 
                         <thead>
                             <tr>
-                                <th scope="col">Statistics</th>
-                                <th scope="col"></th>
+                                <th scope="col" id="col1">Statistics</th>
+                                <th scope="col" id="col2"></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>User id: </td>
-                                <td id="_id"/>
-                            </tr>
                             <tr>
                                 <td>GPA: </td>
                                 <td id="gpa">{(this.state.stat.hasOwnProperty('gpa'))? this.state.stat.gpa : ""}</td>
@@ -56,12 +53,12 @@ class StatDisplay extends React.Component {
                             </tr>
                             <tr>
                                 <td>Semester: </td>
-                                <td>Year <span id= "year"> {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""}</span> sem <span id= "sem"> {(this.state.stat.hasOwnProperty('sem'))? this.state.stat.sem : ""}</span></td>
+                                <td>Year <div id= "year"> {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""}</div> sem <div id= "sem"> {(this.state.stat.hasOwnProperty('sem'))? Math.ceil(parseInt(this.state.stat.sem)/2) : ""}</div></td>
                             </tr>
                         </tbody>
 
                         </table>
-                    </section>
+
                 </div>
             </div>
         )

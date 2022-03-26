@@ -64,7 +64,7 @@ class Profile extends React.Component {
                         In-game progress: 
                     </div>
                     <div className="row">
-                        <div className="col">Current semester: Year {this.props.stat.year} Sem {this.props.stat.sem}</div>
+                        <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(parseInt(this.props.stat.sem)/2)}</div>
                         <div className="col">Stamina: {this.props.stat.stamina}</div>
                     </div>
                     <div className="row">
