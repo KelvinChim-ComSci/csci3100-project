@@ -2,14 +2,14 @@
 You are now a senior student. You received an email and it is hiring mentors for freshmen.
 Ken : Oh you received that email too? I plan to join it! Will you?
 @QQ@ What will you do?
-@A1,2@ Join the programme ( - GPA, + happiness, + money)
-@A2,6@ Ignore the programme (unchanged)
+@A1,2@ Join the programme 
+@A2,6@ Ignore the programme 
 @R1@ You: I think I will join it too! Let’s go for it together!
 @R1@ Ken: Great! We can form a group of four and play mahjong!
-@R1@ You rolled your eyes.
-#
+@R1@ You rolled your eyes.(-GPA, +happiness, +money)
+#-1,0,1,1
 @R2@ You: No… I think I will not have free time to join this.
 @R2@ Ken: I see… It is understandable though, are you seeking internships?
 @R2@ You: Yes… I need to prepare for it.
-#
+#0,0,0,0
 

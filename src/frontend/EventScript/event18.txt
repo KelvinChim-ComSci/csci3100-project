@@ -9,9 +9,9 @@ Ken: Go with me today! It would be fun!
 @A1,2@ No
 @A2,5@ Yes
 @R1@ Ken: Okay, maybe you have dated others. It’s fine.
-@R1@ You attended the high table dinner alone and not many people are talking to you.
-# 
+@R1@ You attended the high table dinner alone and not many people are talking to you.(-happiness)
+#0,0,0,-1
 @R2@ Ken: Great! See you there!
-@R2@ You guys have fun and meet a lot of friends. 
-#
+@R2@ You guys have fun and meet a lot of friends. (+happiness)
+#0,0,0,1
 

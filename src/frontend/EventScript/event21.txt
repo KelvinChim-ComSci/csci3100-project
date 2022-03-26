@@ -6,7 +6,7 @@ You are going to help with a research project on data collecting and analyzing. 
 @A1,2@ Yes.
 @A2,4@ No.
 @R1@ You joined the research team of Prof. Chan. You get in touch with what real academic research looks like and it would definitely be helpful for your graduate studies. (+GPA, + money)
-#
+#1,0,1,0
 @R2@ You decided to ignore the email.
-#
+#0,0,0,0
 

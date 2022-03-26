@@ -7,7 +7,7 @@ the man: I am the coach of the track and field university team. Do you want to t
 @A2,4@ Sorry, I just want to practice by myself. 
 @R1@ Coach: Great! See you tonight!
 @R1@ At night, you went to the sports ground to try out. You did pretty well and got into the university team. (+sports, +happiness, -money)
-#
+#0,1,-1,1
 @R2@ Coach : What a pity! You have the potential! Come to me any time if you have changed your mind, you can see me often in the gym! (+sports)
-#
+#0,1,0,0
 

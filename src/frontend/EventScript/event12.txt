@@ -9,7 +9,7 @@ You: Oh I still haven’t planned for it.
 @A2,5@ Ignore the coming summer internship chances
 @R1@ You tried very hard to seek an internship, and you have got a very good position in the same company as Joyce.
 @R1@ You two worked together and got a returning offer from the company. (+GPA, +happiness, +money)
-#
+#1,0,1,1
 @R2@ You plan to do nothing in the summer.
-#
+#0,0,0,0
 

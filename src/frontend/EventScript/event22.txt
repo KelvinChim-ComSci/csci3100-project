@@ -7,7 +7,7 @@ Joyce: ahh I guess no. I think I will be doing an internship at that time. (User
 @R1@ You asked the committee members whether you can be the Captain this year. 
 @R1@ You are quite familiar with them and they all agree to let you be the Captain.
 @R1@ Although it is time consuming and tiring, you had a great time organizing it and have fun with junior students. (+happiness, - Money, -GPA)
-#
+#-1,0,-1,1
 @R2@ You do not want to waste your summer on it. 
-@R2@ You: um I think no, I have other plans in summer.
-#
+@R2@ You: um I think no, I have other plans in summer. (+money)
+#0,0,1,0

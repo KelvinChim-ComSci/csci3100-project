@@ -11,12 +11,12 @@ You: Oh really?
 @A2,5@ Apply to the same exchange programme with Joyce
 @A3,9@ Do not go for an exchange (unchanged)
 @R1@ You tried to apply for the exchange programme, but you didn’t get any offer. (-happiness)
-#
+#0,0,0,-1
 @R2@ You: Oh, I was also planning to go to that school. 
 @R2@ Joyce: Really? Hope that we can go there together! 
 @R2@ You applied for the same school and got an offer. (+happiness, +gpa)
-#
+#1,0,0,1
 @R3@ You chose to stay at home during your summer.
-#
+#0,0,0,0
 
 

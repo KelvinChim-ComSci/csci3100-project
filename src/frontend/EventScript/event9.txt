@@ -9,9 +9,9 @@ Lecturer: So now, let’s form a group to practice for the interview. You guys w
 @QQ@ What will you do?
 @A1,2@ Practice interview with Ken seriously. 
 @A2,4@ Ignore the lecturer and continue chatting with Ken
-@R1@ You practiced interview with Ken seriously and kept talking about it during lunch. You feel like you enquired a lot of useful information about job hunting. (+GPA, money, - happiness)
-#
-@R2@ Although you two had a great time chatting with each other, but you learnt nothing from the lesson. (+ happiness, -money)
-#
+@R1@ You practiced interview with Ken seriously and kept talking about it during lunch. You feel like you enquired a lot of useful information about job hunting. (+GPA, +money, - happiness)
+#1,0,1,-1
+@R2@ Although you two had a great time chatting with each other, but you learnt nothing from the lesson. (+happiness, -money)
+#0,0,-1,1
 
 
