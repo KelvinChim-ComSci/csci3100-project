@@ -89,6 +89,11 @@ h2 {
     width: 200px;
   }
 
+  #placeButton {
+    cursor: pointer;
+  }
+  
+
   td > a {
     display: block; /*it's all clickable in the whole cell */ 
   }

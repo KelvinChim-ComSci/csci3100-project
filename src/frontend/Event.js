@@ -22,8 +22,19 @@ class Event extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
-        this.returnToMain = this.returnToMain.bind(this);
         this.bgchoice = this.bgchoice.bind(this);
+        this.beginEvent = this.beginEvent.bind(this);
+        this.returnToMain = this.returnToMain.bind(this);
+
+        this.state = {
+            script_count : 1,
+            popUpChoice : "",
+            chosenChoice: -1,
+        }
+
+    }
+
+    beginEvent(){
         fetch(dia)
         .then(r => r.text())
         .then(text => {
@@ -42,14 +53,7 @@ class Event extends React.Component {
 
         //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
 
-    });
-
-        this.state = {
-            script_count : 1,
-            popUpChoice : "",
-            chosenChoice: -1,
-        }
-
+        });
     }
 
     bgchoice(location){
@@ -66,10 +70,11 @@ class Event extends React.Component {
         if (location == "Swimming Pool"){return swimmingpool_bg}
         if (location == "CC Lib"){return cclib_bg}
 
-
     }
-    returnToMain() {
-        this.props.navigate('../main');
+
+    returnToMain(){
+        console.log("clicked return to main");
+        this.props.handleLocation("main");
     }
 
     handleClick() {
@@ -156,7 +161,8 @@ class Event extends React.Component {
 
         return (
             <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
-                <div className = "container topLeft"><h1  id='Location'>{this.props.location}</h1></div>
+                <button onClick={this.beginEvent}>Click to start</button>
+                <div className = "container topLeft"><h1 id='Location'>{this.props.location}</h1></div>
                 <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
                 <div className="text" onClick={()=>this.handleClick()}>
                     <p id = "dialogue"> ??? </p>

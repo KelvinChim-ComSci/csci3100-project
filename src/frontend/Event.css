@@ -1,21 +1,25 @@
 .event{
-    height: 100vh;
+    height: 100%;
     background: green;
     background-image: url('/src/backend/background/na.jpeg');
     background-size: 100%;
 }
 
-.topLeft{
+.event .topLeft{
     position: absolute;
     top: 50px;
     left: 16px;
+    width: 20%;
+    background-color: yellow;
 }
 
-.topRight{
+.event .topRight{
     position: absolute;
     top: 50px;
     right: 16px;
+    width: 20%;
     cursor: pointer;
+    background-color: rgb(0, 140, 255);
 }
 
 a { color: inherit; } 
@@ -37,13 +41,13 @@ a { color: inherit; }
     padding: 1em;
     border-bottom: 1vw solid #4f80a1;
     line-height: 1.2em;
-
+    overflow: auto;
     display: inline-block;
-    width: 1000px;
-    height: 200px;
+    width: 80%;
+    height: 30vh;
     position: absolute;
-    bottom: 90px;
-    right: 200px;
+    bottom: 10%;
+    right: 10%;
     font-size: 30px;
  }
 

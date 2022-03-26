@@ -9,6 +9,9 @@ import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 import FriendList from './friendList';
 import MainEvent from './Main_button_component/mainEvent';
+import main_bg from '../backend/background/main.jpeg';
+import Event from './Event';
+import StatDisplay from './statDisplay';
 import {statEventUpdate} from './statUpdater/statEventUpdate.js';
 
 class Main extends React.Component {
@@ -18,16 +21,29 @@ class Main extends React.Component {
         this.state = {
             popUpBar : "",
             stat : null,
+            location : "main",
         };
 
+        this.statRef = React.createRef();
+
         this.userLogout = this.userLogout.bind(this);
-        this.popFriendLlist = this.popFriendLlist.bind(this);
-        this.popMessageBox = this.popMessageBox.bind(this);
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
-        this.popMainEvent = this.popMainEvent.bind(this);
+
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
+        this.handleLocation = this.handleLocation.bind(this);
+
+    }
+
+    updateStat(stat){
+        this.statRef.current.update(stat);
+        this.setState({ stat: { ...this.state.stat, ...stat } });
+    }
+ 
+    handleLocation(location){
+        this.setState({location: location});
+
     }
 
     popFriendLlist() {
@@ -51,18 +67,8 @@ class Main extends React.Component {
         this.setState({popUpBar : ""});
     }
 
-    statUpdateFromFrontend() {
-        document.getElementById("gpa").innerText = this.state.stat.gpa;
-        document.getElementById("sports").innerText = this.state.stat.sports;
-        document.getElementById("happiness").innerText = this.state.stat.happiness;
-        document.getElementById("money").innerText = this.state.stat.money;      
-        document.getElementById("_id").innerText = this.state.stat.user;
-        document.getElementById("stamina").innerText = this.state.stat.stamina;        
-        document.getElementById("sem").innerText = Math.ceil(parseInt(this.state.stat.sem)/2);
-        document.getElementById("year").innerText = this.state.stat.year;
-    }
-
     statUpdateFromBackend(ID) {
+
         fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
         method: "POST",
         headers: new Headers({
@@ -79,25 +85,20 @@ class Main extends React.Component {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            this.setState({
-                stat: res
-            });
-            this.statUpdateFromFrontend();
-        })
+            this.updateStat(res);
+        })  
     }
 
-    
     componentDidMount() {
         this.checkRefreshAndUpdate();
     }
-    
+
     async checkRefreshAndUpdate() {
         if (window.sessionStorage.getItem("isLoggedIn")) {
             await this.props.handleSessionRefresh();
         }
         this.statUpdateFromBackend(this.props.userId);
     }
-
 
     popUp(option) {
         console.log("current Pop-up: ", this.state.popUpBar);
@@ -118,7 +119,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Map handleLocation = {this.props.handleLocation}/>
+                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )
@@ -180,6 +181,26 @@ class Main extends React.Component {
 
     }
 
+    leftComponent(){
+        console.log(this.state.location);
+        if (this.state.location === "main"){
+            return (
+                <div className="split left" style={{backgroundImage: `url(${main_bg})`}}>
+                    <h2>Welcome to CU Simulator!</h2>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="split left">
+                    <Event location = {this.state.location} handleLocation = {this.handleLocation}/>
+                </div>
+                
+            )
+        }
+    }
+
     async handleSchedulePlan(plan){
         this.setState({popUpBar : ""});
         console.log(plan);
@@ -190,10 +211,7 @@ class Main extends React.Component {
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
         statBackendUpdate(newStat);
-        this.setState({
-            stat: newStat
-        })
-        this.statUpdateFromFrontend();
+        this.updateStat(newStat);
         return;
     }
 
@@ -239,62 +257,29 @@ class Main extends React.Component {
         return (
             <div id="main">
 
-                
-
-                <p> Welcome to CU Simulator! </p>
-                <div className="d-flex justify-content-center">
-                <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
-                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
-                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
-                <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
-                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
-                <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
+                <div>
+                    {this.leftComponent()}
                 </div>
 
-                <div className='container-fluid'>
-                <div className = "row">
-                <section id="statusList" className = "col-sm-3 col-lg-3 col-xl-3">
+                <div className="split right-top">
+                    <StatDisplay stat={this.state.stat} ref={this.statRef}/>
+                </div>
 
-                    <table>
-                    <thead><tr>
-                            <th scope="col">Statistics</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>User id :</td>
-                            <td id="_id">?</td>
-                        </tr>
-                        <tr><td>GPA :</td>
-                            <td id="gpa">?</td>
-                        </tr>
-                        <tr><td>Sports :</td>
-                            <td id="sports">?</td>
-                        </tr>
-                        <tr><td>Happiness :</td>
-                            <td id="happiness">?</td>
-                        </tr>
-                        <tr><td>Money :</td>
-                            <td id="money">?</td>
-                        </tr>
-                        <tr><td>Stamina :</td>
-                            <td id="stamina">?</td>
-                        </tr>
-                        
-                    </tbody>
-                    </table>
-                </section>
-
-                </div> {/* row */}
-                </div> {/* container-fluid */}
+                <div className="split right-bot d-flex flex-column justify-content-center">
+                    <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
+                    <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
+                </div>
 
                 {this.popUp(this.state.popUpBar)}
-            
-                <div className = "statBottomRight bg-success text-white rounded text-center"><b> Year <b id= "year">x</b> sem <b id= "sem">y</b> </b></div>
-                
-            </div> 
+
+            </div>
+
         )
     }
 }
 
 export default withRouter(Main);
+
