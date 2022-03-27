@@ -1,5 +1,4 @@
 import React from "react";
-import "./profile.css";
 import img from './profile_pic.jpg';
 
 class Profile extends React.Component {
@@ -38,6 +37,7 @@ class Profile extends React.Component {
     }
     
     render(){
+        require("./profile.css");
         return (
             <div className="profile">
                 <h2>Profile</h2>

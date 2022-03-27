@@ -1,5 +1,4 @@
 import React from "react";
-import "./mainEvent.css";
 import event1 from "../EventScript/event1.txt"
 import event2 from "../EventScript/event2.txt"
 import event3 from "../EventScript/event3.txt"
@@ -194,14 +193,19 @@ class MainEvent extends React.Component {
             return
         }
     }
+    
     render(){
+        require("./mainEvent.css");
         return (
-            <div id = "text">
-                <div className="text" onClick={()=>this.handleClick()}>
-                    <p id = "dialogue"> ??? </p>
+            <div id="mainEvent">
+                <div id = "text">
+                    <div className="text" onClick={()=>this.handleClick()}>
+                        <p id = "dialogue"> ??? </p>
+                    </div>
+                    {this.popUp(this.state.popUpChoice)}      
                 </div>
-                {this.popUp(this.state.popUpChoice)}      
             </div>
+            
         )
     }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './statDisplay.css';
 
 class StatDisplay extends React.Component {
 
@@ -16,6 +15,7 @@ class StatDisplay extends React.Component {
     }
 
     render(){
+        require('./statDisplay.css');
         return (
             <div className="container-fluid" id="statDisplay">
                 <div className = "row">

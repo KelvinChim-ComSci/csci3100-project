@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './Event.css';
 import dia from './EventScript/GateOfWisdom.txt';
 import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
@@ -182,6 +181,7 @@ class Event extends React.Component {
 
     render() {
         console.log(this.props.params);
+        require('./Event.css');
 
         return (
             <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>

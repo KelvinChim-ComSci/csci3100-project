@@ -1,6 +1,5 @@
 import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
-import './friendList.css';
 
 // fetch friends from backend, if no friends put a message to tell player to add friends by pressing the + button.
 // There will be a list of friends with no lights on and green lights depending on the status.
@@ -29,6 +28,7 @@ class FriendList extends React.Component {
         );
     }
     render() {
+        require('./friendList.css');
         return (
             <div className="friendList">
                 <p>Let there be friend.</p>

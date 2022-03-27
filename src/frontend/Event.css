@@ -5,7 +5,7 @@
     background-size: 100%;
 }
 
-.event .topLeft{
+.topLeft{
     position: absolute;
     top: 50px;
     left: 16px;
@@ -13,7 +13,7 @@
     background-color: yellow;
 }
 
-.event .topRight{
+.topRight{
     position: absolute;
     top: 50px;
     right: 16px;
@@ -71,8 +71,7 @@ a { color: inherit; }
     opacity: 20%;
 }
 
-
-.event .popUp{
+.popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;

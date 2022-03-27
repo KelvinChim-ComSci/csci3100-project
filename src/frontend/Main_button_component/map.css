@@ -1,100 +1,93 @@
-h2 {
-    text-align: center;
-   
+.map h2 {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .map{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
 }
 
+.map .row{
+  margin: 0;
+}
+
+.map .col-6{
+  padding: 15px;
+  overflow: auto;
+}
+
+/*
 .map img{
-    flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  overflow: auto;
+}
+*/
 
+/*
+.map-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+*/
+
+.map .img {
+    position: relative;
+    padding: 0 0 0 15px;
 }
 
-.map-img {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-  }
-
-  .describe_content {
-    position: fixed;
-    top: 120px;
-    right: 60px;
-    font-size: 18px;
-  }
-
-  .img {
-    position: fixed;
-    top: 100px;
-    left: 40px;
-    font-size: 18px;
-  }
-
- .tdC {
+.map .tdC {
     background: rgb(65, 109, 65);
     color: #fff;   
     font-size: 16px;
+    width: 90%;
     padding: 12px 15px;
-    width: 400px;
     border-collapse: collapse;
     border: 1px solid #eee;
     overflow-wrap: break-word;
-  }
+}
 
-  .tdT {  
+.map .tdT {  
     background: rgb(47, 80, 47);
     color: #fff;   
     font-size: 17px;
+    width: 90%;
     /*text-align: center;*/
-    width: 400px;
     border-collapse: collapse;
     border: 1px solid #eee;
     overflow-wrap: break-word;
     padding: 3px 15px;
-  }
-
-  .tdB {  
-    background: rgb(47, 80, 47);
-    color: #fff;   
-    font-size: 14px;
-    text-align: center;
-    width: 500px;
-    border-collapse: collapse;
-    border: 1px solid #eee;
-    overflow-wrap: break-word;
-    padding: 3px 15px;
-  }
-
+}
   
-  .link:hover {
+.map .link:hover {
     background-color:  rgba(72, 92, 117, 0.555);
     /*padding: 5px 10px;*/
-  }
-  .link {
-    position: fixed;
-    top: 612px;
-    left: 850px;
+}
+
+.map .link {
+    position: relative;
     background-color: rgb(65, 85, 109);
+    color: #fff;  
+    text-align: center;
+    font-size: 14px;
     padding: 8px 13px;
-    overflow: hidden;
+    top: 10px;
     border-radius: 100px;
-    width: 200px;
-  }
-
-  #placeButton {
     cursor: pointer;
-  }
-  
+    text-decoration: none;
+}
 
-  td > a {
+.map td > a {
     display: block; /*it's all clickable in the whole cell */ 
-  }
+}
   
+.map p{
+  font-size: 20px;
+}

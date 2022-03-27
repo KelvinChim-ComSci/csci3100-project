@@ -1,19 +1,19 @@
-.text {
+#mainEvent .text {
     word-spacing: 0.2em;
     margin: 0 auto;
     background: rgb(255, 255, 255);
     padding: 1em;
     border-bottom: 1vw solid #4f80a1;
     line-height: 1.2em;
-
+    overflow: auto;
     display: inline-block;
     width: 80%;
-    height: 200px;
+    height: 30vh;
     position: absolute;
-    bottom: 90px;
-    right: 200px;
+    bottom: 10%;
+    right: 10%;
     font-size: 30px;
- }
+}
 
 .mainEventPopUp #shadowLayer{
     height: 100%;
