@@ -39,53 +39,57 @@
 */
 
 .map .img {
-    position: relative;
-    padding: 0 0 0 15px;
+  position: relative;
+  padding: 0 0 0 15px;
+}
+
+.map table{
+  margin: 0;
 }
 
 .map .tdC {
-    background: rgb(65, 109, 65);
-    color: #fff;   
-    font-size: 16px;
-    width: 90%;
-    padding: 12px 15px;
-    border-collapse: collapse;
-    border: 1px solid #eee;
-    overflow-wrap: break-word;
+  background: rgb(65, 109, 65);
+  color: #fff;   
+  font-size: 16px;
+  width: 90%;
+  padding: 12px 15px;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  overflow-wrap: break-word;
 }
 
 .map .tdT {  
-    background: rgb(47, 80, 47);
-    color: #fff;   
-    font-size: 17px;
-    width: 90%;
-    /*text-align: center;*/
-    border-collapse: collapse;
-    border: 1px solid #eee;
-    overflow-wrap: break-word;
-    padding: 3px 15px;
+  background: rgb(47, 80, 47);
+  color: #fff;   
+  font-size: 17px;
+  width: 90%;
+  /*text-align: center;*/
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  overflow-wrap: break-word;
+  padding: 3px 15px;
 }
   
 .map .link:hover {
-    background-color:  rgba(72, 92, 117, 0.555);
-    /*padding: 5px 10px;*/
+  background-color:  rgba(72, 92, 117, 0.555);
+  /*padding: 5px 10px;*/
 }
 
 .map .link {
-    position: relative;
-    background-color: rgb(65, 85, 109);
-    color: #fff;  
-    text-align: center;
-    font-size: 14px;
-    padding: 8px 13px;
-    top: 10px;
-    border-radius: 100px;
-    cursor: pointer;
-    text-decoration: none;
+  position: relative;
+  background-color: rgb(65, 85, 109);
+  color: #fff;  
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 13px;
+  top: 10px;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .map td > a {
-    display: block; /*it's all clickable in the whole cell */ 
+  display: block; /*it's all clickable in the whole cell */ 
 }
   
 .map p{
