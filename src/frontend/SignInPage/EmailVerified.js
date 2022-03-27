@@ -27,9 +27,20 @@ class EmailVerified extends React.Component {
     }
 
     render() {
+        require('./EmailVerified.css');
         return (
-            <div id="verifyMessage">
-                OuO
+            <div id="emailVerified">
+                
+                <div className="container">
+              
+                    <h1>CU Simulator</h1>
+
+                    <div className="links">
+                        <p id="verifyMessage" />
+                        <p><a href="../../">Return to log in</a></p>
+                    </div>
+
+                </div>
             </div>
         )
     }

@@ -118,6 +118,8 @@ class App extends React.Component {
             />
           </Routes >
 
+          <Link to="/email/confirm/:id">Email Verified</Link>
+
         </Router >
       </div >
     );

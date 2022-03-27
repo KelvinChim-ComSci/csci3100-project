@@ -1,0 +1,65 @@
+#emailVerified {
+    margin: 0;
+    font-family: Comic sans MS;
+    height: 100vh;
+    width: 100vw;
+    color: rgb(0, 0, 0);
+    background-image: url('/src/backend/background/main.jpeg');
+    background-size: auto 100%;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: auto;
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10%;
+    opacity: 75%;
+}
+
+.container h1 {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+.buttons {
+    padding: 10px 25px;
+    font-size: 20;
+}
+
+#submit_box {
+    position: relative;
+    padding: 10px 0;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+}
+
+#submit_box:active {
+    transform: translateY(2px);
+}
+
+.links {
+    padding: 0 0 0 25px;
+    transform: translate(0, 0);
+}
+
+.links a {
+    text-decoration: none;
+}
+
+.links p {
+    padding: 0 0 10px 0;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: rgb(51, 51, 255);
+}
+
+.buttons a:active {
+    color: rgb(97, 4, 97);
+}
