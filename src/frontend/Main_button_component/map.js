@@ -1,6 +1,6 @@
 import React from "react";
-import "./map.css";
 import { withRouter } from '../withRouter.js';
+import 'bootstrap/dist/css/bootstrap.css';
 import img from '../../backend/background/map.png';
 import ImageMapper from 'react-img-mapper';
 import { NavigationType } from "react-router-dom";
@@ -83,9 +83,13 @@ class Map extends React.Component {
     }
 
     navigator() {
-        console.log(this.state.location)
-        this.props.handleLocation(this.state.location);  
-        this.props.handlePopClose();
+        if (this.props.available){
+            console.log(this.state.location)
+            this.props.handleLocation(this.state.location);  
+            this.props.handlePopClose();
+        }
+        else
+            alert("You cannot visit other places during event!");
     }
 
     displayDescription(area) {
@@ -95,51 +99,66 @@ class Map extends React.Component {
     document.getElementById("place").className = "tdC";
     document.getElementById("describe").innerText = "Description :"+'\u00a0'+area.describe;
     document.getElementById("describe").className = "tdC";
-    document.getElementById("placeButton").innerText = "Go to"+'\u00a0'+area.name+'\u00a0'+"!";
-    document.getElementById("places").className = "tdB link";
+    document.getElementById("places").innerText = "Go to"+'\u00a0'+area.name+'\u00a0'+"!";
+    document.getElementById("places").className = "link";
     }
     
     showHover(area) {
     document.getElementById("hover").innerText = area.name;
     }
 
-    leaveHover(area) {
+    leaveHover() {
     document.getElementById("hover").innerText ="";
     }
 
 
     render(){
-        
+        require("./map.css");
         return (
-            <>
-    
-                    <div>&ensp;</div>        
+            <div className = "map">
+                <div className="row">
+
+                <div className="col-12">
                     <h2>Map</h2>
+                </div>
+                
+                <div className="col-6">
                     <div className="img">
-                    <ImageMapper src={URL} map={MAP} width={800} 
-                    onClick={area => {this.displayDescription(area); 
-                                      this.setState({location: area.name});
-                                      }
-                    }
-                    onMouseEnter={area => this.showHover(area)}
-                	onMouseLeave={area => this.leaveHover(area)}/>
+                        <ImageMapper src={URL} map={MAP} width={800} 
+                        onClick={area => {this.displayDescription(area); 
+                                          this.setState({location: area.name});
+                                          }
+                        }
+                        onMouseEnter={area => this.showHover(area)}
+                	    onMouseLeave={this.leaveHover}/>
                     </div>
+                </div>
                     
-                    <div className="describe_content">
-                    <tr>
-                        <td id="detail"></td>
-                    </tr>
-                    <tr>  
-                        <td id="place"></td> 
-                    </tr>
-                    <tr> 
-                        <td id="describe"></td>
-                    </tr>    
-                    </div>
-                    <td id="places"><a id="placeButton" onClick={this.navigator}></a></td>
-                    &ensp;&ensp;&ensp;&ensp;&ensp;Place that you are now pointing to :&ensp;<span id="hover"></span> 
-                </>
-                //<td className="tdC"><a id="placeButton" onClick={this.navigator}>GO to NA</a></td>
+                <div className="col-6">
+                    <p>Place that you are now pointing to : <span id="hover"></span></p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th id="detail"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>  
+                            <td id="place"></td> 
+                        </tr>
+                        <tr> 
+                            <td id="describe"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a id="places" onClick={this.navigator}></a>
+
+                </div>
+                
+                </div>
+                </div>
+
+                
            
         )
     }

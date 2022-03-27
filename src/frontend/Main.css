@@ -2,12 +2,12 @@
     height: 100%; 
 }
 
-#main .split {
+.split {
     position: fixed;
     overflow: auto;
 }
   
-#main .left {
+.left {
     height: 100%;
     width: 80%;
     left: 0;
@@ -16,7 +16,7 @@
     background-repeat: no-repeat;
 }
   
-#main .right-top {
+.right-top {
     height: 50%;
     width: 20%;
     top: 0;
@@ -24,7 +24,7 @@
     background-color: rgb(182, 182, 182);
 }
   
-#main .right-bot {
+.right-bot {
     height: 50%;
     width: 20%;
     bottom: 0;
@@ -118,21 +118,3 @@
 .btn{
     padding: 10px 20px 10px 20px;
 }
-
-/*
-.logoutButton{
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: green;
-    text-align: center;
-    width: 75px;
-    height: 75px;
-    color: white;
-    border-radius: 10%;
-}
-
-.logoutButton:active{
-    transform: translate(0,2px);
-}
-*/

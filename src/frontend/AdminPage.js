@@ -1,9 +1,6 @@
 import React from "react";
 import { withRouter } from './withRouter.js';
 
-
-
-
 class AdminPage extends React.Component {
     constructor(props) {
         super(props);

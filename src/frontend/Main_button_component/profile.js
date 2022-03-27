@@ -1,5 +1,4 @@
 import React from "react";
-import "./profile.css";
 import img from './profile_pic.jpg';
 
 class Profile extends React.Component {
@@ -38,6 +37,7 @@ class Profile extends React.Component {
     }
     
     render(){
+        require("./profile.css");
         return (
             <div className="profile">
                 <h2>Profile</h2>
@@ -64,7 +64,7 @@ class Profile extends React.Component {
                         In-game progress: 
                     </div>
                     <div className="row">
-                        <div className="col">Current semester: Year {this.props.stat.year} Sem {this.props.stat.sem}</div>
+                        <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(parseInt(this.props.stat.sem)/2)}</div>
                         <div className="col">Stamina: {this.props.stat.stamina}</div>
                     </div>
                     <div className="row">

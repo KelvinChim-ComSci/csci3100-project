@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './Main.css';
 import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schedule';
 import Profile from './Main_button_component/profile';
@@ -22,6 +21,7 @@ class Main extends React.Component {
             popUpBar : "",
             stat : null,
             location : "main",
+            started : 0,
         };
 
         this.statRef = React.createRef();
@@ -33,7 +33,31 @@ class Main extends React.Component {
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
+        this.popMainEvent = this.popMainEvent.bind(this);
+        this.popFriendLlist = this.popFriendLlist.bind(this);
+        this.setEvent = this.setEvent.bind(this);
+        this.resetData = this.resetData.bind(this);
+        this.popMessageBox = this.popMessageBox.bind(this);
 
+    }
+
+    resetData(){
+        const stat = {
+            gpa: 4,
+            happiness: 10,
+            money: 10,
+            sem: 1,
+            sports: 10,
+            stamina: 100,
+            user: this.state.stat.user,
+            year: 1,
+            _id: this.state.stat._id,
+        }
+        this.updateStat(stat);
+    }
+
+    setEvent(started){
+        this.setState({started : started});
     }
 
     updateStat(stat){
@@ -53,13 +77,15 @@ class Main extends React.Component {
     }
 
     popMessageBox() {
-        alert(this.state.schedulePop)
+        //alert(this.state.schedulePop);
         console.log("pop message box");
         this.setState({popUpBar : "message"});
     }
 
     popMainEvent() {
         console.log("pop mainEvent");
+        if (this.state.stat.year > 4)
+            return;
         this.setState({popUpBar : "mainEvent"});
     }
 
@@ -102,7 +128,8 @@ class Main extends React.Component {
 
     popUp(option) {
         console.log("current Pop-up: ", this.state.popUpBar);
-        if (option === "profile")
+        if (option === "profile"){
+            require("./Main_button_component/profile.css");
             return (
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
@@ -113,13 +140,15 @@ class Main extends React.Component {
                 </div>
 
             )
+        }
+            
         if (option === "map"){
             return (
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose}/>
+                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose} available = {!this.state.started}/>
                     </div>
                 </div>
             )
@@ -188,13 +217,14 @@ class Main extends React.Component {
                 <div className="split left" style={{backgroundImage: `url(${main_bg})`}}>
                     <h2>Welcome to CU Simulator!</h2>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
+                    <button className="btn btn-success" onClick={this.resetData}>Reset Data</button>
                 </div>
             )
         }
         else {
             return (
                 <div className="split left">
-                    <Event location = {this.state.location} handleLocation = {this.handleLocation}/>
+                    <Event location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
                 
             )
@@ -227,7 +257,7 @@ class Main extends React.Component {
         this.setState({
             stat: newStat
         })
-        this.statUpdateFromFrontend();
+        this.updateStat(newStat);
         return;
     }
 
@@ -254,6 +284,7 @@ class Main extends React.Component {
     }
 
     render() {
+        require('./Main.css');
         return (
             <div id="main">
 

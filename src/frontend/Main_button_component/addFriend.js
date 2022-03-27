@@ -1,5 +1,4 @@
 import React from "react";
-import './addFriend.css';
 
 class AddFriend extends React.Component {
     constructor(props) {
@@ -38,6 +37,7 @@ class AddFriend extends React.Component {
     }
 
     render() {
+        require('./addFriend.css');
         return (
             <div className="addFriend">
                 <label htmlFor="friendName">Already know your friend's Username? Send them a friend request!</label>
