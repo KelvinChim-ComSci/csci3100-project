@@ -7,42 +7,67 @@ class ForgotPassword extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usernameError : "",
+            usernameError: "",
         }
     }
 
-    sendEmail() {
-        console.log("wow")
+    async sendEmail(event) {
+        event.preventDefault();
+        let inputUsername = document.getElementById("usernameid").value;
+        await fetch(process.env.REACT_APP_BASE_URL + "/email/forgetpassword", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                username: inputUsername
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res)
+                if (res.usernameError) {
+                    console.log("err")
+                    alert(res.usernameError)
+                }
+                if (!(res.usernameError)) {
+                    alert(res.message)
+                }
+            });
     }
 
 
     render() {
         return (
             <div id="registration">
-                
+
                 <div className="container">
-                  
+
                     <h1>CU Simulator</h1>
-            
+
                     <form autoComplete="on">
-            
-                      <div className="txt_field">
 
-                        <label htmlFor="username">Username</label>
-                        <input type="text" name="username" required></input>
-                        <div className="error">{this.state.usernameError}</div>
+                        <div className="txt_field">
 
-                      </div>
+                            <label htmlFor="username">Username</label>
+                            <input type="text" id="usernameid" name="username" required></input>
+                            <div className="error">{this.state.usernameError}</div>
 
-                      <div className="buttons" onClick={this.sendMail}>
-                        <input id="submit_box" type="submit" value="Send email"></input>
-                      </div>
-                      <div className="links">
-                        <p><a href="./">Return to log in</a></p>
-                      </div>
-            
+                        </div>
+
+                        <div className="buttons">
+                            <input id="submit_box" type="submit" value="Send email" onClick={this.sendEmail}></input>
+                        </div>
+                        <div className="links">
+                            <p><a href="./">Return to log in</a></p>
+                        </div>
+
                     </form>
-                    
+
                 </div>
             </div>
         )

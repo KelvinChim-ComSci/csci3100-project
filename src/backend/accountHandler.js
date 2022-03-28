@@ -37,6 +37,26 @@ function sendVerifyMail(mail, username, id) {
     }
 }
 
+function sendforgetPasswordMail(mail, username) {
+    let context = "Dear " + username + "," + "\n\n"
+        + "You have received this email because you have forgotten your CU Simulator password. "
+        + "If you believe you have received this email in error, please contact us at " + "cusimulator3100@gmail.com" + "\n\n"
+        + "You can use the following link to reset your password now."
+    //+ process.env.FRONTEND_URL + "/email/confirm/" + id;
+    let mailOptions = {
+        from: "cusimulator3100@gmail.com",
+        to: mail,
+        subject: "[CU Simulator] Reset Password",
+        text: context,
+    };
+    try {
+        console.log('email sent!');
+        mailer(mailOptions);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //user registration including send verification
 module.exports.register = async function (req, res) {
 
@@ -173,6 +193,24 @@ module.exports.findFriendId = async function (username) {
     } catch (error) { console.log(error) };
 }
 
+//use later for send email for reset password
+module.exports.forgetPassword = async function (req, res) {
+    let inputUsername = req.body.username
+
+    try {
+        const useremail = await User.findOne({ username: inputUsername }, { email: 1 })
+        if (useremail == null) {
+            console.log("username does not exist!")
+            return res.send({ usernameError: "Username does not exist!" })
+        } else {
+            //send forget password email here
+            await sendforgetPasswordMail(useremail.email, inputUsername);
+            return res.send({ message: "Forget Password Email Sent!" })
+        }
+
+
+    } catch (error) { console.log(error) };
+}
 
 
 module.exports.test = async function (req, res) {
