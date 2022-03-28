@@ -10,7 +10,7 @@ Haha, by the way, are you close to any girl after you get into the university? M
 @R1@ You: No… I think I am not interested in this kind of issue.
 @R1@ Joyce: Oh… That’s fine, everyone has their preference. 
 @R1@ You two had a quick dinner and continued to work on the committee issues after that.
-#
+#0,0,0,0
 @R2@ You: Yea, I am getting closer to a girl these days! I will try to talk with her more too!
 @R2@ Joyce : Ohhh really?! Who is that?
 @R2@ You: Haha, maybe we can talk a walk at near the Lake Ad Excellentiam and I will tell you more about that.
@@ -23,4 +23,4 @@ Haha, by the way, are you close to any girl after you get into the university? M
 @R2@ You : Yes?
 @R2@ Joyce: My answer to your question is YES!
 @R2@ After saying so, she turns her head and rushes to the gate. After dazing for a while, you finally recognize that you got your first girlfriend in your life. (+ Happiness)
-#
+#0,0,0,5

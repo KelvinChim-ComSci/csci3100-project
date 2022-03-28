@@ -5,8 +5,8 @@ Ken : Hey do you plan to join the college sport event? I plan to go for the 200m
 @A1,2@ Sure ! Let me also join the 200 meter race with you together. 
 @A2,4@ No… I think I won’t. 
 @R1@ Ken:Great ! Let’s fight for it together! Hope we can meet in the final!(+Sports)
-#
+#0,1,0,0
 @R2@ Ken:Never mind, join it with me next year!
-#
+#0,0,0,0
 
 

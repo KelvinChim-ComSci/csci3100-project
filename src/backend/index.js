@@ -78,12 +78,25 @@ app.post('/stat/retrieve', async function (req, res) {
     return statisticHandling.stat(req, res);
 });
 
-
+app.post('/stat/resetStat', async function (req, res) {
+    return statisticHandling.resetStat(req, res);
+})
 
 app.post('/friend/sendRequest', async function (req, res) {
     return friendHandling.sendRequest(req, res);
 });
 
+app.post('/friend/getFriendList', async function (req, res) {
+    return friendHandling.getFriendList(req, res);
+});
+
+app.post('/friend/checkIncomingRequest', async function (req, res) {
+    return friendHandling.checkIncomingRequest(req, res);
+});
+
+app.post('/friend/manageIncomingRequest', async function (req, res) {
+    return friendHandling.manageIncomingRequest(req, res);
+});
 
 // General
 app.get('/', async function (req, res) {

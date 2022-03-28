@@ -6,7 +6,6 @@ import Login from "./frontend/SignInPage/Login.js";
 import ForgotPassword from "./frontend/SignInPage/ForgotPassword.js";
 import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
-import Event from "./frontend/Event.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
 import AdminPage from "./frontend/AdminPage";
 
@@ -25,7 +24,6 @@ class App extends React.Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleLocation = this.handleLocation.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
@@ -80,10 +78,6 @@ class App extends React.Component {
     window.sessionStorage.removeItem("isLoggedIn");
   }
 
-  handleLocation(location){
-    this.setState({location: location});
-  }
-
   render() {
     return (
       <div className="App" >
@@ -113,8 +107,6 @@ class App extends React.Component {
                 />
               }
             />
-            <Route path="/event" element={<Event
-            location = {this.state.location}/>} />
             <Route 
               path="/adminPage" 
                 element={<AdminPage
@@ -126,13 +118,7 @@ class App extends React.Component {
             />
           </Routes >
 
-
-          <Link style={{ padding: 5 }} to={"/"}>Log in</Link>
-          <Link style={{ padding: 5 }} to={"/registration"}>Registration</Link>
-          <Link style={{ padding: 5 }} to={"/forgotPassword"}>Forgot Password</Link>
-          <Link style={{ padding: 5 }} to={"/main"}> Main </Link>
-          <Link style={{ padding: 5 }} to={"/event"}> Event </Link>
-
+          <Link to="/email/confirm/:id">Email Verified</Link>
 
         </Router >
       </div >

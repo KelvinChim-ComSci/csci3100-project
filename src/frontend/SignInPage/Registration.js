@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './Registration.css';
 
 class Registration extends React.Component {
     constructor(props) {
@@ -143,6 +142,7 @@ class Registration extends React.Component {
     }
 
     render() {
+        require('./Registration.css');
         return (
             <div id="registration">
 
@@ -155,19 +155,19 @@ class Registration extends React.Component {
                         <div className="txt_field">
 
                             <label htmlFor="username">Username</label>
-                            <input type="text" id="usernameid" name="username" required onBlurCapture={this.checkUserName}></input>
+                            <input type="text" id="usernameid" name="username" required></input>
                             <div className="error">{this.state.usernameErrMsg}</div>
 
                             <label htmlFor="email">Email</label>
-                            <input type="text" id="emailid" name="email" required onBlurCapture={this.checkEmail}></input>
+                            <input type="text" id="emailid" name="email" required></input>
                             <div className="error">{this.state.emailErrMsg}</div>
 
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="passwordid" name="password" required onBlurCapture={this.checkPassword}></input>
+                            <input type="password" id="passwordid" name="password" required></input>
                             <div className="error">{this.state.passwordErrMsg}</div>
 
                             <label htmlFor="confirmPassword">Confirm Password</label>
-                            <input type="password" id="confirmpasswordid" name="confirmPassword" required onBlurCapture={this.checkConfirmPassword}></input>
+                            <input type="password" id="confirmpasswordid" name="confirmPassword" required></input>
                             <div className="error">{this.state.confirmPasswordErrMsg}</div>
                         </div>
 

@@ -4,10 +4,10 @@ Ken: (User name), have you ever thought of starting your own business? You seem 
 Joyce: Yeah, you always give people an image that you are rich and you have good business sense. I also think you should try to start your own business.
 @QQ@ What is your thought?
 @A1,2@ You: Actually I am also planning to do so. I am drafting the SOP and a business plan for a startup competition! 
-@A2,4@ You: No… I am not that ambitious. 
+@A2,5@ You: No… I am not that ambitious. 
 @R1@ You prepared a business plan and were interviewed by a group of experienced businessmen. 
-@R1@ After a month from the interview, you were told that you won in the competition and got 100k funding for starting your own business.
-#
+@R1@ After a month from the interview, you were told that you won in the competition and got funding for starting your own business.
+#0,0,3,0
 @R2@ Joyce: That’s fine. I think that is also risky to do so though.
-#
+#0,0,0,0
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './Login.css';
 import { withRouter } from '../withRouter.js'; // router
+import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 
 class Login extends React.Component {
     constructor(props) {
@@ -9,7 +9,26 @@ class Login extends React.Component {
         this.userLogin = this.userLogin.bind(this);
         this.state = {
             usernameError: "",
-            passwordError: ""
+            passwordError: "",
+            error: 0,
+        }
+    }
+
+    checkInput(inputUsername, inputPassword){
+        this.setState({error: 0});
+        if (this.isEmpty(inputUsername)) {
+            this.setState({ usernameError: "Please enter a username.", error: 1});
+            console.log("No username.");
+        }
+        else {
+            this.setState({ usernameError: ""})
+        }
+        if (this.isEmpty(inputPassword)) {
+            this.setState({ passwordError: "Please enter a password.", error: 1 });
+            console.log("No password.");
+        }
+        else {
+            this.setState({ passwordError: ""})
         }
     }
 
@@ -18,14 +37,10 @@ class Login extends React.Component {
         let inputUsername = document.getElementsByName("username")[0].value;
         let inputPassword = document.getElementsByName("password")[0].value;
 
-        if (this.isEmpty(inputUsername)) {
-            this.setState({ usernameError: "Please enter a username.", passwordError: "" });
-            return console.log("No username.");
-        }
-        else if (this.isEmpty(inputPassword)) {
-            this.setState({ usernameError: "", passwordError: "Please enter a password." });
-            return console.log("No password.");
-        }
+        await this.checkInput(inputUsername, inputPassword);
+
+        if (this.state.error === 1)
+            return;
 
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
             method: "POST",
@@ -74,15 +89,15 @@ class Login extends React.Component {
 
     displayError(errorMessage) {
         if (errorMessage === "No such user is found. Please try again.") {
-            this.setState({ usernameError: errorMessage, passwordError: "" });
+            this.setState({ usernameError: errorMessage, error: 1 });
         }
         else if (errorMessage === "Invalid Password. Please try again.") {
-            this.setState({ usernameError: "", passwordError: errorMessage });
+            this.setState({ passwordError: errorMessage, error: 1 });
         }
-        else this.setState({ usernameError: "", passwordError: "" });
     }
 
     render() {
+        require('./Login.css');
         return (
             <div id="login">
 

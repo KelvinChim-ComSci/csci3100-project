@@ -1,5 +1,5 @@
 .event{
-    height: 100vh;
+    height: 100%;
     background: green;
     background-image: url('/src/backend/background/na.jpeg');
     background-size: 100%;
@@ -9,13 +9,17 @@
     position: absolute;
     top: 50px;
     left: 16px;
+    width: 20%;
+    background-color: yellow;
 }
 
 .topRight{
     position: absolute;
     top: 50px;
     right: 16px;
+    width: 20%;
     cursor: pointer;
+    background-color: rgb(0, 140, 255);
 }
 
 a { color: inherit; } 
@@ -37,13 +41,13 @@ a { color: inherit; }
     padding: 1em;
     border-bottom: 1vw solid #4f80a1;
     line-height: 1.2em;
-
+    overflow: auto;
     display: inline-block;
-    width: 1000px;
-    height: 200px;
+    width: 80%;
+    height: 30vh;
     position: absolute;
-    bottom: 90px;
-    right: 200px;
+    bottom: 10%;
+    right: 10%;
     font-size: 30px;
  }
 
@@ -67,8 +71,7 @@ a { color: inherit; }
     opacity: 20%;
 }
 
-
-.event .popUp{
+.popUp{
     z-index: 2000;
     position: absolute;
     left: 50%;
@@ -87,4 +90,11 @@ a { color: inherit; }
     height: auto;
     width: auto; 
     padding: 30px;
+}
+
+.event #eventStarter {
+    position: absolute;
+    left: 50%;
+    transform: translate(0, -50%);
+    top: 70%;
 }

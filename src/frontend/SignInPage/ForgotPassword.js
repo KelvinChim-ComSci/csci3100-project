@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './ForgotPassword.css';
 
 
 class ForgotPassword extends React.Component {
@@ -42,8 +41,9 @@ class ForgotPassword extends React.Component {
 
 
     render() {
+        require('./ForgotPassword.css');
         return (
-            <div id="registration">
+            <div id="forgot_password">
 
                 <div className="container">
 
@@ -61,6 +61,13 @@ class ForgotPassword extends React.Component {
 
                         <div className="buttons">
                             <input id="submit_box" type="submit" value="Send email" onClick={this.sendEmail}></input>
+                        </div>
+                        <div className="links">
+                            <p><a href="./">Return to log in</a></p>
+                        </div>
+
+                        <div className="buttons" onClick={this.sendEmail}>
+                            <input id="submit_box" type="submit" value="Send email"></input>
                         </div>
                         <div className="links">
                             <p><a href="./">Return to log in</a></p>

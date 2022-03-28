@@ -6,6 +6,7 @@ class Verification extends React.Component {
     }
     
     render() {
+        require('./Verification.css');
         return (
             <div>
                 Please check your email for Verification:

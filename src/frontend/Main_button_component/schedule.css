@@ -2,11 +2,11 @@
     text-align: center;
 }
 
-.schedule h2{
+h2{
     padding: 10px 0 0 0;
 }
 
-.schedule h3{
+h3{
     padding: 5px 0 10px 0;
 }
 
@@ -39,11 +39,11 @@
     transform: translate(-50%,-80%);
 }
 
-.schedule .colBorder{
+.colBorder{
     border: 1px solid rgb(59, 53, 14);
 }
 
-.schedule .content{
+.content{
     position: relative;
     left: 50%;
     transform: translate(-50%,0);

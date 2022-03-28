@@ -1,5 +1,4 @@
 import React from "react";
-import "./choiceWindow.css";
 
 class Choice extends React.Component {
 
@@ -9,6 +8,7 @@ class Choice extends React.Component {
                 {item}
             </button>
         );
+        require("./choiceWindow.css");
         return (
             <div>
                 {choiceItems}

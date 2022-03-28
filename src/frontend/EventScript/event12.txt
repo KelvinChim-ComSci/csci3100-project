@@ -5,10 +5,11 @@ Ken: (sign) I still do not have any reply yet. I have handed in thousands of int
 You didn’t even think about it before.
 You: Oh I still haven’t planned for it.
 @QQ@ What would you do?
-@A1@ Start seeking for internship (if R1, gpa>M/4, +gpa, +happiness, + money, else +money)
-@A2@ Ignore the coming summer internship chances (unchanged)
-@R1, gpa > M/4@ You tried very hard to seek an internship, and you have got a very good position in the same company as Joyce.
-You two worked together and got a returning offer from the company.
-@R1, gpa <= M/4@ You tried very hard to seek an internship, but you have eventually got into a small company and work as a clerk.
+@A1,2@ Start seeking for internship
+@A2,5@ Ignore the coming summer internship chances
+@R1@ You tried very hard to seek an internship, and you have got a very good position in the same company as Joyce.
+@R1@ You two worked together and got a returning offer from the company. (+GPA, +happiness, +money)
+#1,0,1,1
 @R2@ You plan to do nothing in the summer.
+#0,0,0,0
 

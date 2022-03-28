@@ -1,5 +1,4 @@
 import React from "react";
-import "./mainEvent.css";
 import event1 from "../EventScript/event1.txt"
 import event2 from "../EventScript/event2.txt"
 import event3 from "../EventScript/event3.txt"
@@ -24,8 +23,7 @@ import event21 from "../EventScript/event21.txt"
 import event22 from "../EventScript/event22.txt"
 import event23 from "../EventScript/event23.txt"
 import event24 from "../EventScript/event24.txt"
-
-
+import event25 from "../EventScript/event24.txt"
 
 
 import Choice from '../choiceWindow';
@@ -35,14 +33,65 @@ class MainEvent extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
+        console.log("this.props.stat", this.props.stat)
 
+        function eventChoice(year,sem, stat){
+            // since the event pops up after the schdules end, the time in the story should -1 sem in here
+            if (year == 1 && sem == 1){return  event2}   
+            if (year == 1 && sem == 2){return event3}
+            if (year == 1 && sem == 3){return event20}
+            if (year == 1 && sem == 4){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+                if (stat.sports == highest){return event4}
+                if (stat.gpa == highest) {return event5}
+                if (stat.happiness == highest) {return event6}
+                if (stat.money == highest) {return event8}
+            }
+            if (year == 2 && sem == 1){return event7}
+            if (year == 2 && sem == 2){return event9}
+            if (year == 2 && sem == 3){
+                if (stat.sports > 10){
+                    return event10
+                }
+                if (stat.money > 10){
+                    return event19
+                }
+                if (stat.gpa > 10){
+                    return event25
+                }
+                if (stat.happiness > 10){
+                    return event18
+                }
 
-        function eventChoice(year,sem){
-            if (year ==1 && sem == 1){return event2}   
-            return event6
+            }
+            if (year == 2 && sem == 4){return event11}
+            if (year == 3 && sem == 1){return event12}
+            if (year == 3 && sem == 2){return event13}
+            if (year == 3 && sem == 3){return event14}
+            if (year == 3 && sem == 4){return event15}
+            if (year == 4 && sem == 1){
+                console.log("year 4 sem 1")
+                if (stat.sports > 20){
+                    return event24
+                }
+                if (stat.money > 20){
+                    return event23
+                }
+                if (stat.gpa > 20){
+                    return event21
+                }
+                if (stat.happiness > 20){
+                    return event22
+                }
+            }
+            if (year == 4 && sem == 2){return event16}
+            if (year == 4 && sem == 3){return event17}
+            if (year == 4 && sem == 4){
+                //handle endings, to be implemented
+            }
         }
 
-        fetch(eventChoice(this.props.year, this.props.sem))
+        fetch(eventChoice(this.props.stat.year, this.props.stat.sem, this.props.stat))
         .then(r => r.text())
         .then(text => {
           this.script_list = text.split('\n');
@@ -86,7 +135,9 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (dia_line[0] === "#"){
             console.log("")
-            this.returnToMain();
+            // handle stat change
+            console.log("dia_line.substring(1):", dia_line.substring(1).split(','))
+            this.props.handleMaineventStat(dia_line.substring(1).split(','));
         }
 
         // normal line without @
@@ -122,7 +173,7 @@ class MainEvent extends React.Component {
             chosenChoice: choiceId,
             script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])
           })
-
+        
         await new Promise(resolve => setTimeout(resolve, 1));
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
@@ -142,14 +193,19 @@ class MainEvent extends React.Component {
             return
         }
     }
+    
     render(){
+        require("./mainEvent.css");
         return (
-            <div id = "text">
-                <div className="text" onClick={()=>this.handleClick()}>
-                    <p id = "dialogue"> ??? </p>
+            <div id="mainEvent">
+                <div id = "text">
+                    <div className="text" onClick={()=>this.handleClick()}>
+                        <p id = "dialogue"> ??? </p>
+                    </div>
+                    {this.popUp(this.state.popUpChoice)}      
                 </div>
-                {this.popUp(this.state.popUpChoice)}      
             </div>
+            
         )
     }
 }

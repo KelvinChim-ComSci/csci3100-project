@@ -1,6 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './Event.css';
 import dia from './EventScript/GateOfWisdom.txt';
 import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
@@ -22,8 +21,20 @@ class Event extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
-        this.returnToMain = this.returnToMain.bind(this);
         this.bgchoice = this.bgchoice.bind(this);
+        this.beginEvent = this.beginEvent.bind(this);
+        this.returnToMain = this.returnToMain.bind(this);
+
+        this.state = {
+            script_count: 1,
+            popUpChoice: "",
+            chosenChoice: -1,
+            started: 0
+        }
+
+    }
+
+    beginEvent(){
         fetch(dia)
         .then(r => r.text())
         .then(text => {
@@ -40,16 +51,13 @@ class Event extends React.Component {
               }
           }
 
+
         //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
+        
 
-    });
-
-        this.state = {
-            script_count : 1,
-            popUpChoice : "",
-            chosenChoice: -1,
-        }
-
+        })
+        .then(this.setState({started: 1}))
+        .then(this.props.setEvent(1));
     }
 
     bgchoice(location){
@@ -66,10 +74,12 @@ class Event extends React.Component {
         if (location == "Swimming Pool"){return swimmingpool_bg}
         if (location == "CC Lib"){return cclib_bg}
 
-
     }
-    returnToMain() {
-        this.props.navigate('../main');
+
+    returnToMain(){
+        console.log("clicked return to main");
+        this.props.setEvent(0);
+        this.props.handleLocation("main");
     }
 
     handleClick() {
@@ -120,9 +130,27 @@ class Event extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1));
         // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
-      }
+    }
       
-    
+    dialogueWindow() {
+        if (this.state.started === 1)
+            return(
+                <div className="text" onClick={()=>this.handleClick()}>
+                    <p id = "dialogue"></p>
+                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
+                    </svg>
+                </div>
+            )
+        else
+            return(
+                <div>
+                    <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
+                    <button onClick={this.beginEvent} id="eventStarter">Click to start</button>
+                </div>
+            );
+        
+    }
 
 
 
@@ -153,17 +181,12 @@ class Event extends React.Component {
 
     render() {
         console.log(this.props.params);
+        require('./Event.css');
 
         return (
             <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
-                <div className = "container topLeft"><h1  id='Location'>{this.props.location}</h1></div>
-                <div><a onClick={this.returnToMain} className="container topRight" >Back to main page</a></div>
-                <div className="text" onClick={()=>this.handleClick()}>
-                    <p id = "dialogue"> ??? </p>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
-                </div>
+                <div className = "container topLeft"><h1 id='Location'>{this.props.location}</h1></div>
+                {this.dialogueWindow()}
                 {this.popUp(this.state.popUpChoice)}      
             </div>
         )
