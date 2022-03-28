@@ -7,6 +7,7 @@ import ForgotPassword from "./frontend/SignInPage/ForgotPassword.js";
 import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
+import ChangePassword from "./frontend/SignInPage/ChangePassword.js";
 import AdminPage from "./frontend/AdminPage";
 
 class App extends React.Component {
@@ -35,7 +36,7 @@ class App extends React.Component {
     console.log("logged in status: " + this.state.loggedInStatus);
     console.log(this.state.isLoggedIn);
   }
-  
+
   handleSessionRefresh() {
     this.setState({
       username: window.sessionStorage.getItem("username"),
@@ -53,7 +54,7 @@ class App extends React.Component {
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
-  });
+    });
     window.sessionStorage.setItem("username", user);
     window.sessionStorage.setItem("userId", userId);
     window.sessionStorage.setItem("isAdmin", checkAdmin);
@@ -93,32 +94,33 @@ class App extends React.Component {
             />
             <Route path="/email/confirm/:id" element={<EmailVerified />} />
             <Route path="/registration" element={<Registration />} />
-            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/changepassword/:id" element={<ChangePassword />} />
             <Route
               path="/main"
               element={
                 <Main
                   handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
-                  handleLocation = {this.handleLocation}
-                  location = {this.state.location}
+                  handleLocation={this.handleLocation}
+                  location={this.state.location}
                   username={this.state.username}
                   userId={this.state.userId}
                 />
               }
             />
-            <Route 
-              path="/adminPage" 
-                element={<AdminPage
-                  handleLogout={this.handleLogout}
-                  username={this.state.username}
-                  userId={this.state.userId}
-                />
-              } 
+            <Route
+              path="/adminPage"
+              element={<AdminPage
+                handleLogout={this.handleLogout}
+                username={this.state.username}
+                userId={this.state.userId}
+              />
+              }
             />
           </Routes >
 
-          <Link to="/email/confirm/:id">Email Verified</Link>
+          {/*<Link to="/email/confirm/:id">Email Verified</Link>*/}
 
         </Router >
       </div >
