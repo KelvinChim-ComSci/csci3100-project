@@ -23,15 +23,6 @@ db.once('open', function () {
 
 // Schema
 
-var MessageSchema = mongoose.Schema({
-    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    message: { type: String },
-    date: { type: String },
-    time: { type: String }
-});
-var Message = mongoose.model('Message', MessageSchema);
-
 var ProfileSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     stat: { type: mongoose.Schema.Types.ObjectId, ref: 'Statistic' },
