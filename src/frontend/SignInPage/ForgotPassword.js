@@ -59,13 +59,6 @@ class ForgotPassword extends React.Component {
 
                         </div>
 
-                        <div className="buttons">
-                            <input id="submit_box" type="submit" value="Send email" onClick={this.sendEmail}></input>
-                        </div>
-                        <div className="links">
-                            <p><a href="./">Return to log in</a></p>
-                        </div>
-
                         <div className="buttons" onClick={this.sendEmail}>
                             <input id="submit_box" type="submit" value="Send email"></input>
                         </div>
