@@ -86,6 +86,14 @@ app.post('/friend/getFriendList', async function (req, res) {
     return friendHandling.getFriendList(req, res);
 });
 
+app.post('/friend/checkIncomingRequest', async function (req, res) {
+    return friendHandling.checkIncomingRequest(req, res);
+});
+
+app.post('/friend/manageIncomingRequest', async function (req, res) {
+    return friendHandling.manageIncomingRequest(req, res);
+});
+
 // General
 app.get('/', async function (req, res) {
     return res.json('Server-side of the game: CU Simulator.');
