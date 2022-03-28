@@ -22,6 +22,7 @@ class Main extends React.Component {
             stat : null,
             location : "main",
             started : 0,
+            overflow : 1
         };
 
         this.statRef = React.createRef();
@@ -38,6 +39,7 @@ class Main extends React.Component {
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
+        this.setOverflow = this.setOverflow.bind(this);
 
     }
 
@@ -126,16 +128,20 @@ class Main extends React.Component {
         this.statUpdateFromBackend(this.props.userId);
     }
 
+    setOverflow(val){
+        this.setState({overflow: val});
+    }
+
     popUp(option) {
         console.log("current Pop-up: ", this.state.popUpBar);
         if (option === "profile"){
             require("./Main_button_component/profile.css");
             return (
                 <div className="mainPopUp">
-                    <div id="shadowLayer"></div>
+                    <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                    <div className="popUp">
-                        <Profile stat={this.state.stat} />
+                    <div className="popUp" style={{overflow: this.state.overflow? "auto" : "clip"}}>
+                        <Profile stat={this.state.stat} username={this.props.username} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
 
@@ -292,16 +298,19 @@ class Main extends React.Component {
                     {this.leftComponent()}
                 </div>
 
-                <div className="split right-top">
+                <div className="split right d-flex flex-column">
+                
+                    <h2>Statistics</h2>
                     <StatDisplay stat={this.state.stat} ref={this.statRef}/>
-                </div>
-
-                <div className="split right-bot d-flex flex-column justify-content-center">
+                    <br></br>
+                    <h2>Buttons</h2>
                     <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                     <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
+                    <br></br>
+                    <h2>Copyright</h2>
                 </div>
 
                 {this.popUp(this.state.popUpBar)}

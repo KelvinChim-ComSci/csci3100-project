@@ -25,7 +25,7 @@ class StatDisplay extends React.Component {
 
                         <thead>
                             <tr>
-                                <th scope="col" id="col1">Statistics</th>
+                                <th scope="col" id="col1"></th>
                                 <th scope="col" id="col2"></th>
                             </tr>
                         </thead>
