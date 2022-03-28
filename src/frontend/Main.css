@@ -25,6 +25,10 @@
     vertical-align: top;
 }
 
+.right .btn {
+    margin: 1px 0;
+}
+
 .mainButton{
     padding: 100px;
     font-size: xx-large;

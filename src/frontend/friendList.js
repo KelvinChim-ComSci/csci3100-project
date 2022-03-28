@@ -31,7 +31,7 @@ class FriendList extends React.Component {
         return (
             <div>
                 <div id="shadowLayer"></div>
-                <button className="closeButton" onClick={() => {this.setState({addFriendPopUp : "hide"})}}>x</button>
+                <button className="closeButton" onClick={() => {this.setState({addFriendPopUp : "hide"}); this.props.setOverflow(1);}}>x</button>
                 <div className="popUp">
                     <AddFriend userId = {this.props.stat.user}/>
                 </div>
@@ -180,7 +180,7 @@ class FriendList extends React.Component {
                 </div>
 
                 <div>
-                    <button onClick={()=>this.setState({addFriendPopUp: "show"})}> friend++ </button>
+                    <button onClick={()=>{this.setState({addFriendPopUp: "show"}); this.props.setOverflow(0);}}> friend++ </button>
                 </div>
                 <div className="manageFriends">
                     {this.addFriend()}
