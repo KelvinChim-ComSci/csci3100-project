@@ -45,12 +45,31 @@ module.exports.stat = async function (req, res) {
 
 // initialize user information
 module.exports.initalizeStat = async function (userId) {
-    await Statistic.create({ gpa: 25, sports: 25, happiness: 25, money: 25, sem: 1, stamina: 100, year: 1, user: userId },
+    await Statistic.create({
+        gpa: 1, 
+        sports: 0, 
+        happiness: 0, 
+        money: 0, 
+        sem: 1, 
+        stamina: 100,
+        year: 1, 
+        user: userId },
         async function (err, response) {
             if (err) {
                 console.log(err)
                 return err
             }
             return response
+        })
+}
+
+module.exports.resetStat = async function (req, res) { // not yet in frontend
+    await Statistic.findOneAndUpdate({ user: req.body.userId }, { gpa: 1, sports: 0, happiness: 0, money: 0, sem: 1, stamina: 100, year: 1 },
+        async function (err, response) {
+            if (err) {
+                console.log(err)
+                return err;
+            }
+            return res.send({ message: "data updated!" });
         })
 }

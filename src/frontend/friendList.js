@@ -9,8 +9,16 @@ class FriendList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            addFriendPopUp: "hide"
+            addFriendPopUp: "hide",
+            friends: []
         }
+
+        this.fetchFriendList = this.fetchFriendList.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.fetchFriendList();
     }
 
 
@@ -27,14 +35,69 @@ class FriendList extends React.Component {
 
         );
     }
+
+    showFriends() {
+        if (this.state.friends.length === 0) {
+        return (
+            <div>
+                You have no friends. Maybe you should stand here, realize you were
+                Just like me trying to make history.<br />
+
+                But who's to judge the right from wrong.<br />
+                When our guard is down I think we'll both agree.<br /><br />
+
+                That violence breeds violence.<br />
+                But in the end it has to be this way.<br /><br />
+
+                I've curved my own path, you've followed your wrath;<br />
+                But maybe we're both the same.<br /><br />
+
+                The world has turned, and so many have burned.<br />
+                But nobody is to blame.<br /><br />
+
+                It's tearing across this barren wasted land.<br />
+                I feel new life could be born beneath<br />
+                The blood stained sand.
+            </div>
+        )} else {
+            return (
+            <div>
+                {this.state.friends.map((data) => {
+                    return <div> {data.username} {data.status.toString()} </div>;
+                })}
+            </div>
+            );
+        }
+    }
+
+    async fetchFriendList() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/friend/getFriendList", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: this.props.stat.user,
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res.friendList);
+            this.setState({ friends: res.friendList });
+        });
+    }
+
+
     render() {
         require('./friendList.css');
         return (
             <div className="friendList">
-                <p>Let there be friend.</p>
-
                 <div className="onlineFriends">
-                    It is supposed to show your friends but you don't have any.. F
+                    {this.showFriends()}
                 </div>
 
                 <div>
