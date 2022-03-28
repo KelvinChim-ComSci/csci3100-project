@@ -180,8 +180,8 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                    <div className="popUp">
-                        <Schedule popMainEvent = {this.popMainEvent} handleSchedulePlan={this.handleSchedulePlan}/>
+                    <div className="popUp" style={{overflow: this.state.overflow? "auto" : "clip"}}>
+                        <Schedule popMainEvent = {this.popMainEvent} handleSchedulePlan={this.handleSchedulePlan} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
             )
@@ -203,8 +203,8 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                    <div className="popUp">
-                        <FriendList stat = {this.state.stat}/>
+                    <div className="popUp" style={{overflow: this.state.overflow? "auto" : "clip"}}>
+                        <FriendList stat = {this.state.stat} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
             )
