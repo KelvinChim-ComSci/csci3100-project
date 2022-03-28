@@ -49,7 +49,7 @@ class Profile extends React.Component {
 
                         <div className="d-flex flex-column" id="textbox">
                             <div className="p-2">User name: XXX</div>
-                            <div className="p-2">User ID: {this.props.stat._id}</div>
+                            <div className="p-2">User ID: {this.props.stat.user}</div>
                             <div className="p-2">Status: (On/Off)</div>
                             <div className="d-flex justify-content-between">
                                     <div className="p-2">About me:</div>
