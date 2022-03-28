@@ -53,6 +53,10 @@ app.post('/email', async function (req, res) {
     return accountHandling.email(req, res);
 })
 
+app.post('/email/forgetpassword', async function (req, res) {
+    return accountHandling.forgetPassword(req, res);
+})
+
 app.get('/email/confirm/:id', async function (req, res) {
     return accountHandling.confirmEmail(req, res);
 })

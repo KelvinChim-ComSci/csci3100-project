@@ -150,8 +150,8 @@ class Schedule extends React.Component {
                 <h4>Are you sure to submit this plan?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => {this.props.handleSchedulePlan(plan); this.props.popMainEvent();}}>Yes</button>
-                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""})}}>No</button>
+                            <button className="btn btn-success" onClick={() => {this.props.handleSchedulePlan(plan); this.props.popMainEvent(); this.props.setOverflow(1);}}>Yes</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>No</button>
                         </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@ class Schedule extends React.Component {
           
         </div>
       <p className="leftText">Note: You can plan at most 8 events.</p>
-      <button className="confirm" onClick={()=>{this.setState({popUpBar: "confirm"})}}>Done!</button> 
+      <button className="confirm" onClick={()=>{this.setState({popUpBar: "confirm"}); this.props.setOverflow(0);}}>Done!</button> 
       </div> 
         </div>
         {this.popUp(this.state.popUpBar)}

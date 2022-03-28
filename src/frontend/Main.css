@@ -5,10 +5,10 @@
 .split {
     position: fixed;
     overflow: auto;
+    height: 100%;
 }
   
 .left {
-    height: 100%;
     width: 80%;
     left: 0;
     top: 0;
@@ -16,23 +16,18 @@
     background-repeat: no-repeat;
 }
   
-.right-top {
-    height: 50%;
+.right {
+    padding: 10px;
     width: 20%;
     top: 0;
     right: 0;
     background-color: rgb(182, 182, 182);
-}
-  
-.right-bot {
-    height: 50%;
-    width: 20%;
-    bottom: 0;
-    right: 0;
-    background-color: rgb(109, 109, 109);
+    vertical-align: top;
 }
 
-
+.right .btn {
+    margin: 1px 0;
+}
 
 .mainButton{
     padding: 100px;
@@ -76,7 +71,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1000;
     background-color: black;
     opacity: 50%;
 }
@@ -96,7 +90,7 @@
 }
 
 .mainPopUp .closeButton{
-    z-index: 3000;
+    z-index: 2001;
     position: absolute;
     background-color: rgb(255, 123, 0);
     left: 95%;
