@@ -8,6 +8,7 @@ class ForgotPassword extends React.Component {
         this.state = {
             usernameError: "",
         }
+        this.sendEmail = this.sendEmail.bind(this);
     }
 
     async sendEmail(event) {
@@ -31,7 +32,7 @@ class ForgotPassword extends React.Component {
                 console.log(res)
                 if (res.usernameError) {
                     console.log("err")
-                    alert(res.usernameError)
+                    this.setState({usernameError: "Username does not exist"})
                 }
                 if (!(res.usernameError)) {
                     alert(res.message)
