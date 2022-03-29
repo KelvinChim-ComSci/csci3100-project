@@ -80,7 +80,7 @@ class FriendList extends React.Component {
         .then((data) => data.json())
         .then((data) => {
             this.deleteQuery(friendId);
-            console.log(data);
+            console.log(data); // successful message
         })
     }
 
@@ -145,7 +145,6 @@ class FriendList extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            console.log(res.friendList);
             this.setState({ friends: res.friendList });
         });
     }
@@ -166,7 +165,6 @@ class FriendList extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            console.log(res.incomingRequest);
             this.setState({ incomingRequests: res.incomingRequest });
         });
     }
