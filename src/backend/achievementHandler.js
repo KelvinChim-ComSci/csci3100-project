@@ -43,14 +43,14 @@ newAchievement.save((error) => {
 module.exports.achievementUpdate = async function (req, res) {
     Achievement.findOneAndUpdate({ user: req.body.userId }, {
         $set: {
-            sociable: parseInt(req.body.sociable),
-            fxxxboy: parseInt(req.body.fxxxboy),
-            happyjai: parseInt(req.body.happyjai),
-            nerd: parseInt(req.body.nerd),
-            tooStronk4u: parseInt(req.body.tooStronk4u),
-            whoEvenStudies: parseInt(req.body.whoEvenStudies),
-            futureSecurityGuard: parseInt(req.body.futureSecurityGuard),
-            emotionalDamage: parseInt(req.body.emotionalDamage),
+            sociable: req.body.sociable,
+            fxxxboy: req.body.fxxxboy,
+            happyjai: req.body.happyjai,
+            nerd: req.body.nerd,
+            tooStronk4u: req.body.tooStronk4u,
+            whoEvenStudies: req.body.whoEvenStudies,
+            futureSecurityGuard: req.body.futureSecurityGuard,
+            emotionalDamage: req.body.emotionalDamage,
         }
     }, {
         new: true
@@ -78,13 +78,13 @@ module.exports.initalizeAchievement = async function (userId) {
     await Achievement.create({
         user: userId ,
         sociable: false,
-        fxxxboy: 0,
-        happyjai: 0,
-        nerd: 0,
-        tooStronk4u: 0,
-        whoEvenStudies: 0,
-        futureSecurityGuard: 0,
-        emotionalDamage: 0},
+        fxxxboy: false,
+        happyjai: false,
+        nerd: false,
+        tooStronk4u: false,
+        whoEvenStudies: false,
+        futureSecurityGuard: false,
+        emotionalDamage: false},
         async function (err, response) {
             if (err) {
                 console.log(err)

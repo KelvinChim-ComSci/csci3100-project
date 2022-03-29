@@ -1,5 +1,13 @@
 import React from "react";
 import img from './profile_pic.jpg';
+import achievement_img1 from '../img/achievement1.png';
+import achievement_img2 from '../img/achievement2.png';
+import achievement_img3 from '../img/achievement3.png';
+import achievement_img4 from '../img/achievement4.png';
+import achievement_img5 from '../img/achievement5.png';
+import achievement_img6 from '../img/achievement6.png';
+import achievement_img7 from '../img/achievement7.png';
+import achievement_img8 from '../img/achievement8.png';
 
 class Profile extends React.Component {
 
@@ -79,14 +87,14 @@ class Profile extends React.Component {
     render(){
         require("./profile.css");
        
-        const data1 = {img: img, text: "sociable", status: this.state.sociable };
-        const data2 = {img: img, text: "fxxxboy", status: this.state.fxxxboy};
-        const data3 = {img: img, text: "happyjai", status: this.state.happyjai};
-        const data4 = {img: img, text: "nerd", status: this.state.nerd};
-        const data5 = {img: img, text: "tooStronk4u", status: this.state.tooStronk4u};
-        const data6 = {img: img, text: "whoEvenStudies", status: this.state.whoEvenStudies};
-        const data7 = {img: img, text: "futureSecurityGuard", status: this.state.futureSecurityGuard};
-        const data8 = {img: img, text: "emotionalDamage", status: this.state.emotionalDamage};
+        const data1 = {img: achievement_img1, text: "sociable", status: this.state.sociable };
+        const data2 = {img: achievement_img2, text: "fxxxboy", status: this.state.fxxxboy};
+        const data3 = {img: achievement_img3, text: "happyjai", status: this.state.happyjai};
+        const data4 = {img: achievement_img4, text: "nerd", status: this.state.nerd};
+        const data5 = {img: achievement_img5, text: "tooStronk4u", status: this.state.tooStronk4u};
+        const data6 = {img: achievement_img6, text: "whoEvenStudies", status: this.state.whoEvenStudies};
+        const data7 = {img: achievement_img7, text: "futureSecurityGuard", status: this.state.futureSecurityGuard};
+        const data8 = {img: achievement_img8, text: "emotionalDamage", status: this.state.emotionalDamage};
         const imgList_tmp = [data1, data2, data3, data4, data5, data6, data7, data8 ];
         const imgList= [];
         for (let index = 0; index < imgList_tmp.length; index++) {
