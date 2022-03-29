@@ -60,7 +60,7 @@ class Login extends React.Component {
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
                     this.props.handleLogin(res.username, res.userId, res.accessLevel);
-                    res.accessLevel? this.navigator('./AdminPage') : this.navigator('./main');
+                    this.navigator('./main');
                 }
                 else {
                     console.log(res.errorMsg);
