@@ -73,19 +73,15 @@ class Main extends React.Component {
     }
 
     popFriendLlist() {
-        console.log("pop friend list");
         this.setState({popUpBar : "friend"});
-        console.log(this.state.stat._id)
     }
 
     popMessageBox() {
         //alert(this.state.schedulePop);
-        console.log("pop message box");
         this.setState({popUpBar : "message"});
     }
 
     popMainEvent() {
-        console.log("pop mainEvent");
         if (this.state.stat.year > 4)
             return;
         this.setState({popUpBar : "mainEvent"});
@@ -112,7 +108,6 @@ class Main extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             this.updateStat(res);
         })  
     }
@@ -133,7 +128,6 @@ class Main extends React.Component {
     }
 
     popUp(option) {
-        console.log("current Pop-up: ", this.state.popUpBar);
         if (option === "profile"){
             require("./Main_button_component/profile.css");
             return (
@@ -217,7 +211,6 @@ class Main extends React.Component {
     }
 
     leftComponent(){
-        console.log(this.state.location);
         if (this.state.location === "main"){
             return (
                 <div className="split left" style={{backgroundImage: `url(${main_bg})`}}>

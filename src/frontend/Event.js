@@ -61,7 +61,6 @@ class Event extends React.Component {
     }
 
     bgchoice(location){
-        console.log("1231231232")
         console.log(location)
         if (location == "U Lib"){return ulib_bg}
         if (location == "NA"){return na_bg}
