@@ -8,12 +8,20 @@ class Profile extends React.Component {
         this.state = {
           popUpBar: "",
           message: "Please change accordingly so that this part will be updated to user data upon editing.\nAlso I need the attributes of user photo, user name and status here, as well as a sample achievement for testing.",
+          sociable: "",
+          fxxxboy: "",
+          happyjai: "",
+          nerd: "",
+          tooStronk4u: "",
+          whoEvenStudies: "",
+          futureSecurityGuard: "",
+          emotionalDamage: "",
         }
     
         this.popUp = this.popUp.bind(this);
           
       }
-
+      
     popUp(option) {
         console.log("current Pop-up in profile: ", this.state.popUpBar);
         const msg = this.state.message;
@@ -35,12 +43,60 @@ class Profile extends React.Component {
         }
             
     }
-    
+
+    async componentDidMount() {
+        console.log("hello2"); 
+        console.log(typeof(this.props.stat.user)); 
+        await fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                this.setState({
+                    sociable: res.sociable,
+                    fxxxboy: res.fxxxboy,
+                    happyjai: res.happyjai,
+                    nerd: res.nerd,
+                    tooStronk4u: res.tooStronk4u,
+                    whoEvenStudies: res.whoEvenStudies,
+                    futureSecurityGuard: res.futureSecurityGuard,
+                    emotionalDamage: res.emotionalDamage,
+                  });
+            });
+    }
+   
     render(){
         require("./profile.css");
-        const data1 = {img: img, text: "this is a test achievement"};
-        const data2 = {img: img, text: "this is another test achievement"};
-        const imgList = [data1, data2];
+        
+        let a = false;
+        let b = true;
+        let x = this.state.sociable;
+        let y = this.state.fxxxboy;
+        const data1 = {img: img, text: "sociable", status: this.state.sociable };
+        const data2 = {img: img, text: "fxxxboy", status: this.state.fxxxboy};
+        const data3 = {img: img, text: "happyjai", status: this.state.happyjai};
+        const data4 = {img: img, text: "nerd", status: this.state.nerd};
+        const data5 = {img: img, text: "tooStronk4u", status: this.state.tooStronk4u};
+        const data6 = {img: img, text: "whoEvenStudies", status: this.state.whoEvenStudies};
+        const data7 = {img: img, text: "futureSecurityGuard", status: this.state.futureSecurityGuard};
+        const data8 = {img: img, text: "emotionalDamage", status: this.state.emotionalDamage};
+        const imgList = [data1, data2, data3, data4, data5, data6, data7, data8 ];
+        for (let index = 0; index < imgList.length; index++) {
+            const element = imgList[index];
+            let f = Boolean(false);
+            if (element.status === f) {
+                delete imgList[index];
+            }
+        }
+       
         return (
             <div className="profile">
                 
@@ -63,10 +119,10 @@ class Profile extends React.Component {
                             <div className="p-2">{this.state.message}</div>
                         </div>    
 
-                        </div>
+                        </div> 
                     </div>
-                    <div className="row">
-                        In-game progress: 
+                    <div className="row"> 
+                        In-game progress: {this.props.achievement}
                     </div>
                     <div className="row">
                         <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(parseInt(this.props.stat.sem)/2)}</div>
@@ -81,9 +137,9 @@ class Profile extends React.Component {
                     <div className="row">
                         Achievement: 
                     </div>
-                    <div className="row achievement" >
-                        {imgList.map((data) => {
-                            return <img src={data.img} title={data.text}/>;
+                    <div className="row achievement">
+                        {imgList.map((data, index) => {
+                            return <img key={index} src={data.img} title={data.text}/>;
                         })}
                     </div>
                 </div>

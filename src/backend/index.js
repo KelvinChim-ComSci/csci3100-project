@@ -3,6 +3,8 @@
 const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
 const friendHandling = require('./friendHandler.js');
+const achievementHandling = require('./achievementHandler.js');
+
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
@@ -87,6 +89,14 @@ app.post('/friend/checkIncomingRequest', async function (req, res) {
 
 app.post('/friend/manageIncomingRequest', async function (req, res) {
     return friendHandling.manageIncomingRequest(req, res);
+});
+
+app.post('/achievement/update', async function (req, res) {
+    return achievementHandling.achievementUpdate(req, res);
+})
+
+app.get('/achievement/retrieve/:userId', async function (req, res) {
+    return achievementHandling.achievement(req, res);
 });
 
 // General
