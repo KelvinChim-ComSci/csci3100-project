@@ -60,26 +60,25 @@ class Profile extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
-                this.setState({
-                    sociable: res.sociable,
-                    fxxxboy: res.fxxxboy,
-                    happyjai: res.happyjai,
-                    nerd: res.nerd,
-                    tooStronk4u: res.tooStronk4u,
-                    whoEvenStudies: res.whoEvenStudies,
-                    futureSecurityGuard: res.futureSecurityGuard,
-                    emotionalDamage: res.emotionalDamage,
-                  });
+                if (res!=null) {
+                    this.setState({
+                        sociable: res.sociable,
+                        fxxxboy: res.fxxxboy,
+                        happyjai: res.happyjai,
+                        nerd: res.nerd,
+                        tooStronk4u: res.tooStronk4u,
+                        whoEvenStudies: res.whoEvenStudies,
+                        futureSecurityGuard: res.futureSecurityGuard,
+                        emotionalDamage: res.emotionalDamage,
+                      });  
+                }
+                
             });
     }
    
     render(){
         require("./profile.css");
-        
-        let a = false;
-        let b = true;
-        let x = this.state.sociable;
-        let y = this.state.fxxxboy;
+       
         const data1 = {img: img, text: "sociable", status: this.state.sociable };
         const data2 = {img: img, text: "fxxxboy", status: this.state.fxxxboy};
         const data3 = {img: img, text: "happyjai", status: this.state.happyjai};
@@ -88,12 +87,13 @@ class Profile extends React.Component {
         const data6 = {img: img, text: "whoEvenStudies", status: this.state.whoEvenStudies};
         const data7 = {img: img, text: "futureSecurityGuard", status: this.state.futureSecurityGuard};
         const data8 = {img: img, text: "emotionalDamage", status: this.state.emotionalDamage};
-        const imgList = [data1, data2, data3, data4, data5, data6, data7, data8 ];
-        for (let index = 0; index < imgList.length; index++) {
-            const element = imgList[index];
-            let f = Boolean(false);
-            if (element.status === f) {
-                delete imgList[index];
+        const imgList_tmp = [data1, data2, data3, data4, data5, data6, data7, data8 ];
+        const imgList= [];
+        for (let index = 0; index < imgList_tmp.length; index++) {
+            const element = imgList_tmp[index];
+            let t = Boolean(true);
+            if (element.status === t) {
+                imgList.push(element);
             }
         }
        

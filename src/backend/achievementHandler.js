@@ -13,7 +13,7 @@ var AchievementSchema = mongoose.Schema({
 });
 var Achievement = mongoose.model('Achievement', AchievementSchema);
 
-
+{/*
 const data = {
     user: "621bab81c74d97546edc007f" ,
     sociable: true,
@@ -38,6 +38,7 @@ newAchievement.save((error) => {
         console.log('Data Saved');
     }
 });
+*/}
 
 module.exports.achievementUpdate = async function (req, res) {
     Achievement.findOneAndUpdate({ user: req.body.userId }, {
