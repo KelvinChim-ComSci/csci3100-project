@@ -39,7 +39,6 @@ class Main extends React.Component {
         this.resetData = this.resetData.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
-        this.updateAdminStat = this.updateAdminStat.bind(this);
 
     }
 
@@ -58,11 +57,6 @@ class Main extends React.Component {
         this.updateStat(stat);
     }
 
-    updateAdminStat(stat){
-        console.log(stat);
-        this.updateStat(stat);
-    }
-
     setEvent(started){
         this.setState({started : started});
     }
@@ -74,7 +68,6 @@ class Main extends React.Component {
  
     handleLocation(location){
         this.setState({location: location});
-
     }
 
     popMessageBox() {
@@ -109,7 +102,8 @@ class Main extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            this.updateStat(res);
+            this.statRef.current.update(res);
+            this.setState({ stat: { ...this.state.stat, ...res } });
         })  
     }
 
@@ -232,18 +226,18 @@ class Main extends React.Component {
 
                             <button className="btn btn-success" onClick={()=>{
                                 const stat = {
-                                    gpa: document.getElementById("GPA").value,
-                                    happiness: document.getElementById("Happiness").value,
-                                    money: document.getElementById("Money").value,
-                                    sem: document.getElementById("Sem").value,
-                                    sports: document.getElementById("Sports").value,
-                                    stamina: document.getElementById("Stamina").value,
+                                    gpa: parseInt(document.getElementById("GPA").value),
+                                    happiness: parseInt(document.getElementById("Happiness").value),
+                                    money: parseInt(document.getElementById("Money").value),
+                                    sem: parseInt(document.getElementById("Sem").value),
+                                    sports: parseInt(document.getElementById("Sports").value),
+                                    stamina: parseInt(document.getElementById("Stamina").value),
                                     user: this.state.stat.user,
-                                    year: document.getElementById("Year").value,
+                                    year: parseInt(document.getElementById("Year").value),
                                     _id: this.state.stat._id,
                                 };
                                 console.log(stat);
-                                this.updateAdminStat(stat);
+                                this.updateStat(stat);
                                 this.setState({popUpBar: ""});
                             }}>Update</button>
 
@@ -303,7 +297,6 @@ class Main extends React.Component {
         newStat = statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        statBackendUpdate(newStat);
         this.updateStat(newStat);
         return;
     }
@@ -316,7 +309,6 @@ class Main extends React.Component {
         newStat = statEventUpdate(newStat,dia_line_sub);
         console.log("handle Main event After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        statBackendUpdate(newStat);
         this.setState({
             stat: newStat
         })
@@ -325,6 +317,7 @@ class Main extends React.Component {
     }
 
     async userLogout() {
+        await statBackendUpdate(this.state.stat);
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
             headers: new Headers({
