@@ -95,6 +95,10 @@ app.post('/friend/manageIncomingRequest', async function (req, res) {
     return friendHandling.manageIncomingRequest(req, res);
 });
 
+app.post('/user/findRandomUsers', async function (req, res) { // for friend recommendation
+    return accountHandling.findRandomUsers(req, res);
+})
+
 app.post('/achievement/update', async function (req, res) {
     return achievementHandling.achievementUpdate(req, res);
 })

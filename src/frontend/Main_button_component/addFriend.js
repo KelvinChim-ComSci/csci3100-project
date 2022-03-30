@@ -4,13 +4,22 @@ class AddFriend extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: ""
+            message: "",
+            recommendationList: []
         }
         this.createFriendRequest = this.createFriendRequest.bind(this);
+        this.getRecommendation = this.getRecommendation.bind(this);
     }
 
-    async createFriendRequest() {
-        let inputFriendName = document.getElementsByName("friendName")[0].value;
+    componentDidMount() {
+        this.getRecommendation();
+    }
+
+
+
+
+    async createFriendRequest(friendName) {
+        let inputFriendName = friendName || document.getElementsByName("friendName")[0].value;
         if (this.isEmpty(inputFriendName)) return this.displayMessage("Friend name cannot be empty."); // TODO
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/sendRequest", {
             method: "POST",
@@ -32,6 +41,12 @@ class AddFriend extends React.Component {
         });
     }
 
+    deleteRecommendation(id) {
+        let request = document.getElementsByClassName(id)[0];
+        request.remove();
+
+    }
+
    async displayMessage(message) {
         this.setState({ message: message });
 
@@ -43,6 +58,56 @@ class AddFriend extends React.Component {
         document.getElementsByClassName("displayMessage")[0].className = "displayMessage";
         }, 5000);
     }
+
+    async getRecommendation() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/user/findRandomUsers", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: this.props.userId
+            }),
+        })
+        .then((data) => data.json())
+        .then((res) => {
+            this.setState({ recommendationList: res.users });
+        });
+    }
+
+    showRecommendation() {
+        if (this.state.recommendationList.length === 0) {
+            return (
+                <div>
+                    Players you may know:
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    Players you may know:
+                    {this.state.recommendationList.map((data) => {
+                        return (
+                            <div key={data.userId} className={data.userId}>
+                                {data.username}
+                                &nbsp;
+                                <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.userId)}}>
+                                    <div className="checkmark_circle yellow"></div>
+                                    <div className="checkmark_cross"></div>
+                                    <div className="checkmark_slash"></div>
+                                </span>
+                            </div>
+                        )
+                    })}
+                </div>
+            )
+        }
+    }
+
 
     isEmpty(input) {
         return (input === "" || input === null) ? 1 : 0;
@@ -56,7 +121,7 @@ class AddFriend extends React.Component {
                 <br />
                 <input type="text" placeholder="Player's username" name="friendName" required></input>
                 &nbsp;
-                <span className="createRequest" onClick={this.createFriendRequest}>
+                <span className="createRequest" onClick={() => this.createFriendRequest()}>
                             <div className="createRequest_roundBlock yellow"></div>
                             <div className="createRequest_head"></div>
                             <div className="createRequest_body"></div>
@@ -65,6 +130,10 @@ class AddFriend extends React.Component {
                             </span>
 
                 <div className="displayMessage">{this.state.message}</div>
+                <br />
+                <div className="recommendedPlayers">
+                    {this.showRecommendation()}
+                </div>
             </div>
         )
     }

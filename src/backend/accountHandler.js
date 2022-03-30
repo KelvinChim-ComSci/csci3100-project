@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
 const statisticHandling = require('./statisticHandler.js');
 const dotenv = require('dotenv');
+const { ObjectId } = require('mongodb');
 dotenv.config();
 
 var UserSchema = mongoose.Schema({
@@ -260,6 +261,32 @@ module.exports.resetPassword = async function (req, res) {
         return res.send({ validURL: false, message: "Unknown server error" })
     };
 }
+module.exports.findRandomUsers = async function (req, res) {
+    try {
+        let userId = req.body.userId;
+        User.aggregate([
+            {
+                $match: {
+                    $and: [
+                        { _id: { '$ne': ObjectId(userId) } },
+                        { adminStatus: { '$ne': true } }
+                    ]
+                }
+            },
+            { $sample: { size: 5 } } // You want to get 5 docs
+        ])
+            .then((data) => {
+                let userList = data.map((pair) => {
+                    return ({
+                        username: pair.username,
+                        userId: pair._id
+                    });
+                });
+                return res.send({ users: userList });
+            });
+    } catch (error) { console.log(error) };
+}
+
 
 module.exports.test = async function (req, res) {
     try {

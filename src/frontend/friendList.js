@@ -70,13 +70,13 @@ class FriendList extends React.Component {
                         return (
                         <div key={data.id} className={data.id}>
                             {data.username} &nbsp;
-                            <span className="checkmark" onClick={() => this.manageRequest(data.id, "accept")}>
+                            <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "accept")}>
                                 <div className="checkmark_circle green"></div>
                                 <div className="checkmark_stem"></div>
                                 <div className="checkmark_kick"></div>
                             </span>
                             &nbsp; &nbsp;&nbsp;&nbsp;
-                            <span className="checkmark" onClick={() => this.manageRequest(data.id, "reject")}>
+                            <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "reject")}>
                                 <div className="checkmark_circle red"></div>
                                 <div className="checkmark_cross"></div>
                                 <div className="checkmark_slash"></div>
@@ -138,7 +138,7 @@ class FriendList extends React.Component {
                         {data.username}
                         {this.showStatus(data.status)}
                         &nbsp;
-                        <span className="checkmark" onClick={() => this.manageRequest(data.id, "delete")}>
+                        <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "delete")}>
                             <div className="checkmark_circle red"></div>
                             <div className="checkmark_cross"></div>
                             <div className="checkmark_slash"></div>
