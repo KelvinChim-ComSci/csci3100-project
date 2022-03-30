@@ -29,7 +29,8 @@ class Event extends React.Component {
             script_count: 1,
             popUpChoice: "",
             chosenChoice: -1,
-            started: 0
+            started: 0,
+            pop_q: "",
         }
 
     }
@@ -89,6 +90,7 @@ class Event extends React.Component {
         // end event if # is detected
         if (dia_line[0] === "#"){
             // console.log("")
+            this.props.handleMaineventStat(dia_line.substring(1).split(','));
             this.returnToMain();
         }
 
@@ -113,7 +115,8 @@ class Event extends React.Component {
             // console.log("pop choice");
             this.setState({
                 popUpChoice : "choice",
-                script_count: this.state.script_count + 1
+                script_count: this.state.script_count + 1,
+                pop_q: dia_line,
             });
             return;
         }
@@ -169,7 +172,7 @@ class Event extends React.Component {
                 <div>
                     <div id="shadowLayer"></div>
                     <div className="popUp" id = "choiceWindow">
-                        <Choice script_answer={this.script_answer} handleChoice={this.handleChoice} />
+                        <Choice pop_q = {this.state.pop_q} script_answer={this.script_answer} handleChoice={this.handleChoice} />
                     </div>
                 </div>
                 )

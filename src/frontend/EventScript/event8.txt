@@ -3,7 +3,7 @@ You worked extremely hard as a student helper in CUHK and earned some money. Tod
 Ken: Hey, are you working on a part time job?
 You: Yes, I am working as a student helper in CUHK. Just do some document work.
 Ken: Can you introduce me to your boss? I am also seeking a part time job!
-@QQ@ What will you do ? @QQ@
+@QQ@ What will you do ?
 @A1,2@ Introduce Ken to your boss 
 @A2,5@ Refuse him 
 @R1@ You : sure! Let me get back to you next week.

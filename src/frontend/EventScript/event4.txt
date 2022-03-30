@@ -1,7 +1,7 @@
 ~College sports event~
 Passing the first semester in your university life, you feel like time flies much faster than that in secondary school. One day after the lesson, you are having lunch with Ken.
 Ken : Hey do you plan to join the college sport event? I plan to go for the 200meter race. Joyce says that she will come and support me!
-@QQ@ How would you reply?@QQ@
+@QQ@ How would you reply?
 @A1,2@ Sure ! Let me also join the 200 meter race with you together. 
 @A2,4@ No… I think I won’t. 
 @R1@ Ken:Great ! Let’s fight for it together! Hope we can meet in the final!(+Sports)

@@ -1,18 +1,11 @@
-~Foriegn competition~
-You were training in the gym as usual. Suddenly, there is a group of people near you talking about their competition.
-Student A: Oh my god… Is Tom really injured? 
-Student B: Yeah… He cannot even walk properly. 
-Student A: But the International Collegiate Contest is to be held next month in the US… What should we do… We need one more team member to participate in it…
-Student A stares at you while he is talking.
-He walks to you and ask:
-Student A: Hey bro, do you want to try it out?
-You: What?
-Student A: We are one man missing from joining the competition, come and join us!
+~Research Project~
+You were studying in the Library as ususal.
+Suddenly, you saw a paper related to your course very much. You think it is very interesting and you really want to take a deep look into it.
+However, your final exam is coming and you were busy preparing it.
 @QQ@ What would you do ?
-@A1,2@ You: Sure! I would love to.
-@A2,4@ You: No… Sorry that I cannot help. I will be busy next month. (no change)
-@R1@ You joined them and trained with them for weeks and participated in the competition. Although you lose, you have gained precious experience in it. (+sport, - money)
-#
-@R2@ Student A: It's fine. Let us know if you change your mind!
-#
-
+@A1,2@ Keep working for your final.
+@A2,4@ Take a deep look into the paper and related works.
+@R1@ You ignore the paper that you have read and focus on your course. You got a good grade.
+#1,0,0,0
+@R2@ You take a deep look into the paper and discover that it is really intersting. You spend even more time to study and work on related projects. 
+#3,0,0,0

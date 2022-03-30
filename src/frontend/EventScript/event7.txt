@@ -1,7 +1,7 @@
 ~Going to LKF?~
 Soon comes the end of the First year. The university life was eye opening to you and you met different people, including Joyce and Ken.
 Today they are asking you to go to Lan Kwai Fong, and they are having a party there.
-@QQ@ Do you want to join them?@QQ@ 
+@QQ@ Do you want to join them?
 @A1,2@ Yes
 @A2,4@ No
 @R1@ You went there and drank a lot. You feel extremely dizzy. But you and your friends are really high in the party and have fun a lot. (-GPA, + happiness - money)

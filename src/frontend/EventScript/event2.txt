@@ -2,7 +2,7 @@
 Entering the classroom, although you arrive 15 mins early, half of the seats are occupied. You go for an empty seat next to a boy.
 You: Hi, may I take this seat?
 The boy: Sure! Is it your first lesson?
-You: Yes, My name is (User name). How about you?
+You: Yes, how about you?
 Ken : My name is Ken. Nice to meet you.
 Lecturer: Good morning guys. Welcome to our lecture. Today I will briefly introduce this course and we will run through the course outline together.
 (Having lesson)

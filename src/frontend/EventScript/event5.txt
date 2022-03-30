@@ -1,7 +1,7 @@
 ~Minor subject~
 Recently, friends around are talking about their minor subject, they asked you about what subject you want to minor.
 You : Ummmm Should I choose a minor that is more related to my major? Or should I even go for a minor?
-@QQ@ How would you choose?@QQ@
+@QQ@ How would you choose?
 @A1,4@ Minor in Mathematics
 @A2,6@ Minor in Finance 
 @A3,8@ Minor in Japanese 

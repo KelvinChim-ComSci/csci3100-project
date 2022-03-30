@@ -4,7 +4,7 @@ Joyce: Ahh, it was a busy week. I was worried about whether we can get enough vo
 You: Yea… I was thinking about it too. And it seems that you are tired today and I was a bit worried. Everything will go fine! Don’t spend too much time thinking about it.
 Joyce : Thanks a lot. Though there is still much paperwork to be done, I believe we can get it finished soon! It is great to work together with you! 
 Haha, by the way, are you close to any girl after you get into the university? Many of my friends got a boyfriend these days!
-@QQ@How would you do?
+@QQ@ How would you do?
 @A1,2@ No… I think I am not interested in this kind of issue.
 @A2,6@ Try to ask her if she can be your girlfriend.
 @R1@ You: No… I think I am not interested in this kind of issue.

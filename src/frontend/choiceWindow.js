@@ -11,6 +11,7 @@ class Choice extends React.Component {
         require("./choiceWindow.css");
         return (
             <div id="choiceWindow">
+                <p>{this.props.pop_q}</p>
                 {choiceItems}
             </div>
         );

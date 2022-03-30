@@ -35,6 +35,7 @@ class Main extends React.Component {
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
         this.popMainEvent = this.popMainEvent.bind(this);
+        this.popFriendLlist = this.popFriendLlist.bind(this);
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
         this.popMessageBox = this.popMessageBox.bind(this);
@@ -68,6 +69,11 @@ class Main extends React.Component {
  
     handleLocation(location){
         this.setState({location: location});
+
+    }
+
+    popFriendLlist() {
+        this.setState({popUpBar : "friend"});
     }
 
     popMessageBox() {
@@ -102,8 +108,7 @@ class Main extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            this.statRef.current.update(res);
-            this.setState({ stat: { ...this.state.stat, ...res } });
+            this.updateStat(res);
         })  
     }
 
@@ -198,53 +203,6 @@ class Main extends React.Component {
                 </div>
             )
         }
-
-        if (option === "setStat"){
-            return (
-                <div className="mainPopUp">
-                    <div id="shadowLayer"></div>
-                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
-                    <div className="popUp" id="setStat">
-                        <h2><center>Set statistics</center></h2>
-                        <br></br>
-
-                            GPA: 
-                            <input type="text" id="GPA" name="GPA" defaultValue={this.state.stat.gpa}/><br></br>
-                            Sports: 
-                            <input type="text" id="Sports" name="Sports" defaultValue={this.state.stat.sports}/><br></br>
-                            Happiness: 
-                            <input type="text" id="Happiness" name="Happiness" defaultValue={this.state.stat.happiness}/><br></br>
-                            Money: 
-                            <input type="text" id="Money" name="Money" defaultValue={this.state.stat.money}/><br></br>
-                            Stamina: 
-                            <input type="text" id="Stamina" name="Stamina" defaultValue={this.state.stat.stamina}/><br></br>
-                            Year: 
-                            <input type="text" id="Year" name="Year" defaultValue={this.state.stat.year}/>
-                            Sem:
-                            <input type="text" id="Sem" name="Sem" defaultValue={this.state.stat.sem}/><br></br>
-                            <br></br>
-
-                            <button className="btn btn-success" onClick={()=>{
-                                const stat = {
-                                    gpa: parseInt(document.getElementById("GPA").value),
-                                    happiness: parseInt(document.getElementById("Happiness").value),
-                                    money: parseInt(document.getElementById("Money").value),
-                                    sem: parseInt(document.getElementById("Sem").value),
-                                    sports: parseInt(document.getElementById("Sports").value),
-                                    stamina: parseInt(document.getElementById("Stamina").value),
-                                    user: this.state.stat.user,
-                                    year: parseInt(document.getElementById("Year").value),
-                                    _id: this.state.stat._id,
-                                };
-                                console.log(stat);
-                                this.updateStat(stat);
-                                this.setState({popUpBar: ""});
-                            }}>Update</button>
-
-                    </div>
-                </div>
-            )
-        }
         
         else {
             return 
@@ -259,33 +217,17 @@ class Main extends React.Component {
                     <h2>Welcome to CU Simulator!</h2>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                     <button className="btn btn-success" onClick={this.resetData}>Reset Data</button>
-                    <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
                 </div>
             )
         }
         else {
             return (
                 <div className="split left">
-                    <Event location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
+                    <Event handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
                 
             )
         }
-    }
-
-    adminOnly(){
-        const isAdmin = window.sessionStorage.getItem("isAdmin");
-        if (isAdmin === "true")
-            return (
-                <div className="d-flex flex-column">
-                    <h2>Admin</h2>
-                    <button className="btn btn-success" onClick={()=>{console.log("to be implemented")}}>Show user</button>
-                    <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
-                </div>
-            )
-        else
-            return;
-        
     }
 
     async handleSchedulePlan(plan){
@@ -297,6 +239,7 @@ class Main extends React.Component {
         newStat = statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
+        statBackendUpdate(newStat);
         this.updateStat(newStat);
         return;
     }
@@ -309,6 +252,7 @@ class Main extends React.Component {
         newStat = statEventUpdate(newStat,dia_line_sub);
         console.log("handle Main event After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
+        statBackendUpdate(newStat);
         this.setState({
             stat: newStat
         })
@@ -317,7 +261,6 @@ class Main extends React.Component {
     }
 
     async userLogout() {
-        await statBackendUpdate(this.state.stat);
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
             headers: new Headers({
@@ -354,15 +297,13 @@ class Main extends React.Component {
                     <StatDisplay stat={this.state.stat} ref={this.statRef}/>
                     <br></br>
                     <h2>Buttons</h2>
-                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "friend"})}>Friend List</button>
+                    <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                     <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                     <br></br>
                     <h2>Copyright</h2>
-
-                    {this.adminOnly()}
                 </div>
 
                 {this.popUp(this.state.popUpBar)}
