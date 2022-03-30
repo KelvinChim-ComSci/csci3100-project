@@ -1,0 +1,7 @@
+You have a 2 hours gap between lectures today. You decide to have a tea with Ken at Med can.
+Ken: Hey what will you order?
+You: I would probably try the lemon pie, it seems that it has been quite famous.
+Ken: Yes. People say that the recipe was created many years ago by an award winning chef. It has a crispy bottom with a fresh taste of both sweet and sour in the middle. The cream on the top of the pie adds a twist to the whole lemon pie!
+You: Well your description is already mouth watering. I can’t wait to try it out!
+You have ordered a lemon pie. As Ken has told you, it really tastes. You had a great refreshment and fully fueled yourself. 
+#1,0,0,3

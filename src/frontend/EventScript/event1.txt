@@ -21,6 +21,6 @@ After some considerations, you choose to join one of the colleges.
 @R1@ Click "Check Profile" to check your current status.
 @R1@ Click message box to send messages to your friends.
 @R1@ You can check you statistics anytime on the right of the page.
-@R1@ Welcome to CUHK and enjoy your university life!.
+@R1@ Welcome to CUHK and enjoy your university life!
 #0,0,0,0
 #1,0,1,0
