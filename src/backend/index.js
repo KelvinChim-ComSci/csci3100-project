@@ -64,6 +64,10 @@ app.get('/email/confirm/:id', async function (req, res) {
 })
 
 app.get('/resetpassword/:id', async function (req, res) {
+    return accountHandling.checkResetLink(req, res);
+})
+
+app.post('/resetpassword', async function (req, res) {
     return accountHandling.resetPassword(req, res);
 })
 

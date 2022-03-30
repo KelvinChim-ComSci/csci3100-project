@@ -224,7 +224,7 @@ module.exports.forgetPassword = async function (req, res) {
 }
 
 //check the reset password link is valid or not 
-module.exports.resetPassword = async function (req, res) {
+module.exports.checkResetLink = async function (req, res) {
     const id = req.params.id;
     if (id.length != 24) {
         return res.send({ validURL: false, message: "Invalid URL" });
@@ -238,29 +238,55 @@ module.exports.resetPassword = async function (req, res) {
         else {
             const expireTime = user.forgetPasswordLinkExpireTime;
             const currentTime = new Date();
-            console.log("expireTime", expireTime);
-            console.log("currentTime", currentTime);
-            console.log("timeDiff", expireTime.getTime() - currentTime.getTime());
 
+            // check if the reset password link is expired
             if (expireTime.getTime() - currentTime.getTime() < 0) {
                 return res.send({ validURL: false, message: "The link has been expired" });
             } else {
                 return res.send({ validURL: true, message: "valid" });
             }
 
-
-            /*if (user.verified == true) {
-                return res.send({ message: user.username + ", your email has been verified" }) // email already verified
-            } else {
-                await User.findOneAndUpdate({ username: user.username }, { verified: true }); // verify email
-                return res.send({ message: user.username + ", you have successfully verified your email!" })
-            }*/
         }
     } catch (error) {
         console.log(error)
         return res.send({ validURL: false, message: "Unknown server error" })
     };
 }
+
+// reset user password
+module.exports.resetPassword = async function (req, res) {
+
+    let inputPassword = req.body.password;
+
+    try {
+        const userdata = await User.findOne({ _id: req.body.id }, { password: 1 });
+
+        const match = await bcrypt.compare(inputPassword, userdata.password);
+        if (match) return res.send({ passwordError: "The new password cannot be the same as the original password" });
+
+
+        // encrypt user new password before store it into database
+        const saltRounds = 10;
+        hashedPassword = await bcrypt.hash(inputPassword, saltRounds);
+
+        const currentTime = new Date();
+
+        // reset password
+        await User.findOneAndUpdate({ _id: req.body.id }, { password: hashedPassword, forgetPasswordLinkExpireTime: currentTime },
+            function (err, response) {
+                if (err) {
+                    console.log(err)
+                    return res.status(422).json({ message: "Database Error" })
+                }
+                console.log(response._id)
+
+                //send mail here
+                //await sendVerifyMail(inputEmail, inputUsername, response._id);
+                return res.send({ message: "Password changed!" })
+            }).clone().catch(function (err) { console.log(err) })
+    } catch (error) { console.log(error) };
+}
+
 module.exports.findRandomUsers = async function (req, res) {
     try {
         let userId = req.body.userId;

@@ -33,7 +33,6 @@ class ChangePassword extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 this.setState({ validURL: res.validURL })
-                console.log(":3", res.message, this.state.validURL);
             });
     }
 
@@ -80,8 +79,8 @@ class ChangePassword extends React.Component {
         if (!(this.state.passwordError || this.state.confirmPasswordError)) {
 
             console.log(this.props.params.id);
-            /*let inputUsername = document.getElementById("usernameid").value;
-            await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword/" + this.props.params.id, {
+            let inputPassword = document.getElementById("passwordid").value;
+            await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword", {
                 method: "POST",
                 headers: new Headers({
                     "Content-Type": 'application/json',
@@ -91,20 +90,22 @@ class ChangePassword extends React.Component {
                     "Access-Control-Allow-Credentials": true,
                 }),
                 body: JSON.stringify({
-                    username: inputUsername
+                    id: this.props.params.id,
+                    password: inputPassword
                 }),
             })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res)
-                    if (res.usernameError) {
-                        console.log("err")
-                        alert(res.usernameError)
+                    if (res.passwordError) {
+                        this.setState({ passwordError: true, passwordErrMsg: res.passwordError });
                     }
-                    if (!(res.usernameError)) {
-                        alert(res.message)
+                    else {
+                        this.setState({ passwordError: false, passwordErrMsg: "" });
+                        alert(res.message);
                     }
-                });*/
+
+
+                });
         }
     }
 
@@ -124,7 +125,7 @@ class ChangePassword extends React.Component {
                         <div className="txt_field">
 
                             <label htmlFor="password">New Password</label>
-                            <input type="text" id="passwordid" name="password" required></input>
+                            <input type="password" id="passwordid" name="password" required></input>
                             <div className="error">{this.state.passwordErrMsg}</div>
 
                         </div>
@@ -132,7 +133,7 @@ class ChangePassword extends React.Component {
                         <div className="txt_field">
 
                             <label htmlFor="confirmpassword">Confirm New Password</label>
-                            <input type="text" id="confirmpasswordid" name="confirmpassword" required></input>
+                            <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
                             <div className="error">{this.state.confirmPasswordErrMsg}</div>
 
                         </div>
