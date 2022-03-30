@@ -34,9 +34,10 @@ class MainEvent extends React.Component {
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
         console.log("this.props.stat", this.props.stat)
-
+        
         function eventChoice(year,sem, stat){
             // since the event pops up after the schdules end, the time in the story should -1 sem in here
+            if (year == 1 && sem == 0){return event1}
             if (year == 1 && sem == 1){return  event2}   
             if (year == 1 && sem == 2){return event3}
             if (year == 1 && sem == 3){return event20}

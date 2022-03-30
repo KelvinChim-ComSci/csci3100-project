@@ -17,6 +17,7 @@ class Main extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             popUpBar : "",
             stat : null,
@@ -48,7 +49,7 @@ class Main extends React.Component {
             gpa: 4,
             happiness: 10,
             money: 10,
-            sem: 1,
+            sem: 0,
             sports: 10,
             stamina: 100,
             user: this.state.stat.user,
@@ -64,7 +65,15 @@ class Main extends React.Component {
 
     updateStat(stat){
         this.statRef.current.update(stat);
+        console.log(this.statRef)
+        console.log(stat.year)
+        console.log(stat.sem)
         this.setState({ stat: { ...this.state.stat, ...stat } });
+        new Promise(resolve => setTimeout(resolve, 1));
+        if (stat.year == 1 && stat.sem==0){
+            this.setState({popUpBar : "mainEvent"})
+        }
+        
     }
  
     handleLocation(location){
@@ -203,6 +212,7 @@ class Main extends React.Component {
                 </div>
             )
         }
+
         
         else {
             return 
