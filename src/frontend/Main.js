@@ -233,7 +233,7 @@ class Main extends React.Component {
         else {
             return (
                 <div className="split left">
-                    <Event handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
+                    <Event year = {this.state.year} sem = {this.state.sem} handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
                 
             )
