@@ -12,6 +12,7 @@ class FriendList extends React.Component {
             addFriendPopUp: "hide",
             friends: [],
             incomingRequests: [],
+            message: ""
         }
 
         this.fetchFriendList = this.fetchFriendList.bind(this);
@@ -40,19 +41,46 @@ class FriendList extends React.Component {
         );
     }
 
+    showStatus(Boolean) {
+        if (Boolean) {
+            return (
+                <span className="userStatus">
+                    <div className='userStatus_block'></div>
+                    <div className='userStatus_head lightGreen'></div>
+                    <div className='userStatus_body lightGreen'></div>
+                </span>
+            )
+        } else return (
+            <span className="userStatus">
+                <div className='userStatus_block'></div>
+                <div className='userStatus_head gray'></div>
+                <div className='userStatus_body gray'></div>
+            </span>
+        )
+    }
+
     showRequests() {
         if (this.state.incomingRequests.length === 0) {
             return;
         } else {
             return (
                 <div>
-                    Incoming Friend Requests: 
+                    Incoming Friend Requests: <br />
                     {this.state.incomingRequests.map((data) => {
                         return (
                         <div key={data.id} className={data.id}>
-                            {data.username}
-                            <button onClick={() => this.manageRequest(data.id, "accept")}>green tick</button>
-                            <button onClick={() => this.manageRequest(data.id, "reject")}>red cross</button>
+                            {data.username} &nbsp;
+                            <span className="checkmark" onClick={() => this.manageRequest(data.id, "accept")}>
+                                <div className="checkmark_circle green"></div>
+                                <div className="checkmark_stem"></div>
+                                <div className="checkmark_kick"></div>
+                            </span>
+                            &nbsp; &nbsp;&nbsp;&nbsp;
+                            <span className="checkmark" onClick={() => this.manageRequest(data.id, "reject")}>
+                                <div className="checkmark_circle red"></div>
+                                <div className="checkmark_cross"></div>
+                                <div className="checkmark_slash"></div>
+                            </span>
                         </div>
                         );
                     })}
@@ -80,7 +108,12 @@ class FriendList extends React.Component {
         .then((data) => data.json())
         .then((data) => {
             this.deleteQuery(friendId);
-            console.log(data); // successful message
+            this.setState({message: data.message}); // successful message
+            document.getElementsByClassName("displaySuccessMessage")[0].className += " fade-out";
+            setTimeout(() => {
+                this.setState({ message: "" });
+                document.getElementsByClassName("displaySuccessMessage")[0].className = "displaySuccessMessage lightGreen";
+                }, 5000);
         })
     }
 
@@ -93,34 +126,23 @@ class FriendList extends React.Component {
         if (this.state.friends.length === 0) {
         return (
             <div>
-                You have no friends. Maybe you should stand here, realize you were
-                Just like me trying to make history.<br />
-
-                But who's to judge the right from wrong.<br />
-                When our guard is down I think we'll both agree.<br /><br />
-
-                That violence breeds violence.<br />
-                But in the end it has to be this way.<br /><br />
-
-                I've curved my own path, you've followed your wrath;<br />
-                But maybe we're both the same.<br /><br />
-
-                The world has turned, and so many have burned.<br />
-                But nobody is to blame.<br /><br />
-
-                It's tearing across this barren wasted land.<br />
-                I feel new life could be born beneath<br />
-                The blood stained sand.
+                Looks like you haven't added any friends yet. Invite friends to chat!
             </div>
         )} else {
             return (
             <div>
+                Friends:
                 {this.state.friends.map((data) => {
                     return (
                     <div key={data.id} className={data.id}>
                         {data.username}
-                        {data.status.toString()}
-                        <button onClick={() => this.manageRequest(data.id, "delete")}>red cross</button>
+                        {this.showStatus(data.status)}
+                        &nbsp;
+                        <span className="checkmark" onClick={() => this.manageRequest(data.id, "delete")}>
+                            <div className="checkmark_circle red"></div>
+                            <div className="checkmark_cross"></div>
+                            <div className="checkmark_slash"></div>
+                        </span>
                     </div>
                     );
                 })}
@@ -178,7 +200,14 @@ class FriendList extends React.Component {
                 </div>
 
                 <div>
-                    <button onClick={()=>{this.setState({addFriendPopUp: "show"}); this.props.setOverflow(0);}}> friend++ </button>
+                    <span className="friendAdder" onClick={()=>{this.setState({addFriendPopUp: "show"}); this.props.setOverflow(0);}}>
+                            <div className="friendAdder_roundBlock yellow"></div>
+                            <div className="friendAdder_head"></div>
+                            <div className="friendAdder_body"></div>
+                            <div className="friendAdder_horizontal"></div>
+                            <div className="friendAdder_vertical"></div>
+                            </span>
+                            <div className='displaySuccessMessage'>{this.state.message}</div>
                 </div>
                 <div className="manageFriends">
                     {this.addFriend()}

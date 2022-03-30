@@ -119,12 +119,13 @@ module.exports.manageIncomingRequest = async function (req, res) {
             FriendList.findOneAndUpdate({
                 $and: [{ requester: req.body.friendId } , { recipient: req.body.userId }] 
             }, update)
-            .then( res.send({ message: "successfully accepted request." }))
+            .then( res.send({ message: "Successfully accepted request! Please repoen friend list\
+            to see the newly added friend!" }))
         } else if (req.body.action === "reject") {
             FriendList.findOneAndDelete({
                 $and: [{ requester: req.body.friendId } , { recipient: req.body.userId }] 
             })
-            .then( res.send({ message: "successfully rejected request." }))
+            .then( res.send({ message: "Successfully rejected request." }))
         } else if (req.body.action === "delete") {
             FriendList.findOneAndDelete({
                 $or: [
@@ -132,7 +133,7 @@ module.exports.manageIncomingRequest = async function (req, res) {
                     { $and: [{ requester: req.body.userId }, { recipient: req.body.friendId }] }
                 ]
             })
-            .then( res.send({ message: "successfully deleted friend." }))
+            .then( res.send({ message: "Successfully deleted friend." }))
         } else res.send({ message: "An unexpected event has occurred. Please try again."});
     } catch (error) { console.log(error) };
 }
