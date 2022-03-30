@@ -63,6 +63,10 @@ app.get('/email/confirm/:id', async function (req, res) {
     return accountHandling.confirmEmail(req, res);
 })
 
+app.get('/resetpassword/:id', async function (req, res) {
+    return accountHandling.resetPassword(req, res);
+})
+
 app.post('/stat/update', async function (req, res) {
     return statisticHandling.statUpdate(req, res);
 })

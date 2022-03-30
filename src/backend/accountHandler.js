@@ -13,7 +13,8 @@ var UserSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     verified: { type: Boolean, default: false },
     status: { type: Boolean, default: false }, // false is offline, true is online
-    adminStatus: { type: Boolean, default: false } // false is user, true is admin
+    adminStatus: { type: Boolean, default: false }, // false is user, true is admin
+    forgetPasswordLinkExpireTime: { type: Date, default: Date.now }
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -37,12 +38,12 @@ function sendVerifyMail(mail, username, id) {
     }
 }
 
-function sendforgetPasswordMail(mail, username) {
+function sendforgetPasswordMail(mail, username, id) {
     let context = "Dear " + username + "," + "\n\n"
         + "You have received this email because you have forgotten your CU Simulator password. "
         + "If you believe you have received this email in error, please contact us at " + "cusimulator3100@gmail.com" + "\n\n"
-        + "You can use the following link to reset your password now."
-    //+ process.env.FRONTEND_URL + "/email/confirm/" + id;
+        + "You can use the following link to reset your password now." + "\n\n"
+        + process.env.FRONTEND_URL + "/changepassword/" + id;
     let mailOptions = {
         from: "cusimulator3100@gmail.com",
         to: mail,
@@ -198,13 +199,22 @@ module.exports.forgetPassword = async function (req, res) {
     let inputUsername = req.body.username
 
     try {
-        const useremail = await User.findOne({ username: inputUsername }, { email: 1 })
-        if (useremail == null) {
+        const userdata = await User.findOne({ username: inputUsername }, { email: 1 })
+
+        if (userdata == null) {
             console.log("username does not exist!")
             return res.send({ usernameError: "Username does not exist!" })
         } else {
             //send forget password email here
-            await sendforgetPasswordMail(useremail.email, inputUsername);
+            await sendforgetPasswordMail(userdata.email, inputUsername, userdata._id);
+
+
+            // calculate and update the time for the forget password link to expire
+            let currentTime = new Date();
+            let addedTime = new Date(currentTime.getTime() + 60 * 12 * 60000);
+            console.log("currennttime", currentTime)
+            console.log("time", addedTime)
+            await User.findOneAndUpdate({ username: inputUsername }, { forgetPasswordLinkExpireTime: addedTime });
             return res.send({ message: "Forget Password Email Sent!" })
         }
 
@@ -212,6 +222,44 @@ module.exports.forgetPassword = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//check the reset password link is valid or not 
+module.exports.resetPassword = async function (req, res) {
+    const id = req.params.id;
+    if (id.length != 24) {
+        return res.send({ validURL: false, message: "Invalid URL" });
+    }
+
+    try {
+        const user = await User.findById(id, { forgetPasswordLinkExpireTime: 1 });
+        if (!user) {
+            return res.send({ validURL: false, message: "Invalid URL" }); // may route to another page later
+        }
+        else {
+            const expireTime = user.forgetPasswordLinkExpireTime;
+            const currentTime = new Date();
+            console.log("expireTime", expireTime);
+            console.log("currentTime", currentTime);
+            console.log("timeDiff", expireTime.getTime() - currentTime.getTime());
+
+            if (expireTime.getTime() - currentTime.getTime() < 0) {
+                return res.send({ validURL: false, message: "The link has been expired" });
+            } else {
+                return res.send({ validURL: true, message: "valid" });
+            }
+
+
+            /*if (user.verified == true) {
+                return res.send({ message: user.username + ", your email has been verified" }) // email already verified
+            } else {
+                await User.findOneAndUpdate({ username: user.username }, { verified: true }); // verify email
+                return res.send({ message: user.username + ", you have successfully verified your email!" })
+            }*/
+        }
+    } catch (error) {
+        console.log(error)
+        return res.send({ validURL: false, message: "Unknown server error" })
+    };
+}
 
 module.exports.test = async function (req, res) {
     try {

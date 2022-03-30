@@ -97,7 +97,6 @@ class Registration extends React.Component {
 
         let inputUsername = document.getElementById("usernameid").value;
         let inputPassword = document.getElementById("passwordid").value;
-        let inputConfirmPassword = document.getElementById("confirmpasswordid").value;
         let inputEmail = document.getElementById("emailid").value;
 
         //check all input data before create account
