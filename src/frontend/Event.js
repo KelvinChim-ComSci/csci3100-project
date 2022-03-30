@@ -1,6 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import dia from './EventScript/GateOfWisdom.txt';
+import GateOfWisdom from './EventScript/GateOfWisdom.txt';
+import HoChou from './EventScript/HoChou.txt';
+import LakeAdExcellentiam from './EventScript/LakeAdExcellentiam.txt';
+import MedCan from './EventScript/MedCan.txt';
+import SwimmingPool from './EventScript/SwimmingPool.txt';
+import ThreeBrothers from './EventScript/ThreeBrothers.txt';
+import UC from './EventScript/UC.txt';
+import UniversityMall from './EventScript/UniversityMall.txt';
+import UniverityStation from './EventScript/UniversityStation.txt';
+import CCLib from './EventScript/CCLib.txt'
+import noEvent from './EventScript/noEvent.txt';
 import { Button } from 'bootstrap';
 import { withRouter } from './withRouter.js';
 import Choice from './choiceWindow';
@@ -24,6 +34,22 @@ class Event extends React.Component {
         this.bgchoice = this.bgchoice.bind(this);
         this.beginEvent = this.beginEvent.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
+        this.eventChoice = eventChoice.bind(this);
+
+        function eventChoice(location, year, sem){
+            if (location == "U Lib" && sem==1 && year==1){return GateOfWisdom}
+            if (location == "NA"){return noEvent} // to be implemented
+            if (location == "University Station" && sem==1 && year==3){return UniverityStation}
+            if (location == "Haddon-Cave"){return noEvent} // to be implemented
+            if (location == "Weiyuan Lake" && year==2 && sem==1){return LakeAdExcellentiam}
+            if (location == "UC" && year==1 && sem==2){return UC}
+            if (location == "The University Mall" && year==3 && sem ==1){return UniversityMall}
+            if (location == "MedCan" && year==4 && sem==1){return MedCan}
+            if (location == "Swimming Pool" && year==4 && sem == 3){return SwimmingPool}
+            if (location == "CC Lib" && year == 4 && sem == 2){return CCLib}
+            else return noEvent
+
+        }
 
         this.state = {
             script_count: 1,
@@ -36,27 +62,29 @@ class Event extends React.Component {
     }
 
     beginEvent(){
-        fetch(dia)
+        fetch(this.eventChoice(this.props.location, this.props.year, this.props.sem))
         .then(r => r.text())
         .then(text => {
-          this.script_list = text.split('\n');
-          document.getElementById('dialogue').innerHTML = this.script_list[0];
-          this.script_answer = [];
-          this.script_reaction_count = [];
-        //   this.script_reaction = [];
-          for (let k = 0; k < this.script_list.length; k++){
-              if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
-                  this.script_answer.push(this.script_list[k].substring(6));
-                  this.script_reaction_count.push(this.script_list[k][4]);
-                //   this.script_reaction.push(this.script_list[k+1]);
-              }
-          }
-
-
-        //   console.log("script_reaction_count", this.script_reaction_count);"url("+background+")";  "url('https://cdn.xgqfrms.xyz/logo/logo.png')"
-        
-
-        })
+            this.script_list = text.split('\n');
+            document.getElementById('dialogue').innerHTML = this.script_list[0];
+            this.script_answer = [];
+            this.script_reaction_count = [];
+          //   this.script_reaction = [];
+            for (let k = 0; k < this.script_list.length; k++){
+                if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
+                    this.script_answer.push(this.script_list[k].substring(6));
+                    this.script_reaction_count.push(this.script_list[k][4]);
+                    if (this.script_list[k][5]!="@"){
+                        this.script_reaction_count.pop()
+                        this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
+                        this.script_answer.pop();
+                        this.script_answer.push(this.script_list[k].substring(7));
+                    }
+                  //   this.script_reaction.push(this.script_list[k+1]);
+                }
+            }
+            console.log("script_reaction_count", this.script_reaction_count);
+          })
         .then(this.setState({started: 1}))
         .then(this.props.setEvent(1));
     }
