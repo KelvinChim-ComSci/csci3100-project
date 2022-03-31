@@ -19,5 +19,6 @@ export function statBackendUpdate(newStat) {
             userId: newStat.user,
         }),
     })
-    .then(console.log("data updated to backend..."))
+    .then((data) => data.json())
+    .then((data) => console.log(data.message));
 }

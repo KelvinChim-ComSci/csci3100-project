@@ -15,6 +15,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      displayName: "",
       username: "",
       userId: "",
       isAdmin: 0,
@@ -39,6 +40,7 @@ class App extends React.Component {
 
   handleSessionRefresh() {
     this.setState({
+      displayName: window.sessionStorage.getItem("displayName"),
       username: window.sessionStorage.getItem("username"),
       userId: window.sessionStorage.getItem("userId"),
       isAdmin: window.sessionStorage.getItem("isAdmin"),
@@ -47,14 +49,16 @@ class App extends React.Component {
     });
   }
 
-  handleLogin(user, userId, checkAdmin) {
+  handleLogin(displayName, user, userId, checkAdmin) {
     this.setState({
+      displayName: displayName,
       username: user,
       userId: userId,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
     });
+    window.sessionStorage.setItem("displayName", displayName);
     window.sessionStorage.setItem("username", user);
     window.sessionStorage.setItem("userId", userId);
     window.sessionStorage.setItem("isAdmin", checkAdmin);
@@ -66,12 +70,14 @@ class App extends React.Component {
 
   handleLogout() {
     this.setState({
+      displayName: "",
       username: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged in",
       isLoggedIn: 0,
       forgetPassword: false
     });
+    window.sessionStorage.removeItem("displayName");
     window.sessionStorage.removeItem("username");
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("isAdmin");
@@ -104,6 +110,7 @@ class App extends React.Component {
                   handleLogout={this.handleLogout}
                   handleLocation={this.handleLocation}
                   location={this.state.location}
+                  displayName={this.state.displayName}
                   username={this.state.username}
                   userId={this.state.userId}
                 />

@@ -90,7 +90,13 @@ module.exports.register = async function (req, res) {
         //get the lastest userID and do auto-increment
         const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
 
-        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: hashedPassword, email: inputEmail },
+        User.create({ 
+            userId: lastUserID.userId + 1,
+            displayName: inputUsername,
+            username: inputUsername,
+            password: hashedPassword,
+            email: inputEmail
+        },
             async function (err, response) {
                 if (err) {
                     console.log(err)
@@ -145,6 +151,7 @@ module.exports.login = async function (req, res) {
                 else {
                     return res.send({
                         errorMsg: "none",
+                        displayName: response.displayName,
                         username: response.username,
                         accessLevel: response.adminStatus,
                         userId: response._id

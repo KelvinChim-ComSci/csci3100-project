@@ -83,7 +83,7 @@ class Profile extends React.Component {
                 
             });
     }
-   
+    
     render(){
         require("./profile.css");
        
@@ -116,7 +116,8 @@ class Profile extends React.Component {
                         <div className="col-6">
 
                         <div className="d-flex flex-column" id="textbox">
-                            <div className="p-2">User name: {this.props.username}</div>
+                            <div className="p-2">User name: {this.props.displayName}</div>
+                            <button onClick={() => console.log("test")}></button>
                             <div className="p-2">User ID: {this.props.stat.user}</div>
 
                             <div className="p-2">Status: (On/Off)</div>

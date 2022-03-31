@@ -14,22 +14,24 @@ var StatSchema = mongoose.Schema({
 var Statistic = mongoose.model('Statistic', StatSchema);
 
 module.exports.statUpdate = async function (req, res) {
-    Statistic.findOneAndUpdate({ user: req.body.userId }, {
-        $set: {
-            gpa: parseInt(req.body.gpa),
-            happiness: parseInt(req.body.happiness),
-            money: parseInt(req.body.money),
-            sem: parseInt(req.body.sem),
-            year: parseInt(req.body.year),
-            sports: parseInt(req.body.sports),
-            stamina: parseInt(req.body.stamina),
-        }
-    }, {
-        new: true
-    }, async function (error, response) {
-        if (error) return console.log(error)
-        else return console.log("Data saved successfully.");
-    })
+    try {
+        Statistic.findOneAndUpdate({ user: req.body.userId }, {
+            $set: {
+                gpa: parseInt(req.body.gpa),
+                happiness: parseInt(req.body.happiness),
+                money: parseInt(req.body.money),
+                sem: parseInt(req.body.sem),
+                year: parseInt(req.body.year),
+                sports: parseInt(req.body.sports),
+                stamina: parseInt(req.body.stamina),
+            }
+        }, {
+            new: true
+        }, async function (error, response) {
+            if (error) return console.log(error)
+            else return res.send( { message: "successfully updated!" });
+        })
+    } catch (error) { console.log(error) };
 }
 
 module.exports.stat = async function (req, res) {
