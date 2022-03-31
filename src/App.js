@@ -8,7 +8,6 @@ import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
 import ChangePassword from "./frontend/SignInPage/ChangePassword.js";
-import AdminPage from "./frontend/AdminPage";
 
 class App extends React.Component {
   constructor(props) {
@@ -107,15 +106,6 @@ class App extends React.Component {
                   username={this.state.username}
                   userId={this.state.userId}
                 />
-              }
-            />
-            <Route
-              path="/adminPage"
-              element={<AdminPage
-                handleLogout={this.handleLogout}
-                username={this.state.username}
-                userId={this.state.userId}
-              />
               }
             />
           </Routes >

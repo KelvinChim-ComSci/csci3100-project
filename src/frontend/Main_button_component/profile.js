@@ -112,14 +112,13 @@ class Profile extends React.Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-6" id="image"><img src={img} /></div>
-                        <div className="col-6">
+                        <div className="first" id="image"><img src={img} /></div>
+                        <div className="second">
 
                         <div className="d-flex flex-column" id="textbox">
                             <div className="p-2">User name: {this.props.username}</div>
                             <div className="p-2">User ID: {this.props.stat.user}</div>
 
-                            <div className="p-2">Status: (On/Off)</div>
                             <div className="d-flex justify-content-between">
                                     <div className="p-2">About me:</div>
                                     <div className="p-2"><button className="btn btn-success" onClick={() => {this.setState({popUpBar : "edit"}); this.props.setOverflow(0);}}> Edit! </button></div>

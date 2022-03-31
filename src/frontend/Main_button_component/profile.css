@@ -19,6 +19,27 @@
     padding: 10px 0 10px 0;
 }
 
+.profile .first {
+    padding: 15px;
+    overflow: auto;
+    float: left;
+    width: 50%;
+}
+
+.profile .second {
+    padding: 15px;
+    overflow: auto;
+    float: left;
+    width: 50%;
+}
+
+@media only screen and (max-width: 800px) {
+    /* For mobile phones: */
+    .profile .first, .profile .second {
+      width: 100% !important; 
+    }
+  }
+
 .profile #image {
     text-align: center;
     vertical-align: middle;
@@ -26,9 +47,9 @@
 }
 
 .profile img {
-    height: 100%;
-    max-height: 500px;
-    width: auto;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
 }
 
 .profile #textbox {
@@ -64,4 +85,5 @@
     position: relative;
     height: 100px;
     width: auto;
+    padding: 10px;
 }

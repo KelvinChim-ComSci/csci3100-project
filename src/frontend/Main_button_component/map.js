@@ -115,14 +115,14 @@ class Map extends React.Component {
     render(){
         require("./map.css");
         return (
-            <div className = "map">
+            <div id = "map">
                 <div className="row">
 
                 <div className="col-12">
                     <h2>Map</h2>
                 </div>
                 
-                <div className="col-6">
+                <div className="first">
                     <div className="img">
                         <ImageMapper src={URL} map={MAP} width={800} 
                         onClick={area => {this.displayDescription(area); 
@@ -134,7 +134,7 @@ class Map extends React.Component {
                     </div>
                 </div>
                     
-                <div className="col-6">
+                <div className="second">
                     <p>Place that you are now pointing to : <span id="hover"></span></p>
                     <table>
                         <thead>
