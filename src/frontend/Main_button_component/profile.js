@@ -16,6 +16,7 @@ class Profile extends React.Component {
         this.state = {
           popUpBar: "",
           message: "Please change accordingly so that this part will be updated to user data upon editing.\nAlso I need the attributes of user photo, user name and status here, as well as a sample achievement for testing.",
+          name: this.props.displayName,
           sociable: "",
           fxxxboy: "",
           happyjai: "",
@@ -33,7 +34,8 @@ class Profile extends React.Component {
     popUp(option) {
         console.log("current Pop-up in profile: ", this.state.popUpBar);
         const msg = this.state.message;
-        if (option === "edit"){
+        const name = this.state.name;
+        if (option === "about"){
             return (
                 <div>
                     <div id="shadowLayer2"></div>
@@ -49,13 +51,29 @@ class Profile extends React.Component {
                 </div>
             )
         }
+        else if (option === "name"){
+            return (
+                <div>
+                    <div id="shadowLayer2"></div>
+                    <div className="popUp" id="confirmWindow">
+                    <h4>Edit display name</h4>
+                        <textarea id="displayName" rows="1" cols="30" defaultValue={name}></textarea>
+                        <br></br>
+                        <div className="d-flex justify-content-around">
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>Discard change</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({name : document.getElementById("displayName").value, popUpBar : ""}); this.props.setOverflow(1);}}>Save</button>
+                        </div>   
+                    </div>
+                </div>
+            )
+        }
             
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         console.log("hello2"); 
         console.log(typeof(this.props.stat.user)); 
-        await fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
+        fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
             method: "GET",
             headers: new Headers({
                 "Content-Type": 'application/json',
@@ -104,7 +122,10 @@ class Profile extends React.Component {
                 imgList.push(element);
             }
         }
+
+        console.log(this.props.displayName, this.props.username);
        
+        console.log(this.props.stat);
         return (
             <div className="profile">
                 
@@ -116,14 +137,19 @@ class Profile extends React.Component {
                         <div className="second">
 
                         <div className="d-flex flex-column" id="textbox">
-                            <div className="p-2">User name: {this.props.displayName}</div>
-                            <button onClick={() => console.log("test")}></button>
+
                             <div className="p-2">User ID: {this.props.stat.user}</div>
 
                             <div className="d-flex justify-content-between">
-                                    <div className="p-2">About me:</div>
-                                    <div className="p-2"><button className="btn btn-success" onClick={() => {this.setState({popUpBar : "edit"}); this.props.setOverflow(0);}}> Edit! </button></div>
+                                    <div className="p-2">Display name: {this.state.name}</div>
+                                    <div className="p-2"><button className="btn btn-success" onClick={() => {this.setState({popUpBar : "name"}); this.props.setOverflow(0);}} style={{display: `${this.props.friend? "none" : "flex"}`}}> Edit! </button></div>
                             </div>
+
+                            <div className="d-flex justify-content-between">
+                                    <div className="p-2">About me:</div>
+                                    <div className="p-2"><button className="btn btn-success" onClick={() => {this.setState({popUpBar : "about"}); this.props.setOverflow(0);}} style={{display: `${this.props.friend? "none" : "flex"}`}}> Edit! </button></div>
+                            </div>
+
                             <div className="p-2">{this.state.message}</div>
                         </div>    
 
@@ -133,7 +159,7 @@ class Profile extends React.Component {
                         In-game progress: {this.props.achievement}
                     </div>
                     <div className="row">
-                        <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(parseInt(this.props.stat.sem)/2)}</div>
+                        <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(this.props.stat.sem/2)}</div>
                         <div className="col">Stamina: {this.props.stat.stamina}</div>
                     </div>
                     <div className="row">

@@ -63,6 +63,10 @@
     border-radius: 10%;
 }
 
+.profile textarea {
+    resize:none;
+}
+
 .profile #shadowLayer2{
     height: 100%;
     width: 100%;

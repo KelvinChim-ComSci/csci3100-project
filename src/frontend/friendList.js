@@ -1,5 +1,6 @@
 import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
+import Profile from "./Main_button_component/profile";
 
 // fetch friends from backend, if no friends put a message to tell player to add friends by pressing the + button.
 // There will be a list of friends with no lights on and green lights depending on the status.
@@ -9,15 +10,17 @@ class FriendList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            addFriendPopUp: "hide",
+            popUpBar: "",
             friends: [],
             incomingRequests: [],
-            message: ""
+            message: "",
+            target: null,
         }
 
         this.fetchFriendList = this.fetchFriendList.bind(this);
         this.checkIncomingRequest = this.checkIncomingRequest.bind(this);
         this.manageRequest = this.manageRequest.bind(this);
+        this.popUp = this.popUp.bind(this);
     }
 
 
@@ -27,18 +30,39 @@ class FriendList extends React.Component {
     }
 
 
-    addFriend() {
-        if (this.state.addFriendPopUp === "hide") return;
-        return (
-            <div>
-                <div id="shadowLayer"></div>
-                <button className="closeButton" onClick={() => {this.setState({addFriendPopUp : "hide"}); this.props.setOverflow(1);}}>x</button>
-                <div className="popUp">
-                    <AddFriend userId = {this.props.stat.user}/>
+    popUp() {
+        const stat = {
+            gpa: -0,
+            happiness: -100,
+            money: -1000,
+            sem: 1,
+            sports: 300,
+            stamina: 20,
+            year: 4,
+            user: (this.state.target)? this.state.target.id : null,
+        }
+        if (this.state.popUpBar === "addFriend")
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>x</button>
+                    <div className="popUp">
+                        <AddFriend userId = {this.props.stat.user}/>
+                    </div>
                 </div>
-            </div>
-
-        );
+            );
+        else if (this.state.popUpBar === "profile")
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>x</button>
+                    <div className="popUp">
+                        <Profile stat={stat} displayName={this.state.target.displayName} username={this.state.target.username} friend={true}/>
+                    </div>
+                </div>
+            );
+        else
+            return;
     }
 
     showStatus(Boolean) {
@@ -135,7 +159,7 @@ class FriendList extends React.Component {
                 {this.state.friends.map((data) => {
                     return (
                     <div key={data.id} className={data.id}>
-                        {data.username}
+                        <button onClick={()=>{console.log(data); this.setState({popUpBar: "profile", target: data})}}>{data.username}</button>
                         {this.showStatus(data.status)}
                         &nbsp;
                         <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "delete")}>
@@ -200,7 +224,7 @@ class FriendList extends React.Component {
                 </div>
 
                 <div>
-                    <span className="friendAdder" onClick={()=>{this.setState({addFriendPopUp: "show"}); this.props.setOverflow(0);}}>
+                    <span className="friendAdder" onClick={()=>{this.setState({popUpBar: "addFriend"}); this.props.setOverflow(0);}}>
                             <div className="friendAdder_roundBlock yellow"></div>
                             <div className="friendAdder_head"></div>
                             <div className="friendAdder_body"></div>
@@ -210,7 +234,7 @@ class FriendList extends React.Component {
                             <div className='displaySuccessMessage'>{this.state.message}</div>
                 </div>
                 <div className="manageFriends">
-                    {this.addFriend()}
+                    {this.popUp()}
                     {this.showRequests()}
                 </div>
             </div>

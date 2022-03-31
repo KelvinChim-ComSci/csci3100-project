@@ -82,10 +82,12 @@ module.exports.getFriendList = async function (req, res) {
         .then((data) => {
             let friendList = data.map(pair => {
                 return (pair.recipient._id == req.body.userId) ? {
+                    displayName: pair.requester.displayName,
                     username: pair.requester.username,
                     status: pair.requester.status,
                     id: pair.requester._id
                 } : {
+                    displayName: pair.recipient.displayName,
                     username: pair.recipient.username,
                     status: pair.recipient.status,
                     id: pair.recipient._id

@@ -137,6 +137,7 @@ class Main extends React.Component {
     }
 
     popUp(option) {
+        console.log(this.props.displayName);
         if (option === "profile"){
             require("./Main_button_component/profile.css");
             return (
@@ -144,7 +145,7 @@ class Main extends React.Component {
                     <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp" style={{overflow: this.state.overflow? "auto" : "clip"}}>
-                        <Profile stat={this.state.stat} displayName={this.props.displayName} username={this.props.username} setOverflow={this.setOverflow}/>
+                        <Profile stat={this.state.stat} displayName={this.props.displayName} username={this.props.username} friend={false} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
 
