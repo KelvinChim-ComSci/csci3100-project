@@ -70,7 +70,7 @@ class Main extends React.Component {
         console.log(stat.sem)
         this.setState({ stat: { ...this.state.stat, ...stat } });
         new Promise(resolve => setTimeout(resolve, 1));
-        if (stat.year == 1 && stat.sem==0){
+        if (stat.year === 1 && stat.sem === 0){
             this.setState({popUpBar : "mainEvent"})
         }
         
@@ -144,7 +144,7 @@ class Main extends React.Component {
                     <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp" style={{overflow: this.state.overflow? "auto" : "clip"}}>
-                        <Profile stat={this.state.stat} username={this.props.username} setOverflow={this.setOverflow}/>
+                        <Profile stat={this.state.stat} displayName={this.props.displayName} username={this.props.username} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
 
@@ -233,7 +233,7 @@ class Main extends React.Component {
         else {
             return (
                 <div className="split left">
-                    <Event year = {this.state.year} sem = {this.state.sem} handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
+                    <Event year = {this.state.stat.year} sem = {this.state.stat.sem} handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
                 
             )
@@ -271,6 +271,7 @@ class Main extends React.Component {
     }
 
     async userLogout() {
+
         await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
             headers: new Headers({
@@ -290,6 +291,7 @@ class Main extends React.Component {
             this.props.handleLogout();
             this.props.navigate("../");
         })
+        .catch((error) => console.log(error));
     }
 
     render() {

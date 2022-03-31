@@ -59,7 +59,7 @@ class Login extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
-                    this.props.handleLogin(res.username, res.userId, res.accessLevel);
+                    this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel);
                     this.navigator('./main');
                 }
                 else {
@@ -76,7 +76,7 @@ class Login extends React.Component {
 
     async sendRequest() {
         const detailsElement = document.getElementById("test");
-        detailsElement.getElementsByTagName("h3")[0].innerText = "administrator" + '\n' + "testing3100";
+        detailsElement.getElementsByTagName("h3")[0].innerText = "administrator\ntesting3100";
     }
 
     isLoginValid(errorMessage) {

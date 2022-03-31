@@ -70,9 +70,9 @@
 
 .friendAdder {
     cursor: pointer;
-    display:inline-block;
+    display: inline-block;
     width: 30px;
-    height:30px;
+    height: 30px;
     -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -82,16 +82,16 @@
 
 .friendAdder_roundBlock {
     position: absolute;
-    width:48px;
-    height:30px;
-    border-radius:8px;
+    width: 48px;
+    height: 30px;
+    border-radius: 8px;
     padding-top: 3px;
 }
 
 .friendAdder_head {
     position: absolute;
-    width:10px;
-    height:10px;
+    width: 10px;
+    height: 10px;
     border-radius: 5px;
     background-color:#fff;
     left: 18px;
@@ -100,8 +100,8 @@
 
 .friendAdder_body {
     position: absolute;
-    width:20px;
-    height:10px;
+    width: 20px;
+    height: 10px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     background-color:#fff;
@@ -112,21 +112,21 @@
 
 .friendAdder_horizontal {
     position: absolute;
-    width:3px;
-    height:10px;
+    width: 3px;
+    height: 10px;
     background-color:#fff;
-    left:35px;
-    top:6px;
+    left: 35px;
+    top: 6px;
 
 }
 
 .friendAdder_vertical {
     position: absolute;
-    width:10px;
-    height:3px;
+    width: 10px;
+    height: 3px;
     background-color:#fff;
-    left:31.5px;
-    top:9.5px;
+    left: 31.5px;
+    top: 9.5px;
 
 }
 
@@ -134,7 +134,7 @@
     cursor: pointer;
     display:inline-block;
     width: 22px;
-    height:22px;
+    height: 22px;
     -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -150,43 +150,43 @@
 
 .checkmark_circle {
     position: absolute;
-    width:22px;
-    height:22px;
-    border-radius:11px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
 }
 
 .checkmark_stem {
     position: absolute;
-    width:3px;
-    height:9px;
+    width: 3px;
+    height: 9px;
     background-color:#fff;
-    left:14px;
-    top:9px;
+    left: 14px;
+    top: 9px;
 }
 
 .checkmark_kick {
     position: absolute;
-    width:3px;
-    height:3px;
+    width: 3px;
+    height: 3px;
     background-color:#fff;
-    left:11px;
-    top:15px;
+    left: 11px;
+    top: 15px;
 }
 
 .checkmark_cross {
     position: absolute;
-    width:3px;
-    height:10px;
+    width: 3px;
+    height: 10px;
     background-color:#fff;
-    left:12.5px;
-    top:9px;
+    left: 12.5px;
+    top: 9px;
 }
 
 .checkmark_slash {
     position: absolute;
-    width:10px;
-    height:3px;
+    width: 10px;
+    height: 3px;
     background-color:#fff;
-    left:9px;
-    top:12.5px;
+    left: 9px;
+    top: 12.5px;
 }
