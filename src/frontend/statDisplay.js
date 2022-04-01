@@ -11,7 +11,7 @@ class StatDisplay extends React.Component {
     }
 
     update(stat) {
-        this.setState({ stat: { ...this.state.stat, ...stat } })
+        this.setState({ stat: { ...this.state.stat, ...stat } });
     }
 
     render(){
@@ -20,7 +20,6 @@ class StatDisplay extends React.Component {
             <div className="container-fluid" id="statDisplay">
                 <div className = "row">
                    
-
                         <table>
 
                         <thead>
@@ -52,9 +51,8 @@ class StatDisplay extends React.Component {
                                 <td>{(this.state.stat.hasOwnProperty('stamina'))? this.state.stat.stamina : ""}</td>
                             </tr>
                             
-                            Year {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""} sem {(this.state.stat.hasOwnProperty('sem'))? Math.ceil(this.state.stat.sem/2) : ""} ({(this.state.stat.hasOwnProperty('sem'))? ((this.state.stat.sem%2 === 0)? "2nd" : "1st") : ""} half)
-                            
                         </tbody>
+                        Year {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""} sem {(this.state.stat.hasOwnProperty('sem'))? Math.ceil(this.state.stat.sem/2) : ""} ({(this.state.stat.hasOwnProperty('sem'))? ((this.state.stat.sem%2 === 0)? "2nd" : "1st") : ""} half)
 
                         </table>
 
