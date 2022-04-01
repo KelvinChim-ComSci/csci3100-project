@@ -1,32 +1,31 @@
 import React from "react";
-import event1 from "../EventScript/event1.txt"
-import event2 from "../EventScript/event2.txt"
-import event3 from "../EventScript/event3.txt"
-import event4 from "../EventScript/event4.txt"
-import event5 from "../EventScript/event5.txt"
-import event6 from "../EventScript/event6.txt"
-import event7 from "../EventScript/event7.txt"
-import event8 from "../EventScript/event8.txt"
-import event9 from "../EventScript/event9.txt"
-import event10 from "../EventScript/event10.txt"
-import event11 from "../EventScript/event11.txt"
-import event12 from "../EventScript/event12.txt"
-import event13 from "../EventScript/event13.txt"
-import event14 from "../EventScript/event14.txt"
-import event15 from "../EventScript/event15.txt"
-import event16 from "../EventScript/event16.txt"
-import event17 from "../EventScript/event17.txt"
-import event18 from "../EventScript/event18.txt"
-import event19 from "../EventScript/event19.txt"
-import event20 from "../EventScript/event20.txt"
-import event21 from "../EventScript/event21.txt"
-import event22 from "../EventScript/event22.txt"
-import event23 from "../EventScript/event23.txt"
-import event24 from "../EventScript/event24.txt"
-import event25 from "../EventScript/event24.txt"
-
-
+import event1 from "../EventScript/event1.txt";
+import event2 from "../EventScript/event2.txt";
+import event3 from "../EventScript/event3.txt";
+import event4 from "../EventScript/event4.txt";
+import event5 from "../EventScript/event5.txt";
+import event6 from "../EventScript/event6.txt";
+import event7 from "../EventScript/event7.txt";
+import event8 from "../EventScript/event8.txt";
+import event9 from "../EventScript/event9.txt";
+import event10 from "../EventScript/event10.txt";
+import event11 from "../EventScript/event11.txt";
+import event12 from "../EventScript/event12.txt";
+import event13 from "../EventScript/event13.txt";
+import event14 from "../EventScript/event14.txt";
+import event15 from "../EventScript/event15.txt";
+import event16 from "../EventScript/event16.txt";
+import event17 from "../EventScript/event17.txt";
+import event18 from "../EventScript/event18.txt";
+import event19 from "../EventScript/event19.txt";
+import event20 from "../EventScript/event20.txt";
+import event21 from "../EventScript/event21.txt";
+import event22 from "../EventScript/event22.txt";
+import event23 from "../EventScript/event23.txt";
+import event24 from "../EventScript/event24.txt";
+import event25 from "../EventScript/event24.txt";
 import Choice from '../choiceWindow';
+
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);

@@ -71,8 +71,8 @@ class FriendList extends React.Component {
                         <h4>Are you sure to delete {this.state.target.displayName}?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => this.setState({popUpBar : ""})}>No</button>
                             <button className="btn btn-success" onClick={() => {this.manageRequest(this.state.target.id, "delete"); this.setState({popUpBar : "", target: null})}}>Yes</button>
+                            <button className="btn btn-success" onClick={() => this.setState({popUpBar : ""})}>No</button>
                         </div>
                     </div>
                 </div>

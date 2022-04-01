@@ -36,7 +36,6 @@ class Main extends React.Component {
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
         this.popMainEvent = this.popMainEvent.bind(this);
-        this.popFriendLlist = this.popFriendLlist.bind(this);
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
@@ -64,23 +63,16 @@ class Main extends React.Component {
 
     updateStat(stat){
         this.statRef.current.update(stat);
-        console.log(this.statRef)
-        console.log(stat.year)
-        console.log(stat.sem)
         this.setState({ stat: { ...this.state.stat, ...stat } });
         new Promise(resolve => setTimeout(resolve, 1));
         if (stat.year === 1 && stat.sem === 0){
-            this.setState({popUpBar : "mainEvent"})
+            this.setState({popUpBar : "mainEvent"});
         }
         
     }
  
     handleLocation(location){
         this.setState({location: location});
-    }
-
-    popFriendLlist() {
-        this.setState({popUpBar : "friend"});
     }
 
     popMainEvent() {
@@ -206,6 +198,52 @@ class Main extends React.Component {
             )
         }
 
+        if (option === "setStat"){
+            return (
+                <div className="mainPopUp">
+                    <div id="shadowLayer"></div>
+                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
+                    <div className="popUp" id="setStat">
+                        <h2><center>Set statistics</center></h2>
+                        <br></br>
+
+                            GPA: 
+                            <input type="text" id="GPA" name="GPA" defaultValue={this.state.stat.gpa}/><br></br>
+                            Sports: 
+                            <input type="text" id="Sports" name="Sports" defaultValue={this.state.stat.sports}/><br></br>
+                            Happiness: 
+                            <input type="text" id="Happiness" name="Happiness" defaultValue={this.state.stat.happiness}/><br></br>
+                            Money: 
+                            <input type="text" id="Money" name="Money" defaultValue={this.state.stat.money}/><br></br>
+                            Stamina: 
+                            <input type="text" id="Stamina" name="Stamina" defaultValue={this.state.stat.stamina}/><br></br>
+                            Year: 
+                            <input type="text" id="Year" name="Year" defaultValue={this.state.stat.year}/>
+                            Sem:
+                            <input type="text" id="Sem" name="Sem" defaultValue={this.state.stat.sem}/><br></br>
+                            <br></br>
+
+                            <button className="btn btn-success" onClick={()=>{
+                                const stat = {
+                                    gpa: parseInt(document.getElementById("GPA").value),
+                                    happiness: parseInt(document.getElementById("Happiness").value),
+                                    money: parseInt(document.getElementById("Money").value),
+                                    sem: parseInt(document.getElementById("Sem").value),
+                                    sports: parseInt(document.getElementById("Sports").value),
+                                    stamina: parseInt(document.getElementById("Stamina").value),
+                                    user: this.state.stat.user,
+                                    year: parseInt(document.getElementById("Year").value),
+                                    _id: this.state.stat._id,
+                                };
+                                console.log(stat);
+                                this.setState({popUpBar: ""});
+                                this.updateStat(stat);
+                            }}>Update</button>
+
+                    </div>
+                </div>
+            )
+        }
 
         return;
     }
@@ -217,6 +255,7 @@ class Main extends React.Component {
                     <h2>Welcome to CU Simulator!</h2>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                     <button className="btn btn-success" onClick={this.resetData}>Reset Data</button>
+                    <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
                 </div>
             )
         }
@@ -228,6 +267,21 @@ class Main extends React.Component {
                 
             )
         }
+    }
+
+    adminOnly(){
+        const isAdmin = window.sessionStorage.getItem("isAdmin");
+        if (isAdmin === "true")
+            return (
+                <div className="d-flex flex-column">
+                    <h2>Admin</h2>
+                    <button className="btn btn-success" onClick={()=>{console.log("to be implemented")}}>Show user</button>
+                    <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
+                </div>
+            )
+        else
+            return;
+
     }
 
     async handleSchedulePlan(plan){
@@ -299,13 +353,15 @@ class Main extends React.Component {
                     <StatDisplay stat={this.state.stat} ref={this.statRef}/>
                     <br></br>
                     <h2>Buttons</h2>
-                    <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "friend"})}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
-                    <button className="btn btn-success" onClick={() => console.log("To be implemented")}>Reset Password</button>
+                    <button className="btn btn-success" onClick={() => window.open("http://" + window.location.host + "/changepassword/" + this.props.userId)}>Reset Password</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                     <br></br>
                     <h2>Copyright</h2>
+
+                    {this.adminOnly()}
                 </div>
 
                 {this.popUp(this.state.popUpBar)}
