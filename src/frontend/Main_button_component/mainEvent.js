@@ -138,7 +138,8 @@ class MainEvent extends React.Component {
             // console.log("")
             // handle stat change
             console.log("dia_line.substring(1):", dia_line.substring(1).split(','))
-            this.props.handleMaineventStat(dia_line.substring(1).split(','));
+            this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
+            return;
         }
 
         // normal line without @

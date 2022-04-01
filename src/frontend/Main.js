@@ -24,7 +24,8 @@ class Main extends React.Component {
             stat : null,
             location : "main",
             started : 0,
-            overflow : 1
+            overflow : 1,
+            beenTo : [],
         };
 
         this.statRef = React.createRef();
@@ -64,15 +65,21 @@ class Main extends React.Component {
 
     updateStat(stat){
         this.statRef.current.update(stat);
+        if (this.state.stat && !(this.state.stat.sem === stat.sem && this.state.stat.year === stat.year))
+            this.setState({ beenTo: []});
         this.setState({ stat: { ...this.state.stat, ...stat } });
+        statBackendUpdate(stat);
         new Promise(resolve => setTimeout(resolve, 1));
         if (stat.year === 1 && stat.sem === 0){
             this.setState({popUpBar : "mainEvent"});
         }
-        
     }
  
     handleLocation(location){
+        if (location != "main"){
+            this.updateStat({ ...this.state.stat, stamina: this.state.stat.stamina - 5});
+            this.setState({beenTo: this.state.beenTo.concat(location)});
+        }
         this.setState({location: location});
     }
 
@@ -129,7 +136,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""})}}>x</button>
                     <div className="popUp">
-                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose} available = {!this.state.started}/>
+                        <Map handleLocation = {this.handleLocation} handlePopClose = {this.handlePopClose} available = {!this.state.started} stamina = {this.state.stat.stamina} beenTo = {this.state.beenTo}/>
                     </div>
                 </div>
             )
@@ -249,9 +256,8 @@ class Main extends React.Component {
         else {
             return (
                 <div className="split left">
-                    <Event year = {this.state.stat.year} sem = {this.state.stat.sem} handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
+                    <Event year = {this.state.stat.year} sem = {this.state.stat.sem} stamina = {this.state.stat.stamina} handleMaineventStat = {this.handleMaineventStat}  location = {this.state.location} handleLocation = {this.handleLocation} setEvent = {this.setEvent}/>
                 </div>
-                
             )
         }
     }
@@ -280,20 +286,20 @@ class Main extends React.Component {
         newStat = statScheduleUpdate(newStat,plan);
         console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        statBackendUpdate(newStat);
         this.updateStat(newStat);
         return;
     }
 
-    async handleMaineventStat(dia_line_sub){
+    async handleMaineventStat(dia_line_sub, sideEvent){
         this.setState({popUpBar : ""});
         await new Promise(resolve => setTimeout(resolve, 1));
         let newStat = this.state.stat;
         console.log("Before: ", newStat);
         newStat = statEventUpdate(newStat,dia_line_sub);
+        if (sideEvent)
+            newStat = { ...newStat, stamina: newStat.stamina - 20};
         console.log("handle Main event After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
-        statBackendUpdate(newStat);
         this.setState({
             stat: newStat
         })
@@ -343,11 +349,9 @@ class Main extends React.Component {
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "friend"})}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
-                    <button className="btn btn-success" onClick={() => window.open("http://" + window.location.host + "/changepassword/" + this.props.userId)}>Reset Password</button>
+                    <button className="btn btn-success" onClick={() => window.open("http://" + window.location.host + "/changepassword/" + this.props.userId)}>Change Password</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                     <br></br>
-                    <h2>Copyright</h2>
-
                     {this.adminOnly()}
                 </div>
 
