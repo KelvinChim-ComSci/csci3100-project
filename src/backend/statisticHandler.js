@@ -37,7 +37,7 @@ module.exports.statUpdate = async function (req, res) {
 module.exports.stat = async function (req, res) {
     Statistic.findOne({ user: req.body.userId })
         .then((data) => {
-            console.log('Data updated!');
+            console.log('Data sent to frontend!');
             res.json(data);
         })
         .catch((error) => {

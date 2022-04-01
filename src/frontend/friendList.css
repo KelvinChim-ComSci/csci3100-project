@@ -41,6 +41,8 @@
     100%{ opacity: 0;}
 }
 
+
+
 .fade-out {
     animation: fadeOut 5s;
 }
@@ -210,12 +212,12 @@
     top: 12.5px;
 }
 
-.friendList a{
+.friendList .checkFriendProfile{
     text-decoration: none;
     cursor: pointer;
 }
 
-.friendList a:hover{
+.friendList .checkFriendProfile:hover{
     color: blue !important;
 }
 
@@ -226,7 +228,7 @@
 }
 
 .chat {
-    background-color: rgb(168, 245, 255);
+    background-color: rgb(168, 245, 255, 0.45);
     padding: 10px;
     float: left;
     overflow: hidden;
