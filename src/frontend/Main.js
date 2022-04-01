@@ -39,7 +39,6 @@ class Main extends React.Component {
         this.popFriendLlist = this.popFriendLlist.bind(this);
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
-        this.popMessageBox = this.popMessageBox.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
 
     }
@@ -78,16 +77,10 @@ class Main extends React.Component {
  
     handleLocation(location){
         this.setState({location: location});
-
     }
 
     popFriendLlist() {
         this.setState({popUpBar : "friend"});
-    }
-
-    popMessageBox() {
-        //alert(this.state.schedulePop);
-        this.setState({popUpBar : "message"});
     }
 
     popMainEvent() {
@@ -137,7 +130,6 @@ class Main extends React.Component {
     }
 
     popUp(option) {
-        console.log(this.props.displayName);
         if (option === "profile"){
             require("./Main_button_component/profile.css");
             return (
@@ -214,11 +206,8 @@ class Main extends React.Component {
             )
         }
 
-        
-        else {
-            return 
-        }
 
+        return;
     }
 
     leftComponent(){
@@ -312,8 +301,8 @@ class Main extends React.Component {
                     <h2>Buttons</h2>
                     <button className="btn btn-success" onClick={this.popFriendLlist}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
-                    <button className="btn btn-success" onClick={this.popMessageBox}>Message box</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
+                    <button className="btn btn-success" onClick={() => console.log("To be implemented")}>Reset Password</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                     <br></br>
                     <h2>Copyright</h2>

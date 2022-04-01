@@ -31,10 +31,10 @@
 
 @media only screen and (max-width: 1840px) {
   /* For mobile phones: */
-  .map .first, .map .second {
+  #map .first, #map .second {
     width: 100% !important; 
   }
-  .map .second {
+  #map .second {
     padding: 20px !important;
   }
 }
