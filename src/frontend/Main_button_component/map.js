@@ -95,11 +95,11 @@ class Map extends React.Component {
     displayDescription(area) {
     document.getElementById("detail").innerText ="Place Details";
     document.getElementById("detail").className = "tdT";
-    document.getElementById("place").innerText = "Place :"+'\u00a0'+area.place;
+    document.getElementById("place").innerText = "Place :\u00a0" + area.place;
     document.getElementById("place").className = "tdC";
-    document.getElementById("describe").innerText = "Description :"+'\u00a0'+area.describe;
+    document.getElementById("describe").innerText = "Description :\u00a0" + area.describe;
     document.getElementById("describe").className = "tdC";
-    document.getElementById("places").innerText = "Go to"+'\u00a0'+area.name+'\u00a0'+"!";
+    document.getElementById("places").innerText = "Go to\u00a0" + area.name + "\u00a0!";
     document.getElementById("places").className = "link";
     }
     

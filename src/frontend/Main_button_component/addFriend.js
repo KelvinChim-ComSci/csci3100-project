@@ -20,7 +20,7 @@ class AddFriend extends React.Component {
 
     async createFriendRequest(friendName) {
         let inputFriendName = friendName || document.getElementsByName("friendName")[0].value;
-        if (this.isEmpty(inputFriendName)) return this.displayMessage("Friend name cannot be empty."); // TODO
+        if (this.isEmpty(inputFriendName)) return this.displayMessage("Friend name cannot be empty.");
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/sendRequest", {
             method: "POST",
             headers: new Headers({
@@ -42,9 +42,8 @@ class AddFriend extends React.Component {
     }
 
     deleteRecommendation(id) {
-        let request = document.getElementsByClassName(id)[0];
-        request.remove();
-
+        let request = document.getElementsByClassName(id);
+        request.length > 1 ? request[1].remove() : request[0].remove();
     }
 
    async displayMessage(message) {

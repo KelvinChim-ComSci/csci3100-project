@@ -4,14 +4,15 @@ import { withRouter } from './withRouter.js';
 import Schedule from './Main_button_component/schedule';
 import Profile from './Main_button_component/profile';
 import Map from './Main_button_component/map';
+import MainEvent from './Main_button_component/mainEvent';
 import { statScheduleUpdate } from './statUpdater/statUpdateFrontend.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
+import { statEventUpdate } from './statUpdater/statEventUpdate.js';
+import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 import FriendList from './friendList';
-import MainEvent from './Main_button_component/mainEvent';
 import main_bg from '../backend/background/main.jpeg';
 import Event from './Event';
 import StatDisplay from './statDisplay';
-import {statEventUpdate} from './statUpdater/statEventUpdate.js';
 
 class Main extends React.Component {
 
@@ -86,24 +87,10 @@ class Main extends React.Component {
     }
 
     statUpdateFromBackend(ID) {
-
-        fetch(process.env.REACT_APP_BASE_URL + "/stat/retrieve", {
-        method: "POST",
-        headers: new Headers({
-            "Content-Type": 'application/json',
-            "Accept": 'application/json',
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-            "Access-Control-Allow-Credentials": true,
-        }),
-        body: JSON.stringify({
-            userId: ID
-            })
-        })
-        .then((res) => res.json())
+        statRetrievebyId(ID)
         .then((res) => {
             this.updateStat(res);
-        })  
+        }); 
     }
 
     componentDidMount() {

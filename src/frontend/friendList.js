@@ -1,6 +1,7 @@
 import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
 import Profile from "./Main_button_component/profile";
+import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 
 // fetch friends from backend, if no friends put a message to tell player to add friends by pressing the + button.
 // There will be a list of friends with no lights on and green lights depending on the status.
@@ -15,6 +16,7 @@ class FriendList extends React.Component {
             incomingRequests: [],
             message: "",
             target: null,
+            targetStatistic: [],
             chat: null,
         }
 
@@ -32,17 +34,6 @@ class FriendList extends React.Component {
 
 
     popUp() {
-        //please fetch the stat from the user with id=target.id
-        const stat = {
-            gpa: -0,
-            happiness: -100,
-            money: -1000,
-            sem: 1,
-            sports: 300,
-            stamina: 20,
-            year: 4,
-            user: (this.state.target)? this.state.target.id : null,
-        }
         if (this.state.popUpBar === "addFriend")
             return (
                 <div>
@@ -59,7 +50,7 @@ class FriendList extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>x</button>
                     <div className="popUp">
-                        <Profile stat={stat} displayName={this.state.target.displayName} username={this.state.target.username} friend={true}/>
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true}/>
                     </div>
                 </div>
             );
@@ -163,6 +154,11 @@ class FriendList extends React.Component {
         request.remove();
     }
 
+    async showFriendProfile(data) {
+        const stat = await statRetrievebyId(data.id);
+        this.setState({popUpBar: "profile", targetStatistic: stat, target: data});
+    }
+
     showFriends() {
         if (this.state.friends.length === 0) {
         return (
@@ -176,8 +172,9 @@ class FriendList extends React.Component {
                 {this.state.friends.map((data) => {
                     return (
                     <div key={data.id} className={data.id} id="friendBox">
-                        <a onClick={()=>{console.log(data); this.setState({popUpBar: "profile", target: data})}}>{data.displayName}</a>
-                        <button onClick={()=>{this.setState({chat: data})}}>chat</button>
+                        <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
+                        &nbsp;
+                        <button onClick={() => { this.setState({chat: data}) }}>chat</button>
                         {this.showStatus(data.status)}
                         &nbsp;
                         <span className="rotated checkmark" onClick={() => this.setState({popUpBar: "delete", target: data})}>
@@ -221,7 +218,7 @@ class FriendList extends React.Component {
     }
 
     sendChatMessage(message){
-        if (message != ""){
+        if (message !== ""){
             //upload message
             console.log(message);
         }
@@ -300,6 +297,4 @@ class FriendList extends React.Component {
         )
     }
 }
-
-
 export default FriendList;
