@@ -17,11 +17,14 @@ class FriendList extends React.Component {
             message: "",
             target: null,
             targetStatistic: [],
-            chat: null,
+            chat: "",
+            chatMessages: [],
         }
 
         this.fetchFriendList = this.fetchFriendList.bind(this);
+        this.fetchMessages = this.fetchMessages.bind(this);
         this.checkIncomingRequest = this.checkIncomingRequest.bind(this);
+        this.sendChatMessage = this.sendChatMessage.bind(this);
         this.manageRequest = this.manageRequest.bind(this);
         this.popUp = this.popUp.bind(this);
     }
@@ -73,6 +76,57 @@ class FriendList extends React.Component {
         return;
     }
 
+    async fetchFriendList() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/friend/getFriendList", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: this.props.stat.user,
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            this.setState({ friends: res.friendList });
+        });
+    }
+
+    showFriends() {
+        if (this.state.friends.length === 0) {
+        return (
+            <div>
+                Looks like you haven't added any friends yet. Invite friends to chat!
+            </div>
+        )} else {
+            return (
+            <div>
+                <h3>Friends:</h3>
+                {this.state.friends.map((data) => {
+                    return (
+                    <div key={data.id} className={data.id} id="friendBox">
+                        <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
+                        &nbsp;
+                        <button onClick={async () => { this.setState({chat: data}); await this.fetchMessages(data.id) }}>chat</button>
+                        {this.showStatus(data.status)}
+                        &nbsp;
+                        <span className="rotated checkmark" onClick={() => this.setState({popUpBar: "delete", target: data})}>
+                            <div className="checkmark_circle red"></div>
+                            <div className="checkmark_cross"></div>
+                            <div className="checkmark_slash"></div>
+                        </span>
+                    </div>
+                    );
+                })}
+            </div>
+            );
+        }
+    }
+
     showStatus(Boolean) {
         if (Boolean) {
             return (
@@ -89,6 +143,26 @@ class FriendList extends React.Component {
                 <div className='userStatus_body gray'></div>
             </span>
         )
+    }
+
+    async checkIncomingRequest() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/friend/checkIncomingRequest", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: this.props.stat.user,
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            this.setState({ incomingRequests: res.incomingRequest });
+        });
     }
 
     showRequests() {
@@ -117,10 +191,11 @@ class FriendList extends React.Component {
                         );
                     })}
                 </div>
-                );
+            );
         }
     }
 
+    
     async manageRequest(friendId, method) {
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/manageIncomingRequest", {
             method: "POST",
@@ -159,111 +234,96 @@ class FriendList extends React.Component {
         this.setState({popUpBar: "profile", targetStatistic: stat, target: data});
     }
 
-    showFriends() {
-        if (this.state.friends.length === 0) {
-        return (
-            <div>
-                Looks like you haven't added any friends yet. Invite friends to chat!
-            </div>
-        )} else {
-            return (
-            <div>
-                <h3>Friends:</h3>
-                {this.state.friends.map((data) => {
-                    return (
-                    <div key={data.id} className={data.id} id="friendBox">
-                        <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
-                        &nbsp;
-                        <button onClick={() => { this.setState({chat: data}) }}>chat</button>
-                        {this.showStatus(data.status)}
-                        &nbsp;
-                        <span className="rotated checkmark" onClick={() => this.setState({popUpBar: "delete", target: data})}>
-                            <div className="checkmark_circle red"></div>
-                            <div className="checkmark_cross"></div>
-                            <div className="checkmark_slash"></div>
-                        </span>
-                    </div>
-                    );
-                })}
-            </div>
-            );
-        }
+    async fetchMessages(friendId) {
+        fetch(process.env.REACT_APP_BASE_URL + "/message/fetchPreviousMessages", {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: this.props.stat.user,
+                friendId: friendId
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            if (res.emptyMessageList) {
+                this.setState({ chatMessages: [] });
+            }
+            else this.setState({ chatMessages: res.messageList });
+        })
     }
 
-    showChat() {
-        if (!this.state.chat)
-            return;
-        
-        //here should be the messages from database, having from and text attributes
-        //the friend who you are talking to is the one with id=this.state.chat.id
-        const trialMessage = [{from: this.props.stat.user, text: "Standing there"}, {from: this.state.chat.id, text: "I realize"}, {from: this.props.stat.user, text: "You are just like me"}, {from: this.state.chat.id, text: "Trying to make history"},{from: this.props.stat.user, text: "But who's to judge"}, {from: this.state.chat.id, text: "The right from wrong"}]
 
-        return(
+    showChat() {
+        if (this.state.chatMessages.length === 0) {
+            return (
+                <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
+                <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
+                <div className="chatBox">
+                </div>
+                <div className="inputMessage">
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} autoFocus></textarea>
+                    <button onClick={
+                        async ()=>{
+                            await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
+                            document.getElementById("chatMessage").value = "";
+                        }}>Send!</button>
+                </div>
+            </div>
+            )
+        }
+        return (
             <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
                 <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
                 <div className="chatBox">
-                    {trialMessage.map((message) => {
+                    {this.state.chatMessages.map((message) => {
                         return (
                             <div className={`chatMessage ${(message.from === this.props.stat.user)? "to" : "receive"}`}>{message.text}</div>
                         );
                     })}
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" autoFocus></textarea>
-                    <button onClick={()=>{this.sendChatMessage(document.getElementById("chatMessage").value); document.getElementById("chatMessage").value = ""}}>Send!</button>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} autoFocus></textarea>
+                    <button onClick={async ()=>{
+                        await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
+                        document.getElementById("chatMessage").value = "";
+                        }}>Send!</button>
                 </div>
-
             </div>
         )
     }
 
-    sendChatMessage(message){
-        if (message !== ""){
+    async sendChatMessage(message, friendId){
+        const isValidMessage = (message !== "") && (message !== null);
+        if (isValidMessage) {
             //upload message
-            console.log(message);
-        }
+            await fetch(process.env.REACT_APP_BASE_URL + "/message/sendMessage", {
+                method: "POST",
+                headers: new Headers({
+                    "Content-Type": 'application/json',
+                    "Accept": 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                    "Access-Control-Allow-Credentials": true,
+                }),
+                body: JSON.stringify({
+                    userId: this.props.stat.user,
+                    friendId: friendId,
+                    message: message
+                }),
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res.message);
+            })
+        };
         return;
-    }
-
-    async fetchFriendList() {
-        await fetch(process.env.REACT_APP_BASE_URL + "/friend/getFriendList", {
-            method: "POST",
-            headers: new Headers({
-                "Content-Type": 'application/json',
-                "Accept": 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-                "Access-Control-Allow-Credentials": true,
-            }),
-            body: JSON.stringify({
-                userId: this.props.stat.user,
-            }),
-        })
-        .then((res) => res.json())
-        .then((res) => {
-            this.setState({ friends: res.friendList });
-        });
-    }
-
-    async checkIncomingRequest() {
-        await fetch(process.env.REACT_APP_BASE_URL + "/friend/checkIncomingRequest", {
-            method: "POST",
-            headers: new Headers({
-                "Content-Type": 'application/json',
-                "Accept": 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-                "Access-Control-Allow-Credentials": true,
-            }),
-            body: JSON.stringify({
-                userId: this.props.stat.user,
-            }),
-        })
-        .then((res) => res.json())
-        .then((res) => {
-            this.setState({ incomingRequests: res.incomingRequest });
-        });
-    }
+    };
 
     render() {
         require('./friendList.css');
