@@ -45,8 +45,8 @@ module.exports.sendMessage = async function (req, res) {
         const userId = req.body.userId;
         const message = req.body.message;
         const currentFullDate = new Date();
-        let currentDate = `${currentFullDate.getFullYear()}-${currentFullDate.getMonth() + 1}-${currentFullDate.getDate()}`;
-        let currentTIme = `${currentFullDate.getHours()}:${currentFullDate.getMinutes()}:${currentFullDate.getSeconds()}`;
+        let currentDate = `${currentFullDate.getFullYear()}-${('0' + (currentFullDate.getMonth() + 1)).slice(-2)}-${('0' + currentFullDate.getDate()).slice(-2)}`;
+        let currentTIme = `${('0' + currentFullDate.getHours()).slice(-2)}:${('0' + currentFullDate.getMinutes()).slice(-2)}:${('0' + currentFullDate.getSeconds()).slice(-2)}`;
         Message.create({
             sender: userId,
             receiver: friendId,

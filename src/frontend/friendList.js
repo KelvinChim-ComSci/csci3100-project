@@ -267,7 +267,7 @@ class FriendList extends React.Component {
                 <div className="chatBox">
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} autoFocus></textarea>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="50" autoFocus></textarea>
                     <button onClick={
                         async ()=>{
                             await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
@@ -281,14 +281,14 @@ class FriendList extends React.Component {
             <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
                 <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
                 <div className="chatBox">
-                    {this.state.chatMessages.map((message) => {
+                    {this.state.chatMessages.map((message, index) => {
                         return (
-                            <div className={`chatMessage ${(message.from === this.props.stat.user)? "to" : "receive"}`}>{message.text}</div>
+                            <div key={index} className={`chatMessage ${(message.from === this.props.stat.user)? "to" : "receive"}`}>{message.text}</div>
                         );
                     })}
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} autoFocus></textarea>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxlength="200" autoFocus></textarea>
                     <button onClick={async ()=>{
                         await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
                         document.getElementById("chatMessage").value = "";
