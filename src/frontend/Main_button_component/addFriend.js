@@ -97,7 +97,7 @@ class AddFriend extends React.Component {
                     {this.state.recommendationList.map((data) => {
                         return (
                             <div key={data.userId} className={data.userId} id="recommendBox">
-                                {data.username}
+                                {data.displayName}
                                 <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.userId)}}>
                                     <div className="checkmark_circle yellow"></div>
                                     <div className="checkmark_cross"></div>

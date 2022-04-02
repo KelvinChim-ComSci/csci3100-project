@@ -311,6 +311,7 @@ module.exports.findRandomUsers = async function (req, res) {
             .then((data) => {
                 let userList = data.map((pair) => {
                     return ({
+                        displayName: pair.displayName,
                         username: pair.username,
                         userId: pair._id
                     });

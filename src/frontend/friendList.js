@@ -281,6 +281,18 @@ class FriendList extends React.Component {
         })
     }
 
+    async sendMessage(friendId) {
+        await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
+        document.getElementById("chatMessage").value = "";
+    }
+
+    async sendMessagebyEnter(friendId, buttonPressed) {
+        if (buttonPressed.key === 'Enter') {
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
+            document.getElementById("chatMessage").value = "";
+        }
+    }
+
 
     showChat() {
         return (
@@ -295,11 +307,8 @@ class FriendList extends React.Component {
                     })}
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" autoFocus></textarea>
-                    <button onClick={async ()=>{
-                        await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
-                        document.getElementById("chatMessage").value = "";
-                        }}>Send!</button>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" onKeyUp={async (event) => {this.sendMessagebyEnter(this.state.chat.id, event)}} autoFocus></textarea>
+                    <button className="sendMessageButton" onClick={async ()=>{this.sendMessage(this.state.chat.id)}} >Send!</button>
                 </div>
             </div>
         )
