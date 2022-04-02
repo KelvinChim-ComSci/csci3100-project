@@ -55,8 +55,11 @@ class Event extends React.Component {
                 return CCLib;
             if (location === "Swimming Pool" && year === 4 && sem === 3)
                 return SwimmingPool;
-            else
+            else {
+                this.setState({noEvent: true});
                 return noEvent;
+            }
+                
 
         }
 
@@ -66,11 +69,17 @@ class Event extends React.Component {
             chosenChoice: -1,
             started: 0,
             pop_q: "",
+            noEvent: false,
         }
 
     }
 
     beginEvent(){
+        if (this.props.stamina < 20){
+            alert("You are already tired. Please go home and rest more!");
+            return;
+        }
+
         fetch(this.eventChoice(this.props.location, this.props.year, this.props.sem))
         .then(r => r.text())
         .then(text => {
@@ -102,7 +111,6 @@ class Event extends React.Component {
     }
 
     bgchoice(location){
-        console.log(location)
         if (location === "U Lib") return ulib_bg;
         if (location === "NA") return na_bg;
         if (location === "University Station") return unistation_bg;
@@ -116,7 +124,6 @@ class Event extends React.Component {
     }
 
     returnToMain(){
-        console.log("clicked return to main");
         this.props.setEvent(0);
         this.props.handleLocation("main");
     }
@@ -129,7 +136,7 @@ class Event extends React.Component {
         // end event if # is detected
         if (dia_line[0] === "#"){
             // console.log("")
-            this.props.handleMaineventStat(dia_line.substring(1).split(','));
+            this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
             this.returnToMain();
         }
 
@@ -225,7 +232,6 @@ class Event extends React.Component {
     }
 
     render() {
-        console.log(this.props.params);
         require('./Event.css');
 
         return (

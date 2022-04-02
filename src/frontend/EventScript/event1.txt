@@ -9,7 +9,7 @@ Senior B: No, you should join Shaw College! We have plenty of exchange opportuni
 After some considerations, you choose to join one of the colleges.
 @QQ@Immediately you were asked to join the Orientation Camp, do you want to join it? (Chooose yes to see tutorial)
 @A1,2@ Yes
-@A2,15@ No
+@A2,14@ No
 @R1@ In this game, you are required to plan for your own unviersity life.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
