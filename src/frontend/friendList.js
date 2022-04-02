@@ -31,9 +31,9 @@ class FriendList extends React.Component {
 
 
     componentDidMount() {
-        this.fetchFriendList();
-        this.checkIncomingRequest();
         this.interval = setInterval(() => {
+            this.fetchFriendList();
+            this.checkIncomingRequest();
             this.periodicFetchMessage(this.state.chat);
         }, 2500); // fetch periodically every 2.5s
     }

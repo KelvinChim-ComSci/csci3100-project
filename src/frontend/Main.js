@@ -30,7 +30,10 @@ class Main extends React.Component {
 
         this.statRef = React.createRef();
 
+
+        this.setStatusOff = this.setStatusOff.bind(this);
         this.userLogout = this.userLogout.bind(this);
+
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
 
@@ -41,7 +44,6 @@ class Main extends React.Component {
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
-
     }
 
     resetData(){
@@ -76,7 +78,7 @@ class Main extends React.Component {
     }
  
     handleLocation(location){
-        if (location != "main"){
+        if (location !== "main") {
             this.updateStat({ ...this.state.stat, stamina: this.state.stat.stamina - 5});
             this.setState({beenTo: this.state.beenTo.concat(location)});
         }
@@ -102,6 +104,10 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.checkRefreshAndUpdate();
+        window.addEventListener("beforeunload", (ev) => {
+            ev.preventDefault();
+            return ev.returnValue;
+        });
     }
 
     async checkRefreshAndUpdate() {
@@ -246,7 +252,7 @@ class Main extends React.Component {
         if (this.state.location === "main"){
             return (
                 <div className="split left" style={{backgroundImage: `url(${main_bg})`}}>
-                    <h2>Welcome to CU Simulator!</h2>
+                    <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
                     <button className="btn btn-success" onClick={this.resetData}>Reset Data</button>
                     <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
@@ -307,9 +313,8 @@ class Main extends React.Component {
         return;
     }
 
-    async userLogout() {
-
-        await fetch(process.env.REACT_APP_BASE_URL + "/logout", {
+    async setStatusOff() {
+        return fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
             headers: new Headers({
                 "Content-Type": 'application/json',
@@ -323,6 +328,10 @@ class Main extends React.Component {
             }),
         })
         .then((res) => res.json())
+    }
+
+    async userLogout() {
+        this.setStatusOff()
         .then((res) => {
             console.log(res.logoutMsg);
             this.props.handleLogout();
