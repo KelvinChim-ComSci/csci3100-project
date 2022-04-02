@@ -28,12 +28,12 @@ class FriendList extends React.Component {
         this.sendChatMessage = this.sendChatMessage.bind(this);
         this.manageRequest = this.manageRequest.bind(this);
         this.popUp = this.popUp.bind(this);
-        this.deleteFriend = this.deleteFriend.bind(this);
+        this.deleteQuery = this.deleteQuery.bind(this);
     }
 
 
     componentDidMount() {
-        this.interval = setInterval(() => {
+            this.interval = setInterval(() => {
             this.fetchFriendList();
             this.checkIncomingRequest();
             this.periodicFetchMessage(this.state.chat);
@@ -214,6 +214,9 @@ class FriendList extends React.Component {
 
     
     async manageRequest(friendId, method) {
+        if (method === "delete") {
+            this.setState({ chat: "" })
+        }
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/manageIncomingRequest", {
             method: "POST",
             headers: new Headers({
@@ -230,16 +233,17 @@ class FriendList extends React.Component {
             }),
         })
         .then((data) => data.json())
-        .then((data) => this.deleteFriend(friendId, data.message))
+        .then((data) => this.deleteQuery(data.message))
     }
 
-    deleteFriend(id, message) {
-        let request = document.getElementsByClassName(id)[0];
-        request.remove();
+    deleteQuery(message) {
         this.setState({message: message}); // successful message
         
         setTimeout(() => {if (this.mounted) this.setState({ message: "" })}, 5000);
     }
+
+
+
 
     displayMessage() {
         if (this.state.message === "")
