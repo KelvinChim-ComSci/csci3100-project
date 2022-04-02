@@ -249,6 +249,13 @@
     overflow-y: auto;
     margin: 2px;
     border: solid 2px rgb(73, 73, 255);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.chat .chatBox .empty{
+    flex: 1;
+    display: flex;
 }
 
 .chat .chatBox .chatMessage {
@@ -266,7 +273,6 @@
     margin-left: auto;
     border-radius: 5px;
     background-color: rgb(135, 252, 135);
-    text-align: right;
 }
 
 .chat .chatBox .receive {
