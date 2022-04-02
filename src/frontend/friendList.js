@@ -33,7 +33,20 @@ class FriendList extends React.Component {
     componentDidMount() {
         this.fetchFriendList();
         this.checkIncomingRequest();
+        this.interval = setInterval(() => {
+            this.periodicFetchMessage(this.state.chat);
+        }, 2500); // fetch periodically every 2.5s
     }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    async periodicFetchMessage(correspondent) {
+        if (correspondent === null) return;
+        this.fetchMessages(correspondent.id);
+    }
+
 
 
     popUp() {
@@ -267,7 +280,7 @@ class FriendList extends React.Component {
                 <div className="chatBox">
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="50" autoFocus></textarea>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" autoFocus></textarea>
                     <button onClick={
                         async ()=>{
                             await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
@@ -288,7 +301,7 @@ class FriendList extends React.Component {
                     })}
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxlength="200" autoFocus></textarea>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" autoFocus></textarea>
                     <button onClick={async ()=>{
                         await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
                         document.getElementById("chatMessage").value = "";
@@ -320,6 +333,10 @@ class FriendList extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res.message);
+                let newMessage = { from: this.props.stat.user, text: message };
+                this.setState(prevState => ({
+                    chatMessages: [...prevState.chatMessages, newMessage]
+                  }))
             })
         };
         return;

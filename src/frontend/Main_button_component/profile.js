@@ -1,13 +1,13 @@
 import React from "react";
 import img from './profile_pic.jpg';
-import achievement_img1 from '../img/achievement1.png';
-import achievement_img2 from '../img/achievement2.png';
-import achievement_img3 from '../img/achievement3.png';
-import achievement_img4 from '../img/achievement4.png';
-import achievement_img5 from '../img/achievement5.png';
-import achievement_img6 from '../img/achievement6.png';
-import achievement_img7 from '../img/achievement7.png';
-import achievement_img8 from '../img/achievement8.png';
+import achievement_img1 from '../../backend/img/achievement1.png';
+import achievement_img2 from '../../backend/img/achievement2.png';
+import achievement_img3 from '../../backend/img/achievement3.png';
+import achievement_img4 from '../../backend/img/achievement4.png';
+import achievement_img5 from '../../backend/img/achievement5.png';
+import achievement_img6 from '../../backend/img/achievement6.png';
+import achievement_img7 from '../../backend/img/new_achievement7.png';
+import achievement_img8 from '../../backend/img/new_achievement8.png';
 
 class Profile extends React.Component {
 
