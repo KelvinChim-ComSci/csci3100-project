@@ -38,7 +38,7 @@ class MainEvent extends React.Component {
         function eventChoice(year,sem, stat){
             // since the event pops up after the schdules end, the time in the story should -1 sem in here
             if (year == 1 && sem == 0){return event1}
-            if (year == 1 && sem == 1){return  event2}   
+            if (year == 1 && sem == 1){return event2}   
             if (year == 1 && sem == 2){return event3}
             if (year == 1 && sem == 3){return event20}
             if (year == 1 && sem == 4){
@@ -51,16 +51,18 @@ class MainEvent extends React.Component {
             if (year == 2 && sem == 1){return event7}
             if (year == 2 && sem == 2){return event9}
             if (year == 2 && sem == 3){
-                if (stat.sports > 10){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+
+                if (stat.sports == highest){
                     return event10
                 }
-                if (stat.money > 10){
+                if (stat.money == highest){
                     return event19
                 }
-                if (stat.gpa > 10){
+                if (stat.gpa == highest){
                     return event25
                 }
-                if (stat.happiness > 10){
+                if (stat.happiness == highest){
                     return event18
                 }
 
@@ -72,16 +74,18 @@ class MainEvent extends React.Component {
             if (year == 3 && sem == 4){return event15}
             if (year == 4 && sem == 1){
                 console.log("year 4 sem 1")
-                if (stat.sports > 20){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+
+                if (stat.sports == highest){
                     return event24
                 }
-                if (stat.money > 20){
+                if (stat.money == highest){
                     return event23
                 }
-                if (stat.gpa > 20){
+                if (stat.gpa == highest){
                     return event21
                 }
-                if (stat.happiness > 20){
+                if (stat.happiness == highest){
                     return event22
                 }
             }
