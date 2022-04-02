@@ -2,19 +2,29 @@
     padding: 10px;
 }
 
-@keyframes fadeOut{
-    0%{ opacity: 1;}
-    100%{ opacity: 0;}
+.addFriend .recommendList {
+    width: max-content;
 }
 
+.addFriend #recommendBox {
+    background-color: rgb(255, 217, 159);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px 0;
+}
 
+.addFriend input {
+    transform: translateY(-25%);
+}
 
 .displayMessage {
     color: red;
+    animation: fadeOut 5s;
 }
 
-.fade-out {
-    animation: fadeOut 5s;
+@keyframes fadeOut {
+    0%    {opacity: 1;}
+    100%  {opacity: 0;}
 }
 
 .createRequest {
@@ -25,6 +35,7 @@
     -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    margin: 5px;
 
 }
 

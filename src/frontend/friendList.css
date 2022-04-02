@@ -33,18 +33,16 @@
 
 .displaySuccessMessage {
     color: rgb(61, 153, 61);
-
-}
-
-@keyframes fadeOut{
-    0%{ opacity: 1;}
-    100%{ opacity: 0;}
-}
-
-
-
-.fade-out {
     animation: fadeOut 5s;
+}
+
+@keyframes fadeOut {
+    0%    {opacity: 1;}
+    100%  {opacity: 0;}
+}
+
+.friendListContainer {
+    width: max-content;
 }
 
 .friendList #friendBox {
@@ -161,6 +159,7 @@
     transform: rotate(0deg);
     padding-top: 3px;
     padding-left: 3px;
+    margin: 0 5px;
 }
 
 .rotated {
@@ -210,6 +209,17 @@
     background-color:#fff;
     left: 9px;
     top: 12.5px;
+}
+
+.requestList {
+    width: max-content;
+}
+
+.requestList #requestBox {
+    background-color: rgb(255, 217, 159);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px 0;
 }
 
 .friendList .checkFriendProfile{

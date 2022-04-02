@@ -141,7 +141,6 @@ class Schedule extends React.Component {
 
   popUp(option) {
     const plan = this.state.columns['column-2'].taskIds.map(s => s[0]);
-    console.log("current Pop-up in schedule: ", this.state.popUpBar);
     if (option === "confirm")
         return (
             <div>
@@ -160,6 +159,7 @@ class Schedule extends React.Component {
 
   render() {
     require('./schedule.css');
+    window['__react-beautiful-dnd-disable-dev-warnings'] = true;
     return (
       <div>
       <div className="schedule">
