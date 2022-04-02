@@ -102,6 +102,7 @@ class Main extends React.Component {
 
     componentDidMount() {
         this.checkRefreshAndUpdate();
+        console.log("hello guys welcome")
     }
 
     async checkRefreshAndUpdate() {

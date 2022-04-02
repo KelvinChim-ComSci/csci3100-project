@@ -3,9 +3,10 @@ import React from "react";
 class AddFriend extends React.Component {
     constructor(props) {
         super(props);
+        this.mounted = 0;
         this.state = {
             message: "",
-            recommendationList: []
+            recommendationList: [],
         }
         this.createFriendRequest = this.createFriendRequest.bind(this);
         this.getRecommendation = this.getRecommendation.bind(this);
@@ -13,10 +14,12 @@ class AddFriend extends React.Component {
 
     componentDidMount() {
         this.getRecommendation();
+        this.mounted = 1;
     }
 
-
-
+    componentWillUnmount() {
+        this.mounted = 0;
+    }
 
     async createFriendRequest(friendName) {
         let inputFriendName = friendName || document.getElementsByName("friendName")[0].value;
@@ -37,7 +40,10 @@ class AddFriend extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
-            this.displayMessage(res.message);
+            this.setState({ message: res.message });
+            if (!friendName)
+                document.getElementsByName("friendName")[0].value = "";
+            setTimeout(() => {if (this.mounted) this.setState({ message: "" })}, 5000);
         });
     }
 
@@ -46,16 +52,15 @@ class AddFriend extends React.Component {
         request.length > 1 ? request[1].remove() : request[0].remove();
     }
 
-   async displayMessage(message) {
-        this.setState({ message: message });
+   displayMessage() {
+        if (this.state.message === "")
+            return;
 
-        document.getElementsByName("friendName")[0].value = "";
-        document.getElementsByClassName("displayMessage")[0].className += " fade-out";
-
-        setTimeout(() => {
-        this.setState({ message: "" });
-        document.getElementsByClassName("displayMessage")[0].className = "displayMessage";
-        }, 5000);
+        return (
+            <div className="displayMessage">
+                {this.state.message}
+            </div>
+        )
     }
 
     async getRecommendation() {
@@ -87,13 +92,12 @@ class AddFriend extends React.Component {
             )
         } else {
             return (
-                <div>
+                <div className="recommendList">
                     Players you may know:
                     {this.state.recommendationList.map((data) => {
                         return (
-                            <div key={data.userId} className={data.userId}>
+                            <div key={data.userId} className={data.userId} id="recommendBox">
                                 {data.username}
-                                &nbsp;
                                 <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.userId)}}>
                                     <div className="checkmark_circle yellow"></div>
                                     <div className="checkmark_cross"></div>
@@ -119,7 +123,6 @@ class AddFriend extends React.Component {
                 <label htmlFor="friendName">Already know your friend's Username? Send them a friend request!</label>
                 <br />
                 <input type="text" placeholder="Player's username" name="friendName" required></input>
-                &nbsp;
                 <span className="createRequest" onClick={() => this.createFriendRequest()}>
                             <div className="createRequest_roundBlock yellow"></div>
                             <div className="createRequest_head"></div>
@@ -128,7 +131,8 @@ class AddFriend extends React.Component {
                             <div className="createRequest_vertical"></div>
                             </span>
 
-                <div className="displayMessage">{this.state.message}</div>
+                <br />
+                {this.displayMessage()}
                 <br />
                 <div className="recommendedPlayers">
                     {this.showRecommendation()}

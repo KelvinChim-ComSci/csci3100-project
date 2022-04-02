@@ -32,7 +32,6 @@ class Profile extends React.Component {
       }
       
     popUp(option) {
-        console.log("current Pop-up in profile: ", this.state.popUpBar);
         const msg = this.state.message;
         const name = this.state.name;
         if (option === "about"){
