@@ -33,13 +33,13 @@ class FriendList extends React.Component {
 
 
     componentDidMount() {
-        this.interval = setInterval(() => {
-            this.fetchFriendList();
-            this.checkIncomingRequest();
-            this.periodicFetchMessage(this.state.chat);
-        }, 2500); // fetch periodically every 2.5s
-
+        this.periodicFetchMessage("");
         this.mounted = 1;
+
+        this.interval = setInterval(() => {
+            if (this.mounted)
+                this.periodicFetchMessage(this.state.chat);
+        }, 2500); // fetch periodically every 2.5s
     }
 
     componentWillUnmount() {
@@ -48,8 +48,10 @@ class FriendList extends React.Component {
     }
 
     async periodicFetchMessage(correspondent) {
-        if (correspondent === null) return;
-        this.fetchMessages(correspondent.id);
+        this.fetchFriendList();
+        this.checkIncomingRequest();
+        if (correspondent != "")
+            this.fetchMessages(correspondent.id);
     }
 
 
@@ -82,7 +84,7 @@ class FriendList extends React.Component {
                         <h4>Are you sure to delete {this.state.target.displayName}?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => {this.manageRequest(this.state.target.id, "delete"); this.setState({popUpBar : "", target: null})}}>Yes</button>
+                            <button className="btn btn-success" onClick={() => {this.manageRequest(this.state.target.id, "delete"); this.setState({popUpBar : "", target: null, chat: ""})}}>Yes</button>
                             <button className="btn btn-success" onClick={() => this.setState({popUpBar : ""})}>No</button>
                         </div>
                     </div>
@@ -109,6 +111,13 @@ class FriendList extends React.Component {
         })
         .then((res) => res.json())
         .then((res) => {
+            let match = false;
+            for (let item of res.friendList)
+                if (item.username === this.state.chat.username)
+                    match = true;
+                
+            if (!match)
+                this.setState({ chat: "" });
             this.setState({ friends: res.friendList });
         });
     }
