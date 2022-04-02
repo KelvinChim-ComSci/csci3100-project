@@ -273,28 +273,12 @@ class FriendList extends React.Component {
 
 
     showChat() {
-        if (this.state.chatMessages.length === 0) {
-            return (
-                <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
-                <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
-                <div className="chatBox">
-                </div>
-                <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" autoFocus></textarea>
-                    <button onClick={
-                        async ()=>{
-                            await this.sendChatMessage(document.getElementById("chatMessage").value, this.state.chat.id); 
-                            document.getElementById("chatMessage").value = "";
-                        }}>Send!</button>
-                </div>
-            </div>
-            )
-        }
         return (
             <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
                 <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
                 <div className="chatBox">
-                    {this.state.chatMessages.map((message, index) => {
+                    <div className="empty" />
+                    {this.state.chatMessages.slice(0).reverse().map((message, index) => {
                         return (
                             <div key={index} className={`chatMessage ${(message.from === this.props.stat.user)? "to" : "receive"}`}>{message.text}</div>
                         );
