@@ -25,7 +25,11 @@ import event23 from "../EventScript/event23.txt";
 import event24 from "../EventScript/event24.txt";
 import event25 from "../EventScript/event24.txt";
 import Choice from '../choiceWindow';
-
+import SportEnding from "../EventScript/SportEnding.txt"
+import StudyEnding from "../EventScript/StudyEnding.txt"
+import MoneyEnding from "../EventScript/MoneyEnding.txt"
+import HappinessEnding from "../EventScript/HappinessEnding.txt"
+import NullEnding from "../EventScript/NullEnding.txt"
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
@@ -36,62 +40,76 @@ class MainEvent extends React.Component {
         
         function eventChoice(year,sem, stat){
             // since the event pops up after the schdules end, the time in the story should -1 sem in here
-            if (year == 1 && sem == 0){return event1}
-            if (year == 1 && sem == 1){return event2}   
-            if (year == 1 && sem == 2){return event3}
-            if (year == 1 && sem == 3){return event20}
-            if (year == 1 && sem == 4){
+            if (year === 1 && sem === 0){return event1}
+            if (year === 1 && sem === 1){return event2}   
+            if (year === 1 && sem === 2){return event3}
+            if (year === 1 && sem === 3){return event20}
+            if (year === 1 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if (stat.sports == highest){return event4}
-                if (stat.gpa == highest) {return event5}
-                if (stat.happiness == highest) {return event6}
-                if (stat.money == highest) {return event8}
+                if (stat.sports === highest){return event4}
+                if (stat.gpa === highest) {return event5}
+                if (stat.happiness === highest) {return event6}
+                if (stat.money === highest) {return event8}
             }
-            if (year == 2 && sem == 1){return event7}
-            if (year == 2 && sem == 2){return event9}
-            if (year == 2 && sem == 3){
+            if (year === 2 && sem === 1){return event7}
+            if (year === 2 && sem === 2){return event9}
+            if (year === 2 && sem === 3){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports == highest){
+                if (stat.sports === highest){
                     return event10
                 }
-                if (stat.money == highest){
+                if (stat.money === highest){
                     return event19
                 }
-                if (stat.gpa == highest){
+                if (stat.gpa === highest){
                     return event25
                 }
-                if (stat.happiness == highest){
+                if (stat.happiness === highest){
                     return event18
                 }
 
             }
-            if (year == 2 && sem == 4){return event11}
-            if (year == 3 && sem == 1){return event12}
-            if (year == 3 && sem == 2){return event13}
-            if (year == 3 && sem == 3){return event14}
-            if (year == 3 && sem == 4){return event15}
-            if (year == 4 && sem == 1){
+            if (year === 2 && sem === 4){return event11}
+            if (year === 3 && sem === 1){return event12}
+            if (year === 3 && sem === 2){return event13}
+            if (year === 3 && sem === 3){return event14}
+            if (year === 3 && sem === 4){return event15}
+            if (year === 4 && sem === 1){
                 console.log("year 4 sem 1")
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports == highest){
+                if (stat.sports === highest){
                     return event24
                 }
-                if (stat.money == highest){
+                if (stat.money === highest){
                     return event23
                 }
-                if (stat.gpa == highest){
+                if (stat.gpa === highest){
                     return event21
                 }
-                if (stat.happiness == highest){
+                if (stat.happiness === highest){
                     return event22
                 }
             }
-            if (year == 4 && sem == 2){return event16}
-            if (year == 4 && sem == 3){return event17}
-            if (year == 4 && sem == 4){
-                //handle endings, to be implemented
+            if (year === 4 && sem === 2){return event16}
+            if (year === 4 && sem === 3){return event17}
+            if (year === 4 && sem === 4){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+                if  (stat.gpa > 40 && stat.gpa === highest){
+                    return StudyEnding
+                }
+                if  (stat.happiness > 40 && stat.happiness === highest){
+                    return HappinessEnding
+                }
+                if  (stat.money > 40 && stat.money === highest){
+                    return MoneyEnding
+                }
+                if  (stat.gpa > 40 && stat.sports === highest){
+                    return SportEnding
+                }
+                else return NullEnding
+
             }
         }
 
@@ -143,6 +161,11 @@ class MainEvent extends React.Component {
             // handle stat change
             console.log("dia_line.substring(1):", dia_line.substring(1).split(','))
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
+            if (this.props.stat.year === 5 && this.props.stat.sem === 1){
+                console.log("handle reset Data for ending")
+                this.props.resetData();
+                this.returnToMain();
+            }
             return;
         }
 

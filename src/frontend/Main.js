@@ -72,6 +72,7 @@ class Main extends React.Component {
         this.setState({ stat: { ...this.state.stat, ...stat } });
         statBackendUpdate(stat);
         new Promise(resolve => setTimeout(resolve, 1));
+        // handle new user
         if (stat.year === 1 && stat.sem === 0){
             this.setState({popUpBar : "mainEvent"});
         }
@@ -180,7 +181,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent stat = {this.state.stat} handleMaineventStat = {this.handleMaineventStat} handlePopClose = {this.handlePopClose}/>
+                        <MainEvent resetData = {this.resetData} stat = {this.state.stat} handleMaineventStat = {this.handleMaineventStat} handlePopClose = {this.handlePopClose}/>
                     </div>
                 </div>
             )

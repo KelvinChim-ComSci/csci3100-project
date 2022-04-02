@@ -23,6 +23,7 @@ import unimall_bg from '../backend/background/unimall.jpeg'
 import medcan_bg from '../backend/background/medcan.png'
 import swimmingpool_bg from '../backend/background/swimmingpool.png'
 import cclib_bg from '../backend/background/cclib.png'
+import hochou_bg from '../backend/background/hochou.png'
 
 class Event extends React.Component {
     constructor(props) {
@@ -121,6 +122,8 @@ class Event extends React.Component {
         if (location === "MedCan") return medcan_bg;
         if (location === "Swimming Pool") return swimmingpool_bg;
         if (location === "CC Lib") return cclib_bg;
+        if (location === "CC HoCou") return hochou_bg;
+
     }
 
     returnToMain(){
