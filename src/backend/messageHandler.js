@@ -58,3 +58,15 @@ module.exports.sendMessage = async function (req, res) {
         .catch((error) => console.log(error));
     } catch (error) { console.log(error) };
 }
+
+module.exports.deleteAllMessage = async function (userId, friendId) {
+    try {
+        const deletedMessages = await Message.deleteMany({
+            $or: [
+                { $and: [{ receiver: friendId }, { sender: userId }] },
+                { $and: [{ receiver: userId }, { sender: friendId }] }
+            ]
+        });
+        return { deletedCount: deletedMessages.deletedCount };
+    } catch (error) { console.log(error) };
+}
