@@ -295,12 +295,16 @@ class FriendList extends React.Component {
     }
 
     async sendMessage(friendId) {
-        await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
-        document.getElementById("chatMessage").value = "";
+        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
+        if (!isEmptyMessage) {
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
+            document.getElementById("chatMessage").value = "";
+        }
     }
 
     async sendMessagebyEnter(friendId, buttonPressed) {
-        if (buttonPressed.key === 'Enter') {
+        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
+        if (buttonPressed.key === 'Enter' && (!isEmptyMessage)) {
             await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
             document.getElementById("chatMessage").value = "";
         }
