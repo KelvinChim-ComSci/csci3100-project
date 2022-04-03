@@ -56,6 +56,10 @@ app.post('/email', async function (req, res) {
     return accountHandling.email(req, res);
 })
 
+app.post('/user/changeDisplayName', async function (req, res) {
+    return accountHandling.changeDisplayName(req, res);
+})
+
 app.post('/email/forgetpassword', async function (req, res) {
     return accountHandling.forgetPassword(req, res);
 })

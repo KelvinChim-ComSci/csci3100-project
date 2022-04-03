@@ -60,7 +60,7 @@ class Profile extends React.Component {
                         <br></br>
                         <div className="d-flex justify-content-around">
                             <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>Discard change</button>
-                            <button className="btn btn-success" onClick={() => {this.setState({name : document.getElementById("displayName").value, popUpBar : ""}); /*this.changeDisplayName()*/; this.props.setOverflow(1);}}>Save</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.changeDisplayName(this.props.stat.user); this.props.setOverflow(1);}}>Save</button>
                         </div>   
                     </div>
                 </div>
@@ -101,9 +101,27 @@ class Profile extends React.Component {
             });
     }
     
-    //changeDisplayName() {
-
-    //}
+    changeDisplayName(userId) {
+        const displayName = document.getElementById("displayName").value;
+        fetch(process.env.REACT_APP_BASE_URL + "/user/changeDisplayName" , {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }), 
+            body: JSON.stringify({
+                userId: userId,
+                displayName: displayName
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => alert(res.message));
+        this.setState({name : displayName });
+        this.props.handleDisplayName(displayName);
+    }
 
     render(){
         require("./profile.css");
