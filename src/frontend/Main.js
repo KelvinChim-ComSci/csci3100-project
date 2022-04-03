@@ -13,6 +13,7 @@ import FriendList from './friendList';
 import main_bg from '../backend/background/main.jpeg';
 import Event from './Event';
 import StatDisplay from './statDisplay';
+import Setting from './Main_button_component/setting';
 
 class Main extends React.Component {
 
@@ -199,6 +200,17 @@ class Main extends React.Component {
             )
         }
 
+        if (option === "setting"){
+            return (
+                <div className="mainPopUp">
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
+                        <Setting resetData = {this.resetData} id={this.state.stat.user} setOverflow={this.setOverflow} handlePopClose = {this.handlePopClose}/>
+                    </div>
+                </div>
+            )
+        }
+
         if (option === "setStat"){
             return (
                 <div className="mainPopUp">
@@ -255,7 +267,6 @@ class Main extends React.Component {
                 <div className="split left" style={{backgroundImage: `url(${main_bg})`}}>
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "schedule"})}>Open schedule</button>
-                    <button className="btn btn-success" onClick={this.resetData}>Reset Data</button>
                     <button className="btn btn-success" onClick={()=>{this.setState({popUpBar: "setStat"})}}>Set stat</button>
                 </div>
             )
@@ -359,7 +370,7 @@ class Main extends React.Component {
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "friend"})}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "profile"})}>Check profile</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "map"})}>Explore CUHK!</button>
-                    <button className="btn btn-success" onClick={() => window.open("http://" + window.location.host + "/changepassword/" + this.props.userId)}>Change Password</button>
+                    <button className="btn btn-success" onClick={() => this.setState({popUpBar : "setting"})}>Settings</button>
                     <button className="btn btn-success" onClick={() => this.setState({popUpBar : "logout"})}>Logout</button>
                     <br></br>
                     {this.adminOnly()}

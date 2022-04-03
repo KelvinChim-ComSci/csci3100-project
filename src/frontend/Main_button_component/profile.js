@@ -70,8 +70,6 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        console.log("hello2"); 
-        console.log(typeof(this.props.stat.user)); 
         fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
             method: "GET",
             headers: new Headers({
@@ -84,7 +82,6 @@ class Profile extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res!=null) {
                     this.setState({
                         sociable: res.sociable,
@@ -122,9 +119,6 @@ class Profile extends React.Component {
             }
         }
 
-        console.log(this.props.displayName, this.props.username);
-       
-        console.log(this.props.stat);
         return (
             <div className="profile">
                 
@@ -137,7 +131,7 @@ class Profile extends React.Component {
 
                         <div className="d-flex flex-column" id="textbox">
 
-                            <div className="p-2">User ID: {this.props.stat.user}</div>
+                            <div className="p-2">User name: {this.props.username}</div>
 
                             <div className="d-flex justify-content-between">
                                     <div className="p-2">Display name: {this.state.name}</div>
@@ -154,6 +148,9 @@ class Profile extends React.Component {
 
                         </div> 
                     </div>
+
+                    <div style={{padding: "0 15px"}}>
+
                     <div className="row"> 
                         In-game progress: {this.props.achievement}
                     </div>
@@ -174,6 +171,8 @@ class Profile extends React.Component {
                         {imgList.map((data, index) => {
                             return <img key={index} src={data.img} title={data.text}/>;
                         })}
+                    </div>
+
                     </div>
                 </div>
 
