@@ -35,7 +35,7 @@ module.exports.statUpdate = async function (req, res) {
 }
 
 module.exports.stat = async function (req, res) {
-    Statistic.findOne({ user: req.body.userId })
+    Statistic.findOne({ user: req.params.userId })
         .then((data) => {
             console.log('Data sent to frontend!');
             res.json(data);
@@ -52,7 +52,7 @@ module.exports.initalizeStat = async function (userId) {
         sports: 0, 
         happiness: 0, 
         money: 0, 
-        sem: 1, 
+        sem: 0, 
         stamina: 100,
         year: 1, 
         user: userId },
