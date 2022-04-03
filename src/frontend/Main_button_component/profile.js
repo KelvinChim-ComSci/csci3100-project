@@ -60,7 +60,7 @@ class Profile extends React.Component {
                         <br></br>
                         <div className="d-flex justify-content-around">
                             <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>Discard change</button>
-                            <button className="btn btn-success" onClick={() => {this.setState({name : document.getElementById("displayName").value, popUpBar : ""}); this.props.setOverflow(1);}}>Save</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({name : document.getElementById("displayName").value, popUpBar : ""}); /*this.changeDisplayName()*/; this.props.setOverflow(1);}}>Save</button>
                         </div>   
                     </div>
                 </div>
@@ -101,6 +101,10 @@ class Profile extends React.Component {
             });
     }
     
+    //changeDisplayName() {
+
+    //}
+
     render(){
         require("./profile.css");
        
@@ -137,7 +141,7 @@ class Profile extends React.Component {
 
                         <div className="d-flex flex-column" id="textbox">
 
-                            <div className="p-2">User ID: {this.props.stat.user}</div>
+                            <div className="p-2">Username: {this.props.username}</div>
 
                             <div className="d-flex justify-content-between">
                                     <div className="p-2">Display name: {this.state.name}</div>

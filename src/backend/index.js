@@ -76,7 +76,7 @@ app.post('/stat/update', async function (req, res) {
     return statisticHandling.statUpdate(req, res);
 })
 
-app.post('/stat/retrieve', async function (req, res) {
+app.get('/stat/retrieve/:userId', async function (req, res) {
     return statisticHandling.stat(req, res);
 });
 
