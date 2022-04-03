@@ -4,14 +4,19 @@ const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
 const friendHandling = require('./friendHandler.js');
 const achievementHandling = require('./achievementHandler.js');
-const messageHandling = require('./messageHandler.js');
+const profileHandling = require('./profileHandler.js');
+//const api = require('./profileimgHandler.js');
 
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
+var bodyParser = require('body-parser');
 const cors = require('cors');
 app.use(cors());
 const mongoose = require('mongoose');
+
+var fs = require('fs');
+var path = require('path');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +28,55 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log("Mongoose is connected!");
 });
+var multer = require('multer');
+//set up EJS
+app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }))
+app.use(bodyParser.json({limit: '50mb'}))
+
+let uuidv4 = require('uuid/v4');
+const DIR = './public/';
+// Set EJS as templating engine
+app.set("view engine", "ejs");
+app.use(express.static(DIR));
+/*
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log('Helllllllllllllllllo')
+        cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+        const fileName = file.originalname  //.toLowerCase().split(' ').join('-');
+        console.log('Helllllllllllllllllo')
+        cb(null,fileName) // uuidv4() + '-' + fileName
+    }
+});
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        console.log('Helllllllllllllllllo')
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+//set up multer for storing uploaded files
+*/
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'DIR') //fileName
+	},
+	filename:function (req, file, cb)  {
+		cb(null, file.fieldname + '-' + Date.now())
+	}
+});
+var upload = multer({ storage: storage });
+
+//test
+
+
 
 // Schema
 
@@ -76,7 +130,7 @@ app.post('/stat/update', async function (req, res) {
     return statisticHandling.statUpdate(req, res);
 })
 
-app.get('/stat/retrieve/:userId', async function (req, res) {
+app.post('/stat/retrieve', async function (req, res) {
     return statisticHandling.stat(req, res);
 });
 
@@ -104,20 +158,21 @@ app.post('/user/findRandomUsers', async function (req, res) { // for friend reco
     return accountHandling.findRandomUsers(req, res);
 })
 
-app.post('/message/sendMessage', async function (req, res) {
-    return messageHandling.sendMessage(req, res);
-})
-
-app.post('/message/fetchPreviousMessages', async function (req, res) {
-    return messageHandling.fetchPreviousMessages(req, res);
-})
-
 app.post('/achievement/update', async function (req, res) {
     return achievementHandling.achievementUpdate(req, res);
 })
 
 app.get('/achievement/retrieve/:userId', async function (req, res) {
     return achievementHandling.achievement(req, res);
+});
+//profile/retrieve
+app.get('/api', async function (req, res) {
+    return profileHandling.profileImgRetrieve(req, res);
+});
+
+//app.post('/uploadfile', upload.single('myImage'), async function (req, res, next) {
+app.post('/api/user-profile', upload.single('profileImg'), async function (req, res, next) {
+        return profileHandling.profileImgPost(req, res);
 });
 
 // General
