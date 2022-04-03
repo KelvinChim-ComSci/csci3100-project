@@ -337,15 +337,3 @@ module.exports.changeDisplayName = async function (req, res) {
             }).clone().catch(function (err) { console.log(err) });
     } catch (error) { console.log(error) };
 }
-
-
-module.exports.test = async function (req, res) {
-    try {
-        const user = await User.findOne({ username: "administrator" });
-        return res.send({
-            username: user.username,
-            password: user.password
-        });
-    } catch (error) { console.log(error) };
-}
-

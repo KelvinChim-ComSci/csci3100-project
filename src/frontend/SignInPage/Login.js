@@ -127,21 +127,7 @@ class Login extends React.Component {
                         <div className="links">
                             <p>Don't have an account? <a href="./Registration">Register now!</a></p>
                         </div>
-
                     </form>
-
-                </div>
-
-                <div className="copyright">
-                    CSCI3100 project B4 (Below is for testing)
-                    <br></br>
-                    <button className="btn btn-outline-primary" onClick={this.sendRequest}>get admin account</button>
-                    <br></br>
-                    <div id="test">
-                        <div>
-                            <h3></h3>
-                        </div>
-                    </div>
                 </div>
             </div>
         )
