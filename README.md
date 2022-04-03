@@ -37,5 +37,5 @@ In addition, through this game, we hope to get CUHK alumnis connected. By the re
 
 
 ## Updates
-3/4/2022: Updated README.md.
+3/4/2022: Updated README.md.  
 25/1/2022: Initialized repository.
