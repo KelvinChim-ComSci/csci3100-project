@@ -1,0 +1,38 @@
+#notificationBox {
+  margin: 0;
+  font-family: Comic sans MS;
+  height: 100vh;
+  width: 100vw;
+  color: rgb(0, 0, 0);
+  background-image: url('/src/backend/background/main.jpeg');
+  background-size: auto 100%;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: auto;
+    width: 40%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5%;
+    opacity: 75%;
+  }
+
+#message{
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.links {
+  padding: 0 0 0 25px;
+  transform: translate(0, 0);
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.links p {
+  padding: 0 0 10px 0;
+}

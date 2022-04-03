@@ -44,7 +44,8 @@ function sendforgetPasswordMail(mail, username, id) {
         + "You have received this email because you have forgotten your CU Simulator password. "
         + "If you believe you have received this email in error, please contact us at " + "cusimulator3100@gmail.com" + "\n\n"
         + "You can use the following link to reset your password now." + "\n\n"
-        + process.env.FRONTEND_URL + "/changepassword/" + id;
+        + process.env.FRONTEND_URL + "/changepassword/" + id + "\n\n"
+        + "The above link will be expired after 12 hours, please reset the password soon.";
     let mailOptions = {
         from: "cusimulator3100@gmail.com",
         to: mail,
@@ -90,7 +91,13 @@ module.exports.register = async function (req, res) {
         //get the lastest userID and do auto-increment
         const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
 
-        await User.create({ userId: lastUserID.userId + 1, username: inputUsername, password: hashedPassword, email: inputEmail },
+        User.create({
+            userId: lastUserID.userId + 1,
+            displayName: inputUsername,
+            username: inputUsername,
+            password: hashedPassword,
+            email: inputEmail
+        },
             async function (err, response) {
                 if (err) {
                     console.log(err)
@@ -145,6 +152,7 @@ module.exports.login = async function (req, res) {
                 else {
                     return res.send({
                         errorMsg: "none",
+                        displayName: response.displayName,
                         username: response.username,
                         accessLevel: response.adminStatus,
                         userId: response._id
@@ -216,7 +224,7 @@ module.exports.forgetPassword = async function (req, res) {
             console.log("currennttime", currentTime)
             console.log("time", addedTime)
             await User.findOneAndUpdate({ username: inputUsername }, { forgetPasswordLinkExpireTime: addedTime });
-            return res.send({ message: "Forget Password Email Sent!" })
+            return res.send({ message: "Forget password email sent!" })
         }
 
 
@@ -304,6 +312,7 @@ module.exports.findRandomUsers = async function (req, res) {
             .then((data) => {
                 let userList = data.map((pair) => {
                     return ({
+                        displayName: pair.displayName,
                         username: pair.username,
                         userId: pair._id
                     });

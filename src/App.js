@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from "./frontend/SignInPage/Login.js";
 import ForgotPassword from "./frontend/SignInPage/ForgotPassword.js";
@@ -8,13 +8,13 @@ import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
 import ChangePassword from "./frontend/SignInPage/ChangePassword.js";
-import AdminPage from "./frontend/AdminPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      displayName: "",
       username: "",
       userId: "",
       isAdmin: 0,
@@ -39,6 +39,7 @@ class App extends React.Component {
 
   handleSessionRefresh() {
     this.setState({
+      displayName: window.sessionStorage.getItem("displayName"),
       username: window.sessionStorage.getItem("username"),
       userId: window.sessionStorage.getItem("userId"),
       isAdmin: window.sessionStorage.getItem("isAdmin"),
@@ -47,14 +48,16 @@ class App extends React.Component {
     });
   }
 
-  handleLogin(user, userId, checkAdmin) {
+  handleLogin(displayName, user, userId, checkAdmin) {
     this.setState({
+      displayName: displayName,
       username: user,
       userId: userId,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
       isLoggedIn: 1
     });
+    window.sessionStorage.setItem("displayName", displayName);
     window.sessionStorage.setItem("username", user);
     window.sessionStorage.setItem("userId", userId);
     window.sessionStorage.setItem("isAdmin", checkAdmin);
@@ -66,12 +69,14 @@ class App extends React.Component {
 
   handleLogout() {
     this.setState({
+      displayName: "",
       username: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged in",
       isLoggedIn: 0,
       forgetPassword: false
     });
+    window.sessionStorage.removeItem("displayName");
     window.sessionStorage.removeItem("username");
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("isAdmin");
@@ -104,18 +109,10 @@ class App extends React.Component {
                   handleLogout={this.handleLogout}
                   handleLocation={this.handleLocation}
                   location={this.state.location}
+                  displayName={this.state.displayName}
                   username={this.state.username}
                   userId={this.state.userId}
                 />
-              }
-            />
-            <Route
-              path="/adminPage"
-              element={<AdminPage
-                handleLogout={this.handleLogout}
-                username={this.state.username}
-                userId={this.state.userId}
-              />
               }
             />
           </Routes >

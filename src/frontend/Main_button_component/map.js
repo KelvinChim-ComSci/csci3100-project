@@ -83,23 +83,34 @@ class Map extends React.Component {
     }
 
     navigator() {
-        if (this.props.available){
-            console.log(this.state.location)
-            this.props.handleLocation(this.state.location);  
-            this.props.handlePopClose();
-        }
-        else
+        if (!this.props.available) {
             alert("You cannot visit other places during event!");
+            return;
+        }
+
+        if (this.props.stamina < 5) {
+            alert("You are too tired to go to other places! Please rest more.");
+            return;
+        }
+
+        if (this.props.beenTo.includes(this.state.location)) {
+            alert("You have already been to there recently!");
+            return;
+        }
+
+        console.log(this.state.location)
+        this.props.handleLocation(this.state.location);  
+        this.props.handlePopClose();
     }
 
     displayDescription(area) {
     document.getElementById("detail").innerText ="Place Details";
     document.getElementById("detail").className = "tdT";
-    document.getElementById("place").innerText = "Place :"+'\u00a0'+area.place;
+    document.getElementById("place").innerText = "Place :\u00a0" + area.place;
     document.getElementById("place").className = "tdC";
-    document.getElementById("describe").innerText = "Description :"+'\u00a0'+area.describe;
+    document.getElementById("describe").innerText = "Description :\u00a0" + area.describe;
     document.getElementById("describe").className = "tdC";
-    document.getElementById("places").innerText = "Go to"+'\u00a0'+area.name+'\u00a0'+"!";
+    document.getElementById("places").innerText = "Go to\u00a0" + area.name + "\u00a0!";
     document.getElementById("places").className = "link";
     }
     
@@ -115,14 +126,14 @@ class Map extends React.Component {
     render(){
         require("./map.css");
         return (
-            <div className = "map">
+            <div id = "map">
                 <div className="row">
 
                 <div className="col-12">
                     <h2>Map</h2>
                 </div>
                 
-                <div className="col-6">
+                <div className="first">
                     <div className="img">
                         <ImageMapper src={URL} map={MAP} width={800} 
                         onClick={area => {this.displayDescription(area); 
@@ -134,7 +145,7 @@ class Map extends React.Component {
                     </div>
                 </div>
                     
-                <div className="col-6">
+                <div className="second">
                     <p>Place that you are now pointing to : <span id="hover"></span></p>
                     <table>
                         <thead>

@@ -1,32 +1,35 @@
 import React from "react";
-import event1 from "../EventScript/event1.txt"
-import event2 from "../EventScript/event2.txt"
-import event3 from "../EventScript/event3.txt"
-import event4 from "../EventScript/event4.txt"
-import event5 from "../EventScript/event5.txt"
-import event6 from "../EventScript/event6.txt"
-import event7 from "../EventScript/event7.txt"
-import event8 from "../EventScript/event8.txt"
-import event9 from "../EventScript/event9.txt"
-import event10 from "../EventScript/event10.txt"
-import event11 from "../EventScript/event11.txt"
-import event12 from "../EventScript/event12.txt"
-import event13 from "../EventScript/event13.txt"
-import event14 from "../EventScript/event14.txt"
-import event15 from "../EventScript/event15.txt"
-import event16 from "../EventScript/event16.txt"
-import event17 from "../EventScript/event17.txt"
-import event18 from "../EventScript/event18.txt"
-import event19 from "../EventScript/event19.txt"
-import event20 from "../EventScript/event20.txt"
-import event21 from "../EventScript/event21.txt"
-import event22 from "../EventScript/event22.txt"
-import event23 from "../EventScript/event23.txt"
-import event24 from "../EventScript/event24.txt"
-import event25 from "../EventScript/event24.txt"
-
-
+import event1 from "../EventScript/event1.txt";
+import event2 from "../EventScript/event2.txt";
+import event3 from "../EventScript/event3.txt";
+import event4 from "../EventScript/event4.txt";
+import event5 from "../EventScript/event5.txt";
+import event6 from "../EventScript/event6.txt";
+import event7 from "../EventScript/event7.txt";
+import event8 from "../EventScript/event8.txt";
+import event9 from "../EventScript/event9.txt";
+import event10 from "../EventScript/event10.txt";
+import event11 from "../EventScript/event11.txt";
+import event12 from "../EventScript/event12.txt";
+import event13 from "../EventScript/event13.txt";
+import event14 from "../EventScript/event14.txt";
+import event15 from "../EventScript/event15.txt";
+import event16 from "../EventScript/event16.txt";
+import event17 from "../EventScript/event17.txt";
+import event18 from "../EventScript/event18.txt";
+import event19 from "../EventScript/event19.txt";
+import event20 from "../EventScript/event20.txt";
+import event21 from "../EventScript/event21.txt";
+import event22 from "../EventScript/event22.txt";
+import event23 from "../EventScript/event23.txt";
+import event24 from "../EventScript/event24.txt";
+import event25 from "../EventScript/event24.txt";
 import Choice from '../choiceWindow';
+import SportEnding from "../EventScript/SportEnding.txt"
+import StudyEnding from "../EventScript/StudyEnding.txt"
+import MoneyEnding from "../EventScript/MoneyEnding.txt"
+import HappinessEnding from "../EventScript/HappinessEnding.txt"
+import NullEnding from "../EventScript/NullEnding.txt"
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
@@ -37,58 +40,76 @@ class MainEvent extends React.Component {
         
         function eventChoice(year,sem, stat){
             // since the event pops up after the schdules end, the time in the story should -1 sem in here
-            if (year == 1 && sem == 0){return event1}
-            if (year == 1 && sem == 1){return  event2}   
-            if (year == 1 && sem == 2){return event3}
-            if (year == 1 && sem == 3){return event20}
-            if (year == 1 && sem == 4){
+            if (year === 1 && sem === 0){return event1}
+            if (year === 1 && sem === 1){return event2}   
+            if (year === 1 && sem === 2){return event3}
+            if (year === 1 && sem === 3){return event20}
+            if (year === 1 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if (stat.sports == highest){return event4}
-                if (stat.gpa == highest) {return event5}
-                if (stat.happiness == highest) {return event6}
-                if (stat.money == highest) {return event8}
+                if (stat.sports === highest){return event4}
+                if (stat.gpa === highest) {return event5}
+                if (stat.happiness === highest) {return event6}
+                if (stat.money === highest) {return event8}
             }
-            if (year == 2 && sem == 1){return event7}
-            if (year == 2 && sem == 2){return event9}
-            if (year == 2 && sem == 3){
-                if (stat.sports > 10){
+            if (year === 2 && sem === 1){return event7}
+            if (year === 2 && sem === 2){return event9}
+            if (year === 2 && sem === 3){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+
+                if (stat.sports === highest){
                     return event10
                 }
-                if (stat.money > 10){
+                if (stat.money === highest){
                     return event19
                 }
-                if (stat.gpa > 10){
+                if (stat.gpa === highest){
                     return event25
                 }
-                if (stat.happiness > 10){
+                if (stat.happiness === highest){
                     return event18
                 }
 
             }
-            if (year == 2 && sem == 4){return event11}
-            if (year == 3 && sem == 1){return event12}
-            if (year == 3 && sem == 2){return event13}
-            if (year == 3 && sem == 3){return event14}
-            if (year == 3 && sem == 4){return event15}
-            if (year == 4 && sem == 1){
+            if (year === 2 && sem === 4){return event11}
+            if (year === 3 && sem === 1){return event12}
+            if (year === 3 && sem === 2){return event13}
+            if (year === 3 && sem === 3){return event14}
+            if (year === 3 && sem === 4){return event15}
+            if (year === 4 && sem === 1){
                 console.log("year 4 sem 1")
-                if (stat.sports > 20){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+
+                if (stat.sports === highest){
                     return event24
                 }
-                if (stat.money > 20){
+                if (stat.money === highest){
                     return event23
                 }
-                if (stat.gpa > 20){
+                if (stat.gpa === highest){
                     return event21
                 }
-                if (stat.happiness > 20){
+                if (stat.happiness === highest){
                     return event22
                 }
             }
-            if (year == 4 && sem == 2){return event16}
-            if (year == 4 && sem == 3){return event17}
-            if (year == 4 && sem == 4){
-                //handle endings, to be implemented
+            if (year === 4 && sem === 2){return event16}
+            if (year === 4 && sem === 3){return event17}
+            if (year === 4 && sem === 4){
+                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+                if  (stat.gpa > 40 && stat.gpa === highest){
+                    return StudyEnding
+                }
+                if  (stat.happiness > 40 && stat.happiness === highest){
+                    return HappinessEnding
+                }
+                if  (stat.money > 40 && stat.money === highest){
+                    return MoneyEnding
+                }
+                if  (stat.gpa > 40 && stat.sports === highest){
+                    return SportEnding
+                }
+                else return NullEnding
+
             }
         }
 
@@ -139,7 +160,13 @@ class MainEvent extends React.Component {
             // console.log("")
             // handle stat change
             console.log("dia_line.substring(1):", dia_line.substring(1).split(','))
-            this.props.handleMaineventStat(dia_line.substring(1).split(','));
+            this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
+            if (this.props.stat.year === 5 && this.props.stat.sem === 1){
+                console.log("handle reset Data for ending")
+                this.props.resetData();
+                this.returnToMain();
+            }
+            return;
         }
 
         // normal line without @

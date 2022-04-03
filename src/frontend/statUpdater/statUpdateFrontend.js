@@ -42,7 +42,6 @@ export function statScheduleUpdate(newStat, plan) {
                 break;
             case "r":
                 let newStamina = ((newStat.stamina>50) ? 100 : newStat.stamina+50);
-                console.log(newStamina);
                 newStat = {
                     ...newStat,
                     stamina: newStamina,
@@ -50,14 +49,13 @@ export function statScheduleUpdate(newStat, plan) {
                 break;
         }
         if (newStat.stamina < 0){
-            alert("You died. F");
+            alert("Oh no! You didn't have enough rest and became exhausted!");
             newStat = {
                 ...newStat,
-                stamina: 50,
+                stamina: 0,
             }
             break;
         }
-        console.log(i);
     }
     if (newStat.sem === 4)
         newStat = {

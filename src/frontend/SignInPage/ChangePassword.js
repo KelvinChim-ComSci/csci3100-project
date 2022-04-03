@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from '../withRouter.js';
 import 'bootstrap/dist/css/bootstrap.css';
+import NotificationBox from '../NotficationBox.js';
 
 class ChangePassword extends React.Component {
     constructor(props) {
@@ -11,12 +12,14 @@ class ChangePassword extends React.Component {
             confirmPasswordError: false,
             passwordErrMsg: "",
             confirmPasswordErrMsg: "",
+            message: "invalid URL"
         }
 
         this.componentDidMount = this.componentDidMount.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
         this.resetPassword = this.resetPassword.bind(this);
+        this.resetEmailSent = this.resetEmailSent.bind(this);
     }
 
     async componentDidMount() {
@@ -74,11 +77,11 @@ class ChangePassword extends React.Component {
     async resetPassword(event) {
         event.preventDefault();
 
-        this.checkPassword();
-        this.checkConfirmPassword();
+        await this.checkPassword();
+        await this.checkConfirmPassword();
         if (!(this.state.passwordError || this.state.confirmPasswordError)) {
 
-            console.log(this.props.params.id);
+            //console.log(this.props.params.id);
             let inputPassword = document.getElementById("passwordid").value;
             await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword", {
                 method: "POST",
@@ -100,8 +103,7 @@ class ChangePassword extends React.Component {
                         this.setState({ passwordError: true, passwordErrMsg: res.passwordError });
                     }
                     else {
-                        this.setState({ passwordError: false, passwordErrMsg: "" });
-                        alert(res.message);
+                        this.setState({ passwordError: false, passwordErrMsg: "", reset: true, message: res.message });
                     }
 
 
@@ -109,50 +111,58 @@ class ChangePassword extends React.Component {
         }
     }
 
+    resetEmailSent() {
+        console.log(this.state.reset, ":OOO")
+        if (this.state.reset) return <NotificationBox message={this.state.message} login={false} />
+    }
+
     render() {
         require('./ChangePassword.css');
 
         const renderContent = () => {
-            if (this.state.validURL) {
-                return <div className="container">
+            if ((!this.state.validURL) || this.state.reset) {
+                return <NotificationBox message={this.state.message} login={false} />
+            }
+            else {
+                return (
+                    <div className="container">
 
-                    <h1>CU Simulator</h1>
+                        <h1>CU Simulator</h1>
 
-                    <h3>Reset Password</h3>
+                        <h3>Reset Password</h3>
 
-                    <form autoComplete="on">
+                        <form autoComplete="on">
 
-                        <div className="txt_field">
+                            <div className="txt_field">
 
-                            <label htmlFor="password">New Password</label>
-                            <input type="password" id="passwordid" name="password" required></input>
-                            <div className="error">{this.state.passwordErrMsg}</div>
+                                <label htmlFor="password">New Password</label>
+                                <input type="password" id="passwordid" name="password" required></input>
+                                <div className="error">{this.state.passwordErrMsg}</div>
 
-                        </div>
+                            </div>
 
-                        <div className="txt_field">
+                            <div className="txt_field">
 
-                            <label htmlFor="confirmpassword">Confirm New Password</label>
-                            <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
-                            <div className="error">{this.state.confirmPasswordErrMsg}</div>
+                                <label htmlFor="confirmpassword">Confirm New Password</label>
+                                <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
+                                <div className="error">{this.state.confirmPasswordErrMsg}</div>
 
-                        </div>
+                            </div>
 
-                        <div className="buttons" onClick={this.resetPassword}>
-                            <input id="submit_box" type="submit" value="Reset Password"></input>
-                        </div>
+                            <div className="buttons" onClick={this.resetPassword}>
+                                <input id="submit_box" type="submit" value="Reset Password"></input>
+                            </div>
 
-                    </form>
+                        </form>
 
-                </div>
-            } else {
-                return <div className="container"> Invalid URL</div>;
+                    </div>
+                )
             }
         }
 
         return (
 
-            <div id="forgot_password">
+            <div id="change_password">
                 {renderContent()}
             </div>
         )

@@ -4,6 +4,7 @@ const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
 const friendHandling = require('./friendHandler.js');
 const achievementHandling = require('./achievementHandler.js');
+const messageHandling = require('./messageHandler.js');
 
 const dotenv = require('dotenv');
 const express = require('express');
@@ -101,6 +102,14 @@ app.post('/friend/manageIncomingRequest', async function (req, res) {
 
 app.post('/user/findRandomUsers', async function (req, res) { // for friend recommendation
     return accountHandling.findRandomUsers(req, res);
+})
+
+app.post('/message/sendMessage', async function (req, res) {
+    return messageHandling.sendMessage(req, res);
+})
+
+app.post('/message/fetchPreviousMessages', async function (req, res) {
+    return messageHandling.fetchPreviousMessages(req, res);
 })
 
 app.post('/achievement/update', async function (req, res) {

@@ -1,5 +1,15 @@
+#friend {
+    height: 100%;
+}
+
 .friendList {
     padding: 10px;
+    overflow: auto;
+    float: left;
+}
+
+.friendList h3 {
+    margin-bottom: 0;
 }
 
 .green {
@@ -23,17 +33,25 @@
 
 .displaySuccessMessage {
     color: rgb(61, 153, 61);
-
-}
-
-@keyframes fadeOut{
-    0%{ opacity: 1;}
-    100%{ opacity: 0;}
-}
-
-.fade-out {
     animation: fadeOut 5s;
 }
+
+@keyframes fadeOut {
+    0%    {opacity: 1;}
+    100%  {opacity: 0;}
+}
+
+.friendListContainer {
+    width: max-content;
+}
+
+.friendList #friendBox {
+    background-color: rgb(255, 217, 159);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
 .userStatus {
     display:inline-block;
     width: 30px;
@@ -70,63 +88,64 @@
 
 .friendAdder {
     cursor: pointer;
-    display:inline-block;
+    display: inline-block;
     width: 30px;
-    height:30px;
+    height: 30px;
     -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
-
+    padding: 10px 0;
+    margin: 0 0 10px 0;
 }
 
 
 .friendAdder_roundBlock {
     position: absolute;
-    width:48px;
-    height:30px;
-    border-radius:8px;
+    width: 48px;
+    height: 30px;
+    border-radius: 8px;
     padding-top: 3px;
 }
 
 .friendAdder_head {
     position: absolute;
-    width:10px;
-    height:10px;
+    width: 10px;
+    height: 10px;
     border-radius: 5px;
     background-color:#fff;
     left: 18px;
-    top: 8px;
+    top: 18px;
 }
 
 .friendAdder_body {
     position: absolute;
-    width:20px;
-    height:10px;
+    width: 20px;
+    height: 10px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     background-color:#fff;
     left: 13px;
-    top: 20px;
+    top: 30px;
 
 }
 
 .friendAdder_horizontal {
     position: absolute;
-    width:3px;
-    height:10px;
+    width: 3px;
+    height: 10px;
     background-color:#fff;
-    left:35px;
-    top:6px;
+    left: 35px;
+    top: 16px;
 
 }
 
 .friendAdder_vertical {
     position: absolute;
-    width:10px;
-    height:3px;
+    width: 10px;
+    height: 3px;
     background-color:#fff;
-    left:31.5px;
-    top:9.5px;
+    left: 31.5px;
+    top: 19.5px;
 
 }
 
@@ -134,12 +153,13 @@
     cursor: pointer;
     display:inline-block;
     width: 22px;
-    height:22px;
+    height: 22px;
     -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
     padding-top: 3px;
     padding-left: 3px;
+    margin: 0 5px;
 }
 
 .rotated {
@@ -150,43 +170,138 @@
 
 .checkmark_circle {
     position: absolute;
-    width:22px;
-    height:22px;
-    border-radius:11px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
 }
 
 .checkmark_stem {
     position: absolute;
-    width:3px;
-    height:9px;
+    width: 3px;
+    height: 9px;
     background-color:#fff;
-    left:14px;
-    top:9px;
+    left: 14px;
+    top: 9px;
 }
 
 .checkmark_kick {
     position: absolute;
-    width:3px;
-    height:3px;
+    width: 3px;
+    height: 3px;
     background-color:#fff;
-    left:11px;
-    top:15px;
+    left: 11px;
+    top: 15px;
 }
 
 .checkmark_cross {
     position: absolute;
-    width:3px;
-    height:10px;
+    width: 3px;
+    height: 10px;
     background-color:#fff;
-    left:12.5px;
-    top:9px;
+    left: 12.5px;
+    top: 9px;
 }
 
 .checkmark_slash {
     position: absolute;
-    width:10px;
-    height:3px;
+    width: 10px;
+    height: 3px;
     background-color:#fff;
-    left:9px;
-    top:12.5px;
+    left: 9px;
+    top: 12.5px;
+}
+
+.requestList {
+    width: max-content;
+}
+
+.requestList #requestBox {
+    background-color: rgb(255, 217, 159);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.friendList .checkFriendProfile{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.friendList .checkFriendProfile:hover{
+    color: blue !important;
+}
+
+.friendList #delete {
+    width: auto;
+    height: auto;
+    padding: 30px;
+}
+
+.chat {
+    background-color: rgb(168, 245, 255, 0.45);
+    padding: 10px;
+    float: left;
+    overflow: hidden;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.chat h3{
+    width: 100%;
+    padding: 1px;
+}
+
+.chat .chatBox {
+    width: 100%;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 2px;
+    border: solid 2px rgb(73, 73, 255);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.chat .chatBox .empty{
+    flex: 1;
+    display: flex;
+}
+
+.chat .chatBox .chatMessage {
+    width: fit-content;
+    max-width: 60%;
+    margin: 4px;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.chat .chatBox .to {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    border-radius: 5px;
+    background-color: rgb(135, 252, 135);
+}
+
+.chat .chatBox .receive {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.chat .inputMessage {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.chat .inputMessage textarea {
+    resize: none;
+    flex: 1;
+    margin-right: 5px;
 }

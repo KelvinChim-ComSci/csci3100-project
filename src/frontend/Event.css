@@ -10,7 +10,7 @@
     top: 50px;
     left: 16px;
     width: 20%;
-    background-color: yellow;
+    background-color: rgba(230, 230, 230, 0.61);
 }
 
 .topRight{
@@ -19,8 +19,12 @@
     right: 16px;
     width: 20%;
     cursor: pointer;
-    background-color: rgb(0, 140, 255);
+    background-color: rgba(230, 230, 230, 0.75);
 }
+
+.topRight:hover {
+    color: black;
+  }
 
 a { color: inherit; } 
 

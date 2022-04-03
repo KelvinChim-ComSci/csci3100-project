@@ -1,9 +1,10 @@
-.map h2 {
+#map h2 {
   text-align: center;
   vertical-align: middle;
+  padding: 15px 0;
 }
 
-.map{
+#map{
   width: 100%;
   height: 100%;
   justify-content: center;
@@ -11,43 +12,46 @@
   overflow: auto;
 }
 
-.map .row{
+#map .row{
   margin: 0;
 }
 
-.map .col-6{
+#map .first{
   padding: 15px;
   overflow: auto;
+  float: left;
+  width: 50%;
 }
 
-/*
-.map img{
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-  overflow: auto;
+#map .second{
+  padding: 15px;
+  float: left;
+  width: 50%;
 }
-*/
 
-/*
-.map-img {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+@media only screen and (max-width: 1840px) {
+  /* For mobile phones: */
+  #map .first, #map .second {
+    width: 100% !important; 
+  }
+  #map .second {
+    padding: 20px !important;
+  }
 }
-*/
 
-.map .img {
+#map .img {
+  display: flex;
   position: relative;
   padding: 0 0 0 15px;
+  align-items: center;
+  justify-content: center;
 }
 
-.map table{
+#map table{
   margin: 0;
 }
 
-.map .tdC {
+#map .tdC {
   background: rgb(65, 109, 65);
   color: #fff;   
   font-size: 16px;
@@ -58,7 +62,7 @@
   overflow-wrap: break-word;
 }
 
-.map .tdT {  
+#map .tdT {  
   background: rgb(47, 80, 47);
   color: #fff;   
   font-size: 17px;
@@ -70,12 +74,12 @@
   padding: 3px 15px;
 }
   
-.map .link:hover {
+#map .link:hover {
   background-color:  rgba(72, 92, 117, 0.555);
   /*padding: 5px 10px;*/
 }
 
-.map .link {
+#map .link {
   position: relative;
   background-color: rgb(65, 85, 109);
   color: #fff;  
@@ -88,10 +92,10 @@
   text-decoration: none;
 }
 
-.map td > a {
+#map td > a {
   display: block; /*it's all clickable in the whole cell */ 
 }
   
-.map p{
+#map p{
   font-size: 20px;
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const accountHandling = require('./accountHandler.js');
+const messageHandling = require('./messageHandler.js');
 
 var FriendListSchema = mongoose.Schema({
     requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -82,10 +83,12 @@ module.exports.getFriendList = async function (req, res) {
         .then((data) => {
             let friendList = data.map(pair => {
                 return (pair.recipient._id == req.body.userId) ? {
+                    displayName: pair.requester.displayName,
                     username: pair.requester.username,
                     status: pair.requester.status,
                     id: pair.requester._id
                 } : {
+                    displayName: pair.recipient.displayName,
                     username: pair.recipient.username,
                     status: pair.recipient.status,
                     id: pair.recipient._id
@@ -127,13 +130,14 @@ module.exports.manageIncomingRequest = async function (req, res) {
             })
             .then( res.send({ message: "Successfully rejected request." }))
         } else if (req.body.action === "delete") {
+            let deletedCount = await messageHandling.deleteAllMessage(req.body.userId, req.body.friendId);
             FriendList.findOneAndDelete({
                 $or: [
                     { $and: [{ requester: req.body.friendId }, { recipient: req.body.userId }] },
                     { $and: [{ requester: req.body.userId }, { recipient: req.body.friendId }] }
                 ]
             })
-            .then( res.send({ message: "Successfully deleted friend." }))
+        .then( res.send({ message: `Successfully deleted friend, ${deletedCount.deletedCount} messages deleted.` }))
         } else res.send({ message: "An unexpected event has occurred. Please try again."});
     } catch (error) { console.log(error) };
 }
