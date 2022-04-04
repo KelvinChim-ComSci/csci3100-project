@@ -15,7 +15,7 @@ class Profile extends React.Component {
         super(props);
         this.state = {
           popUpBar: "",
-          message: "Please change accordingly so that this part will be updated to user data upon editing.\nAlso I need the attributes of user photo, user name and status here, as well as a sample achievement for testing.",
+          message: this.props.aboutMe,
           name: this.props.displayName,
           sociable: "",
           fxxxboy: "",
@@ -44,7 +44,7 @@ class Profile extends React.Component {
                         <br></br>
                         <div className="d-flex justify-content-around">
                             <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>Discard change</button>
-                            <button className="btn btn-success" onClick={() => {this.setState({message : document.getElementById("description").value, popUpBar : ""}); this.props.setOverflow(1);}}>Save</button>
+                            <button className="btn btn-success" onClick={() => {this.setState({popUpBar : ""});this.changeAboutMe(this.props.stat.user,document.getElementById("description").value); this.props.setOverflow(1);}}>Save</button>
                         </div>   
                     </div>
                 </div>
@@ -118,6 +118,28 @@ class Profile extends React.Component {
         .then((res) => alert(res.message));
         this.setState({name : displayName });
         this.props.handleDisplayName(displayName);
+    }
+
+    changeAboutMe(userId, newDescription) {
+        if (newDescription == null) return;
+        fetch(process.env.REACT_APP_BASE_URL + "/user/changeAboutMe" , {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }), 
+            body: JSON.stringify({
+                userId: userId,
+                newDescription: newDescription
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => alert(res.message));
+        this.setState({ message: newDescription });
+        this.props.handleAboutMe(newDescription);
     }
 
     render(){

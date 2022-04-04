@@ -132,7 +132,16 @@ class Main extends React.Component {
                     <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <Profile stat={this.state.stat} displayName={this.props.displayName} handleDisplayName={this.props.handleDisplayName} username={this.props.username} friend={false} setOverflow={this.setOverflow} />
+                        <Profile 
+                            stat={this.state.stat} 
+                            displayName={this.props.displayName}
+                            handleDisplayName={this.props.handleDisplayName}
+                            aboutMe={this.props.aboutMe}
+                            handleAboutMe={this.props.handleAboutMe}
+                            username={this.props.username} 
+                            friend={false} 
+                            setOverflow={this.setOverflow} 
+                        />
                     </div>
                 </div>
 
