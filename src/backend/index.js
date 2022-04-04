@@ -120,10 +120,15 @@ app.get('/achievement/retrieve/:userId', async function (req, res) {
     return achievementHandling.achievement(req, res);
 });
 
+app.get('/admin/getusers', async function (req, res) {
+    return accountHandling.listAllUsers(req, res);
+});
+
 // General
 app.get('/', async function (req, res) {
     return res.json('Server-side of the game: CU Simulator.');
 })
+
 
 const portNumber = process.env.PORT || 2096;
 app.listen(portNumber);

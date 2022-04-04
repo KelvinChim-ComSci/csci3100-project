@@ -119,6 +119,10 @@ module.exports.register = async function (req, res) {
 module.exports.confirmEmail = async function (req, res) {
     const id = req.params.id
 
+    if (id.length != 24) {
+        return res.send({ validURL: false, message: "Invalid URL" });
+    }
+
     try {
         const user = await User.findById(id)
         if (!user) {
@@ -322,6 +326,19 @@ module.exports.findRandomUsers = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// get users information for listing in admin interface
+module.exports.listAllUsers = async function (req, res) {
+    try {
+        const userList = await User.find({ adminStatus: false }, { userId: 1, username: 1, displayName: 1, email: 1 })
+            .then((data) => {
+                console.log(data)
+                return res.send({
+                    username: "ouo"
+                });
+            });
+
+    } catch (error) { console.log(error) };
+}
 
 module.exports.test = async function (req, res) {
     try {
