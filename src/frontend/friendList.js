@@ -2,10 +2,8 @@ import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
 import Profile from "./Main_button_component/profile";
 import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
-
-// fetch friends from backend, if no friends put a message to tell player to add friends by pressing the + button.
-// There will be a list of friends with no lights on and green lights depending on the status.
-
+import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
+import { giftToBackend } from './friendlistFunctions/friendActions.js';
 
 class FriendList extends React.Component {
     constructor(props) {
@@ -140,6 +138,10 @@ class FriendList extends React.Component {
                         <button onClick={async () => { this.setState({chat: data}); await this.fetchMessages(data.id) }}>chat</button>
                         {this.showStatus(data.status)}
                         &nbsp;
+                        <button onClick={() => this.sendGift(this.props.stat.user, data.id)} >Gift!</button>
+                        &nbsp;
+                        {this.checkReceivedGift(data.hasGiftToUser,this.props.stat.user,data.id,this.props.stat)}
+                        &nbsp;
                         <span className="rotated checkmark" onClick={() => this.setState({popUpBar: "delete", target: data})}>
                             <div className="checkmark_circle red"></div>
                             <div className="checkmark_cross"></div>
@@ -170,6 +172,51 @@ class FriendList extends React.Component {
             </span>
         )
     }
+
+    sendGift(userId, friendId) {
+        giftToBackend(userId, friendId);
+    }
+
+    checkReceivedGift(Boolean, userId, friendId, currentStat) {
+        if (Boolean) return (
+            <>
+                <button onClick={async () => {
+                    await this.ReceiveGift(userId, friendId);
+                    this.UpdateStamina(currentStat);
+                }}>Receive Gift!</button>
+            </>
+        )
+    }
+
+
+    async ReceiveGift(userId, friendId) {
+        return await fetch(process.env.REACT_APP_BASE_URL + "/friend/receivedGift", {
+            method: "POST",
+                headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+            body: JSON.stringify({
+                userId: userId,
+                friendId: friendId
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res.message);
+        });
+    }
+
+    UpdateStamina(currentStat) {
+        return statBackendUpdate({
+            ...currentStat,
+            stamina: currentStat.stamina + 20});
+    }
+
+
 
     async checkIncomingRequest() {
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/checkIncomingRequest", {
@@ -250,9 +297,6 @@ class FriendList extends React.Component {
         
         setTimeout(() => {if (this.mounted) this.setState({ message: "" })}, 5000);
     }
-
-
-
 
     displayMessage() {
         if (this.state.message === "")

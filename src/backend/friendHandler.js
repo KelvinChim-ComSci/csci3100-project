@@ -5,7 +5,11 @@ const messageHandling = require('./messageHandler.js');
 var FriendListSchema = mongoose.Schema({
     requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     recipient: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    accepted: { type: Boolean, required: true } // 0 is false, 1 is true
+    accepted: { type: Boolean, required: true }, // 0 is false, 1 is true
+    giftToRecipient: { type: Number },
+    recipientHasGift: { type: Boolean, default: false },
+    giftToRequester: { type: Number },
+    requesterHasGift: { type: Boolean, default: false } 
 });
 var FriendList = mongoose.model('FriendList', FriendListSchema);
 
@@ -82,16 +86,19 @@ module.exports.getFriendList = async function (req, res) {
         .populate('requester').populate('recipient')
         .then((data) => {
             let friendList = data.map(pair => {
-                return (pair.recipient._id == req.body.userId) ? {
+                const isUserRecipient = (pair.recipient._id == req.body.userId);
+                return (isUserRecipient) ? {
                     displayName: pair.requester.displayName,
                     username: pair.requester.username,
                     status: pair.requester.status,
-                    id: pair.requester._id
+                    id: pair.requester._id,
+                    hasGiftToUser: pair.recipientHasGift // TODO
                 } : {
                     displayName: pair.recipient.displayName,
                     username: pair.recipient.username,
                     status: pair.recipient.status,
-                    id: pair.recipient._id
+                    id: pair.recipient._id,
+                    hasGiftToUser: pair.requesterHasGift // TODO
                 };
             });
             return res.send({ friendList: friendList });
@@ -99,6 +106,75 @@ module.exports.getFriendList = async function (req, res) {
 
     } catch (error) { console.log(error) };
 }
+
+module.exports.sendGiftToFriend = async function (req, res) {
+    try {
+        const userId = req.body.userId;
+        const friendId = req.body.friendId;
+        const giftingTime = new Date().getTime();
+        FriendList.findOne({
+            $or: [
+                { $and: [{ recipient: friendId }, { requester: userId }] },
+                { $and: [{ recipient: userId }, { requester: friendId }] }
+            ], 
+            $and: [{accepted: true}]
+        })
+        .then((data) => {
+            if (data === null || data === []) return res.send({ message: "Something went wrong." });
+            const isUserRecipient = (data.recipient._id == userId);
+
+            if (isUserRecipient && data.giftToRequester === undefined) {
+                return FriendList.updateOne({ _id: data._id }, { $set: { giftToRequester: giftingTime, requesterHasGift: true } }, { upsert: true })
+                .then( res.send({ message: "Gift sent to player!" }) );
+            } else if (!isUserRecipient && data.giftToRecipient === undefined) {
+                return FriendList.updateOne({ _id: data._id }, { $set: { giftToRecipient: giftingTime, recipientHasGift: true } }, { upsert: true })
+                .then( res.send({ message: "Gift sent to player!" }) );
+            }
+            
+            const lastGiftingTime = (isUserRecipient)? data.giftToRequester : data.giftToRecipient;
+            const timeDiff = (giftingTime - lastGiftingTime) / 3.6e6;
+            const giftCoolDown = 2; // Hour
+            if (timeDiff < giftCoolDown) {
+                return res.send({ message: `You still need ${2 - timeDiff} hours before sending another gift to the player!` })
+            } else if (isUserRecipient) {
+                return FriendList.updateOne({ _id: data._id }, { $set: { giftToRequester: giftingTime, requesterHasGift: true } })
+                .then( res.send({ message: "Gift sent to player!" }) );
+            } else {
+                return FriendList.updateOne({ _id: data._id }, { $set: { giftToRecipient: giftingTime, requesterHasGift: true } })
+                .then( res.send({ message: "Gift sent to player!" }) );
+            }
+        })
+    } catch (error) { console.log(error) };
+}
+
+module.exports.receivedGift = async function (req, res) {
+    try {
+        const userId = req.body.userId;
+        const friendId = req.body.friendId;
+        FriendList.findOne({
+            $or: [
+                { $and: [{ recipient: friendId }, { requester: userId }] },
+                { $and: [{ recipient: userId }, { requester: friendId }] }
+            ], 
+            $and: [{accepted: true}]
+        })
+        .then((data) => {
+            if (data === null || data === []) return res.send({ message: "Something went wrong." });
+
+            const isUserRecipient = (data.recipient._id == userId);
+            if (isUserRecipient && data.recipientHasGift) {
+                
+                return FriendList.updateOne({ _id: data._id }, { $set: { recipientHasGift: false } })
+                .then( res.send({ message: "has gifted some stamina for you!" }) );
+            } else if (!isUserRecipient && data.requesterHasGift) {
+                return FriendList.updateOne({ _id: data._id }, { $set: { requesterHasGift: false } })
+                .then( res.send({ message: "has gifted some stamina for you!" }) );
+            }
+            return res.send({ message: "nothing" });
+        })
+    } catch (error) { console.log(error) };
+}
+
 
 module.exports.checkIncomingRequest = async function (req, res) {
     try {

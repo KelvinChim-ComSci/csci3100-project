@@ -104,6 +104,14 @@ app.post('/friend/manageIncomingRequest', async function (req, res) {
     return friendHandling.manageIncomingRequest(req, res);
 });
 
+app.post('/friend/sendGiftToFriend', async function (req,res) {
+    return friendHandling.sendGiftToFriend(req, res);
+});
+
+app.post('/friend/receivedGift', async function (req, res) {
+    return friendHandling.receivedGift(req, res);
+})
+
 app.post('/user/findRandomUsers', async function (req, res) { // for friend recommendation
     return accountHandling.findRandomUsers(req, res);
 });

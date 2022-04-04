@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const accountHandling = require('./accountHandler.js');
-const friendHandling = require('./friendHandler.js');
 
 var MessageSchema = mongoose.Schema({
     sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -46,13 +44,13 @@ module.exports.sendMessage = async function (req, res) {
         const message = req.body.message;
         const currentFullDate = new Date();
         let currentDate = `${currentFullDate.getFullYear()}-${('0' + (currentFullDate.getMonth() + 1)).slice(-2)}-${('0' + currentFullDate.getDate()).slice(-2)}`;
-        let currentTIme = `${('0' + currentFullDate.getHours()).slice(-2)}:${('0' + currentFullDate.getMinutes()).slice(-2)}:${('0' + currentFullDate.getSeconds()).slice(-2)}`;
+        let currentTime = `${('0' + currentFullDate.getHours()).slice(-2)}:${('0' + currentFullDate.getMinutes()).slice(-2)}:${('0' + currentFullDate.getSeconds()).slice(-2)}`;
         Message.create({
             sender: userId,
             receiver: friendId,
             message: message,
             date: currentDate,
-            time: currentTIme
+            time: currentTime
         })
         .then(res.send({ message: "Message sent." }))
         .catch((error) => console.log(error));
