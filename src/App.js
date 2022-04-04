@@ -8,6 +8,7 @@ import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
 import ChangePassword from "./frontend/SignInPage/ChangePassword.js";
+import InvalidURL from "./frontend/InvalidURL";
 
 class App extends React.Component {
   constructor(props) {
@@ -123,10 +124,8 @@ class App extends React.Component {
                 />
               }
             />
+            <Route path="*" element={<InvalidURL />} />
           </Routes >
-
-          {/*<Link to="/email/confirm/:id">Email Verified</Link>*/}
-
         </Router >
       </div >
     );
