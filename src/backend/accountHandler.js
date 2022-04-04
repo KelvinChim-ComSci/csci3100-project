@@ -340,13 +340,19 @@ module.exports.listAllUsers = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
-module.exports.test = async function (req, res) {
+
+module.exports.changeDisplayName = async function (req, res) {
     try {
-        const user = await User.findOne({ username: "administrator" });
-        return res.send({
-            username: user.username,
-            password: user.password
-        });
+        const userId = req.body.userId;
+        const newDisplayName = req.body.displayName;
+        User.findOneAndUpdate({ _id: userId }, { displayName: newDisplayName },
+            function (err, response) {
+                if (err) {
+                    console.log(err);
+                    return res.status(422).send({ message: "Something went wrong. Please try again." });
+                } else {
+                    return res.send({ message: "Successfully updated display name!" });
+                }
+            }).clone().catch(function (err) { console.log(err) });
     } catch (error) { console.log(error) };
 }
-

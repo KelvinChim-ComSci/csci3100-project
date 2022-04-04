@@ -56,6 +56,10 @@ app.post('/email', async function (req, res) {
     return accountHandling.email(req, res);
 })
 
+app.post('/user/changeDisplayName', async function (req, res) {
+    return accountHandling.changeDisplayName(req, res);
+})
+
 app.post('/email/forgetpassword', async function (req, res) {
     return accountHandling.forgetPassword(req, res);
 })
@@ -102,19 +106,19 @@ app.post('/friend/manageIncomingRequest', async function (req, res) {
 
 app.post('/user/findRandomUsers', async function (req, res) { // for friend recommendation
     return accountHandling.findRandomUsers(req, res);
-})
+});
 
 app.post('/message/sendMessage', async function (req, res) {
     return messageHandling.sendMessage(req, res);
-})
+});
 
 app.post('/message/fetchPreviousMessages', async function (req, res) {
     return messageHandling.fetchPreviousMessages(req, res);
-})
+});
 
 app.post('/achievement/update', async function (req, res) {
     return achievementHandling.achievementUpdate(req, res);
-})
+});
 
 app.get('/achievement/retrieve/:userId', async function (req, res) {
     return achievementHandling.achievement(req, res);
@@ -127,7 +131,7 @@ app.get('/admin/getusers', async function (req, res) {
 // General
 app.get('/', async function (req, res) {
     return res.json('Server-side of the game: CU Simulator.');
-})
+});
 
 
 const portNumber = process.env.PORT || 2096;

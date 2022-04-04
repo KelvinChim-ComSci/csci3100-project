@@ -1,0 +1,37 @@
+#setting {
+    padding: 15px;
+}
+
+#setting .PopUp #shadowLayer{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 50%;
+}
+
+#setting .PopUp .popUp{
+    z-index: 2000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    width: 90%; 
+    background-color: rgb(214, 213, 213);
+    border: 6px solid rgb(0, 100, 5);
+    opacity: 100%;
+    overflow: auto;
+}
+
+#setting #confirmWindow {
+    width: auto;
+    height: auto;
+    padding: 15px;
+}
+
+#setting .btn {
+    margin: 2px 0;
+}

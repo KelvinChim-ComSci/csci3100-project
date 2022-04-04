@@ -16,7 +16,7 @@
 .profile .row {
     color: black;
     font-size: 25px;
-    padding: 10px 0 10px 0;
+    padding: 10px 0;
 }
 
 .profile .first {
@@ -83,6 +83,14 @@
     width: auto; 
     padding: 30px;
     z-index: 6000;
+}
+
+.profile #displayName {
+    margin: 10px 0;
+}
+
+.profile #description {
+    margin: 10px 0;
 }
 
 .profile .achievement img {

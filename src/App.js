@@ -26,6 +26,7 @@ class App extends React.Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleDisplayName = this.handleDisplayName.bind(this);
     this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
 
@@ -67,6 +68,12 @@ class App extends React.Component {
     console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
+  handleDisplayName(newDisplayName) {
+    this.setState({
+      displayName: newDisplayName
+    });
+    window.sessionStorage.setItem("displayName", newDisplayName);
+  }
   handleLogout() {
     this.setState({
       displayName: "",
@@ -108,6 +115,7 @@ class App extends React.Component {
                   handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
                   handleLocation={this.handleLocation}
+                  handleDisplayName={this.handleDisplayName}
                   location={this.state.location}
                   displayName={this.state.displayName}
                   username={this.state.username}
