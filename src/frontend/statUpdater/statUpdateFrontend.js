@@ -12,14 +12,6 @@ export function statScheduleUpdate(newStat, plan) {
     let original_stat = newStat;
     //handle stat
     for (let i = 0; i < plan.length; i++) {
-        if (newStat.stamina<0){
-            alert("Oh no! You didn't have enough rest and became exhausted! The schedule will be ineffective.");
-            newStat = {
-                ...original_stat,
-                stamina: 0,
-            }
-            break;
-        }
         switch(plan[i]) {
             case "s":
                 newStat = {
@@ -58,6 +50,15 @@ export function statScheduleUpdate(newStat, plan) {
                 break;
         }
     }
+
+    if (newStat.stamina<0){
+        alert("Oh no! You didn't have enough rest and became exhausted! The schedule will be ineffective.");
+        newStat = {
+            ...original_stat,
+            stamina: 0,
+        }
+    }
+
     // handle year and sem
     if (newStat.sem === 4)
         newStat = {
