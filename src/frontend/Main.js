@@ -17,6 +17,10 @@ import StatDisplay from './statDisplay';
 import ShowUsers from './AdminFunction/ShowUsers.js';
 import Setting from './Main_button_component/setting';
 
+import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
+import wooSingBeat from "../backend/music/WooSingBeat.mp3"
+
+
 class Main extends React.Component {
 
     constructor(props) {
@@ -29,6 +33,7 @@ class Main extends React.Component {
             started: 0,
             overflow: 1,
             backgroundImage: null,
+            song: new Audio(CUHKSound),
         };
 
         this.statRef = React.createRef();
@@ -110,11 +115,17 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
+        //this.state.song.volume = 0.3;
+        //this.state.song.play();
         this.checkRefreshAndUpdate();
         window.addEventListener("beforeunload", (ev) => {
             ev.preventDefault();
             return ev.returnValue;
         });
+    }
+
+    componentWillUnmount() {
+        // this.state.song.pause();
     }
 
     async checkRefreshAndUpdate() {

@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from "./frontend/SignInPage/Login.js";
 import ForgotPassword from "./frontend/SignInPage/ForgotPassword.js";
@@ -138,7 +138,7 @@ class App extends React.Component {
                   username={this.state.username}
                   aboutMe={this.state.aboutMe}
                   userId={this.state.userId}
-                /> : <Login handleLogin={this.handleLogin} />
+                /> : <Navigate to="/" replace />
               }
             />
             <Route path="*" element={<InvalidURL />} />
