@@ -46,28 +46,29 @@ class MainEvent extends React.Component {
             if (year === 1 && sem === 3){return event20}
             if (year === 1 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if (stat.sports === highest){return event4}
-                if (stat.gpa === highest) {return event5}
-                if (stat.happiness === highest) {return event6}
-                if (stat.money === highest) {return event8}
+                if (stat.sports === highest && stat.sports > 240){return event4}
+                if (stat.gpa === highest && stat.gpa > 240) {return event5}
+                if (stat.happiness === highest && stat.happiness > 240) {return event6}
+                if (stat.money === highest && stat.money> 240) {return event8}
             }
             if (year === 2 && sem === 1){return event7}
             if (year === 2 && sem === 2){return event9}
             if (year === 2 && sem === 3){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports === highest){
+                if (stat.sports === highest && stat.sports > 480){
                     return event10
                 }
-                if (stat.money === highest){
+                if (stat.money === highest && stat.money > 480){
                     return event19
                 }
-                if (stat.gpa === highest){
+                if (stat.gpa === highest && stat.gpa > 480){
                     return event25
                 }
-                if (stat.happiness === highest){
+                if (stat.happiness === highest && stat.happiness > 480){
                     return event18
                 }
+                else return //event to be implemented
 
             }
             if (year === 2 && sem === 4){return event11}
@@ -79,33 +80,34 @@ class MainEvent extends React.Component {
                 console.log("year 4 sem 1")
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports === highest){
+                if (stat.sports === highest && stat.sports > 480){
                     return event24
                 }
-                if (stat.money === highest){
+                if (stat.money === highest && stat.money > 480){
                     return event23
                 }
-                if (stat.gpa === highest){
+                if (stat.gpa === highest && stat.gpa > 480){
                     return event21
                 }
-                if (stat.happiness === highest){
+                if (stat.happiness === highest && stat.happiness > 480){
                     return event22
                 }
+                else return //event to be implemented
             }
             if (year === 4 && sem === 2){return event16}
             if (year === 4 && sem === 3){return event17}
             if (year === 4 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if  (stat.gpa > 40 && stat.gpa === highest){
+                if  (stat.gpa > 720 && stat.gpa === highest){
                     return StudyEnding
                 }
-                if  (stat.happiness > 40 && stat.happiness === highest){
+                if  (stat.happiness > 720 && stat.happiness === highest){
                     return HappinessEnding
                 }
-                if  (stat.money > 40 && stat.money === highest){
+                if  (stat.money > 720 && stat.money === highest){
                     return MoneyEnding
                 }
-                if  (stat.gpa > 40 && stat.sports === highest){
+                if  (stat.gpa > 720 && stat.sports === highest){
                     return SportEnding
                 }
                 else return NullEnding
@@ -154,7 +156,9 @@ class MainEvent extends React.Component {
         console.log("script line #", this.state.script_count);
         var dia_line = this.script_list[this.state.script_count];
         console.log("string:", dia_line);
-
+        if (this.props.stat.year === 1 && this.props.stat.sem == 0){
+            this.props.handlePopupBackground()
+        }
         // end event if # is detected
         if (dia_line[0] === "#"){
             // console.log("")
