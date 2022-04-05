@@ -209,14 +209,17 @@ class FriendList extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res.message);
+                this.setState({message: res.message});
             });
     }
 
     UpdateStamina(currentStat) {
-        return statBackendUpdate({
+        let newStat = {
             ...currentStat,
             stamina: currentStat.stamina + 20
-        });
+        };
+        statBackendUpdate(newStat);
+        this.props.updateStat(newStat);
     }
 
 
