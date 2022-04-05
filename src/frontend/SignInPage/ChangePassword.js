@@ -15,6 +15,8 @@ class ChangePassword extends React.Component {
             message: "invalid URL"
         }
 
+        this.id = (this.props.loginPage)? this.props.params.id : this.props.id;
+
         this.componentDidMount = this.componentDidMount.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
@@ -81,7 +83,7 @@ class ChangePassword extends React.Component {
         await this.checkConfirmPassword();
         if (!(this.state.passwordError || this.state.confirmPasswordError)) {
 
-            //console.log(this.props.params.id);
+            console.log(this.id);
             let inputPassword = document.getElementById("passwordid").value;
             await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword", {
                 method: "POST",
@@ -93,7 +95,7 @@ class ChangePassword extends React.Component {
                     "Access-Control-Allow-Credentials": true,
                 }),
                 body: JSON.stringify({
-                    id: this.props.params.id,
+                    id: this.id,
                     password: inputPassword
                 }),
             })
@@ -104,6 +106,11 @@ class ChangePassword extends React.Component {
                     }
                     else {
                         this.setState({ passwordError: false, passwordErrMsg: "", reset: true, message: res.message });
+                        if (!this.props.loginPage){
+                            alert(res.message); 
+                            this.props.handlePopClose();
+                            this.props.setOverflow(1);
+                        }
                     }
 
 
@@ -119,51 +126,76 @@ class ChangePassword extends React.Component {
     render() {
         require('./ChangePassword.css');
 
-        const renderContent = () => {
-            if ((!this.state.validURL) || this.state.reset) {
-                return <NotificationBox message={this.state.message} login={false} />
-            }
-            else {
+        const renderButtons = (loginPage) => {
+            if (loginPage)
                 return (
-                    <div className="container">
+                    <div className="buttons" onClick={this.resetPassword}>
+                        <input id="submit_box" type="submit" value="Reset Password"></input>
+                    </div>
+                )
 
-                        <h1>CU Simulator</h1>
+            else
+                return (
+                    <div className="d-flex justify-content-around">
+                        <button className="btn btn-success" onClick={(event) => {event.preventDefault(); this.props.handlePopClose(); this.props.setOverflow(1);}}>Cancel</button>
+                        <button className="btn btn-success" onClick={this.resetPassword}>Confirm</button>
+                    </div>   
+                )
+        }
 
-                        <h3>Reset Password</h3>
+        const renderContent = (loginPage) => {
 
-                        <form autoComplete="on">
-
-                            <div className="txt_field">
-
-                                <label htmlFor="password">New Password</label>
-                                <input type="password" id="passwordid" name="password" required></input>
-                                <div className="error">{this.state.passwordErrMsg}</div>
-
-                            </div>
-
-                            <div className="txt_field">
-
-                                <label htmlFor="confirmpassword">Confirm New Password</label>
-                                <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
-                                <div className="error">{this.state.confirmPasswordErrMsg}</div>
-
-                            </div>
-
-                            <div className="buttons" onClick={this.resetPassword}>
-                                <input id="submit_box" type="submit" value="Reset Password"></input>
-                            </div>
-
-                        </form>
-
+            //page outside main, invalid URL or already reset
+            if (loginPage && ((!this.state.validURL) || this.state.reset)) {
+                return (
+                    <div id="change_password">
+                        <NotificationBox message={this.state.message} login={false} />
                     </div>
                 )
             }
+
+            //page outside main, normal case
+            else
+                return (
+                    <div id={`${(loginPage)? "change_password" : "changePasswordInner"}`}>
+                        <div className={`${(loginPage)? "container" : ""}`}>
+
+                            <h1 style={{display: `${(loginPage)? "" : "none"}`}}>CU Simulator</h1>
+
+                            <h3>Change Password</h3>
+
+                            <form autoComplete="on">
+
+                                <div className="txt_field">
+
+                                    <label htmlFor="password">New Password</label>
+                                    <input type="password" id="passwordid" name="password" required></input>
+                                    <div className="error">{this.state.passwordErrMsg}</div>
+
+                                </div>
+
+                                <div className="txt_field">
+
+                                    <label htmlFor="confirmpassword">Confirm New Password</label>
+                                    <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
+                                    <div className="error">{this.state.confirmPasswordErrMsg}</div>
+
+                                </div>
+
+                                {renderButtons(loginPage)}
+
+                            </form>
+
+                        </div>
+                    </div>
+                )
+                
         }
 
         return (
 
-            <div id="change_password">
-                {renderContent()}
+            <div>
+                {renderContent(this.props.loginPage)}
             </div>
         )
     }

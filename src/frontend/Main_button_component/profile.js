@@ -1,5 +1,4 @@
 import React from "react";
-import img from './profile_pic.jpg';
 import achievement_img1 from '../../backend/img/new_achievement1.jpg';
 import achievement_img2 from '../../backend/img/new_achievement2.jpg';
 import achievement_img3 from '../../backend/img/new_achievement3.png';
@@ -136,6 +135,9 @@ class Profile extends React.Component {
         formData.append('userId', this.props.stat.user)
         console.log(this.state.profileImg.name);
         console.log(formData.get('profileImg'));
+
+        if (!this.state.profileImg)
+            return;
         
         await fetch(process.env.REACT_APP_BASE_URL + "/profile/postImg", {
             method: "POST", 
@@ -240,17 +242,29 @@ class Profile extends React.Component {
                             </div>
 
                             <div className="p-2">{this.state.message}</div>
-                            <div className="row">
-                                    <form onSubmit={this.onSubmit}>
-                                        <div className="p-2">Change Your Profile Image:</div>
-                                        <div className="form-group">
-                                            <input type="file" onChange={this.onFileChange}/>
+
+                            <div className="row" style={{display: `${this.props.friend? "none" : ""}`}}>
+                                <form onSubmit={this.onSubmit}>
+                                    <div className="p-2">
+                                        Change Your Profile Image:
+
+                                        <div>
+                                            <label htmlFor="file-upload" className="btn btn-success">
+                                            Select Image
+                                            </label>
+                                            <input id="file-upload" type="file" onChange={this.onFileChange}/>
+                                            <p>Current: {(this.state.profileImg)? this.state.profileImg.name : ""}</p>
                                         </div>
-                                        <div className="form-group">
-                                            <button className="btn btn-primary" type="submit">Upload</button>
+
+                                        <div style={{marginTop: "2px"}}>
+                                            <button className="btn btn-success" type="submit">Upload</button>
                                         </div>
-                                    </form>  
-                                </div>
+
+                                    </div>
+                                    
+                                </form>  
+                            </div>
+
                         </div>    
 
                         </div> 

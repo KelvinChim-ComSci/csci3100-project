@@ -1,5 +1,5 @@
 import React from "react";
-import ChangePassword from "./ChangePasswordInner";
+import ChangePassword from "../SignInPage/ChangePassword";
 
 class Setting extends React.Component {
 
@@ -24,7 +24,7 @@ class Setting extends React.Component {
                 <div className="PopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp" style={{width: "auto", height: "auto"}}>
-                        <ChangePassword id={this.props.id} handlePopClose={this.handleInnerPopClose} setOverflow={this.props.setOverflow}/>
+                        <ChangePassword id={this.props.id} handlePopClose={this.handleInnerPopClose} setOverflow={this.props.setOverflow} loginPage={false}/>
                     </div>
                 </div>
             )
