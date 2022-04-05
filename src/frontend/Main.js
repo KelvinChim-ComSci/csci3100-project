@@ -38,7 +38,7 @@ class Main extends React.Component {
 
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
-
+        this.handlePopupBackground = this.handlePopupBackground.bind(this);
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
@@ -88,6 +88,12 @@ class Main extends React.Component {
         this.setState({ location: location });
     }
 
+    handlePopupBackground(){
+        let box = document.getElementsByClassName("popUp");
+        console.log(box[[0]].style);
+        box[0].style.backgroundImage = '../backend/background/main.jpeg';
+    }
+
     popMainEvent() {
         if (this.state.stat.year > 4)
             return;
@@ -132,7 +138,16 @@ class Main extends React.Component {
                     <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <Profile stat={this.state.stat} displayName={this.props.displayName} handleDisplayName={this.props.handleDisplayName} username={this.props.username} friend={false} setOverflow={this.setOverflow} />
+                        <Profile 
+                            stat={this.state.stat} 
+                            displayName={this.props.displayName}
+                            handleDisplayName={this.props.handleDisplayName}
+                            aboutMe={this.props.aboutMe}
+                            handleAboutMe={this.props.handleAboutMe}
+                            username={this.props.username} 
+                            friend={false} 
+                            setOverflow={this.setOverflow} 
+                        />
                     </div>
                 </div>
 
@@ -183,7 +198,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent resetData={this.resetData} stat={this.state.stat} handleMaineventStat={this.handleMaineventStat} handlePopClose={this.handlePopClose} />
+                        <MainEvent handlePopupBackground={this.handlePopupBackground} resetData={this.resetData} stat={this.state.stat} handleMaineventStat={this.handleMaineventStat} handlePopClose={this.handlePopClose} />
                     </div>
                 </div>
             )

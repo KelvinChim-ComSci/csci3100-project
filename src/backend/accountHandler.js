@@ -13,6 +13,7 @@ var UserSchema = mongoose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     verified: { type: Boolean, default: false },
+    aboutMe: { type: String, default: "Add a description to tell friends about you!" },
     status: { type: Boolean, default: false }, // false is offline, true is online
     adminStatus: { type: Boolean, default: false }, // false is user, true is admin
     forgetPasswordLinkExpireTime: { type: Date, default: Date.now }
@@ -157,6 +158,7 @@ module.exports.login = async function (req, res) {
                     return res.send({
                         errorMsg: "none",
                         displayName: response.displayName,
+                        aboutMe: (response.aboutMe)? response.aboutMe : "",
                         username: response.username,
                         accessLevel: response.adminStatus,
                         userId: response._id
@@ -350,6 +352,22 @@ module.exports.changeDisplayName = async function (req, res) {
                     return res.status(422).send({ message: "Something went wrong. Please try again." });
                 } else {
                     return res.send({ message: "Successfully updated display name!" });
+                }
+            }).clone().catch(function (err) { console.log(err) });
+    } catch (error) { console.log(error) };
+}
+
+module.exports.changeAboutMe = async function (req, res) {
+    try {
+        const userId = req.body.userId;
+        const newDescription = req.body.newDescription;
+        User.findOneAndUpdate({ _id: userId }, { aboutMe: newDescription }, { upsert: true },
+            function (err, response) {
+                if (err) {
+                    console.log(err);
+                    return res.status(422).send({ message: "Something went wrong. Please try again." });
+                } else {
+                    return res.send({ message: "Successfully updated your description!" });
                 }
             }).clone().catch(function (err) { console.log(err) });
     } catch (error) { console.log(error) };

@@ -59,7 +59,7 @@ class Login extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
-                    this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel);
+                    this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel, res.aboutMe);
                     this.navigator('./main');
                 }
                 else {
