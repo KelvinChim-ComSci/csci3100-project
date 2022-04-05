@@ -58,9 +58,9 @@ class FriendList extends React.Component {
             return (
                 <div>
                     <div id="shadowLayer"></div>
-                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>x</button>
+                    <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp" >
-                        <AddFriend userId = {this.props.stat.user}/>
+                        <AddFriend userId={this.props.stat.user} />
                     </div>
                 </div>
             );
@@ -68,9 +68,9 @@ class FriendList extends React.Component {
             return (
                 <div>
                     <div id="shadowLayer"></div>
-                    <button className="closeButton" onClick={() => {this.setState({popUpBar : ""}); this.props.setOverflow(1);}}>x</button>
+                    <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp">
-                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true}/>
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true} />
                     </div>
                 </div>
             );
@@ -82,8 +82,8 @@ class FriendList extends React.Component {
                         <h4>Are you sure to delete {this.state.target.displayName}?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => {this.manageRequest(this.state.target.id, "delete"); this.setState({popUpBar : "", target: null, chat: ""})}}>Yes</button>
-                            <button className="btn btn-success" onClick={() => this.setState({popUpBar : ""})}>No</button>
+                            <button className="btn btn-success" onClick={() => { this.manageRequest(this.state.target.id, "delete"); this.setState({ popUpBar: "", target: null, chat: "" }) }}>Yes</button>
+                            <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "" })}>No</button>
                         </div>
                     </div>
                 </div>
@@ -107,50 +107,52 @@ class FriendList extends React.Component {
                 userId: this.props.stat.user,
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            let match = false;
-            for (let item of res.friendList)
-                if (item.username === this.state.chat.username)
-                    match = true;
-                
-            if (!match)
-                this.setState({ chat: "" });
-            this.setState({ friends: res.friendList });
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                let match = false;
+                for (let item of res.friendList)
+                    if (item.username === this.state.chat.username)
+                        match = true;
+
+                if (!match)
+                    this.setState({ chat: "" });
+                this.setState({ friends: res.friendList });
+            });
     }
 
     showFriends() {
+        console.log("frd", this.state.friends)
         if (this.state.friends.length === 0) {
-        return (
-            <div>
-                Looks like you haven't added any friends yet. Invite friends to chat!
-            </div>
-        )} else {
             return (
-            <div className="friendListContainer">
-                <h3>Friends:</h3>
-                {this.state.friends.map((data) => {
-                    return (
-                    <div key={data.id} className={data.id} id="friendBox">
-                        <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
-                        &nbsp;
-                        <button onClick={async () => { this.setState({chat: data}); await this.fetchMessages(data.id) }}>chat</button>
-                        {this.showStatus(data.status)}
-                        &nbsp;
-                        <button onClick={() => this.sendGift(this.props.stat.user, data.id)} >Gift!</button>
-                        &nbsp;
-                        {this.checkReceivedGift(data.hasGiftToUser,this.props.stat.user,data.id,this.props.stat)}
-                        &nbsp;
-                        <span className="rotated checkmark" onClick={() => this.setState({popUpBar: "delete", target: data})}>
-                            <div className="checkmark_circle red"></div>
-                            <div className="checkmark_cross"></div>
-                            <div className="checkmark_slash"></div>
-                        </span>
-                    </div>
-                    );
-                })}
-            </div>
+                <div>
+                    Looks like you haven't added any friends yet. Invite friends to chat!
+                </div>
+            )
+        } else {
+            return (
+                <div className="friendListContainer">
+                    <h3>Friends:</h3>
+                    {this.state.friends.map((data) => {
+                        return (
+                            <div key={data.id} className={data.id} id="friendBox">
+                                <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
+                                &nbsp;
+                                <button onClick={async () => { this.setState({ chat: data }); await this.fetchMessages(data.id) }}>chat</button>
+                                {this.showStatus(data.status)}
+                                &nbsp;
+                                <button onClick={() => this.sendGift(this.props.stat.user, data.id)} >Gift!</button>
+                                &nbsp;
+                                {this.checkReceivedGift(data.hasGiftToUser, this.props.stat.user, data.id, this.props.stat)}
+                                &nbsp;
+                                <span className="rotated checkmark" onClick={() => this.setState({ popUpBar: "delete", target: data })}>
+                                    <div className="checkmark_circle red"></div>
+                                    <div className="checkmark_cross"></div>
+                                    <div className="checkmark_slash"></div>
+                                </span>
+                            </div>
+                        );
+                    })}
+                </div>
             );
         }
     }
@@ -192,10 +194,10 @@ class FriendList extends React.Component {
     async ReceiveGift(userId, friendId) {
         return await fetch(process.env.REACT_APP_BASE_URL + "/friend/receivedGift", {
             method: "POST",
-                headers: new Headers({
+            headers: new Headers({
                 "Content-Type": 'application/json',
                 "Accept": 'application/json',
-                    "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
                 "Access-Control-Allow-Credentials": true,
             }),
@@ -204,16 +206,17 @@ class FriendList extends React.Component {
                 friendId: friendId
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            console.log(res.message);
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res.message);
+            });
     }
 
     UpdateStamina(currentStat) {
         return statBackendUpdate({
             ...currentStat,
-            stamina: currentStat.stamina + 20});
+            stamina: currentStat.stamina + 20
+        });
     }
 
 
@@ -232,10 +235,10 @@ class FriendList extends React.Component {
                 userId: this.props.stat.user,
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            this.setState({ incomingRequests: res.incomingRequest });
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                this.setState({ incomingRequests: res.incomingRequest });
+            });
     }
 
     showRequests() {
@@ -247,20 +250,20 @@ class FriendList extends React.Component {
                     Incoming Friend Requests: <br />
                     {this.state.incomingRequests.map((data) => {
                         return (
-                        <div key={data.id} className={data.id} id="requestBox">
-                            {data.username} 
-                            <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "accept")}>
-                                <div className="checkmark_circle green"></div>
-                                <div className="checkmark_stem"></div>
-                                <div className="checkmark_kick"></div>
-                            </span>
+                            <div key={data.id} className={data.id} id="requestBox">
+                                {data.username}
+                                <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "accept")}>
+                                    <div className="checkmark_circle green"></div>
+                                    <div className="checkmark_stem"></div>
+                                    <div className="checkmark_kick"></div>
+                                </span>
 
-                            <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "reject")}>
-                                <div className="checkmark_circle red"></div>
-                                <div className="checkmark_cross"></div>
-                                <div className="checkmark_slash"></div>
-                            </span>
-                        </div>
+                                <span className="rotated checkmark" onClick={() => this.manageRequest(data.id, "reject")}>
+                                    <div className="checkmark_circle red"></div>
+                                    <div className="checkmark_cross"></div>
+                                    <div className="checkmark_slash"></div>
+                                </span>
+                            </div>
                         );
                     })}
                 </div>
@@ -268,7 +271,7 @@ class FriendList extends React.Component {
         }
     }
 
-    
+
     async manageRequest(friendId, method) {
         if (method === "delete") {
             this.setState({ chat: "" })
@@ -288,14 +291,14 @@ class FriendList extends React.Component {
                 action: method
             }),
         })
-        .then((data) => data.json())
-        .then((data) => this.deleteQuery(data.message))
+            .then((data) => data.json())
+            .then((data) => this.deleteQuery(data.message))
     }
 
     deleteQuery(message) {
-        this.setState({message: message}); // successful message
-        
-        setTimeout(() => {if (this.mounted) this.setState({ message: "" })}, 5000);
+        this.setState({ message: message }); // successful message
+
+        setTimeout(() => { if (this.mounted) this.setState({ message: "" }) }, 5000);
     }
 
     displayMessage() {
@@ -311,7 +314,7 @@ class FriendList extends React.Component {
 
     async showFriendProfile(data) {
         const stat = await statRetrievebyId(data.id);
-        this.setState({popUpBar: "profile", targetStatistic: stat, target: data});
+        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data });
     }
 
     async fetchMessages(friendId) {
@@ -329,19 +332,19 @@ class FriendList extends React.Component {
                 friendId: friendId
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            if (res.emptyMessageList) {
-                this.setState({ chatMessages: [] });
-            }
-            else this.setState({ chatMessages: res.messageList });
-        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.emptyMessageList) {
+                    this.setState({ chatMessages: [] });
+                }
+                else this.setState({ chatMessages: res.messageList });
+            })
     }
 
     async sendMessage(friendId) {
         let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
         if (!isEmptyMessage) {
-            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
             document.getElementById("chatMessage").value = "";
         }
     }
@@ -349,7 +352,7 @@ class FriendList extends React.Component {
     async sendMessagebyEnter(friendId, buttonPressed) {
         let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
         if (buttonPressed.key === 'Enter' && (!isEmptyMessage)) {
-            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId); 
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
             document.getElementById("chatMessage").value = "";
         }
     }
@@ -357,25 +360,25 @@ class FriendList extends React.Component {
 
     showChat() {
         return (
-            <div className="chat" style={{display: `${this.state.chat? "flex" : "none"}`}}>
-                <h3>Chatting with {this.state.chat? this.state.chat.displayName : ""}</h3>
+            <div className="chat" style={{ display: `${this.state.chat ? "flex" : "none"}` }}>
+                <h3>Chatting with {this.state.chat ? this.state.chat.displayName : ""}</h3>
                 <div className="chatBox">
                     <div className="empty" />
                     {this.state.chatMessages.slice(0).reverse().map((message, index) => {
                         return (
-                            <div key={index} className={`chatMessage ${(message.from === this.props.stat.user)? "to" : "receive"}`}>{message.text}</div>
+                            <div key={index} className={`chatMessage ${(message.from === this.props.stat.user) ? "to" : "receive"}`}>{message.text}</div>
                         );
                     })}
                 </div>
                 <div className="inputMessage">
-                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" onKeyUp={async (event) => {this.sendMessagebyEnter(this.state.chat.id, event)}} autoFocus></textarea>
-                    <button className="sendMessageButton" onClick={async ()=>{this.sendMessage(this.state.chat.id)}} >Send!</button>
+                    <textarea id="chatMessage" row="1" placeholder={`Message ${this.state.chat.displayName}`} maxLength="200" onKeyUp={async (event) => { this.sendMessagebyEnter(this.state.chat.id, event) }} autoFocus></textarea>
+                    <button className="sendMessageButton" onClick={async () => { this.sendMessage(this.state.chat.id) }} >Send!</button>
                 </div>
             </div>
         )
     }
 
-    async sendChatMessage(message, friendId){
+    async sendChatMessage(message, friendId) {
         const isValidMessage = (message !== "") && (message !== null);
         if (isValidMessage) {
             //upload message
@@ -394,14 +397,14 @@ class FriendList extends React.Component {
                     message: message
                 }),
             })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res.message);
-                let newMessage = { from: this.props.stat.user, text: message };
-                this.setState(prevState => ({
-                    chatMessages: [...prevState.chatMessages, newMessage]
-                  }))
-            })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res.message);
+                    let newMessage = { from: this.props.stat.user, text: message };
+                    this.setState(prevState => ({
+                        chatMessages: [...prevState.chatMessages, newMessage]
+                    }))
+                })
         };
         return;
     };
@@ -410,31 +413,31 @@ class FriendList extends React.Component {
         require('./friendList.css');
         return (
             <div id="friend">
-            
-            <div className="friendList" style={{width: `${this.state.chat? "50%" : "100%"}`}}>
-                <div className="onlineFriends">
-                    {this.showFriends()}
+
+                <div className="friendList" style={{ width: `${this.state.chat ? "50%" : "100%"}` }}>
+                    <div className="onlineFriends">
+                        {this.showFriends()}
+                    </div>
+
+                    <div>
+                        <span className="friendAdder" onClick={() => { this.setState({ popUpBar: "addFriend" }); this.props.setOverflow(0); }}>
+                            <div className="friendAdder_roundBlock yellow"></div>
+                            <div className="friendAdder_head"></div>
+                            <div className="friendAdder_body"></div>
+                            <div className="friendAdder_horizontal"></div>
+                            <div className="friendAdder_vertical"></div>
+                        </span>
+
+                    </div>
+
+                    <div className="manageFriends">
+                        {this.popUp()}
+                        {this.showRequests()}
+                        {this.displayMessage()}
+                    </div>
                 </div>
 
-                <div>
-                    <span className="friendAdder" onClick={()=>{this.setState({popUpBar: "addFriend"}); this.props.setOverflow(0);}}>
-                        <div className="friendAdder_roundBlock yellow"></div>
-                        <div className="friendAdder_head"></div>
-                        <div className="friendAdder_body"></div>
-                        <div className="friendAdder_horizontal"></div>
-                        <div className="friendAdder_vertical"></div>
-                    </span>
-                            
-                </div>
-
-                <div className="manageFriends">
-                    {this.popUp()}
-                    {this.showRequests()}
-                    {this.displayMessage()}
-                </div>
-            </div>
-
-            {this.showChat()}
+                {this.showChat()}
 
             </div>
         )
