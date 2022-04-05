@@ -46,6 +46,7 @@ class Main extends React.Component {
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
+        this.updateStat = this.updateStat.bind(this);
     }
 
     resetData() {
@@ -210,7 +211,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <FriendList stat={this.state.stat} setOverflow={this.setOverflow} />
+                        <FriendList stat={this.state.stat} setOverflow={this.setOverflow} updateStat={this.updateStat}/>
                     </div>
                 </div>
             )

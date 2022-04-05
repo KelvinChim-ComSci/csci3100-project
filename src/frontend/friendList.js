@@ -213,10 +213,12 @@ class FriendList extends React.Component {
     }
 
     UpdateStamina(currentStat) {
-        return statBackendUpdate({
+        let newStat = {
             ...currentStat,
             stamina: currentStat.stamina + 20
-        });
+        };
+        statBackendUpdate(newStat);
+        this.props.updateStat(newStat);
     }
 
 
