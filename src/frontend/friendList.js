@@ -18,6 +18,7 @@ class FriendList extends React.Component {
             targetStatistic: [],
             chat: "",
             chatMessages: [],
+            overflow: 1
         }
 
         this.fetchFriendList = this.fetchFriendList.bind(this);
@@ -27,6 +28,7 @@ class FriendList extends React.Component {
         this.manageRequest = this.manageRequest.bind(this);
         this.popUp = this.popUp.bind(this);
         this.showTempMessage = this.showTempMessage.bind(this);
+        this.setOverflow = this.setOverflow.bind(this);
     }
 
 
@@ -59,8 +61,8 @@ class FriendList extends React.Component {
                 <div>
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
-                    <div className="popUp" >
-                        <AddFriend userId={this.props.stat.user} />
+                    <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
+                        <AddFriend userId={this.props.stat.user} setOverflow={this.setOverflow}/>
                     </div>
                 </div>
             );
@@ -141,7 +143,7 @@ class FriendList extends React.Component {
                                 &nbsp;
                                 <button onClick={() => this.sendGift(this.props.stat.user, data.id)} >Gift!</button>
                                 &nbsp;
-                                {this.checkReceivedGift(data.hasGiftToUser, this.props.stat.user, data.id, this.props.stat)}
+                                {this.checkReceivedGift(data.hasGiftToUser, this.props.stat.user, data.id, this.props.stat, data.displayName)}
                                 &nbsp;
                                 <span className="rotated checkmark" onClick={() => this.setState({ popUpBar: "delete", target: data })}>
                                     <div className="checkmark_circle red"></div>
@@ -179,11 +181,11 @@ class FriendList extends React.Component {
         .then((res) => this.showTempMessage(res.message));
     }
 
-    checkReceivedGift(Boolean, userId, friendId, currentStat) {
+    checkReceivedGift(Boolean, userId, friendId, currentStat, displayName) {
         if (Boolean) return (
             <>
                 <button onClick={async () => {
-                    await this.ReceiveGift(userId, friendId);
+                    await this.ReceiveGift(userId, friendId, displayName);
                     this.UpdateStamina(currentStat);
                 }}>Receive Gift!</button>
             </>
@@ -191,7 +193,7 @@ class FriendList extends React.Component {
     }
 
 
-    async ReceiveGift(userId, friendId) {
+    async ReceiveGift(userId, friendId, displayName) {
         return await fetch(process.env.REACT_APP_BASE_URL + "/friend/receivedGift", {
             method: "POST",
             headers: new Headers({
@@ -208,7 +210,7 @@ class FriendList extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                this.showTempMessage(res.message);
+                this.showTempMessage(displayName + " " + res.message);
             });
     }
 
@@ -357,6 +359,10 @@ class FriendList extends React.Component {
             await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
             document.getElementById("chatMessage").value = "";
         }
+    }
+
+    setOverflow(val) {
+        this.setState({ overflow: val });
     }
 
 

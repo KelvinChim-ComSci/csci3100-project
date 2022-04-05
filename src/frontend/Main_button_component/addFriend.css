@@ -22,6 +22,15 @@
     animation: fadeOut 5s;
 }
 
+.addFriend .checkFriendProfile{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.addFriend .checkFriendProfile:hover{
+    color: blue !important;
+}
+
 @keyframes fadeOut {
     0%    {opacity: 1;}
     100%  {opacity: 0;}

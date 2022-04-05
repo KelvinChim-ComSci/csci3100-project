@@ -1,4 +1,6 @@
 import React from "react";
+import Profile from "../Main_button_component/profile";
+import { statRetrievebyId } from '../statUpdater/statRetrievebyId.js';
 
 class AddFriend extends React.Component {
     constructor(props) {
@@ -7,6 +9,7 @@ class AddFriend extends React.Component {
         this.state = {
             message: "",
             recommendationList: [],
+            popUpBar: "",
         }
         this.createFriendRequest = this.createFriendRequest.bind(this);
         this.getRecommendation = this.getRecommendation.bind(this);
@@ -19,6 +22,21 @@ class AddFriend extends React.Component {
 
     componentWillUnmount() {
         this.mounted = 0;
+    }
+
+    popUp() {
+        if (this.state.popUpBar === "profile")
+            return (
+                <div>
+                    <div id="shadowLayer"></div>
+                    <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
+                    <div className="popUp">
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} aboutMe={this.state.target.aboutMe} friend={true} />
+                    </div>
+                </div>
+            );
+
+        return;
     }
 
     async createFriendRequest(friendName) {
@@ -96,9 +114,9 @@ class AddFriend extends React.Component {
                     Players you may know:
                     {this.state.recommendationList.map((data) => {
                         return (
-                            <div key={data.userId} className={data.userId} id="recommendBox">
-                                {data.displayName}
-                                <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.userId)}}>
+                            <div key={data.id} className={data.id} id="recommendBox">
+                                <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
+                                <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.id)}}>
                                     <div className="checkmark_circle yellow"></div>
                                     <div className="checkmark_cross"></div>
                                     <div className="checkmark_slash"></div>
@@ -109,6 +127,12 @@ class AddFriend extends React.Component {
                 </div>
             )
         }
+    }
+
+    async showFriendProfile(data) {
+        const stat = await statRetrievebyId(data.id);
+        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data });
+        this.props.setOverflow(0);
     }
 
 
@@ -137,6 +161,8 @@ class AddFriend extends React.Component {
                 <div className="recommendedPlayers">
                     {this.showRecommendation()}
                 </div>
+
+                {this.popUp(this.state.popUpBar)}
             </div>
         )
     }

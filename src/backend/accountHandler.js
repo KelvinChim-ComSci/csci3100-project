@@ -320,7 +320,8 @@ module.exports.findRandomUsers = async function (req, res) {
                     return ({
                         displayName: pair.displayName,
                         username: pair.username,
-                        userId: pair._id
+                        id: pair._id,
+                        aboutMe: pair.aboutMe,
                     });
                 });
                 return res.send({ users: userList });
