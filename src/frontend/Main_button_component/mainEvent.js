@@ -23,7 +23,10 @@ import event21 from "../EventScript/event21.txt";
 import event22 from "../EventScript/event22.txt";
 import event23 from "../EventScript/event23.txt";
 import event24 from "../EventScript/event24.txt";
-import event25 from "../EventScript/event24.txt";
+import event25 from "../EventScript/event25.txt";
+import event26 from "../EventScript/event26.txt";
+import event27 from "../EventScript/event27.txt";
+
 import Choice from '../choiceWindow';
 import SportEnding from "../EventScript/SportEnding.txt"
 import StudyEnding from "../EventScript/StudyEnding.txt"
@@ -57,29 +60,29 @@ class MainEvent extends React.Component {
             if (year === 1 && sem === 3){return event20}
             if (year === 1 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if (stat.sports === highest && stat.sports > 240){return event4}
-                if (stat.gpa === highest && stat.gpa > 240) {return event5}
-                if (stat.happiness === highest && stat.happiness > 240) {return event6}
-                if (stat.money === highest && stat.money> 240) {return event8}
+                if (stat.sports === highest){return event4}
+                if (stat.gpa === highest) {return event5}
+                if (stat.happiness === highest) {return event6}
+                if (stat.money === highest) {return event8}
             }
             if (year === 2 && sem === 1){return event7}
             if (year === 2 && sem === 2){return event9}
             if (year === 2 && sem === 3){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports === highest && stat.sports > 480){
+                if (stat.sports === highest && stat.sports > 25){
                     return event10
                 }
-                if (stat.money === highest && stat.money > 480){
+                if (stat.money === highest && stat.money > 25){
                     return event19
                 }
-                if (stat.gpa === highest && stat.gpa > 480){
+                if (stat.gpa === highest && stat.gpa > 25){
                     return event25
                 }
-                if (stat.happiness === highest && stat.happiness > 480){
+                if (stat.happiness === highest && stat.happiness > 25){
                     return event18
                 }
-                else return //event to be implemented
+                else return event26
 
             }
             if (year === 2 && sem === 4){return event11}
@@ -91,34 +94,34 @@ class MainEvent extends React.Component {
                 console.log("year 4 sem 1")
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
-                if (stat.sports === highest && stat.sports > 480){
+                if (stat.sports === highest && stat.sports > 50){
                     return event24
                 }
-                if (stat.money === highest && stat.money > 480){
+                if (stat.money === highest && stat.money > 50){
                     return event23
                 }
-                if (stat.gpa === highest && stat.gpa > 480){
+                if (stat.gpa === highest && stat.gpa > 50){
                     return event21
                 }
-                if (stat.happiness === highest && stat.happiness > 480){
+                if (stat.happiness === highest && stat.happiness > 50){
                     return event22
                 }
-                else return //event to be implemented
+                else return event27
             }
             if (year === 4 && sem === 2){return event16}
             if (year === 4 && sem === 3){return event17}
             if (year === 4 && sem === 4){
                 let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if  (stat.gpa > 720 && stat.gpa === highest){
+                if  (stat.gpa > 75 && stat.gpa === highest){
                     return StudyEnding
                 }
-                if  (stat.happiness > 720 && stat.happiness === highest){
+                if  (stat.happiness > 75 && stat.happiness === highest){
                     return HappinessEnding
                 }
-                if  (stat.money > 720 && stat.money === highest){
+                if  (stat.money > 75 && stat.money === highest){
                     return MoneyEnding
                 }
-                if  (stat.gpa > 720 && stat.sports === highest){
+                if  (stat.gpa > 75 && stat.sports === highest){
                     return SportEnding
                 }
                 else return NullEnding

@@ -20,7 +20,3 @@ line
 *******************
 
 TODO List on main event:
-
-(1) Work on endings classifications
-(2) add stat
-(3) modify event 25
