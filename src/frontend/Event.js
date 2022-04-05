@@ -185,22 +185,25 @@ class Event extends React.Component {
     dialogueWindow() {
         if (this.state.started)
             return (
-                <div className="text" onClick={()=>this.handleClick()}>
-                    <p id = "dialogue"></p>
+                <div>
+                    <div className="text" onClick={()=>this.handleClick()}>
+                        <p id = "dialogue"></p>
+                    </div>
                     <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
                     </svg>
                 </div>
+
             )
         else
             return (
                 <div>
                     <div>
-                        <div onClick={this.returnToMain} className="container topRight" >
+                        <div onClick={this.returnToMain} className="textContainer topRight" >
                             Back to main page
                         </div>
                     </div>
-                    <button onClick={this.beginEvent} id="eventStarter" className="eventStarter">
+                    <button onClick={this.beginEvent} id="eventStarter" className="btn btn-success eventStarter">
                         Click to start
                     </button>
                 </div>
@@ -239,7 +242,7 @@ class Event extends React.Component {
 
         return (
             <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
-                <div className = "container topLeft"><h1 id='Location'>{this.props.location}</h1></div>
+                <div className = "textContainer topLeft"><h1 id='Location'>{this.props.location}</h1></div>
                 {this.dialogueWindow()}
                 {this.popUp(this.state.popUpChoice)}      
             </div>

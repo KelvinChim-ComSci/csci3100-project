@@ -15,6 +15,23 @@
     font-size: 30px;
 }
 
+#mainEvent .imageContainer {
+    position: relative;
+    display: flex;
+    top: 5vh;
+    height: 40vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+#mainEvent .imageContainer img {
+    height: 100%;
+    width: auto;
+    align-self: center;
+}
+
 .mainEventPopUp #shadowLayer{
     height: 100%;
     width: 100%;
