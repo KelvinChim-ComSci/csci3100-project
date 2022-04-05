@@ -60,7 +60,7 @@ class Login extends React.Component {
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
                     this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel, res.aboutMe);
-                    this.navigator('./main');
+                    (window.location.pathname === "/")? this.navigator('./main'): this.navigator('./');
                 }
                 else {
                     console.log(res.errorMsg);

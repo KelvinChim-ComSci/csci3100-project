@@ -126,7 +126,7 @@ class App extends React.Component {
             <Route path="/changepassword/:id" element={<ChangePassword loginPage={true}/>} />
             <Route
               path="/main"
-              element={
+              element={ (this.state.loggedInStatus === "Logged in" || window.sessionStorage.getItem("loggedInStatus") === "Logged in") ? 
                 <Main
                   handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
@@ -138,7 +138,7 @@ class App extends React.Component {
                   username={this.state.username}
                   aboutMe={this.state.aboutMe}
                   userId={this.state.userId}
-                />
+                /> : <Login handleLogin={this.handleLogin} />
               }
             />
             <Route path="*" element={<InvalidURL />} />

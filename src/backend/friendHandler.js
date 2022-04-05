@@ -138,7 +138,7 @@ module.exports.sendGiftToFriend = async function (req, res) {
             const giftCoolDown = 2; // Hour
             if (timeDiff < giftCoolDown) {
                 const remainingMinute = (giftCoolDown - timeDiff) * 60;
-                return res.send({ message: `You still need ${remainingMinute.toFixed(2)} minutes before sending another gift to the player!` })
+                return res.send({ message: `You still need ${Math.round(remainingMinute)} minutes before sending another gift to the player!` })
             } else if (isUserRecipient) {
                 return FriendList.updateOne({ _id: data._id }, { $set: { giftToRequester: giftingTime, requesterHasGift: true } })
                 .then( res.send({ message: "Gift sent to player!" }) );
