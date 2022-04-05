@@ -60,6 +60,10 @@ app.post('/user/changeDisplayName', async function (req, res) {
     return accountHandling.changeDisplayName(req, res);
 })
 
+app.post('/user/changeAboutMe', async function (req, res) {
+    return accountHandling.changeAboutMe(req, res);
+})
+
 app.post('/email/forgetpassword', async function (req, res) {
     return accountHandling.forgetPassword(req, res);
 })
