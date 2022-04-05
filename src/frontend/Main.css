@@ -84,6 +84,7 @@
     height: 90%;
     width: 90%; 
     background-color: rgb(214, 213, 213);
+    /* background-color: black; */
     border: 6px solid rgb(0, 100, 5);
     opacity: 100%;
     overflow: auto;

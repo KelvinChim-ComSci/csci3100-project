@@ -38,7 +38,7 @@ class Main extends React.Component {
 
         this.handleSchedulePlan = this.handleSchedulePlan.bind(this);
         this.checkRefreshAndUpdate = this.checkRefreshAndUpdate.bind(this);
-
+        this.handlePopupBackground = this.handlePopupBackground.bind(this);
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
@@ -86,6 +86,12 @@ class Main extends React.Component {
             this.setState({ beenTo: this.state.beenTo.concat(location) });
         }
         this.setState({ location: location });
+    }
+
+    handlePopupBackground(){
+        let box = document.getElementsByClassName("popUp");
+        console.log(box[[0]].style);
+        box[0].style.backgroundImage = '../backend/background/main.jpeg';
     }
 
     popMainEvent() {
@@ -183,7 +189,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <MainEvent resetData={this.resetData} stat={this.state.stat} handleMaineventStat={this.handleMaineventStat} handlePopClose={this.handlePopClose} />
+                        <MainEvent handlePopupBackground={this.handlePopupBackground} resetData={this.resetData} stat={this.state.stat} handleMaineventStat={this.handleMaineventStat} handlePopClose={this.handlePopClose} />
                     </div>
                 </div>
             )
