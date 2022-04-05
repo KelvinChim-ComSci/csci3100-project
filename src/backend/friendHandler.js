@@ -90,15 +90,17 @@ module.exports.getFriendList = async function (req, res) {
                 return (isUserRecipient) ? {
                     displayName: pair.requester.displayName,
                     username: pair.requester.username,
+                    aboutMe: pair.requester.aboutMe,
                     status: pair.requester.status,
                     id: pair.requester._id,
-                    hasGiftToUser: pair.recipientHasGift // TODO
+                    hasGiftToUser: pair.recipientHasGift
                 } : {
                     displayName: pair.recipient.displayName,
                     username: pair.recipient.username,
+                    aboutMe: pair.recipient.aboutMe,
                     status: pair.recipient.status,
                     id: pair.recipient._id,
-                    hasGiftToUser: pair.requesterHasGift // TODO
+                    hasGiftToUser: pair.requesterHasGift
                 };
             });
             return res.send({ friendList: friendList });
@@ -135,7 +137,8 @@ module.exports.sendGiftToFriend = async function (req, res) {
             const timeDiff = (giftingTime - lastGiftingTime) / 3.6e6;
             const giftCoolDown = 2; // Hour
             if (timeDiff < giftCoolDown) {
-                return res.send({ message: `You still need ${2 - timeDiff} hours before sending another gift to the player!` })
+                const remainingMinute = (giftCoolDown - timeDiff) * 60;
+                return res.send({ message: `You still need ${remainingMinute.toFixed(2)} minutes before sending another gift to the player!` })
             } else if (isUserRecipient) {
                 return FriendList.updateOne({ _id: data._id }, { $set: { giftToRequester: giftingTime, requesterHasGift: true } })
                 .then( res.send({ message: "Gift sent to player!" }) );

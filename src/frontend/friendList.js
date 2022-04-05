@@ -26,7 +26,7 @@ class FriendList extends React.Component {
         this.sendChatMessage = this.sendChatMessage.bind(this);
         this.manageRequest = this.manageRequest.bind(this);
         this.popUp = this.popUp.bind(this);
-        this.deleteQuery = this.deleteQuery.bind(this);
+        this.showTempMessage = this.showTempMessage.bind(this);
     }
 
 
@@ -70,7 +70,7 @@ class FriendList extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp">
-                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true} />
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} aboutMe={this.state.target.aboutMe} friend={true} />
                     </div>
                 </div>
             );
@@ -175,7 +175,8 @@ class FriendList extends React.Component {
     }
 
     sendGift(userId, friendId) {
-        giftToBackend(userId, friendId);
+        giftToBackend(userId, friendId)
+        .then((res) => this.showTempMessage(res.message));
     }
 
     checkReceivedGift(Boolean, userId, friendId, currentStat) {
@@ -207,7 +208,7 @@ class FriendList extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res.message);
+                this.showTempMessage(res.message);
             });
     }
 
@@ -291,10 +292,10 @@ class FriendList extends React.Component {
             }),
         })
             .then((data) => data.json())
-            .then((data) => this.deleteQuery(data.message))
+            .then((data) => this.showTempMessage(data.message))
     }
 
-    deleteQuery(message) {
+    showTempMessage(message) {
         this.setState({ message: message }); // successful message
 
         setTimeout(() => { if (this.mounted) this.setState({ message: "" }) }, 5000);
