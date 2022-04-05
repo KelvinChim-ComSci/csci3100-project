@@ -122,8 +122,7 @@ class Profile extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res.pics);
-                if (res!=null) {this.setState({profilegetImg : res.pics});}
+                if (res.pics !== "") {this.setState({profilegetImg : res.pics});}
                 
             });
     }
@@ -134,18 +133,17 @@ class Profile extends React.Component {
         const formData = new FormData()
         formData.append('profileImg', this.state.profileImg)
         formData.append('userId', this.props.stat.user)
-        console.log(this.state.profileImg.name);
-        console.log(formData.get('profileImg'));
-        
-        await fetch(process.env.REACT_APP_BASE_URL + "/profile/postImg", {
-            method: "POST", 
-            body: formData,
-        })
-        .then((data) => data.json())
-        .then((res) => {
-            console.log(res);
-            this.fetchImg();
-        });
+        if (this.state.profileImg === "") return;
+        else {
+                await fetch(process.env.REACT_APP_BASE_URL + "/profile/postImg", {
+                method: "POST", 
+                body: formData,
+            })
+            .then((data) => data.json())
+            .then((res) => {
+                this.fetchImg();
+            });
+        }
        
 
     }  
