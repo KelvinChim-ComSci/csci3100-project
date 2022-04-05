@@ -8,6 +8,7 @@ import Main from "./frontend/Main.js";
 import Registration from "./frontend/SignInPage/Registration.js";
 import EmailVerified from "./frontend/SignInPage/EmailVerified.js";
 import ChangePassword from "./frontend/SignInPage/ChangePassword.js";
+import InvalidURL from "./frontend/InvalidURL";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends React.Component {
     this.state = {
       displayName: "",
       username: "",
+      aboutMe: "",
       userId: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged In",
@@ -26,6 +28,8 @@ class App extends React.Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleDisplayName = this.handleDisplayName.bind(this);
+    this.handleAboutMe = this.handleAboutMe.bind(this);
     this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
 
@@ -41,6 +45,7 @@ class App extends React.Component {
     this.setState({
       displayName: window.sessionStorage.getItem("displayName"),
       username: window.sessionStorage.getItem("username"),
+      aboutMe: window.sessionStorage.getItem("aboutMe"),
       userId: window.sessionStorage.getItem("userId"),
       isAdmin: window.sessionStorage.getItem("isAdmin"),
       loggedInStatus: window.sessionStorage.getItem("loggedInStatus"),
@@ -48,10 +53,11 @@ class App extends React.Component {
     });
   }
 
-  handleLogin(displayName, user, userId, checkAdmin) {
+  handleLogin(displayName, user, userId, checkAdmin, aboutMe) {
     this.setState({
       displayName: displayName,
       username: user,
+      aboutMe: aboutMe,
       userId: userId,
       isAdmin: checkAdmin,
       loggedInStatus: "Logged in",
@@ -59,6 +65,7 @@ class App extends React.Component {
     });
     window.sessionStorage.setItem("displayName", displayName);
     window.sessionStorage.setItem("username", user);
+    window.sessionStorage.setItem("aboutMe", aboutMe);
     window.sessionStorage.setItem("userId", userId);
     window.sessionStorage.setItem("isAdmin", checkAdmin);
     window.sessionStorage.setItem("loggedInStatus", "Logged in");
@@ -67,10 +74,25 @@ class App extends React.Component {
     console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
+  handleDisplayName(newDisplayName) {
+    this.setState({
+      displayName: newDisplayName
+    });
+    window.sessionStorage.setItem("displayName", newDisplayName);
+  }
+
+  handleAboutMe(newDescription) {
+    this.setState({
+      aboutMe: newDescription
+    });
+    window.sessionStorage.setItem("aboutMe", newDescription);
+  }
+
   handleLogout() {
     this.setState({
       displayName: "",
       username: "",
+      aboutMe: "",
       isAdmin: 0,
       loggedInStatus: "Not Logged in",
       isLoggedIn: 0,
@@ -78,6 +100,7 @@ class App extends React.Component {
     });
     window.sessionStorage.removeItem("displayName");
     window.sessionStorage.removeItem("username");
+    window.sessionStorage.removeItem("aboutMe");
     window.sessionStorage.removeItem("userId");
     window.sessionStorage.removeItem("isAdmin");
     window.sessionStorage.removeItem("loggedInStatus");
@@ -108,17 +131,18 @@ class App extends React.Component {
                   handleSessionRefresh={this.handleSessionRefresh}
                   handleLogout={this.handleLogout}
                   handleLocation={this.handleLocation}
+                  handleDisplayName={this.handleDisplayName}
+                  handleAboutMe={this.handleAboutMe}
                   location={this.state.location}
                   displayName={this.state.displayName}
                   username={this.state.username}
+                  aboutMe={this.state.aboutMe}
                   userId={this.state.userId}
                 />
               }
             />
+            <Route path="*" element={<InvalidURL />} />
           </Routes >
-
-          {/*<Link to="/email/confirm/:id">Email Verified</Link>*/}
-
         </Router >
       </div >
     );

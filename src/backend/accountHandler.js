@@ -13,6 +13,7 @@ var UserSchema = mongoose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     verified: { type: Boolean, default: false },
+    aboutMe: { type: String, default: "Add a description to tell friends about you!" },
     status: { type: Boolean, default: false }, // false is offline, true is online
     adminStatus: { type: Boolean, default: false }, // false is user, true is admin
     forgetPasswordLinkExpireTime: { type: Date, default: Date.now }
@@ -119,6 +120,10 @@ module.exports.register = async function (req, res) {
 module.exports.confirmEmail = async function (req, res) {
     const id = req.params.id
 
+    if (id.length != 24) {
+        return res.send({ validURL: false, message: "Invalid URL" });
+    }
+
     try {
         const user = await User.findById(id)
         if (!user) {
@@ -153,6 +158,7 @@ module.exports.login = async function (req, res) {
                     return res.send({
                         errorMsg: "none",
                         displayName: response.displayName,
+                        aboutMe: (response.aboutMe)? response.aboutMe : "",
                         username: response.username,
                         accessLevel: response.adminStatus,
                         userId: response._id
@@ -322,14 +328,49 @@ module.exports.findRandomUsers = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
-
-module.exports.test = async function (req, res) {
+// get users information for listing in admin interface
+module.exports.listAllUsers = async function (req, res) {
     try {
-        const user = await User.findOne({ username: "administrator" });
-        return res.send({
-            username: user.username,
-            password: user.password
-        });
+        const userList = await User.find({ adminStatus: false }, { userId: 1, username: 1, displayName: 1, email: 1 })
+            .then((data) => {
+                console.log(data)
+                return res.send({
+                    username: "ouo"
+                });
+            });
+
     } catch (error) { console.log(error) };
 }
 
+
+module.exports.changeDisplayName = async function (req, res) {
+    try {
+        const userId = req.body.userId;
+        const newDisplayName = req.body.displayName;
+        User.findOneAndUpdate({ _id: userId }, { displayName: newDisplayName },
+            function (err, response) {
+                if (err) {
+                    console.log(err);
+                    return res.status(422).send({ message: "Something went wrong. Please try again." });
+                } else {
+                    return res.send({ message: "Successfully updated display name!" });
+                }
+            }).clone().catch(function (err) { console.log(err) });
+    } catch (error) { console.log(error) };
+}
+
+module.exports.changeAboutMe = async function (req, res) {
+    try {
+        const userId = req.body.userId;
+        const newDescription = req.body.newDescription;
+        User.findOneAndUpdate({ _id: userId }, { aboutMe: newDescription }, { upsert: true },
+            function (err, response) {
+                if (err) {
+                    console.log(err);
+                    return res.status(422).send({ message: "Something went wrong. Please try again." });
+                } else {
+                    return res.send({ message: "Successfully updated your description!" });
+                }
+            }).clone().catch(function (err) { console.log(err) });
+    } catch (error) { console.log(error) };
+}

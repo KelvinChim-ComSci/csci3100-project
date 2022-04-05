@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import NotificationBox from '../NotficationBox';
 
 class Registration extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class Registration extends React.Component {
             passwordErrMsg: "",
             emailErrorMsg: "",
             confirmPasswordErrMsg: "",
+            accountCreated: false
         }
 
         this.checkUserName = this.checkUserName.bind(this);
@@ -134,7 +136,7 @@ class Registration extends React.Component {
                         this.setState({ emailError: true });
                     }
                     if (!(res.usernameError || res.emailError)) {
-                        alert("Successfully Created account! Please check your email for verification")
+                        this.setState({ accountCreated: true });
                     }
                 });
         }
@@ -142,46 +144,61 @@ class Registration extends React.Component {
 
     render() {
         require('./Registration.css');
+
+        const renderContent = () => {
+            if (this.state.accountCreated) {
+                return <NotificationBox message="Create new account successfully! Please check your email for verification." login={false} />
+            }
+            else {
+                return (
+                    <div id="registration">
+
+                        <div className="container">
+
+                            <h1>CU Simulator</h1>
+
+                            <form autoComplete="on">
+
+                                <div className="txt_field">
+
+                                    <label htmlFor="username">Username</label>
+                                    <input type="text" id="usernameid" name="username" required></input>
+                                    <div className="error">{this.state.usernameErrMsg}</div>
+
+                                    <label htmlFor="email">Email</label>
+                                    <input type="text" id="emailid" name="email" required></input>
+                                    <div className="error">{this.state.emailErrMsg}</div>
+
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" id="passwordid" name="password" required></input>
+                                    <div className="error">{this.state.passwordErrMsg}</div>
+
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                    <input type="password" id="confirmpasswordid" name="confirmPassword" required></input>
+                                    <div className="error">{this.state.confirmPasswordErrMsg}</div>
+                                </div>
+
+                                <div className="buttons">
+                                    <input id="submit_box" type="submit" value="Create Account!" onClick={this.createAccount}></input>
+                                </div>
+                                <div className="links">
+                                    <p><a href="./">Return to log in</a></p>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                )
+            }
+        }
+
         return (
-            <div id="registration">
-
-                <div className="container">
-
-                    <h1>CU Simulator</h1>
-
-                    <form autoComplete="on">
-
-                        <div className="txt_field">
-
-                            <label htmlFor="username">Username</label>
-                            <input type="text" id="usernameid" name="username" required></input>
-                            <div className="error">{this.state.usernameErrMsg}</div>
-
-                            <label htmlFor="email">Email</label>
-                            <input type="text" id="emailid" name="email" required></input>
-                            <div className="error">{this.state.emailErrMsg}</div>
-
-                            <label htmlFor="password">Password</label>
-                            <input type="password" id="passwordid" name="password" required></input>
-                            <div className="error">{this.state.passwordErrMsg}</div>
-
-                            <label htmlFor="confirmPassword">Confirm Password</label>
-                            <input type="password" id="confirmpasswordid" name="confirmPassword" required></input>
-                            <div className="error">{this.state.confirmPasswordErrMsg}</div>
-                        </div>
-
-                        <div className="buttons">
-                            <input id="submit_box" type="submit" value="Create Account!" onClick={this.createAccount}></input>
-                        </div>
-                        <div className="links">
-                            <p><a href="./">Return to log in</a></p>
-                        </div>
-
-                    </form>
-
-                </div>
+            <div id="forgot_password">
+                {renderContent()}
             </div>
         )
+
     }
 }
 
