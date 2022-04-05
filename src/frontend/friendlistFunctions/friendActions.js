@@ -8,7 +8,7 @@ export function getFormattedTime() {
 }
 
 export async function giftToBackend(userId, friendId) {
-    await fetch(process.env.REACT_APP_BASE_URL + "/friend/sendGiftToFriend", {
+    return await fetch(process.env.REACT_APP_BASE_URL + "/friend/sendGiftToFriend", {
         method: "POST",
         headers: new Headers({
             "Content-Type": 'application/json',
@@ -23,6 +23,5 @@ export async function giftToBackend(userId, friendId) {
         }),
     })
     .then((res) => res.json())
-    .then((res) => { console.log(res.message) });
 }
 
