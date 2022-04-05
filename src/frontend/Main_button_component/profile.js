@@ -121,31 +121,25 @@ class Profile extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res.pics);
-                if (res!=null) {this.setState({profilegetImg : res.pics});}
+                if (res.pics !== "") {this.setState({profilegetImg : res.pics});}
                 
             });
     }
 
     async onSubmit(e) { 
-        
         e.preventDefault()
         const formData = new FormData()
-        formData.append('profileImg', this.state.profileImg)
-        formData.append('userId', this.props.stat.user)
-        console.log(this.state.profileImg.name);
-        console.log(formData.get('profileImg'));
+        formData.append('profileImg', this.state.profileImg);
+        formData.append('userId', this.props.stat.user);
 
-        if (!this.state.profileImg)
-            return;
-        
+        if (!this.state.profileImg) return;
+
         await fetch(process.env.REACT_APP_BASE_URL + "/profile/postImg", {
             method: "POST", 
             body: formData,
         })
         .then((data) => data.json())
         .then((res) => {
-            console.log(res);
             this.fetchImg();
         });
        

@@ -121,7 +121,6 @@ class FriendList extends React.Component {
     }
 
     showFriends() {
-        console.log("frd", this.state.friends)
         if (this.state.friends.length === 0) {
             return (
                 <div>
