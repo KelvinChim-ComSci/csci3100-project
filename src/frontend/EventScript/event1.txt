@@ -13,7 +13,7 @@ After some considerations, you choose to join one of the colleges.
 @R1@ In this game, you are required to plan for your own unviersity life.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
-@R1@ Click the "Open schedule button on the left hand corner of the page to open schedule. Every 2 schedules count for 1 semester. Every 2 semester count for 1 year.
+@R1@ Click the "Open schedule" button on the left hand corner of the page to open schedule. Every 2 schedules count for 1 semester. Every 2 semester count for 1 year.
 @R1@ There are 4 different main statistics in the game. Plan for your schedule to improve the one that you like. Your stamina will drop by 20 for every event you plan in the schedule.
 @R1@ If stamina becomes 0, you will be sick and there will be some penalty.
 @R1@ You can also click "Explore CUHK!" to go around CUHK. There will be some random events happening in CUHK.

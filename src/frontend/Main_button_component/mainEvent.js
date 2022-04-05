@@ -30,6 +30,17 @@ import StudyEnding from "../EventScript/StudyEnding.txt"
 import MoneyEnding from "../EventScript/MoneyEnding.txt"
 import HappinessEnding from "../EventScript/HappinessEnding.txt"
 import NullEnding from "../EventScript/NullEnding.txt"
+
+
+import mapintro_bg from '../../backend/img/MapIntro.png';
+import menuintro_bg from '../../backend/img/MenuIntro.png';
+import profileintro_bg from '../../backend/img/ProfileIntro.png';
+import settingintro_bg from '../../backend/img/SettingsIntro.png';
+import rightstatintro_bg from '../../backend/img/RightStatIntro.png';
+import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
+import messageintro_bg from '../../backend/img/MessageIntro.png';
+import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
+
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
@@ -156,8 +167,32 @@ class MainEvent extends React.Component {
         console.log("script line #", this.state.script_count);
         var dia_line = this.script_list[this.state.script_count];
         console.log("string:", dia_line);
+        
         if (this.props.stat.year === 1 && this.props.stat.sem == 0){
-            this.props.handlePopupBackground()
+            switch (this.state.script_count) {
+                case 15:
+                    this.props.handlePopupBackground(schedulentro_bg);
+                    break;
+                case 18:
+                    this.props.handlePopupBackground(mapintro_bg);
+                    break;
+                case 19:
+                    this.props.handlePopupBackground(friendlistintro_bg);
+                    break;
+                case 20:
+                    this.props.handlePopupBackground(profileintro_bg);
+                    break;
+                case 21:
+                    this.props.handlePopupBackground(messageintro_bg);
+                    break;
+                case 22:
+                    this.props.handlePopupBackground(rightstatintro_bg);
+                    break;
+                
+                default:
+                  this.props.handlePopupBackground(null);
+              }
+              
         }
         // end event if # is detected
         if (dia_line[0] === "#"){

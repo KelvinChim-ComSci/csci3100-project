@@ -11,6 +11,7 @@ import { statEventUpdate } from './statUpdater/statEventUpdate.js';
 import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 import FriendList from './friendList';
 import main_bg from '../backend/background/main.jpeg';
+
 import Event from './Event';
 import StatDisplay from './statDisplay';
 import ShowUsers from './AdminFunction/ShowUsers.js';
@@ -89,10 +90,11 @@ class Main extends React.Component {
         this.setState({ location: location });
     }
 
-    handlePopupBackground(){
+    handlePopupBackground(bg){
         let box = document.getElementsByClassName("popUp");
-        console.log(box[[0]].style);
-        box[0].style.backgroundImage = '../backend/background/main.jpeg';
+        console.log(box[[0]]);
+        box[0].style.backgroundImage = `url(${bg})`;
+        box[0].style.backgroundRepeat = "no-repeat"
     }
 
     popMainEvent() {
