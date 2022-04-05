@@ -5,25 +5,27 @@
     background-size: 100%;
 }
 
+.textContainer {
+    background-color: rgba(255,255,255,0.5);
+    margin: 10px;
+    border-radius: 100px;
+    padding: 0 15px;
+}
+
 .topLeft{
     position: absolute;
-    top: 50px;
-    left: 16px;
-    width: 20%;
     background-color: rgba(230, 230, 230, 0.61);
 }
 
 .topRight{
     position: absolute;
-    top: 50px;
-    right: 16px;
-    width: 20%;
+    right: 0;
     cursor: pointer;
     background-color: rgba(230, 230, 230, 0.75);
 }
 
 .topRight:hover {
-    color: black;
+    color: rgb(0, 26, 255);
   }
 
 a { color: inherit; } 
@@ -38,9 +40,8 @@ a { color: inherit; }
  
  /* Demo styles */
  .text {
-     
     word-spacing: 0.2em;
-    margin: 0 auto;
+    margin: 0;
     background: rgb(255, 255, 255);
     padding: 1em;
     border-bottom: 1vw solid #4f80a1;
@@ -56,11 +57,10 @@ a { color: inherit; }
  }
 
  .corner {
-    position:absolute;
-    width: 10vw;
-    right:2vw;
-    bottom:0;
-    transform: translateY(80%); 
+    position: absolute;
+    height: 10%;
+    right: 10%;
+    bottom: 4%;
  }
 
 
@@ -99,6 +99,6 @@ a { color: inherit; }
 .event #eventStarter {
     position: absolute;
     left: 50%;
-    transform: translate(0, -50%);
-    top: 70%;
+    transform: translateX(-50%);
+    bottom: 20%;
 }

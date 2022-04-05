@@ -50,9 +50,14 @@ class MainEvent extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
-        console.log("this.props.stat", this.props.stat)
+
+        //this.handlePopupBackground = this.props.handlePopupBackground;
         
         function eventChoice(year,sem, stat){
+
+            //test
+            //this.handlePopupBackground(mapintro_bg);
+
             // since the event pops up after the schdules end, the time in the story should -1 sem in here
             if (year === 1 && sem === 0){return event1}
             if (year === 1 && sem === 1){return event2}   
@@ -158,6 +163,7 @@ class MainEvent extends React.Component {
             popUpChoice : "",
             chosenChoice: -1,
             pop_q: "",
+            img: null,
         }
         
     }
@@ -174,26 +180,26 @@ class MainEvent extends React.Component {
         if (this.props.stat.year === 1 && this.props.stat.sem == 0){
             switch (this.state.script_count) {
                 case 15:
-                    this.props.handlePopupBackground(schedulentro_bg);
+                    this.setState({img: schedulentro_bg});
                     break;
                 case 18:
-                    this.props.handlePopupBackground(mapintro_bg);
+                    this.setState({img: mapintro_bg});
                     break;
                 case 19:
-                    this.props.handlePopupBackground(friendlistintro_bg);
+                    this.setState({img: friendlistintro_bg});
                     break;
                 case 20:
-                    this.props.handlePopupBackground(profileintro_bg);
+                    this.setState({img: profileintro_bg});
                     break;
                 case 21:
-                    this.props.handlePopupBackground(messageintro_bg);
+                    this.setState({img: messageintro_bg});
                     break;
                 case 22:
-                    this.props.handlePopupBackground(rightstatintro_bg);
+                    this.setState({img: rightstatintro_bg});
                     break;
                 
                 default:
-                  this.props.handlePopupBackground(null);
+                    this.setState({img: null});
               }
               
         }
@@ -268,12 +274,20 @@ class MainEvent extends React.Component {
     
     render(){
         require("./mainEvent.css");
+
         return (
             <div id="mainEvent">
+                <div className="imageContainer">
+                    <img src={this.state.img} />
+                </div>
+
                 <div id = "text">
                     <div className="text" onClick={()=>this.handleClick()}>
                         <p id = "dialogue"> ??? </p>
                     </div>
+                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
+                    </svg>
                     {this.popUp(this.state.popUpChoice)}      
                 </div>
             </div>

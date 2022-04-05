@@ -93,11 +93,6 @@ class Map extends React.Component {
             return;
         }
 
-        if (this.props.beenTo.includes(this.state.location)) {
-            alert("You have already been to there recently!");
-            return;
-        }
-
         console.log(this.state.location)
         this.props.handleLocation(this.state.location);  
         this.props.handlePopClose();

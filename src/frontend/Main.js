@@ -28,7 +28,7 @@ class Main extends React.Component {
             location: "main",
             started: 0,
             overflow: 1,
-            beenTo: [],
+            backgroundImage: null,
         };
 
         this.statRef = React.createRef();
@@ -63,6 +63,7 @@ class Main extends React.Component {
             _id: this.state.stat._id,
         }
         this.updateStat(stat);
+        this.setState({location: "main"});
     }
 
     setEvent(started) {
@@ -71,8 +72,6 @@ class Main extends React.Component {
 
     updateStat(stat) {
         this.statRef.current.update(stat);
-        if (this.state.stat && !(this.state.stat.sem === stat.sem && this.state.stat.year === stat.year))
-            this.setState({ beenTo: [] });
         this.setState({ stat: { ...this.state.stat, ...stat } });
         statBackendUpdate(stat);
         new Promise(resolve => setTimeout(resolve, 1));
@@ -85,16 +84,12 @@ class Main extends React.Component {
     handleLocation(location) {
         if (location !== "main") {
             this.updateStat({ ...this.state.stat, stamina: this.state.stat.stamina - 5 });
-            this.setState({ beenTo: this.state.beenTo.concat(location) });
         }
         this.setState({ location: location });
     }
 
     handlePopupBackground(bg){
-        let box = document.getElementsByClassName("popUp");
-        console.log(box[[0]]);
-        box[0].style.backgroundImage = `url(${bg})`;
-        box[0].style.backgroundRepeat = "no-repeat"
+        this.setState({backgroundImage: bg});
     }
 
     popMainEvent() {
@@ -163,7 +158,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp">
-                        <Map handleLocation={this.handleLocation} handlePopClose={this.handlePopClose} available={!this.state.started} stamina={this.state.stat.stamina} beenTo={this.state.beenTo} />
+                        <Map handleLocation={this.handleLocation} handlePopClose={this.handlePopClose} available={!this.state.started} stamina={this.state.stat.stamina}/>
                     </div>
                 </div>
             )
@@ -200,7 +195,7 @@ class Main extends React.Component {
             return (
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
-                    <div className="popUp">
+                    <div className="popUp" style={{backgroundImage: `url(${this.state.img})`}}>
                         <MainEvent handlePopupBackground={this.handlePopupBackground} resetData={this.resetData} stat={this.state.stat} handleMaineventStat={this.handleMaineventStat} handlePopClose={this.handlePopClose} />
                     </div>
                 </div>

@@ -42,7 +42,7 @@ export function statScheduleUpdate(newStat, plan) {
                 }
                 break;
             case "r":
-                let newStamina = ((newStat.stamina>50) ? 100 : newStat.stamina+50);
+                let newStamina = ((newStat.stamina>50) ? ((newStat.stamina>100)? newStamina : 100) : newStat.stamina+50);
                 newStat = {
                     ...newStat,
                     stamina: newStamina,
