@@ -123,7 +123,7 @@ class App extends React.Component {
             <Route path="/email/confirm/:id" element={<EmailVerified />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/changepassword/:id" element={<ChangePassword />} />
+            <Route path="/changepassword/:id" element={<ChangePassword loginPage={true}/>} />
             <Route
               path="/main"
               element={

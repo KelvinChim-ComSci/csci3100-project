@@ -57,6 +57,14 @@
     word-wrap: break-word;
 }
 
+.profile input[type="file"] {
+    display: none;
+}
+
+.profile p {
+    margin: 0;
+}
+
 .profile .edit {
     background-color: green;
     color: white;
