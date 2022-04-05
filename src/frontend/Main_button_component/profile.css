@@ -61,6 +61,10 @@
     display: none;
 }
 
+.profile p {
+    margin: 0;
+}
+
 .profile .edit {
     background-color: green;
     color: white;
