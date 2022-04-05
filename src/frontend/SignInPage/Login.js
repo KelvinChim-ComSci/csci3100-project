@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from '../withRouter.js'; // router
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 
 class Login extends React.Component {
     constructor(props) {
@@ -60,7 +59,7 @@ class Login extends React.Component {
             .then((res) => {
                 if (this.isLoginValid(res.errorMsg)) {
                     this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel, res.aboutMe);
-                    (window.location.pathname === "/")? this.navigator('./main'): this.navigator('./');
+                    this.navigator('./main');
                 }
                 else {
                     console.log(res.errorMsg);

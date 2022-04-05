@@ -415,7 +415,6 @@ class FriendList extends React.Component {
         require('./friendList.css');
         return (
             <div id="friend">
-
                 <div className="friendList" style={{ width: `${this.state.chat ? "50%" : "100%"}` }}>
                     <div className="onlineFriends">
                         {this.showFriends()}
