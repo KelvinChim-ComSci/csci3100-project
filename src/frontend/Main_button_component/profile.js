@@ -25,9 +25,14 @@ class Profile extends React.Component {
           whoEvenStudies: "",
           futureSecurityGuard: "",
           emotionalDamage: "",
+          profileImg: "",
+          profilegetImg: "",
         }
     
         this.popUp = this.popUp.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.fetchImg = this.fetchImg.bind(this);
           
       }
       
@@ -69,8 +74,9 @@ class Profile extends React.Component {
             
     }
 
-    componentDidMount() {
-        fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
+    async componentDidMount() {
+        this.fetchImg();
+        await fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/"+ this.props.stat.user , { //+ this.props.userId
             method: "GET",
             headers: new Headers({
                 "Content-Type": 'application/json',
@@ -97,6 +103,52 @@ class Profile extends React.Component {
                 
             });
     }
+
+    onFileChange(e) {
+        console.log(e.target.files[0]);
+        this.setState({ profileImg: e.target.files[0]});
+    }
+
+    async fetchImg() {
+        await fetch(process.env.REACT_APP_BASE_URL + "/profile/getImg/" + this.props.stat.user, { //+ this.props.stat.userId
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res.pics);
+                if (res!=null) {this.setState({profilegetImg : res.pics});}
+                
+            });
+    }
+
+    async onSubmit(e) { 
+        
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('profileImg', this.state.profileImg)
+        formData.append('userId', this.props.stat.user)
+        console.log(this.state.profileImg.name);
+        console.log(formData.get('profileImg'));
+        
+        await fetch(process.env.REACT_APP_BASE_URL + "/profile/postImg", {
+            method: "POST", 
+            body: formData,
+        })
+        .then((data) => data.json())
+        .then((res) => {
+            console.log(res);
+            this.fetchImg();
+        });
+       
+
+    }  
     
     changeDisplayName(userId) {
         const displayName = document.getElementById("displayName").value;
@@ -170,7 +222,7 @@ class Profile extends React.Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="first" id="image"><img src={img} /></div>
+                        <div className="first" id="image"><img src={ `data:image/jpg;base64,${this.state.profilegetImg}`} /></div>
                         <div className="second">
 
                         <div className="d-flex flex-column" id="textbox">
@@ -188,6 +240,17 @@ class Profile extends React.Component {
                             </div>
 
                             <div className="p-2">{this.state.message}</div>
+                            <div className="row">
+                                    <form onSubmit={this.onSubmit}>
+                                        <div className="p-2">Change Your Profile Image:</div>
+                                        <div className="form-group">
+                                            <input type="file" onChange={this.onFileChange}/>
+                                        </div>
+                                        <div className="form-group">
+                                            <button className="btn btn-primary" type="submit">Upload</button>
+                                        </div>
+                                    </form>  
+                                </div>
                         </div>    
 
                         </div> 

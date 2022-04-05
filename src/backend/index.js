@@ -5,6 +5,7 @@ const statisticHandling = require('./statisticHandler.js');
 const friendHandling = require('./friendHandler.js');
 const achievementHandling = require('./achievementHandler.js');
 const messageHandling = require('./messageHandler.js');
+const profileHandling = require('./profileHandler.js');
 
 const dotenv = require('dotenv');
 const express = require('express');
@@ -16,6 +17,26 @@ const mongoose = require('mongoose');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
+
+var bodyParser = require('body-parser');
+//var fs = require('fs');
+//var path = require('path');
+var multer = require('multer');
+app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }))
+app.use(bodyParser.json({limit: '50mb'}))
+const DIR = './public/';
+app.set("view engine", "ejs");
+app.use(express.static(DIR));
+
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, DIR) //fileName
+	},
+	filename:function (req, file, cb)  {
+		cb(null, file.fieldname + '-' + Date.now()+".jpg")
+	}
+});
+var upload = multer({ storage: storage });
 
 mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
@@ -138,6 +159,14 @@ app.get('/achievement/retrieve/:userId', async function (req, res) {
 
 app.get('/admin/getusers', async function (req, res) {
     return accountHandling.listAllUsers(req, res);
+});
+
+app.get('/profile/getImg/:userId', async function (req, res) {
+    return profileHandling.profileImgRetrieve(req, res);
+});
+
+app.post('/profile/postImg', upload.single('profileImg'), async function (req, res, next) {
+    return profileHandling.profileImgPost(req, res);
 });
 
 // General

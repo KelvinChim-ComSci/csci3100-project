@@ -1,5 +1,4 @@
 
-
 var mongoose = require('mongoose');
 var fs = require('fs');
 
@@ -12,7 +11,7 @@ var ProfileImgSchema = new mongoose.Schema({
 var ProfileImg = mongoose.model('ProfileImg', ProfileImgSchema);
 
 module.exports.profileImgRetrieve = async function (req, res) {
-	ProfileImg.findOne({user: req.params.userId }) //.findOne({ user: req.body.userId}) // req.params.userId 
+	ProfileImg.findOne({user: req.params.userId }) // req.params.userId 
         .then((data) => {
 			res.json({
                 pics: data.data.toString('base64') //decode
