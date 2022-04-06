@@ -203,6 +203,7 @@ class MainEvent extends React.Component {
               }
               
         }
+        
         // end event if # is detected
         if (dia_line[0] === "#"){
             // console.log("")
@@ -283,11 +284,8 @@ class MainEvent extends React.Component {
 
                 <div id = "text">
                     <div className="text" onClick={()=>this.handleClick()}>
-                        <p id = "dialogue"> ??? </p>
+                        <p id = "dialogue"></p>
                     </div>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
                     {this.popUp(this.state.popUpChoice)}      
                 </div>
             </div>
