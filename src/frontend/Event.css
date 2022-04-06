@@ -56,14 +56,6 @@ a { color: inherit; }
     font-size: 30px;
  }
 
- .corner {
-    position: absolute;
-    height: 10%;
-    right: 10%;
-    bottom: 4%;
- }
-
-
 #shadowLayer{
     height: 100%;
     width: 100%;

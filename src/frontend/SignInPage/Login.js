@@ -72,12 +72,6 @@ class Login extends React.Component {
         this.props.navigate(page);
     }
 
-
-    async sendRequest() {
-        const detailsElement = document.getElementById("test");
-        detailsElement.getElementsByTagName("h3")[0].innerText = "administrator\ntesting3100";
-    }
-
     isLoginValid(errorMessage) {
         return (errorMessage === "none") ? 1 : 0;
     }

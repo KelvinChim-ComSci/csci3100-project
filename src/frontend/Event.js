@@ -25,9 +25,14 @@ import swimmingpool_bg from '../backend/background/swimmingpool.png'
 import cclib_bg from '../backend/background/cclib.png'
 import hochou_bg from '../backend/background/hochou.png'
 
+import NoEvent from '../backend/music/NoEvent.mp3';
+import TrollSong from '../backend/music/TrollSong.mp3';
+import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
+
 class Event extends React.Component {
     constructor(props) {
         super(props);
+        this.currentTimeout = null;
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.bgchoice = this.bgchoice.bind(this);
@@ -36,43 +41,56 @@ class Event extends React.Component {
         this.eventChoice = eventChoice.bind(this);
 
         function eventChoice(location, year, sem){
-            if (location === "U Lib" && year === 1 && sem === 1)
+            if (location === "U Lib" && year === 1 && sem === 1) {
+                this.props.playSong(TrollSong);
                 return GateOfWisdom;
-            if (location === "UC" && year === 1 && sem === 2)
-                return UC;
-            if (location === "NA")
-                return noEvent; // to be implemented
-            if (location === "University Station" && year === 3 && sem === 1)
-                return UniverityStation;
-            if (location === "Haddon-Cave")
-                return noEvent; // to be implemented
-            if (location === "Weiyuan Lake" && year === 2 && sem === 1)
-                return LakeAdExcellentiam;
-            if (location === "The University Mall" && year === 3 && sem === 1)
-                return UniversityMall;
-            if (location === "MedCan" && year === 4 && sem === 1)
-                return MedCan;
-            if (location === "CC Lib" && year === 4 && sem === 2)
-                return CCLib;
-            if (location === "Swimming Pool" && year === 4 && sem === 3)
-                return SwimmingPool;
-            else {
-                this.setState({noEvent: true});
-                return noEvent;
             }
-                
+            if (location === "UC" && year === 1 && sem === 2) {
+                return UC;
+            }
+            if (location === "NA") {
+                return noEvent; // to be implemented
+            }
+            if (location === "University Station" && year === 3 && sem === 1) {
+                return UniverityStation;
+            }
+            if (location === "Haddon-Cave") {
+                return noEvent; // to be implemented
+            }
+            if (location === "Weiyuan Lake" && year === 2 && sem === 1) {
+                return LakeAdExcellentiam;
+            }
+            if (location === "The University Mall" && year === 3 && sem === 1) {
+                return UniversityMall;
+            }
+            if (location === "MedCan" && year === 4 && sem === 1) {
+                return MedCan;
+            }
+            if (location === "CC Lib" && year === 4 && sem === 2) {
+                return CCLib;
+            }
+            if (location === "Swimming Pool" && year === 4 && sem === 3) {
+                return SwimmingPool;
+            }
 
+            this.props.playSong(NoEvent);
+            this.setState({noEvent: true});
+            return noEvent;
         }
 
         this.state = {
-            script_count: 1,
+            script_count: 0,
             popUpChoice: "",
             chosenChoice: -1,
             started: 0,
             pop_q: "",
             noEvent: false,
+            lineFinished: false,
         }
+    }
 
+    componentWillUnmount() {
+        this.props.pauseSong();
     }
 
     beginEvent(){
@@ -85,7 +103,7 @@ class Event extends React.Component {
         .then(r => r.text())
         .then(text => {
             this.script_list = text.split('\n');
-            document.getElementById('dialogue').innerHTML = this.script_list[0];
+            this.displayDialogue(this.script_list[0], 0, false);
             this.script_answer = [];
             this.script_reaction_count = [];
             //   this.script_reaction = [];
@@ -105,7 +123,6 @@ class Event extends React.Component {
                     //   this.script_reaction.push(this.script_list[k+1]);
                 }
             }
-            console.log("script_reaction_count", this.script_reaction_count);
         })
         .then(this.setState({started: 1}))
         .then(this.props.setEvent(1));
@@ -132,50 +149,60 @@ class Event extends React.Component {
     }
 
     handleClick() {
-        // console.log("script line #", this.state.script_count);
-        var dia_line = this.script_list[this.state.script_count];
-        // console.log("string:", dia_line);
+
+        let dia_line = this.script_list[this.state.script_count];
+        let dialogue = dia_line;
+        let pop_q = false;
 
         // end event if # is detected
-        if (dia_line[0] === "#"){
-            // console.log("")
+        if (this.state.lineFinished && dia_line[0] === "#") {
             this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
             this.returnToMain();
         }
 
-        // normal line without @
-        if (dia_line[0] !== "@"){
-            document.getElementById('dialogue').innerHTML = dia_line;
-            this.setState({script_count: this.state.script_count + 1});
-            return;
+        // if this is a @ line
+        if (dia_line[0] === "@"){
+            dialogue = dia_line.substring(4);
+            // pop choice window if @Q is detected while reading script
+            if (dia_line[1] === "Q")
+                pop_q = true;
         }
 
-        // if this is a @ line and not @Q
-        if (dia_line[0] === "@" && dia_line[1] !== "Q"){
-            document.getElementById('dialogue').innerHTML = dia_line.substring(4);
-            this.setState({script_count: this.state.script_count + 1});
-            return;
+        if (this.state.lineFinished) {
+            this.setState({lineFinished: false});
+            this.displayDialogue(dialogue, 0, pop_q);
         }
-
-        // pop choice window if @Q is detected while reading script
-        if (dia_line[0] === "@" && dia_line[1] === "Q"){
-            dia_line = dia_line.substring(4);
-            document.getElementById('dialogue').innerHTML = dia_line;
-            // console.log("pop choice");
-            this.setState({
-                popUpChoice : "choice",
-                script_count: this.state.script_count + 1,
-                pop_q: dia_line,
-            });
-            return;
+        else {
+            clearTimeout(this.currentTimeout);
+            this.displayDialogue(dialogue, dialogue.length, pop_q);
         }
     } 
+
+    displayDialogue(dialogue, i, pop_q){
+        let part = dialogue.substr(0, i);
+        if (document.getElementById('dialogue'))
+            document.getElementById('dialogue').innerHTML = part;
+
+        if (i < dialogue.length){
+            this.currentTimeout = setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
+        }
+            
+        else {
+            this.setState({lineFinished: true, script_count: this.state.script_count+1});
+            if (pop_q){
+                this.setState({
+                    popUpChoice : "choice",
+                    pop_q: dialogue,
+                });
+            }
+        }  
+    }
 
     async handleChoice(choiceId) {
         this.setState({
             popUpChoice: "",
             chosenChoice: choiceId,
-            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])
+            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1]),
         });
         await new Promise(resolve => setTimeout(resolve, 1));
         // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
@@ -189,9 +216,6 @@ class Event extends React.Component {
                     <div className="text" onClick={()=>this.handleClick()}>
                         <p id = "dialogue"></p>
                     </div>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
                 </div>
 
             )

@@ -50,7 +50,7 @@ class FriendList extends React.Component {
     async periodicFetchMessage(correspondent) {
         this.fetchFriendList();
         this.checkIncomingRequest();
-        if (correspondent != "")
+        if (correspondent !== "")
             this.fetchMessages(correspondent.id);
     }
 

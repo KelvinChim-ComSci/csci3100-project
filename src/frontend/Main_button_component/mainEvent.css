@@ -1,3 +1,10 @@
+#mainEvent {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+
 #mainEvent .text {
     word-spacing: 0.2em;
     margin: 0 auto;
@@ -10,6 +17,7 @@
     width: 80%;
     height: 30vh;
     position: absolute;
+    display: flex;
     bottom: 10%;
     right: 10%;
     font-size: 30px;
@@ -21,15 +29,16 @@
     top: 5vh;
     height: 40vh;
     width: 100%;
-    align-items: center;
     justify-content: center;
     margin: 0;
+    padding: 5px;
+    overflow: auto;
 }
 
 #mainEvent .imageContainer img {
     height: 100%;
     width: auto;
-    align-self: center;
+    max-width: 100%;
 }
 
 .mainEventPopUp #shadowLayer{

@@ -194,7 +194,7 @@ class ChangePassword extends React.Component {
 
         return (
 
-            <div>
+            <div id="changePassword">
                 {renderContent(this.props.loginPage)}
             </div>
         )
