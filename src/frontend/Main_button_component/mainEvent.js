@@ -44,6 +44,8 @@ import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
 import messageintro_bg from '../../backend/img/MessageIntro.png';
 import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 
+import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
+
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
