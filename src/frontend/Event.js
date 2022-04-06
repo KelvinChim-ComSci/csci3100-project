@@ -32,6 +32,7 @@ import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
 class Event extends React.Component {
     constructor(props) {
         super(props);
+        this.currentTimeout = null;
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.bgchoice = this.bgchoice.bind(this);
@@ -81,13 +82,13 @@ class Event extends React.Component {
         }
 
         this.state = {
-            script_count: 1,
+            script_count: 0,
             popUpChoice: "",
             chosenChoice: -1,
             started: 0,
             pop_q: "",
             noEvent: false,
-            lineFinished: true,
+            lineFinished: false,
         }
     }
 
@@ -105,7 +106,6 @@ class Event extends React.Component {
         .then(r => r.text())
         .then(text => {
             this.script_list = text.split('\n');
-            this.setState({lineFinished: false});
             this.displayDialogue(this.script_list[0], 0, false);
             this.script_answer = [];
             this.script_reaction_count = [];
@@ -126,7 +126,6 @@ class Event extends React.Component {
                     //   this.script_reaction.push(this.script_list[k+1]);
                 }
             }
-            console.log("script_reaction_count", this.script_reaction_count);
         })
         .then(this.setState({started: 1}))
         .then(this.props.setEvent(1));
@@ -154,42 +153,31 @@ class Event extends React.Component {
 
     handleClick() {
 
-        if (this.state.lineFinished){
+        let dia_line = this.script_list[this.state.script_count];
+        let dialogue = dia_line;
+        let pop_q = false;
 
-            this.setState({lineFinished: false});
+        // end event if # is detected
+        if (this.state.lineFinished && dia_line[0] === "#") {
+            this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
+            this.returnToMain();
+        }
 
-            // console.log("script line #", this.state.script_count);
-            var dia_line = this.script_list[this.state.script_count];
-            // console.log("string:", dia_line);
-
-            // end event if # is detected
-            if (dia_line[0] === "#"){
-                // console.log("")
-                this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
-                this.returnToMain();
-            }
-
-            // normal line without @
-            if (dia_line[0] !== "@"){
-                this.displayDialogue(dia_line, 0, false);
-                this.setState({script_count: this.state.script_count + 1});
-                return;
-            }
-
-            // if this is a @ line and not @Q
-            if (dia_line[0] === "@" && dia_line[1] !== "Q"){
-                this.displayDialogue(dia_line.substring(4), 0, false);
-                this.setState({script_count: this.state.script_count + 1});
-                return;
-            }
-
+        // if this is a @ line
+        if (dia_line[0] === "@"){
+            dialogue = dia_line.substring(4);
             // pop choice window if @Q is detected while reading script
-            if (dia_line[0] === "@" && dia_line[1] === "Q"){
-                this.displayDialogue(dia_line.substring(4), 0, true);
-                // console.log("pop choice");
-                return;
-            }
+            if (dia_line[1] === "Q")
+                pop_q = true;
+        }
 
+        if (this.state.lineFinished) {
+            this.setState({lineFinished: false});
+            this.displayDialogue(dialogue, 0, pop_q);
+        }
+        else {
+            clearTimeout(this.currentTimeout);
+            this.displayDialogue(dialogue, dialogue.length, pop_q);
         }
     } 
 
@@ -199,15 +187,14 @@ class Event extends React.Component {
             document.getElementById('dialogue').innerHTML = part;
 
         if (i < dialogue.length){
-            setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
+            this.currentTimeout = setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
         }
             
         else {
-            this.setState({lineFinished: true});
+            this.setState({lineFinished: true, script_count: this.state.script_count+1});
             if (pop_q){
                 this.setState({
                     popUpChoice : "choice",
-                    script_count: this.state.script_count + 1,
                     pop_q: dialogue,
                 });
             }
@@ -218,7 +205,7 @@ class Event extends React.Component {
         this.setState({
             popUpChoice: "",
             chosenChoice: choiceId,
-            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])
+            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1]),
         });
         await new Promise(resolve => setTimeout(resolve, 1));
         // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
