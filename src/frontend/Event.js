@@ -72,13 +72,10 @@ class Event extends React.Component {
             if (location === "Swimming Pool" && year === 4 && sem === 3) {
                 return SwimmingPool;
             }
-            else {
-                this.props.playSong(NoEvent);
-                this.setState({noEvent: true});
-                return noEvent;
-            }
-                
 
+            this.props.playSong(NoEvent);
+            this.setState({noEvent: true});
+            return noEvent;
         }
 
         this.state = {

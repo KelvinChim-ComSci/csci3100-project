@@ -34,7 +34,6 @@ class Main extends React.Component {
             location: "main",
             started: 0,
             overflow: 1,
-            backgroundImage: null,
         };
 
         this.statRef = React.createRef();
@@ -232,7 +231,7 @@ class Main extends React.Component {
             return (
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
-                    <div className="popUp" style={{backgroundImage: `url(${this.state.img})`}}>
+                    <div className="popUp">
                     <MainEvent 
                         handlePopupBackground={this.handlePopupBackground} 
                         resetData={this.resetData} 
@@ -344,8 +343,8 @@ class Main extends React.Component {
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "schedule" })}>Open schedule</button>
                     <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
-                    <button onClick={() => this.playSong(wooSingBeat)}>Play song</button>
-                    <button onClick={() => this.pauseSong()}>Pause Song</button>
+                    <button className="btn btn-success" onClick={() => this.playSong(wooSingBeat)}>Play song</button>
+                    <button className="btn btn-success" onClick={() => this.pauseSong()}>Pause Song</button>
                 </div>
             )
         }

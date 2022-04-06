@@ -34,7 +34,7 @@ import MoneyEnding from "../EventScript/MoneyEnding.txt"
 import HappinessEnding from "../EventScript/HappinessEnding.txt"
 import NullEnding from "../EventScript/NullEnding.txt"
 
-
+import mainBg from '../../backend/background/mainEvent.jpg';
 import mapintro_bg from '../../backend/img/MapIntro.png';
 import menuintro_bg from '../../backend/img/MenuIntro.png';
 import profileintro_bg from '../../backend/img/ProfileIntro.png';
@@ -44,6 +44,7 @@ import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
 import messageintro_bg from '../../backend/img/MessageIntro.png';
 import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 
+import TrollSong from '../../backend/music/TrollSong.mp3';
 import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
 
 class MainEvent extends React.Component {
@@ -140,7 +141,7 @@ class MainEvent extends React.Component {
         .then(r => r.text())
         .then(text => {
           this.script_list = text.split('\n');
-          document.getElementById('dialogue').innerHTML = this.script_list[0];
+          this.displayDialogue(this.script_list[0], 0, false);
           this.script_answer = [];
           this.script_reaction_count = [];
         //   this.script_reaction = [];
@@ -166,8 +167,17 @@ class MainEvent extends React.Component {
             chosenChoice: -1,
             pop_q: "",
             img: null,
+            backgroundImage: mainBg,
         }
         
+    }
+
+    componentDidMount(){
+        this.props.playSong(TrollSong);
+    }
+
+    componentWillUnmount() {
+        this.props.pauseSong();
     }
 
     returnToMain() {
@@ -175,10 +185,12 @@ class MainEvent extends React.Component {
     }
 
     handleClick() {
-        console.log("script line #", this.state.script_count);
-        var dia_line = this.script_list[this.state.script_count];
-        console.log("string:", dia_line);
-        
+
+        let dia_line = this.script_list[this.state.script_count];
+        let dialogue = dia_line;
+        let pop_q = false;
+
+        //please do sth on this it looks so unclean
         if (this.props.stat.year === 1 && this.props.stat.sem == 0){
             switch (this.state.script_count) {
                 case 15:
@@ -205,12 +217,9 @@ class MainEvent extends React.Component {
               }
               
         }
-        
+
         // end event if # is detected
-        if (dia_line[0] === "#"){
-            // console.log("")
-            // handle stat change
-            console.log("dia_line.substring(1):", dia_line.substring(1).split(','))
+        if (this.state.lineFinished && dia_line[0] === "#") {
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
             if (this.props.stat.year === 5 && this.props.stat.sem === 1){
                 console.log("handle reset Data for ending")
@@ -220,33 +229,43 @@ class MainEvent extends React.Component {
             return;
         }
 
-        // normal line without @
-        if (dia_line[0] !== "@"){
-            document.getElementById('dialogue').innerHTML = dia_line;
-            this.setState({script_count: this.state.script_count + 1});
-            return;
+        // if this is a @ line
+        if (dia_line[0] === "@"){
+            dialogue = dia_line.substring(4);
+            // pop choice window if @Q is detected while reading script
+            if (dia_line[1] === "Q")
+                pop_q = true;
         }
 
-        // if this is a @ line and not @Q
-        if (dia_line[0] === "@" && dia_line[1] !== "Q"){
-            document.getElementById('dialogue').innerHTML = dia_line.substring(4);
-            this.setState({script_count: this.state.script_count + 1});
-            return;
+        if (this.state.lineFinished) {
+            this.setState({lineFinished: false});
+            this.displayDialogue(dialogue, 0, pop_q);
         }
-
-        // pop choice window if @Q is detected while reading script
-        if (dia_line[0] === "@" && dia_line[1] === "Q"){
-            dia_line = dia_line.substring(4);
-            document.getElementById('dialogue').innerHTML = dia_line;
-            console.log("pop choice");
-            this.setState({
-                popUpChoice : "choice",
-                script_count: this.state.script_count + 1,
-                pop_q: dia_line,
-            });
-            return;
+        else {
+            clearTimeout(this.currentTimeout);
+            this.displayDialogue(dialogue, dialogue.length, pop_q);
         }
     } 
+
+    displayDialogue(dialogue, i, pop_q){
+        let part = dialogue.substr(0, i);
+        if (document.getElementById('dialogue'))
+            document.getElementById('dialogue').innerHTML = part;
+
+        if (i < dialogue.length){
+            this.currentTimeout = setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
+        }
+            
+        else {
+            this.setState({lineFinished: true, script_count: this.state.script_count+1});
+            if (pop_q){
+                this.setState({
+                    popUpChoice : "choice",
+                    pop_q: dialogue,
+                });
+            }
+        }  
+    }
 
     async handleChoice(choiceId) {
         this.setState({
@@ -279,7 +298,7 @@ class MainEvent extends React.Component {
         require("./mainEvent.css");
 
         return (
-            <div id="mainEvent">
+            <div id="mainEvent" style={{backgroundImage: `url(${this.state.backgroundImage})`}}>
                 <div className="imageContainer">
                     <img src={this.state.img} />
                 </div>
