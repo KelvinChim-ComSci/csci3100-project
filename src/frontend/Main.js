@@ -220,7 +220,7 @@ class Main extends React.Component {
                         <Schedule 
                             popMainEvent={this.popMainEvent} 
                             handleSchedulePlan={this.handleSchedulePlan} 
-                            setOverflow={this.setOverflow} 
+                            setOverflow={this.setOverflow}
                         />
                     </div>
                 </div>
