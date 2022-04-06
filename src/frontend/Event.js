@@ -87,6 +87,7 @@ class Event extends React.Component {
             started: 0,
             pop_q: "",
             noEvent: false,
+            lineFinished: true,
         }
     }
 
@@ -104,7 +105,8 @@ class Event extends React.Component {
         .then(r => r.text())
         .then(text => {
             this.script_list = text.split('\n');
-            document.getElementById('dialogue').innerHTML = this.script_list[0];
+            this.setState({lineFinished: false});
+            this.displayDialogue(this.script_list[0], 0, false);
             this.script_answer = [];
             this.script_reaction_count = [];
             //   this.script_reaction = [];
@@ -151,44 +153,66 @@ class Event extends React.Component {
     }
 
     handleClick() {
-        // console.log("script line #", this.state.script_count);
-        var dia_line = this.script_list[this.state.script_count];
-        // console.log("string:", dia_line);
 
-        // end event if # is detected
-        if (dia_line[0] === "#"){
-            // console.log("")
-            this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
-            this.returnToMain();
-        }
+        if (this.state.lineFinished){
 
-        // normal line without @
-        if (dia_line[0] !== "@"){
-            document.getElementById('dialogue').innerHTML = dia_line;
-            this.setState({script_count: this.state.script_count + 1});
-            return;
-        }
+            this.setState({lineFinished: false});
 
-        // if this is a @ line and not @Q
-        if (dia_line[0] === "@" && dia_line[1] !== "Q"){
-            document.getElementById('dialogue').innerHTML = dia_line.substring(4);
-            this.setState({script_count: this.state.script_count + 1});
-            return;
-        }
+            // console.log("script line #", this.state.script_count);
+            var dia_line = this.script_list[this.state.script_count];
+            // console.log("string:", dia_line);
 
-        // pop choice window if @Q is detected while reading script
-        if (dia_line[0] === "@" && dia_line[1] === "Q"){
-            dia_line = dia_line.substring(4);
-            document.getElementById('dialogue').innerHTML = dia_line;
-            // console.log("pop choice");
-            this.setState({
-                popUpChoice : "choice",
-                script_count: this.state.script_count + 1,
-                pop_q: dia_line,
-            });
-            return;
+            // end event if # is detected
+            if (dia_line[0] === "#"){
+                // console.log("")
+                this.props.handleMaineventStat(dia_line.substring(1).split(','), !this.state.noEvent);
+                this.returnToMain();
+            }
+
+            // normal line without @
+            if (dia_line[0] !== "@"){
+                this.displayDialogue(dia_line, 0, false);
+                this.setState({script_count: this.state.script_count + 1});
+                return;
+            }
+
+            // if this is a @ line and not @Q
+            if (dia_line[0] === "@" && dia_line[1] !== "Q"){
+                this.displayDialogue(dia_line.substring(4), 0, false);
+                this.setState({script_count: this.state.script_count + 1});
+                return;
+            }
+
+            // pop choice window if @Q is detected while reading script
+            if (dia_line[0] === "@" && dia_line[1] === "Q"){
+                this.displayDialogue(dia_line.substring(4), 0, true);
+                // console.log("pop choice");
+                return;
+            }
+
         }
     } 
+
+    displayDialogue(dialogue, i, pop_q){
+        let part = dialogue.substr(0, i);
+        if (document.getElementById('dialogue'))
+            document.getElementById('dialogue').innerHTML = part;
+
+        if (i < dialogue.length){
+            setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
+        }
+            
+        else {
+            this.setState({lineFinished: true});
+            if (pop_q){
+                this.setState({
+                    popUpChoice : "choice",
+                    script_count: this.state.script_count + 1,
+                    pop_q: dialogue,
+                });
+            }
+        }  
+    }
 
     async handleChoice(choiceId) {
         this.setState({
@@ -208,9 +232,6 @@ class Event extends React.Component {
                     <div className="text" onClick={()=>this.handleClick()}>
                         <p id = "dialogue"></p>
                     </div>
-                    <svg className="corner" viewBox="0 0 88 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
-                    </svg>
                 </div>
 
             )
