@@ -25,6 +25,10 @@ import swimmingpool_bg from '../backend/background/swimmingpool.png'
 import cclib_bg from '../backend/background/cclib.png'
 import hochou_bg from '../backend/background/hochou.png'
 
+import NoEvent from '../backend/music/NoEvent.mp3';
+import TrollSong from '../backend/music/TrollSong.mp3';
+import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
+
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -36,27 +40,39 @@ class Event extends React.Component {
         this.eventChoice = eventChoice.bind(this);
 
         function eventChoice(location, year, sem){
-            if (location === "U Lib" && year === 1 && sem === 1)
+            if (location === "U Lib" && year === 1 && sem === 1) {
+                this.props.playSong(TrollSong);
                 return GateOfWisdom;
-            if (location === "UC" && year === 1 && sem === 2)
+            }
+            if (location === "UC" && year === 1 && sem === 2) {
                 return UC;
-            if (location === "NA")
+            }
+            if (location === "NA") {
                 return noEvent; // to be implemented
-            if (location === "University Station" && year === 3 && sem === 1)
+            }
+            if (location === "University Station" && year === 3 && sem === 1) {
                 return UniverityStation;
-            if (location === "Haddon-Cave")
+            }
+            if (location === "Haddon-Cave") {
                 return noEvent; // to be implemented
-            if (location === "Weiyuan Lake" && year === 2 && sem === 1)
+            }
+            if (location === "Weiyuan Lake" && year === 2 && sem === 1) {
                 return LakeAdExcellentiam;
-            if (location === "The University Mall" && year === 3 && sem === 1)
+            }
+            if (location === "The University Mall" && year === 3 && sem === 1) {
                 return UniversityMall;
-            if (location === "MedCan" && year === 4 && sem === 1)
+            }
+            if (location === "MedCan" && year === 4 && sem === 1) {
                 return MedCan;
-            if (location === "CC Lib" && year === 4 && sem === 2)
+            }
+            if (location === "CC Lib" && year === 4 && sem === 2) {
                 return CCLib;
-            if (location === "Swimming Pool" && year === 4 && sem === 3)
+            }
+            if (location === "Swimming Pool" && year === 4 && sem === 3) {
                 return SwimmingPool;
+            }
             else {
+                this.props.playSong(NoEvent);
                 this.setState({noEvent: true});
                 return noEvent;
             }
@@ -72,7 +88,10 @@ class Event extends React.Component {
             pop_q: "",
             noEvent: false,
         }
+    }
 
+    componentWillUnmount() {
+        this.props.pauseSong();
     }
 
     beginEvent(){

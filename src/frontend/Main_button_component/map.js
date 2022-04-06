@@ -3,9 +3,7 @@ import { withRouter } from '../withRouter.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import img from '../../backend/background/map.png';
 import ImageMapper from 'react-img-mapper';
-import { NavigationType } from "react-router-dom";
-import Main from "../Main";
-import App from "../../App";
+
 
 var URL = img;
 var MAP = {

@@ -26,6 +26,8 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
 
+        this.song = new Audio();
+
         this.state = {
             popUpBar: "",
             stat: null,
@@ -33,7 +35,6 @@ class Main extends React.Component {
             started: 0,
             overflow: 1,
             backgroundImage: null,
-            song: new Audio(CUHKSound),
         };
 
         this.statRef = React.createRef();
@@ -53,6 +54,9 @@ class Main extends React.Component {
         this.resetData = this.resetData.bind(this);
         this.setOverflow = this.setOverflow.bind(this);
         this.updateStat = this.updateStat.bind(this);
+
+        this.playSong = this.playSong.bind(this);
+        this.pauseSong = this.pauseSong.bind(this);
     }
 
     resetData() {
@@ -114,9 +118,22 @@ class Main extends React.Component {
             });
     }
 
+    playSong(name) {
+        this.song.src = name;
+        this.song.autoplay = true;
+        this.song.play();
+    }
+
+    pauseSong() {
+        if (this.song.paused) this.song.play();
+        else this.song.pause();
+    }
+
+    muteSong() {
+        (this.song.muted == true)? this.song.muted = false : this.song.muted = true;
+    }
+
     componentDidMount() {
-        //this.state.song.volume = 0.3;
-        //this.state.song.play();
         this.checkRefreshAndUpdate();
         window.addEventListener("beforeunload", (ev) => {
             ev.preventDefault();
@@ -125,7 +142,7 @@ class Main extends React.Component {
     }
 
     componentWillUnmount() {
-        // this.state.song.pause();
+        this.pauseSong();
     }
 
     async checkRefreshAndUpdate() {
@@ -155,7 +172,7 @@ class Main extends React.Component {
                             handleAboutMe={this.props.handleAboutMe}
                             username={this.props.username} 
                             friend={false} 
-                            setOverflow={this.setOverflow} 
+                            setOverflow={this.setOverflow}
                         />
                     </div>
                 </div>
@@ -169,7 +186,12 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp">
-                        <Map handleLocation={this.handleLocation} handlePopClose={this.handlePopClose} available={!this.state.started} stamina={this.state.stat.stamina}/>
+                        <Map 
+                            handleLocation={this.handleLocation} 
+                            handlePopClose={this.handlePopClose} 
+                            available={!this.state.started} 
+                            stamina={this.state.stat.stamina}
+                        />
                     </div>
                 </div>
             )
@@ -219,7 +241,11 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <FriendList stat={this.state.stat} setOverflow={this.setOverflow} updateStat={this.updateStat}/>
+                        <FriendList 
+                            stat={this.state.stat} 
+                            setOverflow={this.setOverflow}
+                            updateStat={this.updateStat}
+                        />
                     </div>
                 </div>
             )
@@ -305,13 +331,26 @@ class Main extends React.Component {
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "schedule" })}>Open schedule</button>
                     <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
+                    <button onClick={() => this.playSong(wooSingBeat)}>Play song</button>
+                    <button onClick={() => this.pauseSong()}>Pause Song</button>
                 </div>
             )
         }
         else {
             return (
                 <div className="split left">
-                    <Event year={this.state.stat.year} sem={this.state.stat.sem} stamina={this.state.stat.stamina} handleMaineventStat={this.handleMaineventStat} location={this.state.location} handleLocation={this.handleLocation} setEvent={this.setEvent} />
+                    <Event 
+                    year={this.state.stat.year} 
+                    sem={this.state.stat.sem} 
+                    stamina={this.state.stat.stamina} 
+                    handleMaineventStat={this.handleMaineventStat} 
+                    location={this.state.location} 
+                    handleLocation={this.handleLocation} 
+                    setEvent={this.setEvent} 
+                    
+                    playSong = {this.playSong}
+                    pauseSong = {this.pauseSong}
+                    />
                 </div>
             )
         }
