@@ -1,38 +1,6 @@
 import React from "react";
-import event1 from "../EventScript/event1.txt";
-import event2 from "../EventScript/event2.txt";
-import event3 from "../EventScript/event3.txt";
-import event4 from "../EventScript/event4.txt";
-import event5 from "../EventScript/event5.txt";
-import event6 from "../EventScript/event6.txt";
-import event7 from "../EventScript/event7.txt";
-import event8 from "../EventScript/event8.txt";
-import event9 from "../EventScript/event9.txt";
-import event10 from "../EventScript/event10.txt";
-import event11 from "../EventScript/event11.txt";
-import event12 from "../EventScript/event12.txt";
-import event13 from "../EventScript/event13.txt";
-import event14 from "../EventScript/event14.txt";
-import event15 from "../EventScript/event15.txt";
-import event16 from "../EventScript/event16.txt";
-import event17 from "../EventScript/event17.txt";
-import event18 from "../EventScript/event18.txt";
-import event19 from "../EventScript/event19.txt";
-import event20 from "../EventScript/event20.txt";
-import event21 from "../EventScript/event21.txt";
-import event22 from "../EventScript/event22.txt";
-import event23 from "../EventScript/event23.txt";
-import event24 from "../EventScript/event24.txt";
-import event25 from "../EventScript/event25.txt";
-import event26 from "../EventScript/event26.txt";
-import event27 from "../EventScript/event27.txt";
 
 import Choice from '../choiceWindow';
-import SportEnding from "../EventScript/SportEnding.txt"
-import StudyEnding from "../EventScript/StudyEnding.txt"
-import MoneyEnding from "../EventScript/MoneyEnding.txt"
-import HappinessEnding from "../EventScript/HappinessEnding.txt"
-import NullEnding from "../EventScript/NullEnding.txt"
 
 import mainBg from '../../backend/background/mainEvent.jpg';
 import mapintro_bg from '../../backend/img/MapIntro.png';
@@ -43,12 +11,13 @@ import rightstatintro_bg from '../../backend/img/RightStatIntro.png';
 import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
 import messageintro_bg from '../../backend/img/MessageIntro.png';
 import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
+import exam1 from "../EventScript/exam1.txt";
+import event8 from "../EventScript/event7.txt";
 
 import TrollSong from '../../backend/music/TrollSong.mp3';
 import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
-import AfterSchoolWithGirl from '../../backend/music/AfterSchoolWithGirl.mp3'
 
-class MainEvent extends React.Component {
+class Exam extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -64,6 +33,8 @@ class MainEvent extends React.Component {
             pop_q: "",
             img: null,
             backgroundImage: mainBg,
+            correct_count: 0,
+            question_count: 0,
         }
     }
 
@@ -87,144 +58,58 @@ class MainEvent extends React.Component {
           this.displayDialogue(this.script_list[0], 0, false);
           this.script_answer = [];
           this.script_reaction_count = [];
+          this.correct_answer = [];
         //   this.script_reaction = [];
           for (let k = 0; k < this.script_list.length; k++){
-              if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
+              if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
                   this.script_answer.push(this.script_list[k].substring(6));
                   this.script_reaction_count.push(this.script_list[k][4]);
-                  if (this.script_list[k][5] !== "@"){
-                      this.script_reaction_count.pop();
-                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]));
+                  if (this.script_list[k][5]!="@"){
+                      this.script_reaction_count.pop()
+                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
                       this.script_answer.pop();
                       this.script_answer.push(this.script_list[k].substring(7));
                   }
                 //   this.script_reaction.push(this.script_list[k+1]);
               }
+              if (this.script_list[k][0]==="="){
+                this.correct_answer.push(parseInt(this.script_list[k][1]))
+            }
           }
+          console.log(this.script_list)
+          console.log(this.script_answer)
+          console.log(this.correct_answer);
           console.log("script_reaction_count", this.script_reaction_count);
+          console.log(this.state.script_count)
         });
     }
 
     eventChoice(year, sem, stat) {
         //this.handlePopupBackground(mapintro_bg);
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
-        
-        const highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-        const songNumber = [year, sem];
+        const songNumber = 4 * year + sem;
         this.selectSong(songNumber);
-        if (year === 1 && sem === 0) {
-            return event1
-        }
-        if (year === 1 && sem === 1) {
-            return event2
-        }   
-        if (year === 1 && sem === 2) {
-            return event3
-        }
-        if (year === 1 && sem === 3) {
-            return event20
-        }
-        if (year === 1 && sem === 4){
-            if (stat.sports === highest) {
-                return event4
-            }
-            if (stat.gpa === highest) {
-                return event5
-            }
-            if (stat.happiness === highest) {
-                this.selectSong(1,1);
-                return event6
-            }
-            if (stat.money === highest) {
-                return event8
-            }
-        }
         if (year === 2 && sem === 1) {
-            return event7
-        }
-        if (year === 2 && sem === 2) {
-            return event9
-        }
-        if (year === 2 && sem === 3) {
-            if (stat.sports === highest && stat.sports > 25){
-                return event10
+            if (stat.gpa > 10){
+            return exam1
             }
-            if (stat.money === highest && stat.money > 25){
-                return event19
-            }
-            if (stat.gpa === highest && stat.gpa > 25){
-                return event25
-            }
-            if (stat.happiness === highest && stat.happiness > 25){
-                return event18
-            }
-            else return event26
+            else return exam1
         }
-        if (year === 2 && sem === 4) {
-            return event11
-        }
+
         if (year === 3 && sem === 1) {
-            return event12
-        }
-        if (year === 3 && sem === 2) {
-            return event13
-        }
-        if (year === 3 && sem === 3) {
-            return event14
-        }
-        if (year === 3 && sem === 4) {
-            return event15
+            return //event12
         }
         if (year === 4 && sem === 1) {
-            console.log("year 4 sem 1")
-
-            if (stat.sports === highest && stat.sports > 50){
-                return event24
-            }
-            if (stat.money === highest && stat.money > 50){
-                return event23
-            }
-            if (stat.gpa === highest && stat.gpa > 50){
-                return event21
-            }
-            if (stat.happiness === highest && stat.happiness > 50){
-                return event22
-            }
-            else return event27
-        }
-        if (year === 4 && sem === 2) {
-            return event16
-        }
-        if (year === 4 && sem === 3) {
-            return event17
-        }
-        if (year === 4 && sem === 4){
-            if  (stat.gpa > 75 && stat.gpa === highest){
-                return StudyEnding
-            }
-            if  (stat.happiness > 75 && stat.happiness === highest){
-                return HappinessEnding
-            }
-            if  (stat.money > 75 && stat.money === highest){
-                return MoneyEnding
-            }
-            if  (stat.gpa > 75 && stat.sports === highest){
-                return SportEnding
-            }
-            else return NullEnding
+            return //event27
         }
     }
 
-    selectSong(year, sem) {
-        const num = 4 * year + sem;
-        if (num === 4 || num === 6 || num === 8 || num === 10) {
+    selectSong(num) {
+        if (num === 4 || num === 6 || num === 7 || num === 10) {
             return this.props.playSong(TrollSong);
         }
         else if (num === 13 || num === 15) {
             return this.props.playSong(CUHKSound);
-        }
-        else if (num === 5) {
-            return this.props.playSong(AfterSchoolWithGirl);
         }
     }
 
@@ -234,7 +119,7 @@ class MainEvent extends React.Component {
         let pop_q = false;
 
         //please do sth on this it looks so unclean
-        if (this.props.stat.year === 1 && this.props.stat.sem === 0){
+        if (this.props.stat.year === 1 && this.props.stat.sem == 0){
             switch (this.state.script_count) {
                 case 15:
                     this.setState({img: schedulentro_bg});
@@ -264,16 +149,11 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
+            alert("You have answered "+this.state.correct_count+" number of questions correctly!");
             if (this.props.stat.year === 5 && this.props.stat.sem === 1){
                 console.log("handle reset Data for ending")
                 this.props.resetData();
                 this.returnToMain();
-            }
-            console.log("line 264")
-            console.log(this.props.stat.year)
-            console.log(this.props.stat.sem)
-            if (this.props.stat.year === 2 && this.props.stat.sem === 1){
-                this.props.handleExamPop();
             }
             return;
         }
@@ -285,6 +165,15 @@ class MainEvent extends React.Component {
             if (dia_line[1] === "Q")
                 pop_q = true;
         }
+        
+        // // check if the answer is correct
+        // if (dia_line[0] === "="){
+        //     console.log()
+        //     if (this.correct_answer[this.state.question_count] == this.state.chosenChoice){
+        //         this.setState({correct_count : this.state.correct_count + 1});
+        //     }
+        //     // this.setState({script_count: this.state.script_count + 1});
+        // }
 
         if (this.state.lineFinished) {
             this.setState({lineFinished: false});
@@ -320,21 +209,25 @@ class MainEvent extends React.Component {
         this.setState({
             popUpChoice: "",
             chosenChoice: choiceId,
-            script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1])
+            script_count: this.state.script_count + parseInt(this.script_reaction_count[4*this.state.question_count + choiceId - 1])
           })
-        
+        console.log(this.script_reaction_count[4*this.state.question_count + choiceId - 1])
         await new Promise(resolve => setTimeout(resolve, 1));
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
+        if (this.correct_answer[this.state.question_count] == this.state.chosenChoice){
+            this.setState({correct_count : this.state.correct_count + 1});
+        }
+        this.setState({question_count: this.state.question_count+1})
         this.handleClick();
       }
 
     popUp(option) {
         if (option === "choice")
             return (
-                <div className="mainEventPopUp">
+                <div className="examPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp" id = "choiceWindow">
-                        <Choice pop_q = {this.state.pop_q} script_answer={this.script_answer} handleChoice={this.handleChoice} />
+                        <Choice pop_q = {this.state.pop_q} script_answer={this.script_answer.slice(4*this.state.question_count,4*this.state.question_count+4)} handleChoice={this.handleChoice} />
                     </div>
                 </div>
                 )
@@ -344,10 +237,10 @@ class MainEvent extends React.Component {
     }
     
     render(){
-        require("./mainEvent.css");
+        require("./exam.css");
 
         return (
-            <div id="mainEvent" style={{backgroundImage: `url(${this.state.backgroundImage})`}}>
+            <div id="exam" style={{backgroundImage: `url(${this.state.backgroundImage})`}}>
                 <div className="imageContainer">
                     <img src={this.state.img} />
                 </div>
@@ -364,4 +257,4 @@ class MainEvent extends React.Component {
     }
 }
 
-export default MainEvent;
+export default Exam;

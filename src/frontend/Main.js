@@ -19,6 +19,7 @@ import Setting from './Main_button_component/setting';
 
 import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
 import wooSingBeat from "../backend/music/WooSingBeat.mp3"
+import Exam from './Main_button_component/exam.js';
 
 
 class Main extends React.Component {
@@ -48,6 +49,7 @@ class Main extends React.Component {
         this.handlePopClose = this.handlePopClose.bind(this);
         this.handleMaineventStat = this.handleMaineventStat.bind(this);
         this.handleLocation = this.handleLocation.bind(this);
+        this.handleExamPop = this.handleExamPop.bind(this);
         this.popMainEvent = this.popMainEvent.bind(this);
         this.setEvent = this.setEvent.bind(this);
         this.resetData = this.resetData.bind(this);
@@ -104,6 +106,10 @@ class Main extends React.Component {
         if (this.state.stat.year > 4)
             return;
         this.setState({ popUpBar: "mainEvent" });
+    }
+    
+    handleExamPop(){
+        this.setState({ popUpBar: "exam" });
     }
 
     handlePopClose() {
@@ -238,7 +244,7 @@ class Main extends React.Component {
                         stat={this.state.stat} 
                         handleMaineventStat={this.handleMaineventStat} 
                         handlePopClose={this.handlePopClose} 
-
+                        handleExamPop={this.handleExamPop}
                         playSong = {this.playSong}
                         pauseSong = {this.pauseSong}
                     />
@@ -328,6 +334,26 @@ class Main extends React.Component {
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
                         <ShowUsers setOverflow={this.setOverflow} />
+                    </div>
+                </div>
+            )
+        }
+
+        if (option === "exam") {
+            return (
+                <div className="mainPopUp">
+                    <div id="shadowLayer"></div>
+                    <div className="popUp">
+                    <Exam
+                        handlePopupBackground={this.handlePopupBackground} 
+                        resetData={this.resetData} 
+                        stat={this.state.stat} 
+                        handleMaineventStat={this.handleMaineventStat} 
+                        handlePopClose={this.handlePopClose} 
+
+                        playSong = {this.playSong}
+                        pauseSong = {this.pauseSong}
+                    />
                     </div>
                 </div>
             )

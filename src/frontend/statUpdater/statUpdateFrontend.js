@@ -72,5 +72,6 @@ export function statScheduleUpdate(newStat, plan) {
             sem: newStat.sem+1,
         }
     }
+    alert("Your statistics has been updated!\n gpa: +"+String(newStat.gpa - original_stat.gpa) + "\n sports: +" +String(newStat.sports - original_stat.sports) + "\n happiness: +" + String(newStat.happiness - original_stat.happiness) + "\n Money: +" +String(newStat.money - original_stat.money))
     return newStat;
 }
