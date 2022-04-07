@@ -129,7 +129,7 @@ class Main extends React.Component {
     }
 
     muteSong() {
-        (this.song.muted == true)? this.song.muted = false : this.song.muted = true;
+        (this.song.muted)? this.song.muted = false : this.song.muted = true;
     }
 
     componentDidMount() {
@@ -343,7 +343,7 @@ class Main extends React.Component {
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "schedule" })}>Open schedule</button>
                     <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
-                    <button className="btn btn-success" onClick={() => this.playSong(wooSingBeat)}>Play song</button>
+                    <button className="btn btn-success" onClick={() => this.playSong(wooSingBeat)}>Dem個和聲Beat</button>
                     <button className="btn btn-success" onClick={() => this.pauseSong()}>Pause Song</button>
                 </div>
             )

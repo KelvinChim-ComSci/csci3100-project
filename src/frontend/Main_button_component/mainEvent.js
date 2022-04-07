@@ -46,6 +46,7 @@ import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 
 import TrollSong from '../../backend/music/TrollSong.mp3';
 import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
+import AfterSchoolWithGirl from '../../backend/music/AfterSchoolWithGirl.mp3'
 
 class MainEvent extends React.Component {
     constructor(props) {
@@ -88,12 +89,12 @@ class MainEvent extends React.Component {
           this.script_reaction_count = [];
         //   this.script_reaction = [];
           for (let k = 0; k < this.script_list.length; k++){
-              if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
+              if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
                   this.script_answer.push(this.script_list[k].substring(6));
                   this.script_reaction_count.push(this.script_list[k][4]);
-                  if (this.script_list[k][5]!="@"){
-                      this.script_reaction_count.pop()
-                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
+                  if (this.script_list[k][5] !== "@"){
+                      this.script_reaction_count.pop();
+                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]));
                       this.script_answer.pop();
                       this.script_answer.push(this.script_list[k].substring(7));
                   }
@@ -107,7 +108,9 @@ class MainEvent extends React.Component {
     eventChoice(year, sem, stat) {
         //this.handlePopupBackground(mapintro_bg);
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
-        const songNumber = 4 * year + sem;
+        
+        const highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+        const songNumber = [year, sem];
         this.selectSong(songNumber);
         if (year === 1 && sem === 0) {
             return event1
@@ -122,7 +125,6 @@ class MainEvent extends React.Component {
             return event20
         }
         if (year === 1 && sem === 4){
-            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
             if (stat.sports === highest) {
                 return event4
             }
@@ -130,6 +132,7 @@ class MainEvent extends React.Component {
                 return event5
             }
             if (stat.happiness === highest) {
+                this.selectSong(1,1);
                 return event6
             }
             if (stat.money === highest) {
@@ -143,7 +146,6 @@ class MainEvent extends React.Component {
             return event9
         }
         if (year === 2 && sem === 3) {
-            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
             if (stat.sports === highest && stat.sports > 25){
                 return event10
             }
@@ -175,7 +177,6 @@ class MainEvent extends React.Component {
         }
         if (year === 4 && sem === 1) {
             console.log("year 4 sem 1")
-            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
 
             if (stat.sports === highest && stat.sports > 50){
                 return event24
@@ -191,10 +192,13 @@ class MainEvent extends React.Component {
             }
             else return event27
         }
-        if (year === 4 && sem === 2){return event16}
-        if (year === 4 && sem === 3){return event17}
+        if (year === 4 && sem === 2) {
+            return event16
+        }
+        if (year === 4 && sem === 3) {
+            return event17
+        }
         if (year === 4 && sem === 4){
-            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
             if  (stat.gpa > 75 && stat.gpa === highest){
                 return StudyEnding
             }
@@ -211,12 +215,16 @@ class MainEvent extends React.Component {
         }
     }
 
-    selectSong(num) {
-        if (num === 4 || num === 6 || num === 7 || num === 10) {
+    selectSong(year, sem) {
+        const num = 4 * year + sem;
+        if (num === 4 || num === 6 || num === 8 || num === 10) {
             return this.props.playSong(TrollSong);
         }
         else if (num === 13 || num === 15) {
             return this.props.playSong(CUHKSound);
+        }
+        else if (num === 5) {
+            return this.props.playSong(AfterSchoolWithGirl);
         }
     }
 
@@ -226,7 +234,7 @@ class MainEvent extends React.Component {
         let pop_q = false;
 
         //please do sth on this it looks so unclean
-        if (this.props.stat.year === 1 && this.props.stat.sem == 0){
+        if (this.props.stat.year === 1 && this.props.stat.sem === 0){
             switch (this.state.script_count) {
                 case 15:
                     this.setState({img: schedulentro_bg});
