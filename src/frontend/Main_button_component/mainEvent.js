@@ -53,91 +53,33 @@ class MainEvent extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
-
+        this.selectSong = this.selectSong.bind(this);
         //this.handlePopupBackground = this.props.handlePopupBackground;
         
-        function eventChoice(year,sem, stat){
-
-            //test
-            //this.handlePopupBackground(mapintro_bg);
-
-            // since the event pops up after the schdules end, the time in the story should -1 sem in here
-            if (year === 1 && sem === 0){return event1}
-            if (year === 1 && sem === 1){return event2}   
-            if (year === 1 && sem === 2){return event3}
-            if (year === 1 && sem === 3){return event20}
-            if (year === 1 && sem === 4){
-                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if (stat.sports === highest){return event4}
-                if (stat.gpa === highest) {return event5}
-                if (stat.happiness === highest) {return event6}
-                if (stat.money === highest) {return event8}
-            }
-            if (year === 2 && sem === 1){return event7}
-            if (year === 2 && sem === 2){return event9}
-            if (year === 2 && sem === 3){
-                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-
-                if (stat.sports === highest && stat.sports > 25){
-                    return event10
-                }
-                if (stat.money === highest && stat.money > 25){
-                    return event19
-                }
-                if (stat.gpa === highest && stat.gpa > 25){
-                    return event25
-                }
-                if (stat.happiness === highest && stat.happiness > 25){
-                    return event18
-                }
-                else return event26
-
-            }
-            if (year === 2 && sem === 4){return event11}
-            if (year === 3 && sem === 1){return event12}
-            if (year === 3 && sem === 2){return event13}
-            if (year === 3 && sem === 3){return event14}
-            if (year === 3 && sem === 4){return event15}
-            if (year === 4 && sem === 1){
-                console.log("year 4 sem 1")
-                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-
-                if (stat.sports === highest && stat.sports > 50){
-                    return event24
-                }
-                if (stat.money === highest && stat.money > 50){
-                    return event23
-                }
-                if (stat.gpa === highest && stat.gpa > 50){
-                    return event21
-                }
-                if (stat.happiness === highest && stat.happiness > 50){
-                    return event22
-                }
-                else return event27
-            }
-            if (year === 4 && sem === 2){return event16}
-            if (year === 4 && sem === 3){return event17}
-            if (year === 4 && sem === 4){
-                let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-                if  (stat.gpa > 75 && stat.gpa === highest){
-                    return StudyEnding
-                }
-                if  (stat.happiness > 75 && stat.happiness === highest){
-                    return HappinessEnding
-                }
-                if  (stat.money > 75 && stat.money === highest){
-                    return MoneyEnding
-                }
-                if  (stat.gpa > 75 && stat.sports === highest){
-                    return SportEnding
-                }
-                else return NullEnding
-
-            }
+        this.state = {
+            script_count : 1,
+            popUpChoice : "",
+            chosenChoice: -1,
+            pop_q: "",
+            img: null,
+            backgroundImage: mainBg,
         }
+    }
 
-        fetch(eventChoice(this.props.stat.year, this.props.stat.sem, this.props.stat))
+    componentDidMount() {
+        this.startEventChoice();
+    }
+
+    componentWillUnmount() {
+        this.props.pauseSong();
+    }
+
+    returnToMain() {
+        this.props.handlePopClose();
+    }
+
+    async startEventChoice() {
+        fetch(this.eventChoice(this.props.stat.year, this.props.stat.sem, this.props.stat))
         .then(r => r.text())
         .then(text => {
           this.script_list = text.split('\n');
@@ -160,32 +102,125 @@ class MainEvent extends React.Component {
           }
           console.log("script_reaction_count", this.script_reaction_count);
         });
+    }
 
-        this.state = {
-            script_count : 1,
-            popUpChoice : "",
-            chosenChoice: -1,
-            pop_q: "",
-            img: null,
-            backgroundImage: mainBg,
+    eventChoice(year, sem, stat) {
+        //this.handlePopupBackground(mapintro_bg);
+        // since the event pops up after the schdules end, the time in the story should -1 sem in here
+        const songNumber = 4 * year + sem;
+        this.selectSong(songNumber);
+        if (year === 1 && sem === 0) {
+            return event1
         }
-        
+        if (year === 1 && sem === 1) {
+            return event2
+        }   
+        if (year === 1 && sem === 2) {
+            return event3
+        }
+        if (year === 1 && sem === 3) {
+            return event20
+        }
+        if (year === 1 && sem === 4){
+            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+            if (stat.sports === highest) {
+                return event4
+            }
+            if (stat.gpa === highest) {
+                return event5
+            }
+            if (stat.happiness === highest) {
+                return event6
+            }
+            if (stat.money === highest) {
+                return event8
+            }
+        }
+        if (year === 2 && sem === 1) {
+            return event7
+        }
+        if (year === 2 && sem === 2) {
+            return event9
+        }
+        if (year === 2 && sem === 3) {
+            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+            if (stat.sports === highest && stat.sports > 25){
+                return event10
+            }
+            if (stat.money === highest && stat.money > 25){
+                return event19
+            }
+            if (stat.gpa === highest && stat.gpa > 25){
+                return event25
+            }
+            if (stat.happiness === highest && stat.happiness > 25){
+                return event18
+            }
+            else return event26
+        }
+        if (year === 2 && sem === 4) {
+            return event11
+        }
+        if (year === 3 && sem === 1) {
+            return event12
+        }
+        if (year === 3 && sem === 2) {
+            return event13
+        }
+        if (year === 3 && sem === 3) {
+            return event14
+        }
+        if (year === 3 && sem === 4) {
+            return event15
+        }
+        if (year === 4 && sem === 1) {
+            console.log("year 4 sem 1")
+            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+
+            if (stat.sports === highest && stat.sports > 50){
+                return event24
+            }
+            if (stat.money === highest && stat.money > 50){
+                return event23
+            }
+            if (stat.gpa === highest && stat.gpa > 50){
+                return event21
+            }
+            if (stat.happiness === highest && stat.happiness > 50){
+                return event22
+            }
+            else return event27
+        }
+        if (year === 4 && sem === 2){return event16}
+        if (year === 4 && sem === 3){return event17}
+        if (year === 4 && sem === 4){
+            let highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
+            if  (stat.gpa > 75 && stat.gpa === highest){
+                return StudyEnding
+            }
+            if  (stat.happiness > 75 && stat.happiness === highest){
+                return HappinessEnding
+            }
+            if  (stat.money > 75 && stat.money === highest){
+                return MoneyEnding
+            }
+            if  (stat.gpa > 75 && stat.sports === highest){
+                return SportEnding
+            }
+            else return NullEnding
+        }
     }
 
-    componentDidMount(){
-        this.props.playSong(TrollSong);
-    }
-
-    componentWillUnmount() {
-        this.props.pauseSong();
-    }
-
-    returnToMain() {
-        this.props.handlePopClose();
+    selectSong(num) {
+        if (num === 4 || num === 6 || num === 7 || num === 10) {
+            return this.props.playSong(TrollSong);
+        }
+        else if (num === 13 || num === 15) {
+            return this.props.playSong(CUHKSound);
+        }
     }
 
     handleClick() {
-
         let dia_line = this.script_list[this.state.script_count];
         let dialogue = dia_line;
         let pop_q = false;
@@ -247,7 +282,7 @@ class MainEvent extends React.Component {
         }
     } 
 
-    displayDialogue(dialogue, i, pop_q){
+    async displayDialogue(dialogue, i, pop_q){
         let part = dialogue.substr(0, i);
         if (document.getElementById('dialogue'))
             document.getElementById('dialogue').innerHTML = part;
@@ -257,7 +292,7 @@ class MainEvent extends React.Component {
         }
             
         else {
-            this.setState({lineFinished: true, script_count: this.state.script_count+1});
+            this.setState({lineFinished: true, script_count: this.state.script_count + 1});
             if (pop_q){
                 this.setState({
                     popUpChoice : "choice",
