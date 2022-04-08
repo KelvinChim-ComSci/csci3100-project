@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
 const statisticHandling = require('./statisticHandler.js');
+const achievementHandling = require('./achievementHandler.js');
 const dotenv = require('dotenv');
 const { ObjectId } = require('mongodb');
 dotenv.config();
@@ -108,6 +109,9 @@ module.exports.register = async function (req, res) {
 
                 // intialize user statistics
                 await statisticHandling.initalizeStat(response.id);
+
+                // intialize user statistics
+                await achievementHandling.initalizeAchievement(response.id);
 
                 //send mail here
                 await sendVerifyMail(inputEmail, inputUsername, response._id);

@@ -63,7 +63,7 @@ module.exports.achievementUpdate = async function (req, res) {
 module.exports.achievement = async function (req, res) {
     console.log('hello1 ');
     console.log(req.params.userId);
-    Achievement.findOne({user:req.params.userId}) //.findOne({ user: req.body.userId}) // req.params.userId 
+    Achievement.findOne({user:req.params.userId}) //req.params.userId 
         .then((data) => {
             console.log('data');
             res.json(data);
