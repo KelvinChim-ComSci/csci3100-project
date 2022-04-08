@@ -66,12 +66,12 @@ class ShowUsers extends React.Component {
 
                         {this.state.userList.map((data) => {
                             return (
-                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data) }}>
+                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data); this.props.setOverflow(0);}} >
                                     <th scope="row">{data.userId}</th>
                                     <td>{data.username}</td>
                                     <td>{data.displayName}</td>
                                     <td>{data.email}</td>
-                                    <td><button onClick={(e) => this.resetUserPassword(e, data)}>Reset Password</button></td>
+                                    <td><button onClick={(e) => {this.resetUserPassword(e, data); this.props.setOverflow(0);}}>Reset Password</button></td>
                                 </tr>
 
                             );
@@ -121,8 +121,7 @@ class ShowUsers extends React.Component {
             return (
                 <div>
                     <div id="shadowLayer"></div>
-                    <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
-                    <div className="popUp">
+                    <div className="popUp" style={{width: "auto", height: "auto"}}>
                         <ChangePassword id={this.state.target._id} handlePopClose={this.handleInnerPopClose} setOverflow={this.props.setOverflow} loginPage={false} />
                     </div>
                 </div>

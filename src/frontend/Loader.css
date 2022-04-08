@@ -1,4 +1,4 @@
-.loader{
+.blackBackground .loader{
   position: absolute;
   height: 100px;
   width: 100px;
@@ -9,7 +9,7 @@
   background-size: 100%;
 }
 
-.container {
+.blackBackground .container {
     height: 100%;
     width: 100%;
     background-color: rgb(0, 0, 0);

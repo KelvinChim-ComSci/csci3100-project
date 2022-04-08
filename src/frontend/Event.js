@@ -32,6 +32,7 @@ import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
 class Event extends React.Component {
     constructor(props) {
         super(props);
+        this.mounted = false;
         this.currentTimeout = null;
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
@@ -51,8 +52,14 @@ class Event extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.mounted = true;
+    }
+
     componentWillUnmount() {
         this.props.pauseSong();
+        this.mounted = false;
+        clearTimeout(this.currentTimeout);
     }
 
     eventChoice(location, year, sem){
@@ -170,6 +177,7 @@ class Event extends React.Component {
                 pop_q = true;
         }
 
+        
         if (this.state.lineFinished) {
             this.setState({lineFinished: false});
             this.displayDialogue(dialogue, 0, pop_q);
@@ -178,11 +186,12 @@ class Event extends React.Component {
             clearTimeout(this.currentTimeout);
             this.displayDialogue(dialogue, dialogue.length, pop_q);
         }
+        
     } 
 
     displayDialogue(dialogue, i, pop_q){
         let part = dialogue.substr(0, i);
-        if (document.getElementById('dialogue'))
+        if (document.getElementById('dialogue') && this.mounted)
             document.getElementById('dialogue').innerHTML = part;
 
         if (i < dialogue.length){

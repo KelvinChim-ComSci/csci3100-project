@@ -51,6 +51,7 @@ import AfterSchoolWithGirl from '../../backend/music/AfterSchoolWithGirl.mp3'
 class MainEvent extends React.Component {
     constructor(props) {
         super(props);
+        this.mounted = false;
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
@@ -69,10 +70,13 @@ class MainEvent extends React.Component {
 
     componentDidMount() {
         this.startEventChoice();
+        this.mounted = true;
     }
 
     componentWillUnmount() {
         this.props.pauseSong();
+        this.mounted = false;
+        clearTimeout(this.currentTimeout);
     }
 
     returnToMain() {
@@ -264,11 +268,6 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
-            if (this.props.stat.year === 5 && this.props.stat.sem === 1){
-                console.log("handle reset Data for ending")
-                this.props.resetData();
-                this.returnToMain();
-            }
             console.log("line 264")
             console.log(this.props.stat.year)
             console.log(this.props.stat.sem)
@@ -298,7 +297,7 @@ class MainEvent extends React.Component {
 
     async displayDialogue(dialogue, i, pop_q){
         let part = dialogue.substr(0, i);
-        if (document.getElementById('dialogue'))
+        if (document.getElementById('dialogue') && this.mounted)
             document.getElementById('dialogue').innerHTML = part;
 
         if (i < dialogue.length){

@@ -14,6 +14,17 @@ class StatDisplay extends React.Component {
         this.setState({ stat: { ...this.state.stat, ...stat } });
     }
 
+    displaySemester(){
+        if (this.state.stat.hasOwnProperty('year') && this.state.stat.year>4)
+            return (
+                <span style={{paddingLeft: 0}}>Graduated</span>
+            )
+        else
+            return (
+                <span style={{paddingLeft: 0}}>Year {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""} sem {(this.state.stat.hasOwnProperty('sem'))? Math.ceil(this.state.stat.sem/2) : ""} ({(this.state.stat.hasOwnProperty('sem'))? ((this.state.stat.sem%2 === 0)? "2nd" : "1st") : ""} half)</span>
+            )
+    }
+
     render(){
         require('./statDisplay.css');
         return (
@@ -55,7 +66,8 @@ class StatDisplay extends React.Component {
 
                         </table>
 
-                        Year {(this.state.stat.hasOwnProperty('year'))? this.state.stat.year : ""} sem {(this.state.stat.hasOwnProperty('sem'))? Math.ceil(this.state.stat.sem/2) : ""} ({(this.state.stat.hasOwnProperty('sem'))? ((this.state.stat.sem%2 === 0)? "2nd" : "1st") : ""} half)
+                        {this.displaySemester()}
+                        
 
                 </div>
             </div>

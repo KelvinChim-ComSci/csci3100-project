@@ -7,11 +7,13 @@ newStat = {
     money: newStat.money + parseInt(dia_line_sub[2]),
     happiness: newStat.happiness + parseInt(dia_line_sub[3]),
 }
+
 if (newStat.year === 1 && newStat.sem === 0){
     newStat = {
         ...newStat,
        sem: newStat.sem + 1,
     }
 }
+
 return newStat;
 }

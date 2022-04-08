@@ -274,7 +274,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <Setting resetData={this.resetData} id={this.state.stat.user} setOverflow={this.setOverflow} handlePopClose={this.handlePopClose} />
+                        <Setting resetData={this.resetData} id={this.state.stat.user} setOverflow={this.setOverflow} handlePopClose={this.handlePopClose} year={this.state.stat.year}/>
                     </div>
                 </div>
             )
