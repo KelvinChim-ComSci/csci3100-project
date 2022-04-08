@@ -66,7 +66,7 @@ class ShowUsers extends React.Component {
 
                         {this.state.userList.map((data) => {
                             return (
-                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data); this.props.setOverflow(0);}} >
+                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data); this.props.setOverflow(0);}} style={{cursor: "pointer"}}>
                                     <th scope="row">{data.userId}</th>
                                     <td>{data.username}</td>
                                     <td>{data.displayName}</td>
