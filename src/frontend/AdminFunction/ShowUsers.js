@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Profile from "../Main_button_component/profile";
 import { statRetrievebyId } from "../statUpdater/statRetrievebyId";
 import ChangePassword from "../SignInPage/ChangePassword";
+import Loading from "../Loader";
 
 class ShowUsers extends React.Component {
 
@@ -14,6 +15,7 @@ class ShowUsers extends React.Component {
             targetStatistic: "",
             target: null,
             overflow: 1,
+            loading: true
         }
 
         this.getUserList = this.getUserList.bind(this);
@@ -42,7 +44,8 @@ class ShowUsers extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 this.setState({ userList: res.userList });
-                console.log(this.state.userList)
+                console.log(this.state.userList);
+                this.setState({ loading: false });
             });
     }
 
@@ -130,20 +133,23 @@ class ShowUsers extends React.Component {
 
 
     render() {
+        if (this.state.loading) {
+            return (<Loading />)
+        } else {
+            return (
+                <div className="showUsers">
+                    <h2>Users</h2>
+                    <div>
+                        {this.displayUserList()}
+                    </div>
+                    <div>
+                        {this.popUp()}
+                    </div>
 
-        return (
-            <div className="showUsers">
-                <h2>Users</h2>
-                <div>
-                    {this.displayUserList()}
                 </div>
-                <div>
-                    {this.popUp()}
-                </div>
 
-            </div>
-
-        )
+            )
+        }
     }
 }
 
