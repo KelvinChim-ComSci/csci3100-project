@@ -148,13 +148,16 @@ class Exam extends React.Component {
 
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
-            this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
-            alert("You have answered "+this.state.correct_count+" number of questions correctly!");
-            if (this.props.stat.year === 5 && this.props.stat.sem === 1){
-                console.log("handle reset Data for ending")
-                this.props.resetData();
-                this.returnToMain();
+            let line = dia_line.substring(1).split(',');
+            let wrong_count = this.state.question_count-this.state.correct_count;
+            // should be [0,0,0,0] for all exam, change num corr. to gpa to correct counut
+            if (this.state.correct_count >= wrong_count){
+                line[0] = this.state.correct_count;
+            }else{
+                line[0] = wrong_count;
             }
+            this.props.handleMaineventStat(line, false);
+            alert("You have answered "+this.state.correct_count+" number of questions correctly!");
             return;
         }
 
