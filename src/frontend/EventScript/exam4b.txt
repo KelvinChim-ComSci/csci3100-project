@@ -1,0 +1,35 @@
+~Year 4 Final Exam~
+(await)
+Ready for your exam!
+@QQ@ Where is the so-called “Couples’ road” ?
+@A1,5@ Near United College
+@A2,5@ sdvmlkf[p1ej1(!@#)]
+@A3,5@ !@*#^!&*)@(*&)
+@A4,5@ Near Med Can
+=1
+@QQ@ Which is not in the so-called “四大chur科 (4 most exhausting subject)?
+@A1,5@ Medic
+@A2,5@ !@&^(*#)(&)(^)
+@A3,5@ Architecture
+@A4,5@ adj'kRTYUIO%^&*()
+=2
+@QQ@ Which canteen is famous for its 頹飯? (cursory rice)
+@A1,5@ Med Can
+@A2,5@ fjh!@&(*#)_!
+@A3,5@ NA Can
+@A4,5@ CC Can
+=4
+@QQ@ In Med Can, how much is the Lemon Pie?
+@A1,5@ $11.9
+@A2,5@ !&^@%*(#*@!$)
+@A3,5@ $13.5
+@A4,5@ $14.3
+=3
+@QQ@ In the viral Woo Sing Beat video, how many students are there?
+@A1,5@ 7
+@A2,5@ jdfgho112
+@A3,5@ we;fwe
+@A4,5@ 11
+=3
+End of exam
+#0,0,0,0

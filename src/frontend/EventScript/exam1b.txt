@@ -3,33 +3,33 @@
 Ready for your exam!
 @QQ@ What is the earliest lesson available in CUHK?
 @A1,5@ 7:30 am
-@A2,5@ 8:00 am
+@A2,5@ @odsifh9833@@Rei*
 @A3,5@ 8:30 am
-@A4,5@ 9:00 am
+@A4,5@ dfjhdsjpfisjdfo
 =3
 @QQ@ In some myth, which place in the CUHK leads to the lotus pond of Hong Kong University?
 @A1,5@ Gate of Wisdom
-@A2,5@ Lake Ad Excellentiam
-@A3,5@ Lady Shaw Building
+@A2,5@ sdjkhlfwe p8r q8[]
+@A3,5@ smf;iasd 
 @A4,5@ New Asia College
 =2
 @QQ@ Where can we find the name of graduates of NA College?
-@A1,5@ New Asia Amphitheatre    
+@A1,5@ *@($^!@&#!J)
 @A2,5@ New Asia Water Tower
-@A3,5@ The Statue of Confucius
+@A3,5@ efjr238 r12@
 @A4,5@ New Asia Clock Tower    
 =1
 @QQ@ Which of the following colleges does not require students to register the hostel?
-@A1,5@ MorningSide College
+@A1,5@ ewkrho1p[2r j0]
 @A2,5@ S.H. Ho College
-@A3,5@ CW Chu College
+@A3,5@ kjsdafoeiw[r]
 @A4,5@ Lee Woo Sing College
 =4
 @QQ@ Which of the following museums is in CUHK?
 @A1,5@ Hong Kong Museum of Art
-@A2,5@ Hong Kong Space Museum
+@A2,5@ dfjq8[32nr0]
 @A3,5@ Jockey Club Museum of Climate Change
-@A4,5@ Hong Kong Maritime Museum
+@A4,5@ !@&#*)(&@!!) Museum
 =3
 End of exam
 #0,0,0,0

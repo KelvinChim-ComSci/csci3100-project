@@ -1,0 +1,35 @@
+~Year 2 Final Exam~
+(await)
+Ready for your exam!
+@QQ@ Which of the following colleges does not require students to work on a FYP?
+@A1,5@ New Asia College
+@A2,5@ !@&($)(@!^$_B@!U_)N
+@A3,5@ CW Chu College
+@A4,5@ 23or[nu810rx]
+=1
+@QQ@ Where can we find the statue of Sir Charles Kuen Kao?
+@A1,5@ Science Center
+@A2,5@ !*(@&_#*NF)
+@A3,5@ !@JI{I!R I!KFA}
+@A4,5@ Ho Sin-Hang Engineering Building
+=3
+@QQ@ Which of the following faculty does not exist in CUHK?
+@A1,5@ Theology
+@A2,5@ fsjndjaon[f8[2j3]]
+@A3,5@ Art
+@A4,5@ 12o839021-j8(!#@) 
+=1
+@QQ@ Which of the following restaurants is in Lee Woo Sing College?
+@A1,5@ Joyful
+@A2,5@ Cafe Tolo
+@A3,5@ dfko2 @()U!@#()
+@A4,5@ Orchid Lodge
+=2
+@QQ@ Which of the following buildings is the Department of Mathematics located at?
+@A1,5@ Lady Shaw Building
+@A2,5@ AJS FI{QPJ 192 i29]i1}
+@A3,5@ !@&*#_!&@*R
+@A4,5@ University Science Center
+=1
+End of exam
+#0,0,0,0

@@ -1,0 +1,35 @@
+~Year 3 Final Exam~
+(await)
+Ready for your exam!
+@QQ@ Which of the following subjects does not exist in CUHK?
+@A1,5@ Radiology
+@A2,5@ Mathematics
+@A3,5@ Geography
+@A4,5@ Economy
+=1
+@QQ@ What is the current name of the building “Integrated Teaching Building" in the past?
+@A1,5@ Pi Ch'iu Bldg
+@A2,5@ Mong Man Wai Building
+@A3,5@ YIA
+@A4,5@ ARC Lee Shau Kee Architecture Building
+=4
+@QQ@ Which of the following colleges have a place for barbecue?
+@A1,5@ MorningSide College
+@A2,5@ S.H. Ho College
+@A3,5@ CW Chu College
+@A4,5@ Lee Woo Sing College
+=4
+@QQ@ In myth, in what way you walk past the Gate of Wisdom will stop you from graduating?
+@A1,5@ Walk through it without shoes
+@A2,5@ Walk through it without clothes
+@A3,5@ Walk through it towards the direction of ULib
+@A4,5@ Walk through it facing the direction of University Mal
+=4
+@QQ@ Which of the following colleges does not have a gym room?
+@A1,5@ Chung Chi College
+@A2,5@ New Asia College
+@A3,5@ United College
+@A4,5@ Shaw College
+=1
+End of exam
+#0,0,0,0

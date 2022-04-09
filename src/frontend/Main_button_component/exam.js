@@ -12,7 +12,13 @@ import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
 import messageintro_bg from '../../backend/img/MessageIntro.png';
 import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 import exam1 from "../EventScript/exam1.txt";
-import event8 from "../EventScript/event7.txt";
+import exam1b from "../EventScript/exam1b.txt";
+import exam2 from "../EventScript/exam2.txt";
+import exam2b from "../EventScript/exam2b.txt";
+import exam3 from "../EventScript/exam3.txt";
+import exam3b from "../EventScript/exam3b.txt";
+import exam4 from "../EventScript/exam4.txt";
+import exam4b from "../EventScript/exam4b.txt";
 
 import TrollSong from '../../backend/music/TrollSong.mp3';
 import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
@@ -90,18 +96,34 @@ class Exam extends React.Component {
         const songNumber = 4 * year + sem;
         this.selectSong(songNumber);
         if (year === 2 && sem === 1) {
-            if (stat.gpa > 10){
+            if (stat.gpa > 20){
             return exam1
             }
-            else return exam1
+            else return exam1b
         }
 
         if (year === 3 && sem === 1) {
-            return //event12
+            if (stat.gpa > 30){
+            return exam2
+            }
+            else return exam2b
         }
+
         if (year === 4 && sem === 1) {
-            return //event27
+            if (stat.gpa > 50){
+            return exam3
+            }
+            else return exam3b
         }
+
+        if (year === 5 && sem === 1) {
+            if (stat.gpa > 60){
+            return exam4
+            }
+            else return exam4b
+        }
+
+
     }
 
     selectSong(num) {
