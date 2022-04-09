@@ -271,7 +271,7 @@ class MainEvent extends React.Component {
             console.log("line 264")
             console.log(this.props.stat.year)
             console.log(this.props.stat.sem)
-            if (this.props.stat.year === 2 && this.props.stat.sem === 1){
+            if (this.props.stat.year > 1 && this.props.stat.sem === 1){
                 this.props.handleExamPop();
             }
             return;

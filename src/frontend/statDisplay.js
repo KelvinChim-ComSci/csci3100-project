@@ -43,7 +43,7 @@ class StatDisplay extends React.Component {
                         <tbody>
                             <tr>
                                 <td>GPA: </td>
-                                <td>{(this.state.stat.hasOwnProperty('gpa'))? this.state.stat.gpa : ""}</td>
+                                <td>{(this.state.stat.hasOwnProperty('gpa'))? parseFloat(this.state.stat.gpa/150 * 4).toFixed(2) : ""}</td>
                             </tr>
                             <tr>
                                 <td>Sports: </td>
