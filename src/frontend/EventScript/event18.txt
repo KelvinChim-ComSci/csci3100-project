@@ -12,6 +12,16 @@ Ken: Go with me today! It would be fun!
 @R1@ You attended the high table dinner alone and not many people are talking to you.(-happiness)
 #0,0,0,-1
 @R2@ Ken: Great! See you there!
-@R2@ You guys have fun and meet a lot of friends. (+happiness)
-#0,0,0,1
+@R2@ You guys have fun and meet a lot of friends. 
+@R2@ You meet a girl there. Her name is Kelly.
+@R2@ She looks gorgeous with a red dress. 
+@R2@ After the high table dinner, you went to your friend's room to have some chat.
+@R2@ You were drunk, and you and Kelly were left in the same room, sleeping on the same bed...
+@R2@ ......
+@R2@ You: (headache) What happed last nigth.
+@R2@ You suddenly discover that you are naked, Kelly is also naked and is sleeping next to you.
+@R2@ You try to wake her up, she hugs you tightly and you can say nothing.
+@R2@ You two had breakfast together in the canteen, and promise not to tell other about what happened last night.
+(+happiness)
+#0,0,0,5
 
