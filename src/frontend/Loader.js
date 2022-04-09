@@ -8,7 +8,7 @@ const Loading = () => {
     return (
         <div className="blackBackground">
             <div className="container">
-                <Loader.RotatingSquare class="loader" color="#FFFFFF" height={80} width={80} />
+                <Loader.RotatingSquare className="loader" color="#FFFFFF" height={80} width={80} />
                 Loading...
             </div>
         </div>

@@ -57,7 +57,7 @@ class Setting extends React.Component {
 
                 <div className="d-flex flex-column">
                     <button className="btn btn-success" onClick={() => {this.setState({popUpBar : "password"}); this.props.setOverflow(0);}}>Change Password</button>
-                    <button className="btn btn-success" onClick={() => {this.setState({popUpBar : "reset"}); this.props.setOverflow(0);}}>Reset Data</button>
+                    <button style={{display: `${this.props.year>4? "" : "none"}`}}className="btn btn-success" onClick={() => {this.setState({popUpBar : "reset"}); this.props.setOverflow(0);}}>Reset Data</button>
                     <button className="btn btn-success" onClick={this.props.handlePopClose}>Back</button>
                 </div>
 

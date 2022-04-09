@@ -34,6 +34,17 @@ class Profile extends React.Component {
         this.fetchImg = this.fetchImg.bind(this);
           
       }
+
+    displaySemester(){
+        if (this.props.stat.year>4)
+            return (
+                <span>Graduated</span>
+            )
+        else
+            return (
+                <span>Year {this.props.stat.year} Sem {Math.ceil(this.props.stat.sem/2)}</span>
+            )
+    }
       
     popUp(option) {
         const msg = this.state.message;
@@ -270,7 +281,7 @@ class Profile extends React.Component {
                         In-game progress: {this.props.achievement}
                     </div>
                     <div className="row">
-                        <div className="col">Current semester: Year {this.props.stat.year} Sem {Math.ceil(this.props.stat.sem/2)}</div>
+                        <div className="col">Current semester: {this.displaySemester()}</div>
                         <div className="col">Stamina: {this.props.stat.stamina}</div>
                     </div>
                     <div className="row">
