@@ -56,6 +56,9 @@ class MainEvent extends React.Component {
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
         this.selectSong = this.selectSong.bind(this);
+        //this.achievementHandle = this.achievementHandle.bind(this);
+        this.achievementUpdate = this.achievementUpdate.bind(this);
+        this.achievementEndCheck = this.achievementEndCheck.bind(this);
         //this.handlePopupBackground = this.props.handlePopupBackground;
         
         this.state = {
@@ -65,6 +68,7 @@ class MainEvent extends React.Component {
             pop_q: "",
             img: null,
             backgroundImage: mainBg,
+            achievementCheck: "",
         }
     }
 
@@ -137,6 +141,8 @@ class MainEvent extends React.Component {
             }
             if (stat.happiness === highest) {
                 this.selectSong(1,1);
+                this.setState({achievementCheck: "6"});
+                console.log("achievement6");
                 return event6
             }
             if (stat.money === highest) {
@@ -160,6 +166,8 @@ class MainEvent extends React.Component {
                 return event25
             }
             if (stat.happiness === highest && stat.happiness > 25){
+                this.setState({achievementCheck: "18"});
+                console.log("achievement18");
                 return event18
             }
             else return event26
@@ -232,6 +240,51 @@ class MainEvent extends React.Component {
         }
     }
 
+    achievementUpdate(achievementName){
+        fetch(process.env.REACT_APP_BASE_URL + "/achievement/update" , {
+            method: "POST",
+            headers: new Headers({
+                "Content-Type": 'application/json',
+                "Accept": 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Credentials": true,
+            }), 
+            body: JSON.stringify({
+                userId: this.props.stat.user,
+                achievement: achievementName
+            }),
+        })
+        .then((res) => res.json())
+        .then((res) => alert(res.message));
+    }
+ 
+    achievementEndCheck(){
+        if (this.props.stat.gpa > 112) { //GPA>2.99
+            console.log("nerd"); 
+            this.achievementUpdate("nerd");                      
+        }
+        if (this.props.stat.sports > 100) {
+            console.log("tooStronk4u");
+            this.achievementUpdate("tooStronk4u");
+        }
+        if (this.props.stat.happiness > 100) {
+            console.log("happyjai");
+            this.achievementUpdate("happyjai");
+        }
+        if (this.props.stat.money < 10) {
+            console.log("futureSecurityGuard");
+            this.achievementUpdate("futureSecurityGuard");
+        }
+        if (this.props.stat.happiness == 0) {
+            console.log("emotionalDamage");
+            this.achievementUpdate("emotionalDamage");
+        }
+        if (this.props.stat.gpa < 37) { //GPA<0.99
+            console.log("whoEvenStudies");
+            this.achievementUpdate("whoEvenStudies");
+        }}
+
     handleClick() {
         let dia_line = this.script_list[this.state.script_count];
         let dialogue = dia_line;
@@ -267,11 +320,28 @@ class MainEvent extends React.Component {
 
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
+             //Check achievement if end event
+             if (this.state.achievementCheck=="6"){     
+                console.log("sociable");
+                this.achievementUpdate("sociable");
+                this.setState({achievementCheck: ""});                
+            }
+            if (this.state.achievementCheck=="18"){     
+                console.log("fxxxboy");
+                this.achievementUpdate("fxxxboy");
+                this.setState({achievementCheck: ""});
+            }
+
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
             console.log("line 264")
             console.log(this.props.stat.year)
             console.log(this.props.stat.sem)
             if (this.props.stat.year > 1 && this.props.stat.sem === 1){
+                //Check Achievement when graduated
+                if (this.props.stat.year === 5 ) {
+                    this.achievementEndCheck();
+                }
+                //Enter Exam                
                 this.props.handleExamPop();
             }
             return;
@@ -324,6 +394,10 @@ class MainEvent extends React.Component {
         
         await new Promise(resolve => setTimeout(resolve, 1));
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
+        // Achievement: if not dating girl or go dinner, set state
+        if (this.state.chosenChoice=="1" && (this.state.script_count=="9"||this.state.script_count=="10")) {
+            this.setState({ achievementCheck: ""});
+        }
         this.handleClick();
       }
 

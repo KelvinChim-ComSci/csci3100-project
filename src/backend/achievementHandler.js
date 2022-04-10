@@ -12,46 +12,24 @@ var AchievementSchema = mongoose.Schema({
     emotionalDamage: { type:Boolean,required: true }, //end with 0 happiness
 });
 var Achievement = mongoose.model('Achievement', AchievementSchema);
-
-{/*
-const data = {
-    user: "621bab81c74d97546edc007f" ,
-    sociable: true,
-    fxxxboy: false,
-    happyjai: false,
-    nerd: false,
-    tooStronk4u: false,
-    whoEvenStudies: false,
-    futureSecurityGuard: false,
-    emotionalDamage: false
-};
-
-//Saving data to mongo database
-
-//var newUser = User(data);
-var newAchievement = Achievement(data);
-
-newAchievement.save((error) => {
-     if(error){
-         console.log(error);
-    }else{
-        console.log('Data Saved');
-    }
-});
-*/}
-
+  
 module.exports.achievementUpdate = async function (req, res) {
+    console.log(req.body.achievement);
+    console.log("req.body.achievement");
+
+   // array = [sociable,fxxxboy,happyjai,nerd,tooStronk4u,whoEvenStudies,futureSecurityGuard, emotionalDamage];
+   array = ["sociable","fxxxboy","happyjai","nerd","tooStronk4u","whoEvenStudies","futureSecurityGuard", "emotionalDamage"];
+  
+    for (let index = 0; index < array.length; index++) {
+       if (array[index] == req.body.achievement) {
+           var e = array[index];
+           var set = {};
+           set[e] = true;
+       }       
+    }
+
     Achievement.findOneAndUpdate({ user: req.body.userId }, {
-        $set: {
-            sociable: req.body.sociable,
-            fxxxboy: req.body.fxxxboy,
-            happyjai: req.body.happyjai,
-            nerd: req.body.nerd,
-            tooStronk4u: req.body.tooStronk4u,
-            whoEvenStudies: req.body.whoEvenStudies,
-            futureSecurityGuard: req.body.futureSecurityGuard,
-            emotionalDamage: req.body.emotionalDamage,
-        }
+        $set: set    
     }, {
         new: true
     }, async function (error, response) {
@@ -61,7 +39,6 @@ module.exports.achievementUpdate = async function (req, res) {
 }
 
 module.exports.achievement = async function (req, res) {
-    console.log('hello1 ');
     console.log(req.params.userId);
     Achievement.findOne({user:req.params.userId}) //req.params.userId 
         .then((data) => {
