@@ -28,7 +28,7 @@
     color: rgb(0, 26, 255);
   }
 
-a { color: inherit; } 
+.event a { color: inherit; } 
 
 .text span {
     opacity: 0;
