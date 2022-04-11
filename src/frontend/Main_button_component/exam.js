@@ -20,16 +20,12 @@ import exam3b from "../EventScript/exam3b.txt";
 import exam4 from "../EventScript/exam4.txt";
 import exam4b from "../EventScript/exam4b.txt";
 
-import TrollSong from '../../backend/music/TrollSong.mp3';
-import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
-
 class Exam extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
-        this.selectSong = this.selectSong.bind(this);
         //this.handlePopupBackground = this.props.handlePopupBackground;
         
         this.state = {
@@ -70,7 +66,7 @@ class Exam extends React.Component {
               if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
                   this.script_answer.push(this.script_list[k].substring(6));
                   this.script_reaction_count.push(this.script_list[k][4]);
-                  if (this.script_list[k][5]!="@"){
+                  if (this.script_list[k][5] !== "@"){
                       this.script_reaction_count.pop()
                       this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
                       this.script_answer.pop();
@@ -93,8 +89,6 @@ class Exam extends React.Component {
     eventChoice(year, sem, stat) {
         //this.handlePopupBackground(mapintro_bg);
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
-        const songNumber = 4 * year + sem;
-        this.selectSong(songNumber);
         if (year === 2 && sem === 1) {
             if (stat.gpa > 20){
             return exam1
@@ -126,22 +120,13 @@ class Exam extends React.Component {
 
     }
 
-    selectSong(num) {
-        if (num === 4 || num === 6 || num === 7 || num === 10) {
-            return this.props.playSong(TrollSong);
-        }
-        else if (num === 13 || num === 15) {
-            return this.props.playSong(CUHKSound);
-        }
-    }
-
     handleClick() {
         let dia_line = this.script_list[this.state.script_count];
         let dialogue = dia_line;
         let pop_q = false;
 
         //please do sth on this it looks so unclean
-        if (this.props.stat.year === 1 && this.props.stat.sem == 0){
+        if (this.props.stat.year === 1 && this.props.stat.sem === 0){
             switch (this.state.script_count) {
                 case 15:
                     this.setState({img: schedulentro_bg});
@@ -239,7 +224,7 @@ class Exam extends React.Component {
         console.log(this.script_reaction_count[4*this.state.question_count + choiceId - 1])
         await new Promise(resolve => setTimeout(resolve, 1));
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
-        if (this.correct_answer[this.state.question_count] == this.state.chosenChoice){
+        if (this.correct_answer[this.state.question_count] === this.state.chosenChoice){
             this.setState({correct_count : this.state.correct_count + 1});
         }
         this.setState({question_count: this.state.question_count+1})

@@ -7,7 +7,7 @@ It is now your turn. The staff there ask you what you want to eat.
 @A2,4@ You: Um… Sorry, please give me a moment.
 @R1@ The staff seems to be pleased and give you an extra amount of meat. 
 @R1@ Later you were told by Joyce that the staff there does not like students to think for so long since there is always a long queue at Med can. 
-@R1@ People then developed the “What so ever” order to speed up the delivery process.(+ hapiness)
+@R1@ People then developed the “What so ever” order to speed up the delivery process.(+ happiness)
 #0,0,0,1
 @R2@ You take a deep look into the paper and discover that it is really intersting. You spend even more time to study and work on related projects. 
 #0,0,0,-1

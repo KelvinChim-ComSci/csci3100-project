@@ -47,6 +47,14 @@ import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 import TrollSong from '../../backend/music/TrollSong.mp3';
 import CUHKSound from '../../backend/music/CUHK_Soundscape.mp3';
 import AfterSchoolWithGirl from '../../backend/music/AfterSchoolWithGirl.mp3'
+import ElevatorMusic from '../../backend/music/ElevatorMusic.mp3';
+import Investigation from '../../backend/music/Investigation.mp3';
+import WiiShop from '../../backend/music/WiiShop.mp3';
+import ClassroomNoise from '../../backend/music/ClassroomNoise.mp3';
+import Restaurant from '../../backend/music/Restaurant.mp3';
+import Gym from '../../backend/music/Gym.mp3';
+import NoEvent from '../../backend/music/NoEvent.mp3';
+import Millionaire from '../../backend/music/Millionaire.mp3'
 
 class MainEvent extends React.Component {
     constructor(props) {
@@ -118,126 +126,151 @@ class MainEvent extends React.Component {
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
         
         const highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
-        const songNumber = [year, sem];
-        this.selectSong(songNumber);
         if (year === 1 && sem === 0) {
+            this.selectSong(CUHKSound);
             return event1
         }
         if (year === 1 && sem === 1) {
+            this.selectSong(ClassroomNoise);
             return event2
         }   
         if (year === 1 && sem === 2) {
+            this.selectSong(Investigation);
             return event3
         }
         if (year === 1 && sem === 3) {
+            this.selectSong(Investigation);
             return event20
         }
         if (year === 1 && sem === 4){
             if (stat.sports === highest) {
+                this.selectSong(Investigation);
                 return event4
             }
             if (stat.gpa === highest) {
+                this.selectSong(Investigation);
                 return event5
             }
             if (stat.happiness === highest) {
-                this.selectSong(1,1);
+                this.selectSong(AfterSchoolWithGirl);
                 this.setState({achievementCheck: "6"});
                 console.log("achievement6");
                 return event6
             }
             if (stat.money === highest) {
+                this.selectSong(ElevatorMusic);
                 return event8
             }
         }
         if (year === 2 && sem === 1) {
+            this.selectSong(WiiShop);
             return event7
         }
         if (year === 2 && sem === 2) {
+            this.selectSong(ClassroomNoise);
             return event9
         }
         if (year === 2 && sem === 3) {
             if (stat.sports === highest && stat.sports > 25){
+                this.selectSong(Investigation);
                 return event10
             }
             if (stat.money === highest && stat.money > 25){
+                this.selectSong(WiiShop);
                 return event19
             }
             if (stat.gpa === highest && stat.gpa > 25){
+                this.selectSong(CUHKSound);
                 return event25
             }
             if (stat.happiness === highest && stat.happiness > 25){
                 this.setState({achievementCheck: "18"});
+                this.selectSong(Restaurant);
                 console.log("achievement18");
                 return event18
             }
-            else return event26
+            else {
+                this.selectSong(Restaurant);
+                return event26
+            }
         }
         if (year === 2 && sem === 4) {
+            this.selectSong(CUHKSound);
             return event11
         }
         if (year === 3 && sem === 1) {
+            this.selectSong(CUHKSound);
             return event12
         }
         if (year === 3 && sem === 2) {
+            this.selectSong(Investigation);
             return event13
         }
         if (year === 3 && sem === 3) {
+            this.selectSong(WiiShop);
             return event14
         }
         if (year === 3 && sem === 4) {
+            this.selectSong(CUHKSound);
             return event15
         }
         if (year === 4 && sem === 1) {
-            console.log("year 4 sem 1")
 
             if (stat.sports === highest && stat.sports > 50){
+                this.selectSong(Gym);
                 return event24
             }
             if (stat.money === highest && stat.money > 50){
+                this.selectSong(Restaurant);
                 return event23
             }
             if (stat.gpa === highest && stat.gpa > 50){
+                this.selectSong(NoEvent);
                 return event21
             }
             if (stat.happiness === highest && stat.happiness > 50){
+                this.selectSong(Investigation);
                 return event22
             }
-            else return event27
+            else {
+                this.selectSong(CUHKSound);
+                return event27
+            }
         }
         if (year === 4 && sem === 2) {
+            this.selectSong(Investigation);
             return event16
         }
         if (year === 4 && sem === 3) {
+            this.selectSong(CUHKSound);
             return event17
         }
         if (year === 4 && sem === 4){
             if  (stat.gpa > 75 && stat.gpa === highest){
+                this.selectSong(ClassroomNoise);
                 return StudyEnding
             }
             if  (stat.happiness > 75 && stat.happiness === highest){
+                this.selectSong(WiiShop);
                 return HappinessEnding
             }
             if  (stat.money > 75 && stat.money === highest){
+                this.selectSong(Millionaire);
                 return MoneyEnding
             }
             if  (stat.gpa > 75 && stat.sports === highest){
+                this.selectSong(WiiShop);
                 return SportEnding
             }
-            else return NullEnding
+            else {
+                this.selectSong(TrollSong);
+                return NullEnding
+            }
         }
     }
 
-    selectSong(year, sem) {
-        const num = 4 * year + sem;
-        if (num === 4 || num === 6 || num === 8 || num === 10) {
-            return this.props.playSong(TrollSong);
-        }
-        else if (num === 13 || num === 15) {
-            return this.props.playSong(CUHKSound);
-        }
-        else if (num === 5) {
-            return this.props.playSong(AfterSchoolWithGirl);
-        }
+    selectSong(songName) {
+            return this.props.playSong(songName);
     }
 
     achievementUpdate(achievementName){
@@ -276,7 +309,7 @@ class MainEvent extends React.Component {
             console.log("futureSecurityGuard");
             this.achievementUpdate("futureSecurityGuard");
         }
-        if (this.props.stat.happiness == 0) {
+        if (this.props.stat.happiness === 0) {
             console.log("emotionalDamage");
             this.achievementUpdate("emotionalDamage");
         }
@@ -321,12 +354,12 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
              //Check achievement if end event
-             if (this.state.achievementCheck=="6"){     
+             if (this.state.achievementCheck === "6"){     
                 console.log("sociable");
                 this.achievementUpdate("sociable");
                 this.setState({achievementCheck: ""});                
             }
-            if (this.state.achievementCheck=="18"){     
+            if (this.state.achievementCheck === "18"){     
                 console.log("fxxxboy");
                 this.achievementUpdate("fxxxboy");
                 this.setState({achievementCheck: ""});
@@ -395,7 +428,7 @@ class MainEvent extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1));
         console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         // Achievement: if not dating girl or go dinner, set state
-        if (this.state.chosenChoice=="1" && (this.state.script_count=="9"||this.state.script_count=="10")) {
+        if (this.state.chosenChoice === "1" && (this.state.script_count === "9"||this.state.script_count === "10")) {
             this.setState({ achievementCheck: ""});
         }
         this.handleClick();

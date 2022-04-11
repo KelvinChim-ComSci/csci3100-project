@@ -35,8 +35,8 @@ module.exports.sendRequest = async function (req, res) {
                 accepted: 0
             })
             .then(res.send({
-                message: "Request sent! A request has been sent to this user. \
-                You will see them online if they accept your request."
+                message: "Request sent! A request has been sent to this user." +
+                " You will see them online if they accept your request."
             }))
         } else { 
             res.send({ message: requestCondition.message })
@@ -46,7 +46,7 @@ module.exports.sendRequest = async function (req, res) {
 
 module.exports.checkRequestCondition = async function (userId, friendId) {
     try {
-        if (friendId == userId) return { message: "You cannot add yourself as friend!" };
+        if (friendId === userId) return { message: "You cannot add yourself as friend!" };
         let existingRequest = await FriendList.findOne({
             $and: [{ accepted: false }, { requester: userId }, { recipient: friendId }]
         });

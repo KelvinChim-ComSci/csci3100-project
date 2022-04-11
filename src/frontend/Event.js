@@ -71,12 +71,14 @@ class Event extends React.Component {
             return UC;
         }
         if (location === "NA") {
+            this.props.playSong(NoEvent);
             return noEvent; // to be implemented
         }
         if (location === "University Station" && year === 3 && sem === 1) {
             return UniverityStation;
         }
         if (location === "Haddon-Cave") {
+            this.props.playSong(NoEvent);
             return noEvent; // to be implemented
         }
         if (location === "Weiyuan Lake" && year === 2 && sem === 1) {

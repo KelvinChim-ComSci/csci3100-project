@@ -18,10 +18,10 @@ module.exports.achievementUpdate = async function (req, res) {
     console.log("req.body.achievement");
 
    // array = [sociable,fxxxboy,happyjai,nerd,tooStronk4u,whoEvenStudies,futureSecurityGuard, emotionalDamage];
-   array = ["sociable","fxxxboy","happyjai","nerd","tooStronk4u","whoEvenStudies","futureSecurityGuard", "emotionalDamage"];
+   let array = ["sociable","fxxxboy","happyjai","nerd","tooStronk4u","whoEvenStudies","futureSecurityGuard", "emotionalDamage"];
   
     for (let index = 0; index < array.length; index++) {
-       if (array[index] == req.body.achievement) {
+       if (array[index] === req.body.achievement) {
            var e = array[index];
            var set = {};
            set[e] = true;
@@ -34,7 +34,10 @@ module.exports.achievementUpdate = async function (req, res) {
         new: true
     }, async function (error, response) {
         if (error) return console.log(error)
-        else return console.log("Data saved successfully.");
+        else {
+            console.log("Data saved successfully.")
+            return res.send({ Message: "Data saved successfully."})
+        };
     })
 }
 

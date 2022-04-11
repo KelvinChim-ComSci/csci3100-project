@@ -42,10 +42,10 @@ function sendVerifyMail(mail, username, id) {
 }
 
 function sendforgetPasswordMail(mail, username, id) {
-    let context = "Dear " + username + "," + "\n\n"
+    let context = "Dear " + username + ",\n\n"
         + "You have received this email because you have forgotten your CU Simulator password. "
-        + "If you believe you have received this email in error, please contact us at " + "cusimulator3100@gmail.com" + "\n\n"
-        + "You can use the following link to reset your password now." + "\n\n"
+        + "If you believe you have received this email in error, please contact us at cusimulator3100@gmail.com\n\n"
+        + "You can use the following link to reset your password now.\n\n"
         + process.env.FRONTEND_URL + "/changepassword/" + id + "\n\n"
         + "The above link will be expired after 12 hours, please reset the password soon.";
     let mailOptions = {
@@ -88,7 +88,7 @@ module.exports.register = async function (req, res) {
 
         //encrypt user password before store it into database
         const saltRounds = 10;
-        hashedPassword = await bcrypt.hash(inputPassword, saltRounds);
+        const hashedPassword = await bcrypt.hash(inputPassword, saltRounds);
 
         //get the lastest userID and do auto-increment
         const lastUserID = await User.findOne({}, { userId: 1 }).sort({ userId: -1 }).limit(1)
@@ -124,7 +124,7 @@ module.exports.register = async function (req, res) {
 module.exports.confirmEmail = async function (req, res) {
     const id = req.params.id
 
-    if (id.length != 24) {
+    if (id.length !== 24) {
         return res.send({ validURL: false, message: "Invalid URL" });
     }
 
@@ -134,7 +134,7 @@ module.exports.confirmEmail = async function (req, res) {
             return res.send({ message: "Invalid URL" }) // may route to another page later
         }
         else {
-            if (user.verified == true) {
+            if (user.verified === true) {
                 return res.send({ message: user.username + ", your email has been verified" }) // email already verified
             } else {
                 await User.findOneAndUpdate({ username: user.username }, { verified: true }); // verify email
@@ -244,7 +244,7 @@ module.exports.forgetPassword = async function (req, res) {
 //check the reset password link is valid or not 
 module.exports.checkResetLink = async function (req, res) {
     const id = req.params.id;
-    if (id.length != 24) {
+    if (id.length !== 24) {
         return res.send({ validURL: false, message: "Invalid URL" });
     }
 

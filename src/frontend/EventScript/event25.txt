@@ -7,5 +7,5 @@ However, your final exam is coming and you were busy preparing it.
 @A2,4@ Take a deep look into the paper and related works.
 @R1@ You ignore the paper that you have read and focus on your course. You got a good grade.
 #1,0,0,0
-@R2@ You take a deep look into the paper and discover that it is really intersting. You spend even more time to study and work on related projects. 
+@R2@ You take a deep look into the paper and discover that it is really interesting. You spend even more time to study and work on related projects. 
 #3,0,0,0

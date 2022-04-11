@@ -17,7 +17,6 @@ import StatDisplay from './statDisplay';
 import ShowUsers from './AdminFunction/ShowUsers.js';
 import Setting from './Main_button_component/setting';
 
-import CUHKSound from '../backend/music/CUHK_Soundscape.mp3';
 import wooSingBeat from "../backend/music/WooSingBeat.mp3"
 import Exam from './Main_button_component/exam.js';
 
@@ -126,11 +125,13 @@ class Main extends React.Component {
     playSong(name) {
         this.song.src = name;
         this.song.autoplay = true;
+        if (name === "WiiShop") this.song.volume = 0.16;
+        if (name === "ClassroomNoise") this.song.volume = 0.16;
         this.song.play();
     }
 
     pauseSong() {
-        if (this.song.paused) this.song.play();
+        if (this.song.paused) return;
         else this.song.pause();
     }
 
