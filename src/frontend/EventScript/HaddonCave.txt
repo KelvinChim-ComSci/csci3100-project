@@ -1,0 +1,16 @@
+You go to Haddon Cave and watch the college sports day with Ken.
+Ken: The athletes are so good at longjumping! Everyone can jump for at least 5 meters!
+Ken: Hey do you want to join them and play?
+You: You must be kidding...this is for the competitors!
+Ken: Don't worry! Some of them are doing it for the PE marks. Just sneak in and jump once!
+@QQ@ Do you want to try and do a longjump?
+@A1,2@ Sure...why not?
+@A2,6@ Hell no!
+@R1@ You: Yea why not. But you have to jump with me!
+@R1@ Ken: What? Sigh...fine let's go jump and play.
+@R1@ You and Ken tries longjumping. Although you only jumped for 4 meters, it is a fun time.
+#0,2,0,1
+@R2@ You: Of course not! You must be kidding!
+@R2@ Ken: yeah of course I am kidding! Do you think I'd really want to try instead of spectating?
+@R2@ You and Ken watched until the night has come.
+#0,0,0,1

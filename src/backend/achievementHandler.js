@@ -25,7 +25,7 @@ module.exports.achievementUpdate = async function (req, res) {
            var e = array[index];
            var set = {};
            set[e] = true;
-       }       
+        }       
     }
 
     Achievement.findOneAndUpdate({ user: req.body.userId }, {
@@ -35,8 +35,7 @@ module.exports.achievementUpdate = async function (req, res) {
     }, async function (error, response) {
         if (error) return console.log(error)
         else {
-            console.log("Data saved successfully.")
-            return res.send({ Message: "Data saved successfully."})
+            return res.send({ message: `You have unlocked an achievement: ${req.body.achievement}! Check it out in your profile!`})
         };
     })
 }

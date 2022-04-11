@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import GateOfWisdom from './EventScript/GateOfWisdom.txt';
 import HoChou from './EventScript/HoChou.txt';
 import LakeAdExcellentiam from './EventScript/LakeAdExcellentiam.txt';
+import HaddonCave from './EventScript/HaddonCave.txt';
 import MedCan from './EventScript/MedCan.txt';
 import SwimmingPool from './EventScript/SwimmingPool.txt';
 import ThreeBrothers from './EventScript/ThreeBrothers.txt';
 import UC from './EventScript/UC.txt';
+import NA from './EventScript/NA.txt';
 import UniversityMall from './EventScript/UniversityMall.txt';
 import UniverityStation from './EventScript/UniversityStation.txt';
 import CCLib from './EventScript/CCLib.txt'
@@ -69,23 +71,30 @@ class Event extends React.Component {
             return GateOfWisdom;
         }
         if (location === "UC" && year === 1 && sem === 2) {
+            this.props.playSong(CUHKSound);
             return UC;
         }
-        if (location === "NA") {
-            this.props.playSong(NoEvent);
-            return noEvent; // to be implemented
+        if (location === "NA" && year === 1 && sem === 3) {
+            this.props.playSong(CUHKSound);
+            return NA; 
         }
-        if (location === "University Station" && year === 3 && sem === 1) {
-            return UniverityStation;
-        }
-        if (location === "Haddon-Cave") {
-            this.props.playSong(NoEvent);
-            return noEvent; // to be implemented
+        if (location === "Haddon-Cave" && year === 1 && sem === 4) {
+            this.props.playSong(TrollSong);
+            return HaddonCave;
         }
         if (location === "Weiyuan Lake" && year === 2 && sem === 1) {
             return LakeAdExcellentiam;
         }
-        if (location === "The University Mall" && year === 3 && sem === 1) {
+        if (location === "CC HoCou" && year === 2 && sem === 2) {
+            return HoChou;
+        }
+        if (location === "The three brothers" && year === 2 && sem === 3) {
+            return ThreeBrothers;
+        }
+        if (location === "University Station" && year === 3 && sem === 1) {
+            return UniverityStation;
+        }
+        if (location === "The University Mall" && year === 3 && sem === 2) {
             return UniversityMall;
         }
         if (location === "MedCan" && year === 4 && sem === 1) {

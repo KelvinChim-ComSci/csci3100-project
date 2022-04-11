@@ -125,8 +125,9 @@ class Main extends React.Component {
     playSong(name) {
         this.song.src = name;
         this.song.autoplay = true;
+        this.song.loop = true;
         if (name === "WiiShop") this.song.volume = 0.16;
-        if (name === "ClassroomNoise") this.song.volume = 0.16;
+        if (name === "ClassroomNoise") this.song.volume = 0.05;
         this.song.play();
     }
 
