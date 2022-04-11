@@ -18,12 +18,13 @@ import na_bg from '../backend/background/na.jpeg'
 import unistation_bg from '../backend/background/unistation.png'
 import haddoncave_bg from '../backend/background/haddoncave.jpg'
 import weiyuanlake_bg from '../backend/background/weiyuanlake.png'
-import uc_bg from '../backend/background/uc.jpeg'
+import uc_bg from '../backend/background/uc.jpg'
 import unimall_bg from '../backend/background/unimall.jpeg'
-import medcan_bg from '../backend/background/medcan.png'
+import medcan_bg from '../backend/background/medcan.jpg'
 import swimmingpool_bg from '../backend/background/swimmingpool.png'
-import cclib_bg from '../backend/background/cclib.png'
+import cclib_bg from '../backend/background/cclib.jpg'
 import hochou_bg from '../backend/background/hochou.png'
+import threebrother_bg from '../backend/background/threebrother.jpg'
 
 import NoEvent from '../backend/music/NoEvent.mp3';
 import TrollSong from '../backend/music/TrollSong.mp3';
@@ -151,6 +152,7 @@ class Event extends React.Component {
         if (location === "Swimming Pool") return swimmingpool_bg;
         if (location === "CC Lib") return cclib_bg;
         if (location === "CC HoCou") return hochou_bg;
+        if (location === "The three brothers") return threebrother_bg;
 
     }
 
