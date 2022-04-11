@@ -14,6 +14,11 @@ if (newStat.year === 1 && newStat.sem === 0){
        sem: newStat.sem + 1,
     }
 }
-
+if (newStat.year === 5 && newStat.sem === 1){
+    newStat = {
+        ...newStat,
+       sem: newStat.sem + 1,
+    }
+}
 return newStat;
 }
