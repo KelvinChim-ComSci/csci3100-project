@@ -18,7 +18,7 @@ CU Simulator is a Strategy, point-and-click game featuring a student's journey i
 
 With different statistics and choices, you can decide different endings for the student. You can also add other players in game as friend to message them in real-time, and boost the statistics together. A friend recommendation system is also available for those who want to find other players along the way.
 
-The expected playtime is (to be tested).
+The expected playtime is 30 mins.
 
 ## Objective
 To raise freshmen’s interest in real university life and familiarize them with CUHK’s atmosphere, and to connect alumni of CUHK inside/outside the game.
