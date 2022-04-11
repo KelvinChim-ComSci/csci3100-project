@@ -1,13 +1,12 @@
 ~Starting a business?~
 As usual, you are having lunch with Ken and Joyce.
-Ken: (User name), have you ever thought of starting your own business? You seem to be earning much more than average university students!
+Ken: Have you ever thought of starting your own business? You seem to be earning much more than average university students!
 Joyce: Yeah, you always give people an image that you are rich and you have good business sense. I also think you should try to start your own business.
-@QQ@ What is your thought?
-@A1,2@ You: Actually I am also planning to do so. I am drafting the SOP and a business plan for a startup competition! 
-@A2,5@ You: No… I am not that ambitious. 
+@QQ@ How would you reply?
+@A1,2@ Actually I am also planning to do so. I am drafting the SOP and a business plan for a startup competition! 
+@A2,5@ No… I am not that ambitious. 
 @R1@ You prepared a business plan and were interviewed by a group of experienced businessmen. 
-@R1@ After a month from the interview, you were told that you won in the competition and got funding for starting your own business.
+@R1@ After a month from the interview, you were told that you won in the competition and got funding for starting your own business. (+money)
 #0,0,3,0
-@R2@ Joyce: That’s fine. I think that is also risky to do so though.
+@R2@ Joyce: That’s fine. I think that is also risky to do so.
 #0,0,0,0
-

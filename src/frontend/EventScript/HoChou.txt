@@ -1,17 +1,15 @@
 You have a tutorial at YIA today. After you finish the tutorial, you plan to walk to Med can to have lunch with Joyce and Ken. After you ride on the “seven dragons”, which is a series of elevators near YIA.
 Suddenly, you saw a cat on the grassland near YIA, namely Ho Chou. 
-@QQ@Do you want to pat the cat?
-@A1@ Yes
-@A2@ No
-a = ½, b=½ 
-@R1a@ The cat is sleeping. 
-@R1a@ You walk close to the cat and try to pat him. However, it seems that his mood is not good today and he runs away.
-@R1a@ You signed and feel really sad.
-@R1a@ You: Seems that today will be an unlucky day.
+@QQ@ What would you do?
+@A1,2@ Approach him quickly and pat him
+@A2,7@ Approach him slowly and pat him
+@R1@ The cat is sleeping. 
+@R1@ You walk quickly to the cat and try to pat him. However, it seems that his mood is not good today and he runs away.
+@R1@ You sigh and feel really sad.
+@R1@ You: Seems that today will be an unlucky day. (-happiness)
 #0,0,0,-3
-@R1b@ The cat is sleeping. 
-@R1b@ You walk close to the cat and try to pat him. His mood is good today and he just sit still and let you pat.
-@R1b@ You feel really happy.
-@R1b@ You: Seems that today will be a lucky day.
+@R2@ The cat is sleeping. 
+@R2@ You walk slowly to the cat and try to pat him. His mood is good today and he just sit still and let you pat.
+@R2@ You feel really happy.
+@R2@ You: Seems that today will be a lucky day. (+happiness)
 #0,0,0,3
-

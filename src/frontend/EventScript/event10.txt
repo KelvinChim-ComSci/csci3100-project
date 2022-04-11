@@ -1,14 +1,13 @@
 ~CUHK U team~
 One day you were working out in the gym alone. Suddenly, there is a men wearing blue sports t-shirt working towards you.
-the man: Hey there, I always see you practicing by yourself in the sport ground, are you a member of any university team?
+The man: Hey there, I always see you practicing by yourself in the sport ground, are you a member of any university team?
 You: No, I just practice it by myself.
-the man: I am the coach of the track and field university team. Do you want to try out for the track and field university team tonight? You will have fun!
-@QQ@ What will you do?
+Coach: I am the coach of the track and field university team. Do you want to try out for the track and field university team tonight? You will have fun!
+@QQ@ How would you reply?
 @A1,2@ Sure! 
-@A2,4@ Sorry, I just want to practice by myself. 
+@A2,5@ Sorry, I just want to practice by myself. 
 @R1@ Coach: Great! See you tonight!
 @R1@ At night, you went to the sports ground to try out. You did pretty well and got into the university team. (+sports, +happiness, -money)
 #0,1,-1,1
-@R2@ Coach : What a pity! You have the potential! Come to me any time if you have changed your mind, you can see me often in the gym! (+sports)
+@R2@ Coach: What a pity! You have the potential! Come to me any time if you have changed your mind, you can see me often in the gym! (+sports)
 #0,1,0,0
-

@@ -18,5 +18,3 @@ line
 
 
 *******************
-
-TODO List on main event:

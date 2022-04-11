@@ -9,7 +9,6 @@ class EmailVerified extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(this.props.params.id);
         await fetch(process.env.REACT_APP_BASE_URL + "/email/confirm/" + this.props.params.id, {
             method: "GET",
             headers: new Headers({

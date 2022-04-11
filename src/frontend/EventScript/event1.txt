@@ -7,19 +7,18 @@ You arrive at YIA.
 Senior A: Hey! Come to join our Chung Chi College! We have lots of scholarships available and there are various activities!
 Senior B: No, you should join Shaw College! We have plenty of exchange opportunities!
 After some considerations, you choose to join one of the colleges.
-@QQ@Immediately you were asked to join the Orientation Camp, do you want to join it? (Chooose yes to see tutorial)
+@QQ@ Immediately you were asked to join the Orientation Camp, do you want to join it? (Chooose Yes to see tutorial)
 @A1,2@ Yes
 @A2,14@ No
 @R1@ In this game, you are required to plan for your own unviersity life.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
-@R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
 @R1@ Click the "Open schedule" button on the left hand corner of the page to open schedule. Every 2 schedules count for 1 semester. Every 2 semester count for 1 year.
 @R1@ There are 4 different main statistics in the game. Plan for your schedule to improve the one that you like. Your stamina will drop by 20 for every event you plan in the schedule.
-@R1@ If stamina becomes 0, you will be sick and there will be some penalty.
-@R1@ You can also click "Explore CUHK!" to go around CUHK. There will be some random events happening in CUHK.
+@R1@ You can also click "Explore CUHK!" to go around CUHK. There will be some random events happening in CUHK. However, your stamina will drop by 5 when you travel around and it will drop by 20 when you discover an event.
+@R1@ If stamina becomes 0, you will be sick and there will be some penalty. So don't forget to rest more!
 @R1@ Click "Friend List" to check the friend list and add your friends.
 @R1@ Click "Check Profile" to check your current status.
-@R1@ Click message box to send messages to your friends.
+@R1@ Click "Chat" in friend list to send messages to your friends.
 @R1@ You can check you statistics anytime on the right of the page.
 @R1@ Welcome to CUHK and enjoy your university life!
 #0,0,0,0

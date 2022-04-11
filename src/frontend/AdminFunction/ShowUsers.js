@@ -44,7 +44,6 @@ class ShowUsers extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 this.setState({ userList: res.userList });
-                console.log(this.state.userList);
                 this.setState({ loading: false });
             });
     }
@@ -88,7 +87,6 @@ class ShowUsers extends React.Component {
         const stat = await statRetrievebyId(data._id);
 
         this.setState({ popUpBar: "profile", targetStatistic: stat, target: data });
-        console.log("s", this.state.targetStatistic, this.state.popUpBar);
     }
 
     resetUserPassword(e, data) {

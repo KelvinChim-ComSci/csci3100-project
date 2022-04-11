@@ -115,7 +115,6 @@ class Profile extends React.Component {
     }
 
     onFileChange(e) {
-        console.log(e.target.files[0]);
         this.setState({ profileImg: e.target.files[0]});
     }
 

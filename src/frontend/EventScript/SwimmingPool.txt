@@ -1,6 +1,6 @@
-It is now 10 p.m. at night. Your essay is not yet done but you are too hungry.
+It is now 10 pm at night. Your essay is not yet done but you are too hungry.
 You decided to go to the United Cooperative Store to buy some snacks.
 This is the first time you come here. There are many students and couples chatting nearby the swimming pool and enjoying their food. 
 After having fish balls and chicken wings, you are fueled.
-You finished the essay just on time at 23:59p.m.
+You finished the essay just on time at 23:59. (+GPA, +happiness)
 #1,0,0,1

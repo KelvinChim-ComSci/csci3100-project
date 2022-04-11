@@ -33,6 +33,11 @@
     padding: 100px;
     font-size: xx-large;
 }
+
+#setStat {
+    padding-left: 10px;
+    padding-right: 10px;
+}
   
 .statchild {
     display: inline-block;

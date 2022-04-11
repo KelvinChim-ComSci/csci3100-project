@@ -91,7 +91,6 @@ class Map extends React.Component {
             return;
         }
 
-        console.log(this.state.location)
         this.props.handleLocation(this.state.location);  
         this.props.handlePopClose();
     }

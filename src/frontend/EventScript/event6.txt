@@ -2,25 +2,25 @@
 After deciding to join the committee, Joyce and you stick together the whole day a lot to prepare for committee issues. You are having dinner with her at the canteen of Chung Chi college.
 Joyce: Ahh, it was a busy week. I was worried about whether we can get enough votes for the election so I didn’t sleep well last night.
 You: Yea… I was thinking about it too. And it seems that you are tired today and I was a bit worried. Everything will go fine! Don’t spend too much time thinking about it.
-Joyce : Thanks a lot. Though there is still much paperwork to be done, I believe we can get it finished soon! It is great to work together with you! 
-Haha, by the way, are you close to any girl after you get into the university? Many of my friends got a boyfriend these days!
-@QQ@ How would you do?
+Joyce: Thanks a lot. Though there is still much paperwork to be done, I believe we can get it finished soon! It is great to work together with you! 
+Joyce: Haha, by the way, are you close to any girl after you get into the university? Many of my friends got a boyfriend these days!
+@QQ@ How would you reply?
 @A1,2@ No… I think I am not interested in this kind of issue.
 @A2,6@ Try to ask her if she can be your girlfriend.
 @R1@ You: No… I think I am not interested in this kind of issue.
-@R1@ Joyce: Oh… That’s fine, everyone has their preference. 
+@R1@ Joyce: Oh… That’s fine, everyone has his preference. 
 @R1@ You two had a quick dinner and continued to work on the committee issues after that.
 #0,0,0,0
 @R2@ You: Yea, I am getting closer to a girl these days! I will try to talk with her more too!
-@R2@ Joyce : Ohhh really?! Who is that?
+@R2@ Joyce: Ohhh really?! Who is that?
 @R2@ You: Haha, maybe we can talk a walk at near the Lake Ad Excellentiam and I will tell you more about that.
 @R2@ (Walking to the Lake Ad Excellentiam)
 @R2@ After walking near the Lake Ad Excellentiam and chatting with Joyce for a while, you take a deep breath, and hold Joyce’s hand.
 @R2@ You: Can you be my girlfriend? I like you a lot!
 @R2@ Joyce: Ummm. Let me think about it and I will let you know later tonight.
 @R2@ After having dinner, she decides to go back home earlier today instead of continuing working. You walk with her to the MTR station. You are nervous about her reply.
-@R2@ Joyce : Hey. 
-@R2@ You : Yes?
+@R2@ Joyce: Hey. 
+@R2@ You: Yes?
 @R2@ Joyce: My answer to your question is YES!
-@R2@ After saying so, she turns her head and rushes to the gate. After dazing for a while, you finally recognize that you got your first girlfriend in your life. (+ Happiness)
+@R2@ After saying so, she turns her head and rushes to the gate. After dazing for a while, you finally recognize that you got your first girlfriend in your life. (+happiness)
 #0,0,0,5

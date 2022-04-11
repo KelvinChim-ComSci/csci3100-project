@@ -1,12 +1,12 @@
 ~Seven Little Dragon~
-It is another normal day when you go to have a lesson on the main campus. Since you are a bit late, you have missed the bus and you have to walk to LSK to have a lesson.
-Suddenly, you discovered that the so-called “Seven Little Dragon” is not working. 
-@QQ@ What would you do ?
-@A1,2@ Nevermind, I will just walk up the stairs.
-@A2,5@ Holy. I better not go to the lesson.
+It is another normal day when you go to have lesson on the main campus. Since you are a bit late, you have missed the bus and you have to walk to LSK to have lesson.
+Suddenly, you discover that the so-called “Seven Little Dragon” is not working. 
+@QQ@ What would you do?
+@A1,2@ Walk up the stairs
+@A2,5@ Not go to the lesson
 @R1@ You feel energized after doing some sports. 
-@R1@ Surprisingly you can even focus more during lectures because of it. (+ GPA)
+@R1@ Surprisingly you can even focus more during lectures because of it. (+GPA)
 #1,0,0,0
-@R2@ You chose to escape from the lesson. 
-@R2@ You spend even more time to study. (- GPA)
+@R2@ You chose to skip the lesson. 
+@R2@ You have to spend even more time to study afterwards. (-GPA)
 #-1,0,0,0

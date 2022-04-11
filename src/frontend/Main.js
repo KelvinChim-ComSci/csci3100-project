@@ -319,7 +319,6 @@ class Main extends React.Component {
                                 year: parseInt(document.getElementById("Year").value),
                                 _id: this.state.stat._id,
                             };
-                            console.log(stat);
                             this.setState({ popUpBar: "" });
                             this.updateStat(stat);
                         }}>Update</button>
@@ -371,9 +370,7 @@ class Main extends React.Component {
                 <div className="split left" style={{ backgroundImage: `url(${main_bg})` }}>
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "schedule" })}>Open schedule</button>
-                    <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
                     <button className="btn btn-success" onClick={() => this.playSong(wooSingBeat)}>Dem個和聲Beat</button>
-                    <button className="btn btn-success" onClick={() => this.pauseSong()}>Pause Song</button>
                 </div>
             )
         }
@@ -414,12 +411,9 @@ class Main extends React.Component {
 
     async handleSchedulePlan(plan) {
         this.setState({ popUpBar: "" });
-        console.log(plan);
         await new Promise(resolve => setTimeout(resolve, 1));
         let newStat = this.state.stat;
-        console.log("Before: ", newStat);
         newStat = statScheduleUpdate(newStat, plan);
-        console.log("After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
         this.updateStat(newStat);
         return;
@@ -429,11 +423,9 @@ class Main extends React.Component {
         this.setState({ popUpBar: "" });
         await new Promise(resolve => setTimeout(resolve, 1));
         let newStat = this.state.stat;
-        console.log("Before: ", newStat);
         newStat = statEventUpdate(newStat, dia_line_sub);
         if (sideEvent)
             newStat = { ...newStat, stamina: newStat.stamina - 20 };
-        console.log("handle Main event After: ", newStat);
         await new Promise(resolve => setTimeout(resolve, 1));
         this.setState({
             stat: newStat
@@ -462,7 +454,6 @@ class Main extends React.Component {
     async userLogout() {
         this.setStatusOff()
             .then((res) => {
-                console.log(res.logoutMsg);
                 this.props.handleLogout();
                 this.props.navigate("../");
             })

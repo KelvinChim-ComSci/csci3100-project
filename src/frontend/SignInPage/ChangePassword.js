@@ -83,7 +83,6 @@ class ChangePassword extends React.Component {
         await this.checkConfirmPassword();
         if (!(this.state.passwordError || this.state.confirmPasswordError)) {
 
-            console.log(this.id);
             let inputPassword = document.getElementById("passwordid").value;
             await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword", {
                 method: "POST",
@@ -119,7 +118,6 @@ class ChangePassword extends React.Component {
     }
 
     resetEmailSent() {
-        console.log(this.state.reset, ":OOO")
         if (this.state.reset) return <NotificationBox message={this.state.message} login={false} />
     }
 

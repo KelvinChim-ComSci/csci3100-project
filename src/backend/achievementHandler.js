@@ -14,8 +14,6 @@ var AchievementSchema = mongoose.Schema({
 var Achievement = mongoose.model('Achievement', AchievementSchema);
   
 module.exports.achievementUpdate = async function (req, res) {
-    console.log(req.body.achievement);
-    console.log("req.body.achievement");
 
    // array = [sociable,fxxxboy,happyjai,nerd,tooStronk4u,whoEvenStudies,futureSecurityGuard, emotionalDamage];
    let array = ["sociable","fxxxboy","happyjai","nerd","tooStronk4u","whoEvenStudies","futureSecurityGuard", "emotionalDamage"];
@@ -41,10 +39,8 @@ module.exports.achievementUpdate = async function (req, res) {
 }
 
 module.exports.achievement = async function (req, res) {
-    console.log(req.params.userId);
     Achievement.findOne({user:req.params.userId}) //req.params.userId 
         .then((data) => {
-            console.log('data');
             res.json(data);
         })
         .catch((error) => {

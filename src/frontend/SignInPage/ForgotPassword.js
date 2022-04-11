@@ -32,9 +32,7 @@ class ForgotPassword extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                // console.log(res)
                 if (res.usernameError) {
-                    //console.log("err")
                     this.setState({ usernameError: "Username does not exist" })
                 }
                 if (!(res.usernameError)) {

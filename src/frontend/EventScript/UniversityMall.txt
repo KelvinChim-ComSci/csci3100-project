@@ -1,22 +1,20 @@
 Every year, there is an Art Fair at the University Mall.
 You are taking a walk with Joyce and Ken.
-You: Is this the first time you guys have been to the Art Fair.
-Joyce: Yes, I missed that when I was in year 1.
+You: Is this the first time you guys have been to the Art Fair?
+Joyce: Yes, I missed that when I was year 1.
 Ken: Me too. 
 You: Shall we go to the stall of the Rowling team to have a look?
 Joyce & Ken: Sure!
 (Walking to the stall of Rowling team)
 Rowling team member: Hey Hey Hey! Come to take a look and try the Rowing machine out!
-Rowling team member: My brother! You have a good body! Do you want to try the Rowing machine or join the Rowing team?
 @QQ@ Do you want to try the Rowing machine?
-@A1@ Yes
-@A2@ No
+@A1,2@ Yes
+@A2,6@ No
 @R1@ After trying the rowing machine, you feel much stronger than before…
 @R1@ You: Oh my god! I feel so empowered!
-@R1@ After 2 seconds, you know it is just an illusion. However, you decided to do more sports after the trial.
+@R1@ After 2 seconds, you know it is just an illusion. However, you decided to do more sports after the trial. (+sport, +happiness)
 #0,3,0,1
 @R2@ You decide not to try the rowing machine.
 @R2@ Ken: Let me try it out!
 @R2@ Ken seems to be falling in love with Rowing after trying the rowing machine. He even joins the rowing team directly. 
 #0,0,0,0
-

@@ -229,7 +229,6 @@ class Event extends React.Component {
             script_count: this.state.script_count + parseInt(this.script_reaction_count[choiceId - 1]),
         });
         await new Promise(resolve => setTimeout(resolve, 1));
-        // console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         this.handleClick();
     }
       

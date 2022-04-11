@@ -2,10 +2,10 @@
 You were studying in the Library as ususal.
 Suddenly, you saw a paper related to your course very much. You think it is very interesting and you really want to take a deep look into it.
 However, your final exam is coming and you were busy preparing it.
-@QQ@ What would you do ?
-@A1,2@ Keep working for your final.
-@A2,4@ Take a deep look into the paper and related works.
-@R1@ You ignore the paper that you have read and focus on your course. You got a good grade.
+@QQ@ What would you do?
+@A1,2@ Keep working on your final
+@A2,4@ Take a deep look into the paper and related works
+@R1@ You ignore the paper that you have read and focus on your course. You got a good grade. (+GPA)
 #1,0,0,0
-@R2@ You take a deep look into the paper and discover that it is really interesting. You spend even more time to study and work on related projects. 
+@R2@ You take a deep look into the paper and discover that it is really interesting. You spend even more time to study and work on related projects. (+GPA)
 #3,0,0,0

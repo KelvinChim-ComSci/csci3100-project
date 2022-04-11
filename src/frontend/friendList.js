@@ -346,17 +346,18 @@ class FriendList extends React.Component {
     }
 
     async sendMessage(friendId) {
-        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
+        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value.trim() === "");
         if (!isEmptyMessage) {
-            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
-            document.getElementById("chatMessage").value = "";
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);  
         }
+        document.getElementById("chatMessage").value = "";
     }
 
     async sendMessagebyEnter(friendId, buttonPressed) {
-        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value === "");
-        if (buttonPressed.key === 'Enter' && (!isEmptyMessage)) {
-            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
+        let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value.trim() === "");
+        if (buttonPressed.key === 'Enter') {
+            if (!isEmptyMessage)
+                await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
             document.getElementById("chatMessage").value = "";
         }
     }
@@ -407,7 +408,6 @@ class FriendList extends React.Component {
             })
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res.message);
                     let newMessage = { from: this.props.stat.user, text: message };
                     this.setState(prevState => ({
                         chatMessages: [...prevState.chatMessages, newMessage]

@@ -29,13 +29,10 @@ module.exports.profileImgRetrieve = async function (req, res) {
 
 module.exports.profileImgPost = async function (req, res) {	
 	const user = JSON.parse(JSON.stringify(req.body)).userId; 
-    console.log(user);
-	console.log(req.file);
 
 	var img = fs.readFileSync(req.file.destination+req.file.filename);
 	var encode_img = img.toString('base64');
 	const data = Buffer.from(encode_img,'base64');
-	console.log(data);
 
 	ProfileImg.findOneAndUpdate({ user: user}, { $set: { data: data, contentType: "jpg" }},{ upsert: true },
 		function (err, response) {

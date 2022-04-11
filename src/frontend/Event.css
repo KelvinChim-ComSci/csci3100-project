@@ -1,8 +1,8 @@
 .event{
     height: 100%;
-    background: green;
-    background-image: url('/src/backend/background/na.jpeg');
-    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
 .textContainer {

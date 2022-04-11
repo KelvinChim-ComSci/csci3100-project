@@ -34,13 +34,6 @@ class App extends React.Component {
   }
 
 
-  componentDidMount() {
-    console.log("username: " + this.state.username);
-    console.log("userID: " + this.state.userId);
-    console.log("logged in status: " + this.state.loggedInStatus);
-    console.log(this.state.isLoggedIn);
-  }
-
   handleSessionRefresh() {
     this.setState({
       displayName: window.sessionStorage.getItem("displayName"),
@@ -70,8 +63,6 @@ class App extends React.Component {
     window.sessionStorage.setItem("isAdmin", checkAdmin);
     window.sessionStorage.setItem("loggedInStatus", "Logged in");
     window.sessionStorage.setItem("isLoggedIn", 1);
-
-    console.log("username: " + this.state.username + "\nUser ID: " + this.state.userId + "\nis administrator: " + this.state.isAdmin + "\nlogged in status: " + this.state.loggedInStatus);
   }
 
   handleDisplayName(newDisplayName) {

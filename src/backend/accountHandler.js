@@ -34,7 +34,6 @@ function sendVerifyMail(mail, username, id) {
         text: context
     };
     try {
-        console.log('no worry, it is fine');
         mailer(mailOptions);
     } catch (error) {
         console.log(error);
@@ -55,7 +54,6 @@ function sendforgetPasswordMail(mail, username, id) {
         text: context,
     };
     try {
-        console.log('email sent!');
         mailer(mailOptions);
     } catch (error) {
         console.log(error);
@@ -105,7 +103,6 @@ module.exports.register = async function (req, res) {
                     console.log(err)
                     return res.status(422).json({ message: "Database Error" })
                 }
-                console.log(response._id)
 
                 // intialize user statistics
                 await statisticHandling.initalizeStat(response.id);
@@ -194,7 +191,6 @@ module.exports.email = async function (req, res) {
         text: req.body.text,
     };
     try {
-        console.log('no worry, it is fine');
         mailer(mailOptions);
         return (res.send({ message: "Email sent!" }))
 
@@ -221,7 +217,6 @@ module.exports.forgetPassword = async function (req, res) {
         const userdata = await User.findOne({ username: inputUsername }, { email: 1 })
 
         if (userdata == null) {
-            console.log("username does not exist!")
             return res.send({ usernameError: "Username does not exist!" })
         } else {
             //send forget password email here
@@ -231,8 +226,6 @@ module.exports.forgetPassword = async function (req, res) {
             // calculate and update the time for the forget password link to expire
             let currentTime = new Date();
             let addedTime = new Date(currentTime.getTime() + 60 * 12 * 60000);
-            console.log("currennttime", currentTime)
-            console.log("time", addedTime)
             await User.findOneAndUpdate({ username: inputUsername }, { forgetPasswordLinkExpireTime: addedTime });
             return res.send({ message: "Forget password email sent!" })
         }
@@ -296,7 +289,6 @@ module.exports.resetPassword = async function (req, res) {
                     console.log(err)
                     return res.status(422).json({ message: "Database Error" })
                 }
-                console.log(response._id)
 
                 //send mail here
                 //await sendVerifyMail(inputEmail, inputUsername, response._id);
@@ -338,7 +330,6 @@ module.exports.listAllUsers = async function (req, res) {
     try {
         await User.find({ adminStatus: false }, { userId: 1, username: 1, displayName: 1, email: 1 })
             .then((data) => {
-                console.log(data);
                 return res.send({ userList: data });
             });
 

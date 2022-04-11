@@ -14,9 +14,7 @@ You: Oh really?
 #0,0,0,-1
 @R2@ You: Oh, I was also planning to go to that school. 
 @R2@ Joyce: Really? Hope that we can go there together! 
-@R2@ You applied for the same school and got an offer. You had a happy time with Joyce. (+happiness, +gpa)
+@R2@ You applied for the same school and got an offer. You had a happy time with Joyce. (+happiness, +GPA)
 #1,0,0,1
 @R3@ You chose to stay at home during your summer.
 #0,0,0,0
-
-

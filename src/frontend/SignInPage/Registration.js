@@ -108,7 +108,6 @@ class Registration extends React.Component {
         await this.checkConfirmPassword();
 
         if (!(this.state.emailError || this.state.passwordError || this.state.usernameError || this.state.confirmPasswordError)) {
-            console.log("test")
 
             await fetch(process.env.REACT_APP_BASE_URL + "/register", {
                 method: "POST",

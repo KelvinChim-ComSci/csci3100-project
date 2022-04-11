@@ -56,33 +56,28 @@ class Exam extends React.Component {
         fetch(this.eventChoice(this.props.stat.year, this.props.stat.sem, this.props.stat))
         .then(r => r.text())
         .then(text => {
-          this.script_list = text.split('\n');
-          this.displayDialogue(this.script_list[0], 0, false);
-          this.script_answer = [];
-          this.script_reaction_count = [];
-          this.correct_answer = [];
+            this.script_list = text.split('\n');
+            this.displayDialogue(this.script_list[0], 0, false);
+            this.script_answer = [];
+            this.script_reaction_count = [];
+            this.correct_answer = [];
         //   this.script_reaction = [];
-          for (let k = 0; k < this.script_list.length; k++){
-              if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
-                  this.script_answer.push(this.script_list[k].substring(6));
-                  this.script_reaction_count.push(this.script_list[k][4]);
-                  if (this.script_list[k][5] !== "@"){
-                      this.script_reaction_count.pop()
-                      this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
-                      this.script_answer.pop();
-                      this.script_answer.push(this.script_list[k].substring(7));
-                  }
+            for (let k = 0; k < this.script_list.length; k++){
+                if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
+                    this.script_answer.push(this.script_list[k].substring(6));
+                    this.script_reaction_count.push(this.script_list[k][4]);
+                    if (this.script_list[k][5] !== "@"){
+                        this.script_reaction_count.pop()
+                        this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]))
+                        this.script_answer.pop();
+                        this.script_answer.push(this.script_list[k].substring(7));
+                    }
                 //   this.script_reaction.push(this.script_list[k+1]);
-              }
-              if (this.script_list[k][0]==="="){
-                this.correct_answer.push(parseInt(this.script_list[k][1]))
+                }
+                if (this.script_list[k][0]==="="){
+                    this.correct_answer.push(parseInt(this.script_list[k][1]))
+                }
             }
-          }
-          console.log(this.script_list)
-          console.log(this.script_answer)
-          console.log(this.correct_answer);
-          console.log("script_reaction_count", this.script_reaction_count);
-          console.log(this.state.script_count)
         });
     }
 
@@ -165,7 +160,8 @@ class Exam extends React.Component {
             }
             this.props.handleMaineventStat(line, false);
             alert("You have answered "+this.state.correct_count+" number of questions correctly!");
-            this.props.popMainEvent();
+            if (this.props.stat.year === 5)
+                this.props.popMainEvent();
             return;
         }
 
@@ -179,7 +175,6 @@ class Exam extends React.Component {
         
         // // check if the answer is correct
         // if (dia_line[0] === "="){
-        //     console.log()
         //     if (this.correct_answer[this.state.question_count] == this.state.chosenChoice){
         //         this.setState({correct_count : this.state.correct_count + 1});
         //     }
@@ -222,9 +217,7 @@ class Exam extends React.Component {
             chosenChoice: choiceId,
             script_count: this.state.script_count + parseInt(this.script_reaction_count[4*this.state.question_count + choiceId - 1])
           })
-        console.log(this.script_reaction_count[4*this.state.question_count + choiceId - 1])
         await new Promise(resolve => setTimeout(resolve, 1));
-        console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         if (this.correct_answer[this.state.question_count] === this.state.chosenChoice){
             this.setState({correct_count : this.state.correct_count + 1});
         }

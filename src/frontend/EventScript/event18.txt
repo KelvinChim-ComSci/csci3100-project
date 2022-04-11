@@ -2,26 +2,24 @@
 You have been keeping good relationships with your friends in the same college. One day, you are having lunch with them in the canteen of your college.
 Ken: Hey, are you going to join the high table dinner tonight?
 You: What? High table dinner?
-Ken: Yes! There is a high table dinner regularly and students must join it to fulfill the requirement! Didn’t you join it last year?
+Ken: Yes! There are high table dinners regularly and students must join them to fulfill the requirement! Didn’t you join one last year?
 You suddenly remember about it. You were not available to attend the high table dinner last year and applied for exemption. 
 Ken: Go with me today! It would be fun!
 @QQ@ Do you want to go with Ken?
-@A1,2@ No
-@A2,5@ Yes
-@R1@ Ken: Okay, maybe you have dated others. It’s fine.
-@R1@ You attended the high table dinner alone and not many people are talking to you.(-happiness)
-#0,0,0,-1
-@R2@ Ken: Great! See you there!
-@R2@ You guys have fun and meet a lot of friends. 
-@R2@ You meet a girl there. Her name is Kelly.
-@R2@ She looks gorgeous with a red dress. 
-@R2@ After the high table dinner, you went to your friend's room to have some chat.
-@R2@ You were drunk, and you and Kelly were left in the same room, sleeping on the same bed...
-@R2@ ......
-@R2@ You: (headache) What happed last nigth.
-@R2@ You suddenly discover that you are naked, Kelly is also naked and is sleeping next to you.
-@R2@ You try to wake her up, she hugs you tightly and you can say nothing.
-@R2@ You two had breakfast together in the canteen, and promise not to tell other about what happened last night.
-(+happiness)
+@A1,2@ Yes
+@A2,14@ No
+@R1@ Ken: Great! See you there!
+@R1@ You guys have fun and meet a lot of friends. 
+@R1@ You meet a girl there. Her name is Kelly.
+@R1@ She looks gorgeous with a red dress. 
+@R1@ After the high table dinner, you went to your friend's room to have some chat.
+@R1@ You were drunk, and you and Kelly were left in the same room, sleeping on the same bed...
+@R1@ ......
+@R1@ You: (headache) What happened last night.
+@R1@ You suddenly discover that you are naked, Kelly is also naked and is sleeping next to you.
+@R1@ You try to wake her up, she hugs you tightly and you can say nothing.
+@R1@ You two had breakfast together in the canteen, and promise not to tell others about what happened last night. (+happiness)
 #0,0,0,5
-
+@R2@ Ken: Okay, maybe you have dated others. It’s fine.
+@R2@ You attended the high table dinner alone and not many people are talking to you. (-happiness)
+#0,0,0,-1

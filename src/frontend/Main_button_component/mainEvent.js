@@ -118,7 +118,6 @@ class MainEvent extends React.Component {
                 //   this.script_reaction.push(this.script_list[k+1]);
               }
           }
-          console.log("script_reaction_count", this.script_reaction_count);
         });
     }
 
@@ -155,7 +154,6 @@ class MainEvent extends React.Component {
             if (stat.happiness === highest) {
                 this.selectSong(AfterSchoolWithGirl);
                 this.setState({achievementCheck: "6"});
-                console.log("achievement6");
                 return event6
             }
             if (stat.money === highest) {
@@ -187,7 +185,6 @@ class MainEvent extends React.Component {
             if (stat.happiness === highest && stat.happiness > 25){
                 this.setState({achievementCheck: "18"});
                 this.selectSong(Restaurant);
-                console.log("achievement18");
                 return event18
             }
             else {
@@ -298,27 +295,21 @@ class MainEvent extends React.Component {
  
     achievementEndCheck(){
         if (this.props.stat.gpa > 112) { //GPA>2.99
-            console.log("nerd"); 
             this.achievementUpdate("nerd");                      
         }
         if (this.props.stat.sports > 100) {
-            console.log("tooStronk4u");
             this.achievementUpdate("tooStronk4u");
         }
         if (this.props.stat.happiness > 100) {
-            console.log("happyjai");
             this.achievementUpdate("happyjai");
         }
         if (this.props.stat.money < 10) {
-            console.log("futureSecurityGuard");
             this.achievementUpdate("futureSecurityGuard");
         }
         if (this.props.stat.happiness === 0) {
-            console.log("emotionalDamage");
             this.achievementUpdate("emotionalDamage");
         }
         if (this.props.stat.gpa < 37) { //GPA<0.99
-            console.log("whoEvenStudies");
             this.achievementUpdate("whoEvenStudies");
         }}
 
@@ -330,22 +321,22 @@ class MainEvent extends React.Component {
         //please do sth on this it looks so unclean
         if (this.props.stat.year === 1 && this.props.stat.sem === 0){
             switch (this.state.script_count) {
-                case 15:
+                case 14:
                     this.setState({img: schedulentro_bg});
                     break;
-                case 18:
+                case 17:
                     this.setState({img: mapintro_bg});
                     break;
-                case 19:
+                case 18:
                     this.setState({img: friendlistintro_bg});
                     break;
-                case 20:
+                case 19:
                     this.setState({img: profileintro_bg});
                     break;
-                case 21:
+                case 20:
                     this.setState({img: messageintro_bg});
                     break;
-                case 22:
+                case 21:
                     this.setState({img: rightstatintro_bg});
                     break;
                 
@@ -358,21 +349,16 @@ class MainEvent extends React.Component {
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
              //Check achievement if end event
-             if (this.state.achievementCheck === "6"){     
-                console.log("sociable");
+             if (this.state.achievementCheck === "6"){
                 this.achievementUpdate("sociable");
                 this.setState({achievementCheck: ""});                
             }
-            if (this.state.achievementCheck === "18"){     
-                console.log("fxxxboy");
+            if (this.state.achievementCheck === "18"){
                 this.achievementUpdate("fxxxboy");
                 this.setState({achievementCheck: ""});
             }
 
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
-            console.log("line 264")
-            console.log(this.props.stat.year)
-            console.log(this.props.stat.sem)
             if (this.props.stat.year > 1 && this.props.stat.sem === 1){
                 //Check Achievement when graduated
                 if (this.props.stat.year === 5 ) {
@@ -430,7 +416,6 @@ class MainEvent extends React.Component {
           })
         
         await new Promise(resolve => setTimeout(resolve, 1));
-        console.log("choice Id", this.state.chosenChoice, "script_count", this.state.script_count);
         // Achievement: if not dating girl or go dinner, set state
         if (this.state.chosenChoice === "1" && (this.state.script_count === "9"||this.state.script_count === "10")) {
             this.setState({ achievementCheck: ""});

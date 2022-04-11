@@ -17,14 +17,12 @@ class Login extends React.Component {
         this.setState({error: 0});
         if (this.isEmpty(inputUsername)) {
             this.setState({ usernameError: "Please enter a username.", error: 1});
-            console.log("No username.");
         }
         else {
             this.setState({ usernameError: ""})
         }
         if (this.isEmpty(inputPassword)) {
             this.setState({ passwordError: "Please enter a password.", error: 1 });
-            console.log("No password.");
         }
         else {
             this.setState({ passwordError: ""})
@@ -62,7 +60,6 @@ class Login extends React.Component {
                     this.navigator('./main');
                 }
                 else {
-                    console.log(res.errorMsg);
                     this.displayError(res.errorMsg);
                 }
             });
