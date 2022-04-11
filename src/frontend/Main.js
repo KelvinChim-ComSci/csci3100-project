@@ -102,8 +102,8 @@ class Main extends React.Component {
     }
 
     popMainEvent() {
-        if (this.state.stat.year > 4)
-            return;
+        // if (this.state.stat.year > 4)
+        //     return;
         this.setState({ popUpBar: "mainEvent" });
     }
     
@@ -346,6 +346,7 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <div className="popUp">
                     <Exam
+                        popMainEvent={this.popMainEvent} 
                         handlePopupBackground={this.handlePopupBackground} 
                         resetData={this.resetData} 
                         stat={this.state.stat} 

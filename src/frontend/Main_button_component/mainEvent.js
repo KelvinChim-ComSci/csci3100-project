@@ -26,6 +26,7 @@ import event24 from "../EventScript/event24.txt";
 import event25 from "../EventScript/event25.txt";
 import event26 from "../EventScript/event26.txt";
 import event27 from "../EventScript/event27.txt";
+import LastExam from "../EventScript/LastExam.txt";
 
 import Choice from '../choiceWindow';
 import SportEnding from "../EventScript/SportEnding.txt"
@@ -246,6 +247,9 @@ class MainEvent extends React.Component {
             return event17
         }
         if (year === 4 && sem === 4){
+            return LastExam
+        }
+        if (year === 5 && sem === 2){
             if  (stat.gpa > 75 && stat.gpa === highest){
                 this.selectSong(ClassroomNoise);
                 return StudyEnding

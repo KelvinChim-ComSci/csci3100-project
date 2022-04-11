@@ -165,6 +165,7 @@ class Exam extends React.Component {
             }
             this.props.handleMaineventStat(line, false);
             alert("You have answered "+this.state.correct_count+" number of questions correctly!");
+            this.props.popMainEvent();
             return;
         }
 
