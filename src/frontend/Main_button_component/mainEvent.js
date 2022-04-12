@@ -424,6 +424,10 @@ class MainEvent extends React.Component {
     }
 
     async handleChoice(choiceId) {
+        // Achievement: if not dating girl or go dinner, set state
+        if ((this.state.achievementCheck==="6" && choiceId === 1) || (this.state.achievementCheck==="18" && choiceId === 2 )) {
+            this.setState({ achievementCheck: ""});
+        }
         this.setState({
             popUpChoice: "",
             chosenChoice: choiceId,
@@ -431,10 +435,7 @@ class MainEvent extends React.Component {
           })
         
         await new Promise(resolve => setTimeout(resolve, 1));
-        // Achievement: if not dating girl or go dinner, set state
-        if (this.state.chosenChoice === "1" && (this.state.script_count === "9"||this.state.script_count === "10")) {
-            this.setState({ achievementCheck: ""});
-        }
+        
         this.handleClick();
       }
 
