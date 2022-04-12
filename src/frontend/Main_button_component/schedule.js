@@ -1,5 +1,8 @@
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import data from './schedule_drag_drop/Data';
 import Column from './schedule_drag_drop/Column';
 
@@ -75,7 +78,8 @@ class Schedule extends React.Component {
     if (sourceColumn.id === "column-1" && destinationColumn.id === "column-2") {
 
       if (this.state.columns["column-2"].taskIds.length === 8) {
-        alert("Too many events!");
+
+        toast.warn("Too many events!");
         return;
       }
 

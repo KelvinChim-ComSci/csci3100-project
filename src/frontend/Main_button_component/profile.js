@@ -9,6 +9,9 @@ import achievement_img7 from '../../backend/img/new_achievement7.png';
 import achievement_img8 from '../../backend/img/new_achievement8.png';
 import Loading from "../Loader";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class Profile extends React.Component {
 
     constructor(props) {
@@ -155,7 +158,7 @@ class Profile extends React.Component {
             .then((res) => {
                 this.fetchImg();
                 this.setState({ loading: false })
-                alert("Profile Photo Changed");
+                toast.success("Profile Photo Changed!");
 
             });
 
@@ -180,7 +183,7 @@ class Profile extends React.Component {
             }),
         })
             .then((res) => res.json())
-            .then((res) => alert(res.message));
+            .then((res) => toast.success(res.message));
         this.setState({ name: displayName, loading: false });
         this.props.handleDisplayName(displayName);
     }
@@ -203,7 +206,7 @@ class Profile extends React.Component {
             }),
         })
             .then((res) => res.json())
-            .then((res) => alert(res.message));
+            .then((res) => toast.success(res.message));
         this.setState({ message: newDescription, loading: false });
         this.props.handleAboutMe(newDescription);
     }
@@ -271,8 +274,8 @@ class Profile extends React.Component {
                                                 <p>Current: {(this.state.profileImg) ? this.state.profileImg.name : "No image selected"}</p>
                                             </div>
 
-                                            <div style={{ marginTop: "2px" }}>
-                                                <button className="btn btn-light" type="submit">Upload</button>
+                                            <div style={{ marginTop: "2px", display: `${(this.state.profileImg) ? "" : "none"}` }}>
+                                                <button className="btn btn-success" type="submit">Upload</button>
                                             </div>
 
                                         </div>

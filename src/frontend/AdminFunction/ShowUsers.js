@@ -68,7 +68,7 @@ class ShowUsers extends React.Component {
                                     <td>{data.username}</td>
                                     <td>{data.displayName}</td>
                                     <td>{data.email}</td>
-                                    <td><button class="btn btn-secondary btn-sm" onClick={(e) => { this.resetUserPassword(e, data); this.props.setOverflow(0); }}>Reset Password</button></td>
+                                    <td><button class="btn btn-light btn-sm" onClick={(e) => { this.resetUserPassword(e, data); this.props.setOverflow(0); }}>Reset Password</button></td>
                                 </tr>
 
                             );
@@ -108,7 +108,7 @@ class ShowUsers extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp">
-                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true} />
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} aboutMe={this.state.target.aboutMe} friend={true} />
                     </div>
                 </div>
             );

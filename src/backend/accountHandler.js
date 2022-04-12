@@ -328,7 +328,7 @@ module.exports.findRandomUsers = async function (req, res) {
 // get users information for listing in admin interface
 module.exports.listAllUsers = async function (req, res) {
     try {
-        await User.find({ adminStatus: false }, { userId: 1, username: 1, displayName: 1, email: 1 })
+        await User.find({ adminStatus: false }, { userId: 1, username: 1, displayName: 1, email: 1, aboutMe: 1 })
             .then((data) => {
                 return res.send({ userList: data });
             });

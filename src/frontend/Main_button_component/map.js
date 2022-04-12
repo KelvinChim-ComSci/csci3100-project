@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import img from '../../backend/background/map.png';
 import ImageMapper from 'react-img-mapper';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 var URL = img;
 var MAP = {
@@ -82,12 +85,12 @@ class Map extends React.Component {
 
     navigator() {
         if (!this.props.available) {
-            alert("You cannot visit other places during event!");
+            toast.warn("You cannot visit other places during event!");
             return;
         }
 
         if (this.props.stamina < 5) {
-            alert("You are too tired to go to other places! Please rest more.");
+            toast.error("You are too tired to go to other places! Please rest more.");
             return;
         }
 

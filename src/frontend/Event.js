@@ -1,4 +1,7 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import GateOfWisdom from './EventScript/GateOfWisdom.txt';
 import HoChou from './EventScript/HoChou.txt';
@@ -83,6 +86,7 @@ class Event extends React.Component {
             return HaddonCave;
         }
         if (location === "Weiyuan Lake" && year === 2 && sem === 1) {
+            this.props.playSong(CUHKSound);
             return LakeAdExcellentiam;
         }
         if (location === "CC HoCou" && year === 2 && sem === 2) {
@@ -116,7 +120,7 @@ class Event extends React.Component {
 
     beginEvent() {
         if (this.props.stamina < 20) {
-            alert("You are already tired. Please go home and rest more!");
+            toast.error("You are already tired. Please go home and rest more!");
             return;
         }
 

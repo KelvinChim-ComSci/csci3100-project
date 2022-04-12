@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export function statScheduleUpdate(newStat, plan) {
         //transition here
         
@@ -51,8 +54,8 @@ export function statScheduleUpdate(newStat, plan) {
         }
     }
 
-    if (newStat.stamina<0){
-        alert("Oh no! You didn't have enough rest and became exhausted! The schedule will be ineffective.");
+    if (newStat.stamina < 0) {
+        toast.error("Oh no! You didn't have enough rest and became exhausted! The schedule will be ineffective.");
         newStat = {
             ...original_stat,
             stamina: 0,
@@ -72,6 +75,15 @@ export function statScheduleUpdate(newStat, plan) {
             sem: newStat.sem+1,
         }
     }
-    alert("Your statistics has been updated!\n gpa: +"+String(parseFloat((newStat.gpa - original_stat.gpa)/150*4).toFixed(2)) + "\n sports: +" +String(newStat.sports - original_stat.sports) + "\n happiness: +" + String(newStat.happiness - original_stat.happiness) + "\n Money: +" +String(newStat.money - original_stat.money));
+    toast.success("Your statistics has been updated!");
+    toast.success(`GPA: +${String(parseFloat((newStat.gpa - original_stat.gpa)/150*4).toFixed(2))}`);
+    toast.success(`Sports: +${String(newStat.sports - original_stat.sports)}`);
+    toast.success(`Happiness: +${String(newStat.happiness - original_stat.happiness)}`);
+    toast.success(`Money: +${String(newStat.money - original_stat.money)}`);
+    const changedStamina = newStat.stamina - original_stat.stamina;
+    toast[changedStamina >= 0 ? 'success' : 'error']((changedStamina >= 0) ? `Stamina: +${Math.abs(changedStamina)}` : `Stamina: -${Math.abs(changedStamina)}`)
+
+
+
     return newStat;
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Login from "./frontend/SignInPage/Login.js";
 import ForgotPassword from "./frontend/SignInPage/ForgotPassword.js";
@@ -135,6 +137,16 @@ class App extends React.Component {
             <Route path="*" element={<InvalidURL />} />
           </Routes >
         </Router >
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+        />
       </div >
     );
   }

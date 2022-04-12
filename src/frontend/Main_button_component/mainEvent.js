@@ -1,4 +1,7 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import event1 from "../EventScript/event1.txt";
 import event2 from "../EventScript/event2.txt";
 import event3 from "../EventScript/event3.txt";
@@ -305,7 +308,7 @@ class MainEvent extends React.Component {
             }),
         })
         .then((res) => res.json())
-        .then((res) => alert(res.message));
+        .then((res) => toast.info(res.message));
     }
  
     achievementEndCheck(){
@@ -339,7 +342,7 @@ class MainEvent extends React.Component {
                 case 14:
                     this.setState({img: schedulentro_bg});
                     break;
-                case 17:
+                case 16:
                     this.setState({img: mapintro_bg});
                     break;
                 case 18:
@@ -352,7 +355,7 @@ class MainEvent extends React.Component {
                     this.setState({img: messageintro_bg});
                     break;
                 case 21:
-                    this.setState({img: rightstatintro_bg});
+                    this.setState({img: menuintro_bg});
                     break;
                 
                 default:
