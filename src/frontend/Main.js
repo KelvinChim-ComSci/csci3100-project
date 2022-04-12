@@ -124,11 +124,13 @@ class Main extends React.Component {
     }
 
     playSong(name) {
+        console.log(name);
         this.song.src = name;
         this.song.autoplay = true;
         this.song.loop = true;
-        if (name === "WiiShop") this.song.volume = 0.16;
-        if (name === "ClassroomNoise") this.song.volume = 0.05;
+        if (name === wooSingBeat) this.song.volume = 0.20;
+        if (name === "/static/media/WiiShop.db811a7c77479ff0dced.mp3") this.song.volume = 0.25;
+        if (name === "/static/media/ClassroomNoise.e849e792a91a52c8f917.mp3") this.song.volume = 0.25;
         this.song.play();
     }
 
