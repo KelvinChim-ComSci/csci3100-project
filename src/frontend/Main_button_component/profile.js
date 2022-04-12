@@ -257,7 +257,7 @@ class Profile extends React.Component {
                                             Select Image
                                             </label>
                                             <input id="file-upload" type="file" onChange={this.onFileChange}/>
-                                            <p>Current: {(this.state.profileImg)? this.state.profileImg.name : ""}</p>
+                                            <p>Current: {(this.state.profileImg)? this.state.profileImg.name : "No image selected"}</p>
                                         </div>
 
                                         <div style={{marginTop: "2px"}}>

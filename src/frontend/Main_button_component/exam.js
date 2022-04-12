@@ -3,14 +3,6 @@ import React from "react";
 import Choice from '../choiceWindow';
 
 import mainBg from '../../backend/background/mainEvent.jpg';
-import mapintro_bg from '../../backend/img/MapIntro.png';
-import menuintro_bg from '../../backend/img/MenuIntro.png';
-import profileintro_bg from '../../backend/img/ProfileIntro.png';
-import settingintro_bg from '../../backend/img/SettingsIntro.png';
-import rightstatintro_bg from '../../backend/img/RightStatIntro.png';
-import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
-import messageintro_bg from '../../backend/img/MessageIntro.png';
-import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
 import exam1 from "../EventScript/exam1.txt";
 import exam1b from "../EventScript/exam1b.txt";
 import exam2 from "../EventScript/exam2.txt";
@@ -120,34 +112,6 @@ class Exam extends React.Component {
         let dialogue = dia_line;
         let pop_q = false;
 
-        //please do sth on this it looks so unclean
-        if (this.props.stat.year === 1 && this.props.stat.sem === 0){
-            switch (this.state.script_count) {
-                case 15:
-                    this.setState({img: schedulentro_bg});
-                    break;
-                case 18:
-                    this.setState({img: mapintro_bg});
-                    break;
-                case 19:
-                    this.setState({img: friendlistintro_bg});
-                    break;
-                case 20:
-                    this.setState({img: profileintro_bg});
-                    break;
-                case 21:
-                    this.setState({img: messageintro_bg});
-                    break;
-                case 22:
-                    this.setState({img: rightstatintro_bg});
-                    break;
-                
-                default:
-                    this.setState({img: null});
-              }
-              
-        }
-
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
             let line = dia_line.substring(1).split(',');
@@ -245,9 +209,6 @@ class Exam extends React.Component {
 
         return (
             <div id="exam" style={{backgroundImage: `url(${this.state.backgroundImage})`}}>
-                <div className="imageContainer">
-                    <img src={this.state.img} />
-                </div>
 
                 <div id = "text">
                     <div className="text" onClick={()=>this.handleClick()}>
