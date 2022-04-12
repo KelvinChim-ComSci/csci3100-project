@@ -12,6 +12,7 @@ import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 import FriendList from './friendList';
 import main_bg from '../backend/background/main.jpeg';
 import friend_img from '../backend/img/friends_boys.png'
+import profile_img from '../backend/img/profile.png'
 
 import Event from './Event';
 import StatDisplay from './statDisplay';
@@ -485,7 +486,12 @@ class Main extends React.Component {
                             Friend List
                         </button>
                     </div>
-                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "profile" })}>Check profile</button>
+                    <div onClick={() => this.setState({ popUpBar: "profile" })}>
+                        <button className="btn btn-light">
+                            <img id="profileImg" src={profile_img} />
+                            Check profile
+                        </button>
+                    </div>
                     <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "map" })}>Explore CUHK!</button>
                     <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "setting" })}>Settings</button>
                     <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "logout" })}>Logout</button>
