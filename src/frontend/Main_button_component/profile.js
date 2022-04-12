@@ -151,6 +151,7 @@ class Profile extends React.Component {
         .then((data) => data.json())
         .then((res) => {
             this.fetchImg();
+            alert("Profile Photo Changed");
         });
        
 
