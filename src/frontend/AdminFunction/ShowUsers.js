@@ -108,7 +108,7 @@ class ShowUsers extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp">
-                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} friend={true} />
+                        <Profile stat={this.state.targetStatistic} displayName={this.state.target.displayName} username={this.state.target.username} aboutMe={this.state.target.aboutMe} friend={true} />
                     </div>
                 </div>
             );
