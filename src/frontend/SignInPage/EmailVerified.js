@@ -1,11 +1,14 @@
 import React from 'react';
 import { withRouter } from '../withRouter.js';
+import Loading from '../Loader.js';
 
 
 class EmailVerified extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            loading: true
+        }
     }
 
     async componentDidMount() {
@@ -21,27 +24,34 @@ class EmailVerified extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
+                this.setState({ loading: false });
                 document.getElementById("verifyMessage").innerHTML = res.message;
+
             });
     }
 
     render() {
         require('./EmailVerified.css');
-        return (
-            <div id="emailVerified">
-                
-                <div className="container">
-              
-                    <h1>CU Simulator</h1>
+        {
+            return (
 
-                    <div className="links">
-                        <p id="verifyMessage" />
-                        <p><a href="../../">Return to log in</a></p>
-                    </div>
+                < div id="emailVerified" >
+
+                    {this.state.loading ? <Loading /> :
+                        <div className="container">
+
+                            <h1>CU Simulator</h1>
+
+                            <div className="links">
+                                <p id="verifyMessage" />
+                                <p><a href="../../">Return to log in</a></p>
+                            </div>
+
+                        </div>}
 
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

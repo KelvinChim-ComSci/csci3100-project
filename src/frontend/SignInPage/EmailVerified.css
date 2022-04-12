@@ -63,3 +63,8 @@
 .buttons a:active {
     color: rgb(97, 4, 97);
 }
+
+.containerLoading{
+    background-color: rgb(0, 0, 0);
+    opacity: 25%;
+}

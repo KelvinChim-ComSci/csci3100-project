@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from '../withRouter.js'; // router
+import Loading from '../Loader.js';
 
 class Login extends React.Component {
     constructor(props) {
@@ -10,22 +11,23 @@ class Login extends React.Component {
             usernameError: "",
             passwordError: "",
             error: 0,
+            loading: false
         }
     }
 
-    checkInput(inputUsername, inputPassword){
-        this.setState({error: 0});
+    checkInput(inputUsername, inputPassword) {
+        this.setState({ error: 0 });
         if (this.isEmpty(inputUsername)) {
-            this.setState({ usernameError: "Please enter a username.", error: 1});
+            this.setState({ usernameError: "Please enter a username.", error: 1 });
         }
         else {
-            this.setState({ usernameError: ""})
+            this.setState({ usernameError: "" })
         }
         if (this.isEmpty(inputPassword)) {
             this.setState({ passwordError: "Please enter a password.", error: 1 });
         }
         else {
-            this.setState({ passwordError: ""})
+            this.setState({ passwordError: "" })
         }
     }
 
@@ -39,6 +41,7 @@ class Login extends React.Component {
         if (this.state.error === 1)
             return;
 
+        this.setState({ loading: true });
         await fetch(process.env.REACT_APP_BASE_URL + "/login", {
             method: "POST",
             headers: new Headers({
@@ -55,6 +58,7 @@ class Login extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
+                this.setState({ loading: false })
                 if (this.isLoginValid(res.errorMsg)) {
                     this.props.handleLogin(res.displayName, res.username, res.userId, res.accessLevel, res.aboutMe);
                     this.navigator('./main');
@@ -90,35 +94,35 @@ class Login extends React.Component {
         require('./Login.css');
         return (
             <div id="login">
+                {this.state.loading ? <Loading /> :
+                    <div className="container">
 
-                <div className="container">
+                        <h1>CU Simulator</h1>
 
-                    <h1>CU Simulator</h1>
+                        <form autoComplete="on">
 
-                    <form autoComplete="on">
+                            <div className="txt_field">
+                                <label htmlFor="username">Username</label>
+                                <input type="text" name="username" required></input>
+                                <div className="error">{this.state.usernameError}</div>
+                                <label htmlFor="password">Password</label>
+                                <br></br>
+                                <input type="password" name="password" required></input>
+                                <div className="error">{this.state.passwordError}</div>
+                            </div>
 
-                        <div className="txt_field">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" name="username" required></input>
-                            <div className="error">{this.state.usernameError}</div>
-                            <label htmlFor="password">Password</label>
-                            <br></br>
-                            <input type="password" name="password" required></input>
-                            <div className="error">{this.state.passwordError}</div>
-                        </div>
+                            <div className="links">
+                                <a href="./ForgotPassword">Forgot password?</a>
+                            </div>
 
-                        <div className="links">
-                            <a href="./ForgotPassword">Forgot password?</a>
-                        </div>
-
-                        <div className="buttons" onClick={this.userLogin}>
-                            <input id="submit_box" type="submit" value="Login"></input>
-                        </div>
-                        <div className="links">
-                            <p>Don't have an account? <a href="./Registration">Register now!</a></p>
-                        </div>
-                    </form>
-                </div>
+                            <div className="buttons" onClick={this.userLogin}>
+                                <input id="submit_box" type="submit" value="Login"></input>
+                            </div>
+                            <div className="links">
+                                <p>Don't have an account? <a href="./Registration">Register now!</a></p>
+                            </div>
+                        </form>
+                    </div>}
             </div>
         )
     }

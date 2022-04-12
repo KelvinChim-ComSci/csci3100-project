@@ -72,7 +72,7 @@ class Main extends React.Component {
             _id: this.state.stat._id,
         }
         this.updateStat(stat);
-        this.setState({location: "main"});
+        this.setState({ location: "main" });
     }
 
     setEvent(started) {
@@ -97,8 +97,8 @@ class Main extends React.Component {
         this.setState({ location: location });
     }
 
-    handlePopupBackground(bg){
-        this.setState({backgroundImage: bg});
+    handlePopupBackground(bg) {
+        this.setState({ backgroundImage: bg });
     }
 
     popMainEvent() {
@@ -106,8 +106,8 @@ class Main extends React.Component {
         //     return;
         this.setState({ popUpBar: "mainEvent" });
     }
-    
-    handleExamPop(){
+
+    handleExamPop() {
         this.setState({ popUpBar: "exam" });
     }
 
@@ -137,7 +137,7 @@ class Main extends React.Component {
     }
 
     muteSong() {
-        (this.song.muted)? this.song.muted = false : this.song.muted = true;
+        (this.song.muted) ? this.song.muted = false : this.song.muted = true;
     }
 
     componentDidMount() {
@@ -171,14 +171,14 @@ class Main extends React.Component {
                     <div id="shadowLayer" />
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <Profile 
-                            stat={this.state.stat} 
+                        <Profile
+                            stat={this.state.stat}
                             displayName={this.props.displayName}
                             handleDisplayName={this.props.handleDisplayName}
                             aboutMe={this.props.aboutMe}
                             handleAboutMe={this.props.handleAboutMe}
-                            username={this.props.username} 
-                            friend={false} 
+                            username={this.props.username}
+                            friend={false}
                             setOverflow={this.setOverflow}
                         />
                     </div>
@@ -193,10 +193,10 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp">
-                        <Map 
-                            handleLocation={this.handleLocation} 
-                            handlePopClose={this.handlePopClose} 
-                            available={!this.state.started} 
+                        <Map
+                            handleLocation={this.handleLocation}
+                            handlePopClose={this.handlePopClose}
+                            available={!this.state.started}
                             stamina={this.state.stat.stamina}
                         />
                     </div>
@@ -225,9 +225,9 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <Schedule 
-                            popMainEvent={this.popMainEvent} 
-                            handleSchedulePlan={this.handleSchedulePlan} 
+                        <Schedule
+                            popMainEvent={this.popMainEvent}
+                            handleSchedulePlan={this.handleSchedulePlan}
                             setOverflow={this.setOverflow}
                         />
                     </div>
@@ -240,16 +240,16 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                    <MainEvent 
-                        handlePopupBackground={this.handlePopupBackground} 
-                        resetData={this.resetData} 
-                        stat={this.state.stat} 
-                        handleMaineventStat={this.handleMaineventStat} 
-                        handlePopClose={this.handlePopClose} 
-                        handleExamPop={this.handleExamPop}
-                        playSong = {this.playSong}
-                        pauseSong = {this.pauseSong}
-                    />
+                        <MainEvent
+                            handlePopupBackground={this.handlePopupBackground}
+                            resetData={this.resetData}
+                            stat={this.state.stat}
+                            handleMaineventStat={this.handleMaineventStat}
+                            handlePopClose={this.handlePopClose}
+                            handleExamPop={this.handleExamPop}
+                            playSong={this.playSong}
+                            pauseSong={this.pauseSong}
+                        />
                     </div>
                 </div>
             )
@@ -261,8 +261,8 @@ class Main extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }) }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <FriendList 
-                            stat={this.state.stat} 
+                        <FriendList
+                            stat={this.state.stat}
                             setOverflow={this.setOverflow}
                             updateStat={this.updateStat}
                         />
@@ -276,7 +276,7 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                        <Setting resetData={this.resetData} id={this.state.stat.user} setOverflow={this.setOverflow} handlePopClose={this.handlePopClose} year={this.state.stat.year}/>
+                        <Setting resetData={this.resetData} id={this.state.stat.user} setOverflow={this.setOverflow} handlePopClose={this.handlePopClose} year={this.state.stat.year} />
                     </div>
                 </div>
             )
@@ -345,17 +345,17 @@ class Main extends React.Component {
                 <div className="mainPopUp">
                     <div id="shadowLayer"></div>
                     <div className="popUp">
-                    <Exam
-                        popMainEvent={this.popMainEvent} 
-                        handlePopupBackground={this.handlePopupBackground} 
-                        resetData={this.resetData} 
-                        stat={this.state.stat} 
-                        handleMaineventStat={this.handleMaineventStat} 
-                        handlePopClose={this.handlePopClose} 
+                        <Exam
+                            popMainEvent={this.popMainEvent}
+                            handlePopupBackground={this.handlePopupBackground}
+                            resetData={this.resetData}
+                            stat={this.state.stat}
+                            handleMaineventStat={this.handleMaineventStat}
+                            handlePopClose={this.handlePopClose}
 
-                        playSong = {this.playSong}
-                        pauseSong = {this.pauseSong}
-                    />
+                            playSong={this.playSong}
+                            pauseSong={this.pauseSong}
+                        />
                     </div>
                 </div>
             )
@@ -377,17 +377,17 @@ class Main extends React.Component {
         else {
             return (
                 <div className="split left">
-                    <Event 
-                    year={this.state.stat.year} 
-                    sem={this.state.stat.sem} 
-                    stamina={this.state.stat.stamina} 
-                    handleMaineventStat={this.handleMaineventStat} 
-                    location={this.state.location} 
-                    handleLocation={this.handleLocation} 
-                    setEvent={this.setEvent} 
-                    
-                    playSong = {this.playSong}
-                    pauseSong = {this.pauseSong}
+                    <Event
+                        year={this.state.stat.year}
+                        sem={this.state.stat.sem}
+                        stamina={this.state.stat.stamina}
+                        handleMaineventStat={this.handleMaineventStat}
+                        location={this.state.location}
+                        handleLocation={this.handleLocation}
+                        setEvent={this.setEvent}
+
+                        playSong={this.playSong}
+                        pauseSong={this.pauseSong}
                     />
                 </div>
             )
@@ -474,7 +474,6 @@ class Main extends React.Component {
                     <h2>Statistics</h2>
                     <StatDisplay stat={this.state.stat} ref={this.statRef} />
                     <br></br>
-                    <h2>Buttons</h2>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "friend" })}>Friend List</button>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "profile" })}>Check profile</button>
                     <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "map" })}>Explore CUHK!</button>

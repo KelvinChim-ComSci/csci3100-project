@@ -27,7 +27,6 @@ class ShowUsers extends React.Component {
 
     componentDidMount() {
         this.getUserList();
-
     }
 
     async getUserList() {
@@ -43,8 +42,7 @@ class ShowUsers extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                this.setState({ userList: res.userList });
-                this.setState({ loading: false });
+                this.setState({ userList: res.userList, loading: false });
             });
     }
 
@@ -65,12 +63,12 @@ class ShowUsers extends React.Component {
 
                         {this.state.userList.map((data) => {
                             return (
-                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data); this.props.setOverflow(0);}} style={{cursor: "pointer"}}>
+                                <tr key={data._id} onClick={async () => { await this.showUserProfile(data); this.props.setOverflow(0); }} style={{ cursor: "pointer" }}>
                                     <th scope="row">{data.userId}</th>
                                     <td>{data.username}</td>
                                     <td>{data.displayName}</td>
                                     <td>{data.email}</td>
-                                    <td><button onClick={(e) => {this.resetUserPassword(e, data); this.props.setOverflow(0);}}>Reset Password</button></td>
+                                    <td><button onClick={(e) => { this.resetUserPassword(e, data); this.props.setOverflow(0); }}>Reset Password</button></td>
                                 </tr>
 
                             );
@@ -84,9 +82,9 @@ class ShowUsers extends React.Component {
 
 
     async showUserProfile(data) {
+        this.setState({ loading: true });
         const stat = await statRetrievebyId(data._id);
-
-        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data });
+        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data, loading: false });
     }
 
     resetUserPassword(e, data) {
@@ -119,7 +117,7 @@ class ShowUsers extends React.Component {
             return (
                 <div>
                     <div id="shadowLayer"></div>
-                    <div className="popUp" style={{width: "auto", height: "auto"}}>
+                    <div className="popUp" style={{ width: "auto", height: "auto" }}>
                         <ChangePassword id={this.state.target._id} handlePopClose={this.handleInnerPopClose} setOverflow={this.props.setOverflow} loginPage={false} />
                     </div>
                 </div>
@@ -130,23 +128,20 @@ class ShowUsers extends React.Component {
 
 
     render() {
-        if (this.state.loading) {
-            return (<Loading />)
-        } else {
-            return (
-                <div className="showUsers">
-                    <h2>Users</h2>
-                    <div>
-                        {this.displayUserList()}
-                    </div>
-                    <div>
-                        {this.popUp()}
-                    </div>
-
+        return (
+            <div className="showUsers">
+                {this.state.loading ? <Loading /> : <h2>Users</h2>}
+                <div>
+                    {this.displayUserList()}
+                </div>
+                <div>
+                    {this.popUp()}
                 </div>
 
-            )
-        }
+            </div>
+
+        )
+
     }
 }
 

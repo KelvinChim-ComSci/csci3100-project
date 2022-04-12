@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox';
+import Loading from '../Loader';
 
 
 class ForgotPassword extends React.Component {
@@ -9,7 +10,8 @@ class ForgotPassword extends React.Component {
         this.state = {
             usernameError: "",
             emailSent: false,
-            message: ""
+            message: "",
+            loading: false
         }
         this.sendEmail = this.sendEmail.bind(this);
     }
@@ -17,6 +19,7 @@ class ForgotPassword extends React.Component {
     async sendEmail(event) {
         event.preventDefault();
         let inputUsername = document.getElementById("usernameid").value;
+        this.setState({ loading: true })
         await fetch(process.env.REACT_APP_BASE_URL + "/email/forgetpassword", {
             method: "POST",
             headers: new Headers({
@@ -32,6 +35,7 @@ class ForgotPassword extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
+                this.setState({ loading: false })
                 if (res.usernameError) {
                     this.setState({ usernameError: "Username does not exist" })
                 }
@@ -51,32 +55,33 @@ class ForgotPassword extends React.Component {
             }
             else {
                 return (
+
                     <div id="forgot_password">
+                        {this.state.loading ? <Loading /> :
+                            <div className="container">
 
-                        <div className="container">
+                                <h1>CU Simulator</h1>
 
-                            <h1>CU Simulator</h1>
+                                <form autoComplete="on">
 
-                            <form autoComplete="on">
+                                    <div className="txt_field">
 
-                                <div className="txt_field">
+                                        <label htmlFor="username">Username</label>
+                                        <input type="text" id="usernameid" name="username" required></input>
+                                        <div className="error">{this.state.usernameError}</div>
 
-                                    <label htmlFor="username">Username</label>
-                                    <input type="text" id="usernameid" name="username" required></input>
-                                    <div className="error">{this.state.usernameError}</div>
+                                    </div>
 
-                                </div>
+                                    <div className="buttons" onClick={this.sendEmail}>
+                                        <input id="submit_box" type="submit" value="Send email"></input>
+                                    </div>
+                                    <div className="links">
+                                        <p><a href="./">Return to log in</a></p>
+                                    </div>
 
-                                <div className="buttons" onClick={this.sendEmail}>
-                                    <input id="submit_box" type="submit" value="Send email"></input>
-                                </div>
-                                <div className="links">
-                                    <p><a href="./">Return to log in</a></p>
-                                </div>
+                                </form>
 
-                            </form>
-
-                        </div>
+                            </div>}
                     </div>
                 )
             }

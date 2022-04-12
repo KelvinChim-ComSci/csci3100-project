@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from '../withRouter.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox.js';
+import Loading from '../Loader.js';
 
 class ChangePassword extends React.Component {
     constructor(props) {
@@ -12,10 +13,11 @@ class ChangePassword extends React.Component {
             confirmPasswordError: false,
             passwordErrMsg: "",
             confirmPasswordErrMsg: "",
-            message: "invalid URL"
+            message: "invalid URL",
+            loading: true
         }
 
-        this.id = (this.props.loginPage)? this.props.params.id : this.props.id;
+        this.id = (this.props.loginPage) ? this.props.params.id : this.props.id;
 
         this.componentDidMount = this.componentDidMount.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
@@ -37,7 +39,7 @@ class ChangePassword extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                this.setState({ validURL: res.validURL })
+                this.setState({ validURL: res.validURL, loading: false })
             });
     }
 
@@ -82,7 +84,7 @@ class ChangePassword extends React.Component {
         await this.checkPassword();
         await this.checkConfirmPassword();
         if (!(this.state.passwordError || this.state.confirmPasswordError)) {
-
+            this.setState({ loading: true });
             let inputPassword = document.getElementById("passwordid").value;
             await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword", {
                 method: "POST",
@@ -104,9 +106,9 @@ class ChangePassword extends React.Component {
                         this.setState({ passwordError: true, passwordErrMsg: res.passwordError });
                     }
                     else {
-                        this.setState({ passwordError: false, passwordErrMsg: "", reset: true, message: res.message });
-                        if (!this.props.loginPage){
-                            alert(res.message); 
+                        this.setState({ passwordError: false, passwordErrMsg: "", reset: true, message: res.message, loading: false });
+                        if (!this.props.loginPage) {
+                            alert(res.message);
                             this.props.handlePopClose();
                             this.props.setOverflow(1);
                         }
@@ -135,9 +137,9 @@ class ChangePassword extends React.Component {
             else
                 return (
                     <div className="d-flex justify-content-around">
-                        <button className="btn btn-success" onClick={(event) => {event.preventDefault(); this.props.handlePopClose(); this.props.setOverflow(1);}}>Cancel</button>
+                        <button className="btn btn-success" onClick={(event) => { event.preventDefault(); this.props.handlePopClose(); this.props.setOverflow(1); }}>Cancel</button>
                         <button className="btn btn-success" onClick={this.resetPassword}>Confirm</button>
-                    </div>   
+                    </div>
                 )
         }
 
@@ -155,39 +157,43 @@ class ChangePassword extends React.Component {
             //page outside main, normal case
             else
                 return (
-                    <div id={`${(loginPage)? "change_password" : "changePasswordInner"}`}>
-                        <div className={`${(loginPage)? "container" : ""}`}>
+                    <div>
+                        {this.state.loading ? <Loading /> : null}
+                        <div id={`${(loginPage) ? "change_password" : "changePasswordInner"}`}>
 
-                            <h1 style={{display: `${(loginPage)? "" : "none"}`}}>CU Simulator</h1>
+                            <div className={`${(loginPage) ? "container" : ""}`}>
 
-                            <h3>Change Password</h3>
+                                <h1 style={{ display: `${(loginPage) ? "" : "none"}` }}>CU Simulator</h1>
 
-                            <form autoComplete="on">
+                                <h3>Change Password</h3>
 
-                                <div className="txt_field">
+                                <form autoComplete="on">
 
-                                    <label htmlFor="password">New Password</label>
-                                    <input type="password" id="passwordid" name="password" required></input>
-                                    <div className="error">{this.state.passwordErrMsg}</div>
+                                    <div className="txt_field">
 
-                                </div>
+                                        <label htmlFor="password">New Password</label>
+                                        <input type="password" id="passwordid" name="password" required></input>
+                                        <div className="error">{this.state.passwordErrMsg}</div>
 
-                                <div className="txt_field">
+                                    </div>
 
-                                    <label htmlFor="confirmpassword">Confirm New Password</label>
-                                    <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
-                                    <div className="error">{this.state.confirmPasswordErrMsg}</div>
+                                    <div className="txt_field">
 
-                                </div>
+                                        <label htmlFor="confirmpassword">Confirm New Password</label>
+                                        <input type="password" id="confirmpasswordid" name="confirmpassword" required></input>
+                                        <div className="error">{this.state.confirmPasswordErrMsg}</div>
 
-                                {renderButtons(loginPage)}
+                                    </div>
 
-                            </form>
+                                    {renderButtons(loginPage)}
 
+                                </form>
+
+                            </div>
                         </div>
                     </div>
                 )
-                
+
         }
 
         return (

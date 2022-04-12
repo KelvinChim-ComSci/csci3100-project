@@ -9,7 +9,7 @@ const Loading = () => {
         <div className="blackBackground">
             <div className="container">
                 <Loader.RotatingSquare className="loader" color="#FFFFFF" height={80} width={80} />
-                Loading...
+                <div id="loadingText">Loading...</div>
             </div>
         </div>
     )

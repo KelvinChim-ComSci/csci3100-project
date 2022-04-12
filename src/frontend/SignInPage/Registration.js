@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox';
+import Loading from '../Loader';
 
 class Registration extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class Registration extends React.Component {
             passwordErrMsg: "",
             emailErrorMsg: "",
             confirmPasswordErrMsg: "",
-            accountCreated: false
+            accountCreated: false,
+            loading: false
         }
 
         this.checkUserName = this.checkUserName.bind(this);
@@ -108,7 +110,7 @@ class Registration extends React.Component {
         await this.checkConfirmPassword();
 
         if (!(this.state.emailError || this.state.passwordError || this.state.usernameError || this.state.confirmPasswordError)) {
-
+            this.setState({ loading: true });
             await fetch(process.env.REACT_APP_BASE_URL + "/register", {
                 method: "POST",
                 headers: new Headers({
@@ -126,6 +128,7 @@ class Registration extends React.Component {
             })
                 .then((res) => res.json())
                 .then((res) => {
+                    this.setState({ loading: false });
                     if (res.usernameError) {
                         this.setState({ usernameErrMsg: res.usernameError });
                         this.setState({ usernameError: true });
@@ -151,42 +154,42 @@ class Registration extends React.Component {
             else {
                 return (
                     <div id="registration">
+                        {this.state.loading ? <Loading /> :
+                            <div className="container">
 
-                        <div className="container">
+                                <h1>CU Simulator</h1>
 
-                            <h1>CU Simulator</h1>
+                                <form autoComplete="on">
 
-                            <form autoComplete="on">
+                                    <div className="txt_field">
 
-                                <div className="txt_field">
+                                        <label htmlFor="username">Username</label>
+                                        <input type="text" id="usernameid" name="username" required></input>
+                                        <div className="error">{this.state.usernameErrMsg}</div>
 
-                                    <label htmlFor="username">Username</label>
-                                    <input type="text" id="usernameid" name="username" required></input>
-                                    <div className="error">{this.state.usernameErrMsg}</div>
+                                        <label htmlFor="email">Email</label>
+                                        <input type="text" id="emailid" name="email" required></input>
+                                        <div className="error">{this.state.emailErrMsg}</div>
 
-                                    <label htmlFor="email">Email</label>
-                                    <input type="text" id="emailid" name="email" required></input>
-                                    <div className="error">{this.state.emailErrMsg}</div>
+                                        <label htmlFor="password">Password</label>
+                                        <input type="password" id="passwordid" name="password" required></input>
+                                        <div className="error">{this.state.passwordErrMsg}</div>
 
-                                    <label htmlFor="password">Password</label>
-                                    <input type="password" id="passwordid" name="password" required></input>
-                                    <div className="error">{this.state.passwordErrMsg}</div>
+                                        <label htmlFor="confirmPassword">Confirm Password</label>
+                                        <input type="password" id="confirmpasswordid" name="confirmPassword" required></input>
+                                        <div className="error">{this.state.confirmPasswordErrMsg}</div>
+                                    </div>
 
-                                    <label htmlFor="confirmPassword">Confirm Password</label>
-                                    <input type="password" id="confirmpasswordid" name="confirmPassword" required></input>
-                                    <div className="error">{this.state.confirmPasswordErrMsg}</div>
-                                </div>
+                                    <div className="buttons">
+                                        <input id="submit_box" type="submit" value="Create Account!" onClick={this.createAccount}></input>
+                                    </div>
+                                    <div className="links">
+                                        <p><a href="./">Return to log in</a></p>
+                                    </div>
 
-                                <div className="buttons">
-                                    <input id="submit_box" type="submit" value="Create Account!" onClick={this.createAccount}></input>
-                                </div>
-                                <div className="links">
-                                    <p><a href="./">Return to log in</a></p>
-                                </div>
+                                </form>
 
-                            </form>
-
-                        </div>
+                            </div>}
                     </div>
                 )
             }
