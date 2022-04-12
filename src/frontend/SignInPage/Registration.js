@@ -149,7 +149,9 @@ class Registration extends React.Component {
 
         const renderContent = () => {
             if (this.state.accountCreated) {
-                return <NotificationBox message="Create new account successfully! Please check your email for verification." login={false} />
+                return (<div id="registration">
+                    <NotificationBox message="Create new account successfully! Please check your email for verification." login={false} />
+                </div>)
             }
             else {
                 return (
