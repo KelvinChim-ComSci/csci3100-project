@@ -148,8 +148,8 @@ class ChangePassword extends React.Component {
             else
                 return (
                     <div className="d-flex justify-content-around">
-                        <button className="btn btn-success" onClick={(event) => { event.preventDefault(); this.props.handlePopClose(); this.props.setOverflow(1); }}>Cancel</button>
-                        <button className="btn btn-success" onClick={this.resetPassword}>Confirm</button>
+                        <button className="btn btn-light" onClick={(event) => { event.preventDefault(); this.props.handlePopClose(); this.props.setOverflow(1); }}>Cancel</button>
+                        <button className="btn btn-light" onClick={this.resetPassword}>Confirm</button>
                     </div>
                 )
         }

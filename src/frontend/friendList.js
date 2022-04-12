@@ -65,7 +65,7 @@ class FriendList extends React.Component {
                     <div id="shadowLayer"></div>
                     <button className="closeButton" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>x</button>
                     <div className="popUp" style={{ overflow: this.state.overflow ? "auto" : "clip" }}>
-                        <AddFriend userId={this.props.stat.user} setOverflow={this.setOverflow}/>
+                        <AddFriend userId={this.props.stat.user} setOverflow={this.setOverflow} />
                     </div>
                 </div>
             );
@@ -87,8 +87,8 @@ class FriendList extends React.Component {
                         <h4>Are you sure to delete {this.state.target.displayName}?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => { this.manageRequest(this.state.target.id, "delete"); this.setState({ popUpBar: "", target: null, chat: "" }) }}>Yes</button>
-                            <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "" })}>No</button>
+                            <button className="btn btn-light" onClick={() => { this.manageRequest(this.state.target.id, "delete"); this.setState({ popUpBar: "", target: null, chat: "" }) }}>Yes</button>
+                            <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "" })}>No</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@ class FriendList extends React.Component {
 
     sendGift(userId, friendId) {
         giftToBackend(userId, friendId)
-        .then((res) => this.showTempMessage(res.message));
+            .then((res) => this.showTempMessage(res.message));
     }
 
     checkReceivedGift(Boolean, userId, friendId, currentStat, displayName) {
@@ -349,7 +349,7 @@ class FriendList extends React.Component {
     async sendMessage(friendId) {
         let isEmptyMessage = (document.getElementById("chatMessage").value === null || document.getElementById("chatMessage").value.trim() === "");
         if (!isEmptyMessage) {
-            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);  
+            await this.sendChatMessage(document.getElementById("chatMessage").value, friendId);
         }
         document.getElementById("chatMessage").value = "";
     }

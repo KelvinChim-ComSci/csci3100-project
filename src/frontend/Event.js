@@ -58,7 +58,7 @@ class Event extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.mounted = true;
     }
 
@@ -68,7 +68,7 @@ class Event extends React.Component {
         clearTimeout(this.currentTimeout);
     }
 
-    eventChoice(location, year, sem){
+    eventChoice(location, year, sem) {
         if (location === "U Lib" && year === 1 && sem === 1) {
             this.props.playSong(TrollSong);
             return GateOfWisdom;
@@ -79,7 +79,7 @@ class Event extends React.Component {
         }
         if (location === "NA" && year === 1 && sem === 3) {
             this.props.playSong(CUHKSound);
-            return NA; 
+            return NA;
         }
         if (location === "Haddon-Cave" && year === 1 && sem === 4) {
             this.props.playSong(TrollSong);
@@ -112,48 +112,48 @@ class Event extends React.Component {
         }
 
         this.props.playSong(NoEvent);
-        this.setState({noEvent: true});
+        this.setState({ noEvent: true });
         return noEvent;
     }
 
 
 
-    beginEvent(){
-        if (this.props.stamina < 20){
+    beginEvent() {
+        if (this.props.stamina < 20) {
             toast.error("You are already tired. Please go home and rest more!");
             return;
         }
 
         fetch(this.eventChoice(this.props.location, this.props.year, this.props.sem))
-        .then(r => r.text())
-        .then(text => {
-            this.script_list = text.split('\n');
-            this.displayDialogue(this.script_list[0], 0, false);
-            this.script_answer = [];
-            this.script_reaction_count = [];
-            //   this.script_reaction = [];
-            for (let k = 0; k < this.script_list.length; k++){
-                if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
+            .then(r => r.text())
+            .then(text => {
+                this.script_list = text.split('\n');
+                this.displayDialogue(this.script_list[0], 0, false);
+                this.script_answer = [];
+                this.script_reaction_count = [];
+                //   this.script_reaction = [];
+                for (let k = 0; k < this.script_list.length; k++) {
+                    if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
 
-                    this.script_answer.push(this.script_list[k].substring(6));
-                    this.script_reaction_count.push(this.script_list[k][4]);
+                        this.script_answer.push(this.script_list[k].substring(6));
+                        this.script_reaction_count.push(this.script_list[k][4]);
 
-                    if (this.script_list[k][5] !== "@"){
+                        if (this.script_list[k][5] !== "@") {
 
-                        this.script_reaction_count.pop();
-                        this.script_reaction_count.push(parseInt(this.script_list[k][4]*10) + parseInt(this.script_list[k][5]));
-                        this.script_answer.pop();
-                        this.script_answer.push(this.script_list[k].substring(7));
+                            this.script_reaction_count.pop();
+                            this.script_reaction_count.push(parseInt(this.script_list[k][4] * 10) + parseInt(this.script_list[k][5]));
+                            this.script_answer.pop();
+                            this.script_answer.push(this.script_list[k].substring(7));
+                        }
+                        //   this.script_reaction.push(this.script_list[k+1]);
                     }
-                    //   this.script_reaction.push(this.script_list[k+1]);
                 }
-            }
-        })
-        .then(this.setState({started: 1}))
-        .then(this.props.setEvent(1));
+            })
+            .then(this.setState({ started: 1 }))
+            .then(this.props.setEvent(1));
     }
 
-    bgchoice(location){
+    bgchoice(location) {
         if (location === "U Lib") return ulib_bg;
         if (location === "NA") return na_bg;
         if (location === "University Station") return unistation_bg;
@@ -169,7 +169,7 @@ class Event extends React.Component {
 
     }
 
-    returnToMain(){
+    returnToMain() {
         this.props.setEvent(0);
         this.props.handleLocation("main");
     }
@@ -187,43 +187,43 @@ class Event extends React.Component {
         }
 
         // if this is a @ line
-        if (dia_line[0] === "@"){
+        if (dia_line[0] === "@") {
             dialogue = dia_line.substring(4);
             // pop choice window if @Q is detected while reading script
             if (dia_line[1] === "Q")
                 pop_q = true;
         }
 
-        
+
         if (this.state.lineFinished) {
-            this.setState({lineFinished: false});
+            this.setState({ lineFinished: false });
             this.displayDialogue(dialogue, 0, pop_q);
         }
         else {
             clearTimeout(this.currentTimeout);
             this.displayDialogue(dialogue, dialogue.length, pop_q);
         }
-        
-    } 
 
-    displayDialogue(dialogue, i, pop_q){
+    }
+
+    displayDialogue(dialogue, i, pop_q) {
         let part = dialogue.substr(0, i);
         if (document.getElementById('dialogue') && this.mounted)
             document.getElementById('dialogue').innerHTML = part;
 
-        if (i < dialogue.length){
-            this.currentTimeout = setTimeout(() => {this.displayDialogue(dialogue, i+1, pop_q)}, 10);
+        if (i < dialogue.length) {
+            this.currentTimeout = setTimeout(() => { this.displayDialogue(dialogue, i + 1, pop_q) }, 10);
         }
-            
+
         else {
-            this.setState({lineFinished: true, script_count: this.state.script_count+1});
-            if (pop_q){
+            this.setState({ lineFinished: true, script_count: this.state.script_count + 1 });
+            if (pop_q) {
                 this.setState({
-                    popUpChoice : "choice",
+                    popUpChoice: "choice",
                     pop_q: dialogue,
                 });
             }
-        }  
+        }
     }
 
     async handleChoice(choiceId) {
@@ -235,13 +235,13 @@ class Event extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1));
         this.handleClick();
     }
-      
+
     dialogueWindow() {
         if (this.state.started)
             return (
                 <div>
-                    <div className="text" onClick={()=>this.handleClick()}>
-                        <p id = "dialogue"></p>
+                    <div className="text" onClick={() => this.handleClick()}>
+                        <p id="dialogue"></p>
                     </div>
                 </div>
 
@@ -254,7 +254,7 @@ class Event extends React.Component {
                             Back to main page
                         </div>
                     </div>
-                    <button onClick={this.beginEvent} id="eventStarter" className="btn btn-success eventStarter">
+                    <button onClick={this.beginEvent} id="eventStarter" className="btn btn-light eventStarter">
                         Click to start
                     </button>
                 </div>
@@ -278,12 +278,12 @@ class Event extends React.Component {
             return (
                 <div>
                     <div id="shadowLayer"></div>
-                    <div className="popUp" id = "choiceWindow">
-                        <Choice pop_q = {this.state.pop_q} script_answer={this.script_answer} handleChoice={this.handleChoice} />
+                    <div className="popUp" id="choiceWindow">
+                        <Choice pop_q={this.state.pop_q} script_answer={this.script_answer} handleChoice={this.handleChoice} />
                     </div>
                 </div>
-                )
-        else{
+            )
+        else {
             return
         }
     }
@@ -292,10 +292,10 @@ class Event extends React.Component {
         require('./Event.css');
 
         return (
-            <div className = 'event' style={{backgroundImage: `url(${this.bgchoice(this.props.location)})`}}>
-                <div className = "textContainer topLeft"><h1 id='Location'>{this.props.location}</h1></div>
+            <div className='event' style={{ backgroundImage: `url(${this.bgchoice(this.props.location)})` }}>
+                <div className="textContainer topLeft"><h1 id='Location'>{this.props.location}</h1></div>
                 {this.dialogueWindow()}
-                {this.popUp(this.state.popUpChoice)}      
+                {this.popUp(this.state.popUpChoice)}
             </div>
         )
     }

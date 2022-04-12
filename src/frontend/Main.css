@@ -29,7 +29,8 @@
     width: 20%;
     top: 0;
     right: 0;
-    background-color: rgb(182, 182, 182);
+    color:rgb(39, 31, 29);
+    background-color:rgb(193, 224, 227);
     vertical-align: top;
 }
 
@@ -96,11 +97,11 @@
     transform: translate(-50%, -50%);
     height: 90%;
     width: 90%; 
-    background-color: rgb(214, 213, 213);
+    background-color: rgb(193, 224, 227);
     background-position: center;
     background-repeat: no-repeat;
     /* background-color: black; */
-    border: 6px solid rgb(0, 100, 5);
+    border: 6px solid rgb(255, 255, 255);
     opacity: 100%;
     overflow: auto;
 }
@@ -108,7 +109,7 @@
 .mainPopUp .closeButton{
     z-index: 2001;
     position: absolute;
-    background-color: rgb(255, 123, 0);
+    background-color: rgb(255, 255, 255);
     left: 95%;
     top: 5%;
     transform: translate(-60%, -30%);
@@ -127,4 +128,14 @@
 
 .btn{
     padding: 10px 20px 10px 20px;
+}
+
+#friendList{
+    align-items: center;
+    text-align: center;
+}
+
+#friendImg{
+    height: 3em;
+
 }
