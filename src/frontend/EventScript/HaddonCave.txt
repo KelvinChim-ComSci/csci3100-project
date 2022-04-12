@@ -3,7 +3,7 @@ Ken: The athletes are so good at longjumping! Everyone can jump for at least 5 m
 Ken: Hey do you want to join them and play?
 You: You must be kidding… this is for the competitors!
 Ken: Don't worry! Some of them are doing it for the PE marks. Just sneak in and jump once!
-@QQ@ Do you want to try and do a longjump?
+@QQ@ Do you want to try and do a long jump?
 @A1,2@ Yes
 @A2,6@ No
 @R1@ You: Yea why not. But you have to jump with me!
