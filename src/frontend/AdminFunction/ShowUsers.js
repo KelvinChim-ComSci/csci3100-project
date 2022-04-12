@@ -50,7 +50,7 @@ class ShowUsers extends React.Component {
         //const userList = this.state.userList;
         if (this.state.userList.length !== 0) {
             return (
-                <table className="table table-striped">
+                <table id="userTable" className="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">User ID</th>
@@ -68,7 +68,7 @@ class ShowUsers extends React.Component {
                                     <td>{data.username}</td>
                                     <td>{data.displayName}</td>
                                     <td>{data.email}</td>
-                                    <td><button onClick={(e) => { this.resetUserPassword(e, data); this.props.setOverflow(0); }}>Reset Password</button></td>
+                                    <td><button class="btn btn-secondary btn-sm" onClick={(e) => { this.resetUserPassword(e, data); this.props.setOverflow(0); }}>Reset Password</button></td>
                                 </tr>
 
                             );
@@ -128,9 +128,10 @@ class ShowUsers extends React.Component {
 
 
     render() {
+        require('./ShowUsers.css');
         return (
             <div className="showUsers">
-                {this.state.loading ? <Loading /> : <h2>Users</h2>}
+                {this.state.loading ? <Loading /> : <h2 id="title">Users</h2>}
                 <div>
                     {this.displayUserList()}
                 </div>
