@@ -1,4 +1,7 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import event1 from "../EventScript/event1.txt";
 import event2 from "../EventScript/event2.txt";
 import event3 from "../EventScript/event3.txt";
@@ -305,7 +308,7 @@ class MainEvent extends React.Component {
             }),
         })
         .then((res) => res.json())
-        .then((res) => alert(res.message));
+        .then((res) => toast.info(res.message));
     }
  
     achievementEndCheck(){

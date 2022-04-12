@@ -1,5 +1,8 @@
 import React from 'react';
 import { withRouter } from '../withRouter.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox.js';
 import Loading from '../Loader.js';
@@ -108,7 +111,15 @@ class ChangePassword extends React.Component {
                     else {
                         this.setState({ passwordError: false, passwordErrMsg: "", reset: true, message: res.message, loading: false });
                         if (!this.props.loginPage) {
-                            alert(res.message);
+                            toast.info(res.message, {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
                             this.props.handlePopClose();
                             this.props.setOverflow(1);
                         }

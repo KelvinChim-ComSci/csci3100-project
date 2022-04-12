@@ -1,4 +1,7 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import Choice from '../choiceWindow';
 
@@ -123,7 +126,7 @@ class Exam extends React.Component {
                 line[0] = wrong_count;
             }
             this.props.handleMaineventStat(line, false);
-            alert("You have answered "+this.state.correct_count+" number of questions correctly!");
+            toast.success("You have answered "+this.state.correct_count+" number of questions correctly!");
             if (this.props.stat.year === 5)
                 this.props.popMainEvent();
             return;
