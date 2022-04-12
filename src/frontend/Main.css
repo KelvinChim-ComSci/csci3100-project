@@ -30,12 +30,13 @@
     top: 0;
     right: 0;
     color:rgb(39, 31, 29);
-    background-color:rgb(193, 224, 227);
+    background-color:rgb(161, 216, 221);
     vertical-align: top;
 }
 
 #main .right .btn {
     margin: 1px 0;
+    width: 100%;
 }
 
 .mainButton{
@@ -97,7 +98,7 @@
     transform: translate(-50%, -50%);
     height: 90%;
     width: 90%; 
-    background-color: rgb(193, 224, 227);
+    background-color: rgb(161, 216, 221);
     background-position: center;
     background-repeat: no-repeat;
     /* background-color: black; */
