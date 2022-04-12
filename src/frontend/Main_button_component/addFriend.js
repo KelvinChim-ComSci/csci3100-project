@@ -3,6 +3,9 @@ import Profile from "../Main_button_component/profile";
 import { statRetrievebyId } from '../statUpdater/statRetrievebyId.js';
 import Loading from "../Loader";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class AddFriend extends React.Component {
     constructor(props) {
         super(props);
@@ -43,7 +46,7 @@ class AddFriend extends React.Component {
 
     async createFriendRequest(friendName) {
         let inputFriendName = friendName || document.getElementsByName("friendName")[0].value;
-        if (this.isEmpty(inputFriendName)) return this.displayMessage("Friend name cannot be empty.");
+        if (this.isEmpty(inputFriendName)) return toast.warn("Friend name cannot be empty.");
         await fetch(process.env.REACT_APP_BASE_URL + "/friend/sendRequest", {
             method: "POST",
             headers: new Headers({
@@ -60,27 +63,15 @@ class AddFriend extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                this.setState({ message: res.message });
+                toast.info(res.message);
                 if (!friendName)
                     document.getElementsByName("friendName")[0].value = "";
-                setTimeout(() => { if (this.mounted) this.setState({ message: "" }) }, 5000);
             });
     }
 
     deleteRecommendation(id) {
         let request = document.getElementsByClassName(id);
         request.length > 1 ? request[1].remove() : request[0].remove();
-    }
-
-    displayMessage() {
-        if (this.state.message === "")
-            return;
-
-        return (
-            <div className="displayMessage">
-                {this.state.message}
-            </div>
-        )
     }
 
     async getRecommendation() {
@@ -160,9 +151,7 @@ class AddFriend extends React.Component {
                         <div className="createRequest_horizontal"></div>
                         <div className="createRequest_vertical"></div></div>}
                 </span>
-
                 <br />
-                {this.displayMessage()}
                 <br />
                 <div className="recommendedPlayers">
                     {this.showRecommendation()}

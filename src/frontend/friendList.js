@@ -5,6 +5,9 @@ import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 import { statBackendUpdate } from './statUpdater/statUpdateBackend.js';
 import { giftToBackend } from './friendlistFunctions/friendActions.js';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class FriendList extends React.Component {
     constructor(props) {
         super(props);
@@ -300,9 +303,7 @@ class FriendList extends React.Component {
     }
 
     showTempMessage(message) {
-        this.setState({ message: message }); // successful message
-
-        setTimeout(() => { if (this.mounted) this.setState({ message: "" }) }, 5000);
+        toast.info(message);
     }
 
     displayMessage() {
