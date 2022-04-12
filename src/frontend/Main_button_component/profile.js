@@ -60,8 +60,8 @@ class Profile extends React.Component {
                         <textarea id="description" rows="10" cols="30" defaultValue={msg}></textarea>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>Discard change</button>
-                            <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "" }); this.changeAboutMe(this.props.stat.user, document.getElementById("description").value); this.props.setOverflow(1); }}>Save</button>
+                            <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>Discard change</button>
+                            <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "" }); this.changeAboutMe(this.props.stat.user, document.getElementById("description").value); this.props.setOverflow(1); }}>Save</button>
                         </div>
                     </div>
                 </div>
@@ -76,8 +76,8 @@ class Profile extends React.Component {
                         <textarea id="displayName" rows="1" cols="30" defaultValue={name}></textarea>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>Discard change</button>
-                            <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "" }); this.changeDisplayName(this.props.stat.user); this.props.setOverflow(1); }}>Save</button>
+                            <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "" }); this.props.setOverflow(1); }}>Discard change</button>
+                            <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "" }); this.changeDisplayName(this.props.stat.user); this.props.setOverflow(1); }}>Save</button>
                         </div>
                     </div>
                 </div>
@@ -248,12 +248,12 @@ class Profile extends React.Component {
 
                                 <div className="d-flex justify-content-between">
                                     <div className="p-2">Display name: {this.state.name}</div>
-                                    <div className="p-2"><button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "name" }); this.props.setOverflow(0); }} style={{ display: `${this.props.friend ? "none" : "flex"}` }}> Edit! </button></div>
+                                    <div className="p-2"><button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "name" }); this.props.setOverflow(0); }} style={{ display: `${this.props.friend ? "none" : "flex"}` }}> Edit! </button></div>
                                 </div>
 
                                 <div className="d-flex justify-content-between">
                                     <div className="p-2">About me:</div>
-                                    <div className="p-2"><button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "about" }); this.props.setOverflow(0); }} style={{ display: `${this.props.friend ? "none" : "flex"}` }}> Edit! </button></div>
+                                    <div className="p-2"><button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "about" }); this.props.setOverflow(0); }} style={{ display: `${this.props.friend ? "none" : "flex"}` }}> Edit! </button></div>
                                 </div>
 
                                 <div className="p-2">{this.state.message}</div>
@@ -264,7 +264,7 @@ class Profile extends React.Component {
                                             Change Your Profile Image:
 
                                             <div>
-                                                <label htmlFor="file-upload" className="btn btn-success">
+                                                <label htmlFor="file-upload" className="btn btn-light">
                                                     Select Image
                                                 </label>
                                                 <input id="file-upload" type="file" onChange={this.onFileChange} />
@@ -272,7 +272,7 @@ class Profile extends React.Component {
                                             </div>
 
                                             <div style={{ marginTop: "2px" }}>
-                                                <button className="btn btn-success" type="submit">Upload</button>
+                                                <button className="btn btn-light" type="submit">Upload</button>
                                             </div>
 
                                         </div>

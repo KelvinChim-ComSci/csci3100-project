@@ -11,6 +11,7 @@ import { statEventUpdate } from './statUpdater/statEventUpdate.js';
 import { statRetrievebyId } from './statUpdater/statRetrievebyId.js';
 import FriendList from './friendList';
 import main_bg from '../backend/background/main.jpeg';
+import friend_img from '../backend/img/friends_boys.png'
 
 import Event from './Event';
 import StatDisplay from './statDisplay';
@@ -211,8 +212,8 @@ class Main extends React.Component {
                         <h4>Are you sure to log out?</h4>
                         <br></br>
                         <div className="d-flex justify-content-around">
-                            <button className="btn btn-success" onClick={this.userLogout}>Yes</button>
-                            <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "" }) }}>No</button>
+                            <button className="btn btn-light" onClick={this.userLogout}>Yes</button>
+                            <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "" }) }}>No</button>
                         </div>
                     </div>
                 </div>
@@ -307,7 +308,7 @@ class Main extends React.Component {
                         <input type="text" id="Sem" name="Sem" defaultValue={this.state.stat.sem} /><br></br>
                         <br></br>
 
-                        <button className="btn btn-success" onClick={() => {
+                        <button className="btn btn-light" onClick={() => {
                             const stat = {
                                 gpa: parseInt(document.getElementById("GPA").value),
                                 happiness: parseInt(document.getElementById("Happiness").value),
@@ -369,8 +370,8 @@ class Main extends React.Component {
             return (
                 <div className="split left" style={{ backgroundImage: `url(${main_bg})` }} id="defaultPage">
                     <h2>{`Welcome to CU Simulator, ${this.props.displayName}!`}</h2>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "schedule" })} style={{display: `${(this.state.stat && this.state.stat.year >= 5)? "none" : ""}`}}>Open schedule</button>
-                    <button className="btn btn-success" onClick={() => this.playSong(wooSingBeat)}>Dem個和聲Beat</button>
+                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "schedule" })} style={{ display: `${(this.state.stat && this.state.stat.year >= 5) ? "none" : ""}` }}>Open schedule</button>
+                    <button className="btn btn-light" onClick={() => this.playSong(wooSingBeat)}>Dem個和聲Beat</button>
                 </div>
             )
         }
@@ -400,8 +401,8 @@ class Main extends React.Component {
             return (
                 <div className="d-flex flex-column">
                     <h2>Admin</h2>
-                    <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "showUser" }) }}>Show user</button>
-                    <button className="btn btn-success" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
+                    <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "showUser" }) }}>Show user</button>
+                    <button className="btn btn-light" onClick={() => { this.setState({ popUpBar: "setStat" }) }}>Set stat</button>
                 </div>
             )
         else
@@ -474,11 +475,17 @@ class Main extends React.Component {
                     <h2>Statistics</h2>
                     <StatDisplay stat={this.state.stat} ref={this.statRef} />
                     <br></br>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "friend" })}>Friend List</button>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "profile" })}>Check profile</button>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "map" })}>Explore CUHK!</button>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "setting" })}>Settings</button>
-                    <button className="btn btn-success" onClick={() => this.setState({ popUpBar: "logout" })}>Logout</button>
+
+                    <div onClick={() => this.setState({ popUpBar: "friend" })}>
+                        <button className="btn btn-light">
+                            <img id="friendImg" src={friend_img} />
+                            Friend List
+                        </button>
+                    </div>
+                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "profile" })}>Check profile</button>
+                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "map" })}>Explore CUHK!</button>
+                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "setting" })}>Settings</button>
+                    <button className="btn btn-light" onClick={() => this.setState({ popUpBar: "logout" })}>Logout</button>
                     <br></br>
                     {this.adminOnly()}
                 </div>
