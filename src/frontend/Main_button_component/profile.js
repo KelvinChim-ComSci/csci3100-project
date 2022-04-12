@@ -137,7 +137,8 @@ class Profile extends React.Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res.pics !== "") { this.setState({ profilegetImg: res.pics, loading: false }); }
+                this.setState({ loading: false });
+                if (res.pics !== "") { this.setState({ profilegetImg: res.pics }); }
 
             });
     }
