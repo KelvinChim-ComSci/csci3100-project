@@ -45,22 +45,6 @@ db.once('open', function () {
     console.log("Mongoose is connected!");
 });
 
-// Schema
-
-var ProfileSchema = mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    stat: { type: mongoose.Schema.Types.ObjectId, ref: 'Statistic' },
-    img: { data: Buffer, contentType: String }, //data: imgPath, contentType: imgFormat(png/jpg)
-    awards: [{ type: String }]
-});
-var Profile = mongoose.model('Profile', ProfileSchema);
-
-var EventSchema = mongoose.Schema({
-    EventName: { type: String, required: true },
-    EventTextfile: { data: Buffer, contentType: String } //required: true
-});
-var Event = mongoose.model('Event', EventSchema);
-
 app.post('/register', async function (req, res) {
     return accountHandling.register(req, res);
 });

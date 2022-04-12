@@ -9,7 +9,6 @@ var StatSchema = mongoose.Schema({
     stamina: { type: Number, required: true },
     year: { type: Number, required: true },
     sem: { type: Number, required: true },
-    eventProgress: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' }
 });
 var Statistic = mongoose.model('Statistic', StatSchema);
 
