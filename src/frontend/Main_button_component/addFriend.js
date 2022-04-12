@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "../Main_button_component/profile";
 import { statRetrievebyId } from '../statUpdater/statRetrievebyId.js';
+import Loading from "../Loader";
 
 class AddFriend extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class AddFriend extends React.Component {
             message: "",
             recommendationList: [],
             popUpBar: "",
+            loading: true
         }
         this.createFriendRequest = this.createFriendRequest.bind(this);
         this.getRecommendation = this.getRecommendation.bind(this);
@@ -56,13 +58,13 @@ class AddFriend extends React.Component {
                 friendName: inputFriendName
             }),
         })
-        .then((res) => res.json())
-        .then((res) => {
-            this.setState({ message: res.message });
-            if (!friendName)
-                document.getElementsByName("friendName")[0].value = "";
-            setTimeout(() => {if (this.mounted) this.setState({ message: "" })}, 5000);
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                this.setState({ message: res.message });
+                if (!friendName)
+                    document.getElementsByName("friendName")[0].value = "";
+                setTimeout(() => { if (this.mounted) this.setState({ message: "" }) }, 5000);
+            });
     }
 
     deleteRecommendation(id) {
@@ -70,7 +72,7 @@ class AddFriend extends React.Component {
         request.length > 1 ? request[1].remove() : request[0].remove();
     }
 
-   displayMessage() {
+    displayMessage() {
         if (this.state.message === "")
             return;
 
@@ -82,6 +84,7 @@ class AddFriend extends React.Component {
     }
 
     async getRecommendation() {
+        this.setState({ loading: true });
         await fetch(process.env.REACT_APP_BASE_URL + "/user/findRandomUsers", {
             method: "POST",
             headers: new Headers({
@@ -95,10 +98,10 @@ class AddFriend extends React.Component {
                 userId: this.props.userId
             }),
         })
-        .then((data) => data.json())
-        .then((res) => {
-            this.setState({ recommendationList: res.users });
-        });
+            .then((data) => data.json())
+            .then((res) => {
+                this.setState({ recommendationList: res.users, loading: false });
+            });
     }
 
     showRecommendation() {
@@ -116,7 +119,7 @@ class AddFriend extends React.Component {
                         return (
                             <div key={data.id} className={data.id} id="recommendBox">
                                 <span className="checkFriendProfile" onClick={async () => { await this.showFriendProfile(data) }}>{data.displayName}</span>
-                                <span className="checkmark" onClick={() => {this.createFriendRequest(data.username); this.deleteRecommendation(data.id)}}>
+                                <span className="checkmark" onClick={() => { this.createFriendRequest(data.username); this.deleteRecommendation(data.id) }}>
                                     <div className="checkmark_circle yellow"></div>
                                     <div className="checkmark_cross"></div>
                                     <div className="checkmark_slash"></div>
@@ -130,8 +133,9 @@ class AddFriend extends React.Component {
     }
 
     async showFriendProfile(data) {
+        this.setState({ loading: true });
         const stat = await statRetrievebyId(data.id);
-        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data });
+        this.setState({ popUpBar: "profile", targetStatistic: stat, target: data, loading: false });
         this.props.setOverflow(0);
     }
 
@@ -144,16 +148,18 @@ class AddFriend extends React.Component {
         require('./addFriend.css');
         return (
             <div className="addFriend">
+                {this.state.loading ? <Loading /> : null}
                 <label htmlFor="friendName">Already know your friend's Username? Send them a friend request!</label>
+
                 <br />
-                <input type="text" placeholder="Player's username" name="friendName" required></input>
+                {this.state.loading ? null : <input type="text" placeholder="Player's username" name="friendName" required></input>}
                 <span className="createRequest" onClick={() => this.createFriendRequest()}>
-                            <div className="createRequest_roundBlock yellow"></div>
-                            <div className="createRequest_head"></div>
-                            <div className="createRequest_body"></div>
-                            <div className="createRequest_horizontal"></div>
-                            <div className="createRequest_vertical"></div>
-                            </span>
+                    {this.state.loading ? null : <div><div className="createRequest_roundBlock yellow"></div>
+                        <div className="createRequest_head"></div>
+                        <div className="createRequest_body"></div>
+                        <div className="createRequest_horizontal"></div>
+                        <div className="createRequest_vertical"></div></div>}
+                </span>
 
                 <br />
                 {this.displayMessage()}
