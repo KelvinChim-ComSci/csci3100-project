@@ -23,7 +23,7 @@ Ready for your exam!
 @A1,5@ Walk through it without shoes
 @A2,5@ sjfdjso!@*&#!(*@)R^&^@#)
 @A3,5@ sjmI@#&(*!@&N)*()
-@A4,5@ Walk through it facing the direction of University Mal
+@A4,5@ Walk through it facing the direction of University Mall
 =4
 @QQ@ Which of the following colleges does not have a gym room?
 @A1,5@ Chung Chi College

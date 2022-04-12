@@ -36,6 +36,13 @@ import HappinessEnding from "../EventScript/HappinessEnding.txt"
 import NullEnding from "../EventScript/NullEnding.txt"
 
 import mainBg from '../../backend/background/mainEvent.jpg';
+import CUHKEntrance from '../../backend/background/CUHKEntrance.jpg';
+import Canteen from '../../backend/background/Canteen.jpg';
+import CCCan from '../../backend/background/CCCan.jpg';
+import GymPlace from '../../backend/background/Gym.jpg';
+import unimall_bg from '../../backend/background/unimall.jpeg';
+import medcan_bg from '../../backend/background/medcan.jpg'
+
 import mapintro_bg from '../../backend/img/MapIntro.png';
 import menuintro_bg from '../../backend/img/MenuIntro.png';
 import profileintro_bg from '../../backend/img/ProfileIntro.png';
@@ -127,6 +134,7 @@ class MainEvent extends React.Component {
         
         const highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
         if (year === 1 && sem === 0) {
+            this.setState({ backgroundImage: CUHKEntrance });
             this.selectSong(CUHKSound);
             return event1
         }
@@ -144,6 +152,7 @@ class MainEvent extends React.Component {
         }
         if (year === 1 && sem === 4){
             if (stat.sports === highest) {
+                this.setState({ backgroundImage: Canteen });
                 this.selectSong(Investigation);
                 return event4
             }
@@ -153,7 +162,7 @@ class MainEvent extends React.Component {
             }
             if (stat.happiness === highest) {
                 this.selectSong(AfterSchoolWithGirl);
-                this.setState({achievementCheck: "6"});
+                this.setState({achievementCheck: "6", backgroundImage: CCCan });
                 return event6
             }
             if (stat.money === highest) {
@@ -171,6 +180,7 @@ class MainEvent extends React.Component {
         }
         if (year === 2 && sem === 3) {
             if (stat.sports === highest && stat.sports > 25){
+                this.setState({ backgroundImage: GymPlace });
                 this.selectSong(Investigation);
                 return event10
             }
@@ -188,6 +198,7 @@ class MainEvent extends React.Component {
                 return event18
             }
             else {
+                this.setState({ backgroundImage: medcan_bg });
                 this.selectSong(Restaurant);
                 return event26
             }
@@ -197,6 +208,7 @@ class MainEvent extends React.Component {
             return event11
         }
         if (year === 3 && sem === 1) {
+            this.setState({ backgroundImage: Canteen });
             this.selectSong(CUHKSound);
             return event12
         }
@@ -215,10 +227,12 @@ class MainEvent extends React.Component {
         if (year === 4 && sem === 1) {
 
             if (stat.sports === highest && stat.sports > 50){
+                this.setState({ backgroundImage: GymPlace });
                 this.selectSong(Gym);
                 return event24
             }
             if (stat.money === highest && stat.money > 50){
+                this.setState({ backgroundImage: Canteen });
                 this.selectSong(Restaurant);
                 return event23
             }
@@ -240,6 +254,7 @@ class MainEvent extends React.Component {
             return event16
         }
         if (year === 4 && sem === 3) {
+            this.setState({ backgroundImage: unimall_bg });
             this.selectSong(CUHKSound);
             return event17
         }

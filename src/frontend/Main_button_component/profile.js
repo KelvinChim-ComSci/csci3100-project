@@ -284,7 +284,7 @@ class Profile extends React.Component {
                         <div className="col">Stamina: {this.props.stat.stamina}</div>
                     </div>
                     <div className="row">
-                        <div className="col">GPA: {this.props.stat.gpa}</div>
+                        <div className="col">GPA: {(this.props.stat.gpa/150 * 4).toFixed(2)}</div>
                         <div className="col">Sports: {this.props.stat.sports}</div>
                         <div className="col">Happiness: {this.props.stat.happiness}</div>
                         <div className="col">Money: {this.props.stat.money}</div>
