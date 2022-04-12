@@ -342,7 +342,7 @@ class MainEvent extends React.Component {
                 case 14:
                     this.setState({img: schedulentro_bg});
                     break;
-                case 17:
+                case 16:
                     this.setState({img: mapintro_bg});
                     break;
                 case 18:
@@ -355,7 +355,7 @@ class MainEvent extends React.Component {
                     this.setState({img: messageintro_bg});
                     break;
                 case 21:
-                    this.setState({img: rightstatintro_bg});
+                    this.setState({img: menuintro_bg});
                     break;
                 
                 default:

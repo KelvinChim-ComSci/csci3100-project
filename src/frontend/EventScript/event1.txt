@@ -9,7 +9,7 @@ Senior B: No, you should join Shaw College! We have plenty of exchange opportuni
 After some considerations, you choose to join one of the colleges.
 @QQ@ Immediately you were asked to join the Orientation Camp, do you want to join it? (Chooose Yes to see tutorial)
 @A1,2@ Yes
-@A2,14@ No
+@A2,13@ No
 @R1@ In this game, you are required to plan for your own university life.
 @R1@ After the orientation day and orientation camp, the semester starts and you are going to have your first lesson.
 @R1@ Click the "Open schedule" button on the left hand corner of the page to open schedule. Every 2 schedules count for 1 semester. Every 2 semester count for 1 year.
@@ -22,4 +22,3 @@ After some considerations, you choose to join one of the colleges.
 @R1@ You can check you statistics anytime on the right of the page.
 @R1@ Welcome to CUHK and enjoy your university life!
 #0,0,0,0
-#1,0,1,0
