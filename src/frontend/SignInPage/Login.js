@@ -1,3 +1,15 @@
+/**************************************************************************************** 
+This is the default route for App.js.
+This component provides an interface for a user to log in to the game. It also provides 
+links to registration and forgot password components.
+To log in, the user needs to input his username and password, then click "login" button.
+The system will first check whether each input is valid, then verify the account 
+information with the data from database. 
+If invalid data are submitted or data does not match with database, warnings will be 
+displayed and the user need to input data again.
+Upon successful log in, the user will be directed to the main page in main.js.
+****************************************************************************************/
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from '../withRouter.js'; // router
@@ -15,6 +27,7 @@ class Login extends React.Component {
         }
     }
 
+    // check whether input is empty 
     checkInput(inputUsername, inputPassword) {
         this.setState({ error: 0 });
         if (this.isEmpty(inputUsername)) {
@@ -31,6 +44,7 @@ class Login extends React.Component {
         }
     }
 
+    // handle data submitted
     async userLogin(event) {
         event.preventDefault();
         let inputUsername = document.getElementsByName("username")[0].value;
@@ -69,6 +83,7 @@ class Login extends React.Component {
             });
     }
 
+    // redirect to page
     navigator(page) {
         this.props.navigate(page);
     }
@@ -81,6 +96,7 @@ class Login extends React.Component {
         return (input === "" || input === null) ? 1 : 0;
     }
 
+    // display error if data does not match with database
     displayError(errorMessage) {
         if (errorMessage === "No such user is found. Please try again.") {
             this.setState({ usernameError: errorMessage, error: 1 });
@@ -92,6 +108,8 @@ class Login extends React.Component {
 
     render() {
         require('./Login.css');
+
+        // layout of the page
         return (
             <div id="login">
                 {this.state.loading ? <Loading /> :

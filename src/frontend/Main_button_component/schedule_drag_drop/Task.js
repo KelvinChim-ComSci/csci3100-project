@@ -1,3 +1,8 @@
+/**************************************************************************************** 
+This component displays each item in a column in a schedule.
+The items are also allowed to be dragged by introducing a draggable region.
+****************************************************************************************/
+
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -9,8 +14,7 @@ export default class Task extends React.Component {
     }
     return {
       ...style,
-      // cannot be 0, but make it super tiny
-      transitionDuration: `0.001s`,
+      transitionDuration: `0.001s`,         // makes animation time super tiny
     };
   }
   
@@ -21,7 +25,6 @@ export default class Task extends React.Component {
       <Draggable 
         draggableId={this.props.task.id} 
         index={this.props.index}
-        
       >
         {(provided,snapshot) => (
           <div
