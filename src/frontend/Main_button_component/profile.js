@@ -1,3 +1,27 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Check profile" button in main page.
+This component provides an interface for user to check his profile or other users' 
+profiles.
+The profile component consists of three parts:
+1. General information
+2. In-game progress
+3. Achievement
+When the component is mounted, it will fetch the data from backend and display in the 
+corresponding parts. 
+For the general information part, the user can modify his display name, about me section
+as well as change his profile image.
+The user can click edit and input corresponding data to change them.
+For profile image, the user can first select image to pick an image, then click upload 
+and the image will be changed.
+These changes will be updated to backend directly after confirmation.
+The user cannot modify these data in other users' profiles.
+The in-game progress part displays similar data as in statistics bar of main page.
+The achievement part shows all achievements that the user got in game.
+They will not be removed even when the user reset his in-game progress.
+The user can click the top right "x" button to close this window.
+Last update: 29/4/2022 by Ku Nok Tik
+****************************************************************************************/
+
 import React from "react";
 import achievement_img1 from '../../backend/img/new_achievement1.jpg';
 import achievement_img2 from '../../backend/img/new_achievement2.jpg';
@@ -51,6 +75,7 @@ class Profile extends React.Component {
             )
     }
 
+    // corresponding pop up windows for data editing
     popUp(option) {
         const msg = this.state.message;
         const name = this.state.name;
@@ -89,9 +114,10 @@ class Profile extends React.Component {
 
     }
 
+    // fetch profile image and achievement data from database when profile is mounted
     async componentDidMount() {
         await this.fetchImg();
-        await fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/" + this.props.stat.user, { //+ this.props.userId
+        await fetch(process.env.REACT_APP_BASE_URL + "/achievement/retrieve/" + this.props.stat.user, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": 'application/json',
@@ -115,7 +141,6 @@ class Profile extends React.Component {
                         emotionalDamage: res.emotionalDamage,
                     });
                 }
-
             });
     }
 
@@ -139,10 +164,10 @@ class Profile extends React.Component {
             .then((res) => {
                 this.setState({ loading: false });
                 if (res.pics !== "") { this.setState({ profilegetImg: res.pics }); }
-
             });
     }
 
+    // upload image 
     async onSubmit(e) {
         e.preventDefault()
         const formData = new FormData()
@@ -160,10 +185,7 @@ class Profile extends React.Component {
                 this.fetchImg();
                 this.setState({ loading: false })
                 toast.success("Profile Photo Changed!");
-
             });
-
-
     }
 
     changeDisplayName(userId) {
@@ -215,6 +237,7 @@ class Profile extends React.Component {
     render() {
         require("./profile.css");
 
+        // check if the achievements are present, stored in imgList in order
         const data1 = { img: achievement_img1, text: "sociable", status: this.state.sociable };
         const data2 = { img: achievement_img2, text: "fxxxboy", status: this.state.fxxxboy };
         const data3 = { img: achievement_img3, text: "happyjai", status: this.state.happyjai };
@@ -233,7 +256,7 @@ class Profile extends React.Component {
             }
         }
 
-
+        // layout of the page
         return (
             <div className={this.state.loading ? "profile profileLoading" : "profile"} >
                 <h2>Profile</h2>

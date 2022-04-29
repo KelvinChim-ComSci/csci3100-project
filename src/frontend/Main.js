@@ -19,8 +19,12 @@ The right component consists of 3 parts:
 3. Admin Only buttons
 Statistics bar corresponds to the contents inside displayStat.js.
 For the normal buttons, the corresponding pop up windows will be displayed when the
-button is clicked and the background is 
-
+button is clicked and the background is dimmed.
+The admin only buttons are only visible by administrator. 
+This component serves as a bridge between many different components.
+Many other components make use of functions in main.js.
+Whenever there is statistics update, the data must pass through main.js and is directed
+to other files for further process.
 Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 

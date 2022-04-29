@@ -17,6 +17,7 @@ If "Yes" button is clicked, the data sequence in the Your plan column will be re
 and converted to a character sequence.
 The data is then passed back to main.js for further process of the data.
 The current pop up window will also change to main event in mainEvent.js.
+The user can click the top right "x" button to close this window before submitting data.
 Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
