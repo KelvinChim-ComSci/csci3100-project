@@ -28,7 +28,6 @@ class Exam extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
-        //this.handlePopupBackground = this.props.handlePopupBackground;
         
         this.state = {
             script_count : 1,
@@ -63,7 +62,6 @@ class Exam extends React.Component {
             this.script_answer = [];
             this.script_reaction_count = [];
             this.correct_answer = [];
-        //   this.script_reaction = [];
             for (let k = 0; k < this.script_list.length; k++){
                 if (this.script_list[k][0]==="@" && this.script_list[k][1]==="A") {
                     this.script_answer.push(this.script_list[k].substring(6));
@@ -74,7 +72,6 @@ class Exam extends React.Component {
                         this.script_answer.pop();
                         this.script_answer.push(this.script_list[k].substring(7));
                     }
-                //   this.script_reaction.push(this.script_list[k+1]);
                 }
                 if (this.script_list[k][0]==="="){
                     this.correct_answer.push(parseInt(this.script_list[k][1]))
@@ -84,7 +81,7 @@ class Exam extends React.Component {
     }
 
     eventChoice(year, sem, stat) {
-        //this.handlePopupBackground(mapintro_bg);
+
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
         if (year === 2 && sem === 1) {
             if (stat.gpa > 20){
@@ -146,14 +143,6 @@ class Exam extends React.Component {
             if (dia_line[1] === "Q")
                 pop_q = true;
         }
-        
-        // // check if the answer is correct
-        // if (dia_line[0] === "="){
-        //     if (this.correct_answer[this.state.question_count] == this.state.chosenChoice){
-        //         this.setState({correct_count : this.state.correct_count + 1});
-        //     }
-        //     // this.setState({script_count: this.state.script_count + 1});
-        // }
 
         if (this.state.lineFinished) {
             this.setState({lineFinished: false});

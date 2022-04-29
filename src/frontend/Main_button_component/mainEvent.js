@@ -49,8 +49,6 @@ import medcan_bg from '../../backend/background/medcan.jpg'
 import mapintro_bg from '../../backend/img/MapIntro.png';
 import menuintro_bg from '../../backend/img/MenuIntro.png';
 import profileintro_bg from '../../backend/img/ProfileIntro.png';
-import settingintro_bg from '../../backend/img/SettingsIntro.png';
-import rightstatintro_bg from '../../backend/img/RightStatIntro.png';
 import friendlistintro_bg from '../../backend/img/FriendListIntro.png';
 import messageintro_bg from '../../backend/img/MessageIntro.png';
 import schedulentro_bg from '../../backend/img/ScheduleIntro.png';
@@ -75,10 +73,8 @@ class MainEvent extends React.Component {
         this.handleChoice = this.handleChoice.bind(this);
         this.returnToMain = this.returnToMain.bind(this);
         this.selectSong = this.selectSong.bind(this);
-        //this.achievementHandle = this.achievementHandle.bind(this);
         this.achievementUpdate = this.achievementUpdate.bind(this);
         this.achievementEndCheck = this.achievementEndCheck.bind(this);
-        //this.handlePopupBackground = this.props.handlePopupBackground;
         
         this.state = {
             script_count : 1,
@@ -114,7 +110,6 @@ class MainEvent extends React.Component {
           this.displayDialogue(this.script_list[0], 0, false);
           this.script_answer = [];
           this.script_reaction_count = [];
-        //   this.script_reaction = [];
           for (let k = 0; k < this.script_list.length; k++){
               if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
                   this.script_answer.push(this.script_list[k].substring(6));
@@ -125,14 +120,12 @@ class MainEvent extends React.Component {
                       this.script_answer.pop();
                       this.script_answer.push(this.script_list[k].substring(7));
                   }
-                //   this.script_reaction.push(this.script_list[k+1]);
               }
           }
         });
     }
 
     eventChoice(year, sem, stat) {
-        //this.handlePopupBackground(mapintro_bg);
         // since the event pops up after the schdules end, the time in the story should -1 sem in here
         
         const highest = Math.max(stat.gpa, stat.sports, stat.happiness, stat.money);
@@ -312,7 +305,7 @@ class MainEvent extends React.Component {
     }
  
     achievementEndCheck(){
-        if (this.props.stat.gpa > 112) { //GPA>2.99
+        if (this.props.stat.gpa > 112) { // GPA>2.99
             this.achievementUpdate("nerd");                      
         }
         if (this.props.stat.sports > 100) {
@@ -327,7 +320,7 @@ class MainEvent extends React.Component {
         if (this.props.stat.happiness === 0) {
             this.achievementUpdate("emotionalDamage");
         }
-        if (this.props.stat.gpa < 37) { //GPA<0.99
+        if (this.props.stat.gpa < 37) { // GPA<0.99
             this.achievementUpdate("whoEvenStudies");
         }}
 
@@ -336,7 +329,6 @@ class MainEvent extends React.Component {
         let dialogue = dia_line;
         let pop_q = false;
 
-        //please do sth on this it looks so unclean
         if (this.props.stat.year === 1 && this.props.stat.sem === 0){
             switch (this.state.script_count) {
                 case 14:
@@ -366,7 +358,8 @@ class MainEvent extends React.Component {
 
         // end event if # is detected
         if (this.state.lineFinished && dia_line[0] === "#") {
-             //Check achievement if end event
+
+             // Check achievement if end event
              if (this.state.achievementCheck === "6"){
                 this.achievementUpdate("sociable");
                 this.setState({achievementCheck: ""});                
@@ -378,12 +371,12 @@ class MainEvent extends React.Component {
 
             this.props.handleMaineventStat(dia_line.substring(1).split(','), false);
             if (this.props.stat.year > 1 && this.props.stat.sem === 1){
-                //Check Achievement when graduated
+                
                 if (this.props.stat.year === 5 ) {
-                    this.achievementEndCheck();
+                    this.achievementEndCheck();           // Check Achievement when graduated
                 }
-                //Enter Exam                
-                this.props.handleExamPop();
+                                
+                this.props.handleExamPop();          // Enter Exam
             }
             return;
         }
@@ -391,9 +384,9 @@ class MainEvent extends React.Component {
         // if this is a @ line
         if (dia_line[0] === "@"){
             dialogue = dia_line.substring(4);
-            // pop choice window if @Q is detected while reading script
+            
             if (dia_line[1] === "Q")
-                pop_q = true;
+                pop_q = true;             // pop choice window if @Q is detected while reading script
         }
 
         if (this.state.lineFinished) {
@@ -427,6 +420,7 @@ class MainEvent extends React.Component {
     }
 
     async handleChoice(choiceId) {
+
         // Achievement: if not dating girl or go dinner, set state
         if ((this.state.achievementCheck==="6" && choiceId === 1) || (this.state.achievementCheck==="18" && choiceId === 2 )) {
             this.setState({ achievementCheck: ""});

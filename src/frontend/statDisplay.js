@@ -1,3 +1,14 @@
+/**************************************************************************************** 
+This component corresponds to the right top statistics bar in main page.
+Display of GPA is rescaled linearly so that 150 actual GPA will be displayed as 4.
+Actual semester is stored as 1-4, but when displayed we show 2 semesters and each 
+semester has two halves. 
+For instance, actually semester 3 is displayed as sem 2 (1st half).
+Any change in statistics through updateStat function in main.js will trigger this 
+component to update to the latest statistics.
+Last update: 29/4/2022 by Ku Nok Tik
+****************************************************************************************/
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -10,10 +21,12 @@ class StatDisplay extends React.Component {
         };
     }
 
+    // this function is 
     update(stat) {
         this.setState({ stat: { ...this.state.stat, ...stat } });
     }
 
+    // show year and sem if year <= 4 else show graduated
     displaySemester(){
         if (this.state.stat.hasOwnProperty('year') && this.state.stat.year>4)
             return (
@@ -27,6 +40,8 @@ class StatDisplay extends React.Component {
 
     render(){
         require('./statDisplay.css');
+
+        // layout of the bar
         return (
             <div className="container-fluid" id="statDisplay">
                 <div className = "row">

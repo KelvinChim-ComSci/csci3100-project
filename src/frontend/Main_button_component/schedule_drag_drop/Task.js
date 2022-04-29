@@ -1,6 +1,7 @@
 /**************************************************************************************** 
 This component displays each item in a column in a schedule.
 The items are also allowed to be dragged by introducing a draggable region.
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 import React from 'react';

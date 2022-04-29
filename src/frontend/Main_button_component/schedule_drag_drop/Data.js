@@ -8,6 +8,7 @@ items, while the character still corresponds to the content.
 Each column contains an id which labels the column number, a title, as well as an array
 storing the items in that column.
 Initial setting is column 1 contains the 5 different events and columns 2,3 are empty.
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 const Data = {

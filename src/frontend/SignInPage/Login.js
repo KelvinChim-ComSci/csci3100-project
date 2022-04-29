@@ -8,6 +8,7 @@ information with the data from database.
 If invalid data are submitted or data does not match with database, warnings will be 
 displayed and the user need to input data again.
 Upon successful log in, the user will be directed to the main page in main.js.
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 import React from 'react';

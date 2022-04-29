@@ -3,6 +3,7 @@ This component displays each column in a schedule.
 Column 1 is set such that items cannot drop on this column. 
 Other columns contain a droppable region that will appear when hovering item in the 
 column.
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 import React from 'react';

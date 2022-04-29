@@ -1,3 +1,29 @@
+/**************************************************************************************** 
+This component is activated after successful log in from log in page.
+This component serves as the main interface for the game. 
+The main page is divided into left and right components.
+The left component is the current location of the player, and the default location after
+logging in or finishing event is the home location.
+The background of the left component will change according to the current location.
+In the home location, there are 3 buttons:
+1. Open schedule
+2. Dem個和聲Beat
+3. Pause song
+The first button is used to open the schedule window.
+The second button is used to play the song 「和聲beat」.
+The third button is used to pause the current playing song, if any.
+In other location, the contents inside Event.js will be displayed.
+The right component consists of 3 parts:
+1. Statistics bar
+2. Normal buttons
+3. Admin Only buttons
+Statistics bar corresponds to the contents inside displayStat.js.
+For the normal buttons, the corresponding pop up windows will be displayed when the
+button is clicked and the background is 
+
+Last update: 29/4/2022 by Ku Nok Tik
+****************************************************************************************/
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from './withRouter.js';
@@ -38,8 +64,7 @@ class Main extends React.Component {
             overflow: 1,
         };
 
-        this.statRef = React.createRef();
-
+        this.statRef = React.createRef();           // create a reference for function trigger
 
         this.setStatusOff = this.setStatusOff.bind(this);
         this.userLogout = this.userLogout.bind(this);
@@ -77,24 +102,27 @@ class Main extends React.Component {
         this.setState({ location: "main" });
     }
 
+    // for disabling change of location after starting an event
     setEvent(started) {
         this.setState({ started: started });
     }
 
+    // update statistics in both statistics bar and backend 
     updateStat(stat) {
-        this.statRef.current.update(stat);
+        this.statRef.current.update(stat);          // activate update function inside statDisplay.js
         this.setState({ stat: { ...this.state.stat, ...stat } });
         statBackendUpdate(stat);
         new Promise(resolve => setTimeout(resolve, 1));
-        // handle new user
-        if (stat.year === 1 && stat.sem === 0) {
+
+        if (stat.year === 1 && stat.sem === 0) {             // tutorial for new player
             this.setState({ popUpBar: "mainEvent" });
         }
     }
 
+    // change left component of main to event location after confirming location in map
     handleLocation(location) {
         if (location !== "main") {
-            this.updateStat({ ...this.state.stat, stamina: this.state.stat.stamina - 5 });
+            this.updateStat({ ...this.state.stat, stamina: this.state.stat.stamina - 5 });         // decrease stamina when moving to other places
         }
         this.setState({ location: location });
     }
@@ -104,8 +132,6 @@ class Main extends React.Component {
     }
 
     popMainEvent() {
-        // if (this.state.stat.year > 4)
-        //     return;
         this.setState({ popUpBar: "mainEvent" });
     }
 
@@ -167,6 +193,7 @@ class Main extends React.Component {
         this.setState({ overflow: val });
     }
 
+    // corresponding pop up windows
     popUp(option) {
         if (option === "profile") {
             require("./Main_button_component/profile.css");
@@ -368,6 +395,7 @@ class Main extends React.Component {
         return;
     }
 
+    // left side of main page, can be changed to different locations according to this.state.location
     leftComponent() {
         if (this.state.location === "main") {
             return (
@@ -399,6 +427,7 @@ class Main extends React.Component {
         }
     }
 
+    // displayed only when the user is administrator
     adminOnly() {
         const isAdmin = window.sessionStorage.getItem("isAdmin");
         if (isAdmin === "true")
@@ -414,16 +443,18 @@ class Main extends React.Component {
 
     }
 
+    // data from schedule is processed here
     async handleSchedulePlan(plan) {
         this.setState({ popUpBar: "" });
         await new Promise(resolve => setTimeout(resolve, 1));
         let newStat = this.state.stat;
-        newStat = statScheduleUpdate(newStat, plan);
+        newStat = statScheduleUpdate(newStat, plan);        // calculate corresponding changes
         await new Promise(resolve => setTimeout(resolve, 1));
         this.updateStat(newStat);
         return;
     }
 
+    // data from mainEvent, Event, Exam are processed here
     async handleMaineventStat(dia_line_sub, sideEvent) {
         this.setState({ popUpBar: "" });
         await new Promise(resolve => setTimeout(resolve, 1));
@@ -439,6 +470,7 @@ class Main extends React.Component {
         return;
     }
 
+    // set user status as "off" when logout button is clicked
     async setStatusOff() {
         return fetch(process.env.REACT_APP_BASE_URL + "/logout", {
             method: "POST",
@@ -460,13 +492,15 @@ class Main extends React.Component {
         this.setStatusOff()
             .then((res) => {
                 this.props.handleLogout();
-                this.props.navigate("../");
+                this.props.navigate("../");           // redirect to login page
             })
             .catch((error) => console.log(error));
     }
 
     render() {
         require('./Main.css');
+
+        // layout of the page
         return (
             <div id="main">
 

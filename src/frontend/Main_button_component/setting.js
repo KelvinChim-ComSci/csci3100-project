@@ -9,7 +9,8 @@ The "Reset data" button is not available until the user graduates in game.
 When the "Reset data" button is clicked, a confirm window will pop up.
 If "Yes" button is clicked, the user's in-game progress will be reset, while user data 
 such as achievement, friend list, etc will be kept.
-When the "Back" button is clicked, this component will be closed.
+When the "Back" button is clicked, this component will be closed. 
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 import React from "react";

@@ -17,6 +17,7 @@ If "Yes" button is clicked, the data sequence in the Your plan column will be re
 and converted to a character sequence.
 The data is then passed back to main.js for further process of the data.
 The current pop up window will also change to main event in mainEvent.js.
+Last update: 29/4/2022 by Ku Nok Tik
 ****************************************************************************************/
 
 import React from 'react';
