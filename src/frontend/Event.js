@@ -1,3 +1,10 @@
+/*
+This component is activated after clicking onto difference places in the map component.
+This component handles all side events, including script reading from ../EventScript, choice pop ups and side event logics.
+The current component closes after finishing the event. Data are passed back to main.js for updating.
+Last updated: 29/4/2022 by Ho Cheuk Hin
+*/
+
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,6 +75,7 @@ class Event extends React.Component {
         clearTimeout(this.currentTimeout);
     }
 
+    // handle event script choices and background music
     eventChoice(location, year, sem) {
         if (location === "U Lib" && year === 1 && sem === 1) {
             this.props.playSong(TrollSong);
@@ -123,7 +131,7 @@ class Event extends React.Component {
             toast.error("You are already tired. Please go home and rest more!");
             return;
         }
-
+        // getting scripts and initialize variables script_reaction_count, script_answer for displaying event and choices
         fetch(this.eventChoice(this.props.location, this.props.year, this.props.sem))
             .then(r => r.text())
             .then(text => {
@@ -131,7 +139,6 @@ class Event extends React.Component {
                 this.displayDialogue(this.script_list[0], 0, false);
                 this.script_answer = [];
                 this.script_reaction_count = [];
-                //   this.script_reaction = [];
                 for (let k = 0; k < this.script_list.length; k++) {
                     if (this.script_list[k][0] === "@" && this.script_list[k][1] === "A") {
 
@@ -139,13 +146,11 @@ class Event extends React.Component {
                         this.script_reaction_count.push(this.script_list[k][4]);
 
                         if (this.script_list[k][5] !== "@") {
-
                             this.script_reaction_count.pop();
                             this.script_reaction_count.push(parseInt(this.script_list[k][4] * 10) + parseInt(this.script_list[k][5]));
                             this.script_answer.pop();
                             this.script_answer.push(this.script_list[k].substring(7));
                         }
-                        //   this.script_reaction.push(this.script_list[k+1]);
                     }
                 }
             })
@@ -153,6 +158,7 @@ class Event extends React.Component {
             .then(this.props.setEvent(1));
     }
 
+    // handle background
     bgchoice(location) {
         if (location === "U Lib") return ulib_bg;
         if (location === "NA") return na_bg;
@@ -210,7 +216,7 @@ class Event extends React.Component {
         let part = dialogue.substr(0, i);
         if (document.getElementById('dialogue') && this.mounted)
             document.getElementById('dialogue').innerHTML = part;
-
+        // display each char slowly
         if (i < dialogue.length) {
             this.currentTimeout = setTimeout(() => { this.displayDialogue(dialogue, i + 1, pop_q) }, 10);
         }
@@ -260,18 +266,6 @@ class Event extends React.Component {
                 </div>
             );
     }
-
-
-
-    // choiceList(){
-    //     this.script_answer.map(function(answer){
-    //         return (
-    //             <div>
-    //                 <button> </button>
-    //             </div>
-    //         )
-    //     }
-    // }
 
     popUp(option) {
         if (option === "choice")

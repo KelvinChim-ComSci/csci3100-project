@@ -1,3 +1,10 @@
+/*
+This component is activated after running the schedule. Event scripts are read from ../EventScript. 
+The data is then passed back to main.js for further process of the data.
+The current pop up window will be closed or go to Exam component in exam.js or return the user to page of main.js.
+Last Updated: 29/4/2022 by Ho Cheuk Hin.
+*/
+
 import React from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -102,6 +109,7 @@ class MainEvent extends React.Component {
         this.props.handlePopClose();
     }
 
+    // getting scripts and initialize variables script_reaction_count, script_answer for displaying event and choices
     async startEventChoice() {
         fetch(this.eventChoice(this.props.stat.year, this.props.stat.sem, this.props.stat))
         .then(r => r.text())
@@ -284,7 +292,7 @@ class MainEvent extends React.Component {
     selectSong(songName) {
             return this.props.playSong(songName);
     }
-
+    // update achievement to backend database
     achievementUpdate(achievementName){
         fetch(process.env.REACT_APP_BASE_URL + "/achievement/update" , {
             method: "POST",
@@ -303,7 +311,7 @@ class MainEvent extends React.Component {
         .then((res) => res.json())
         .then((res) => toast.info(res.message));
     }
- 
+    // check if achievements are done
     achievementEndCheck(){
         if (this.props.stat.gpa > 112) { // GPA>2.99
             this.achievementUpdate("nerd");                      
