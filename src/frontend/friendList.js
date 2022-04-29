@@ -43,7 +43,6 @@ class FriendList extends React.Component {
         this.setOverflow = this.setOverflow.bind(this);
     }
 
-
     componentDidMount() {
         this.periodicFetchMessage("");
         this.mounted = 1;
@@ -68,6 +67,7 @@ class FriendList extends React.Component {
 
 
     popUp() {
+        // calls addFriend component
         if (this.state.popUpBar === "addFriend")
             return (
                 <div>
@@ -78,6 +78,7 @@ class FriendList extends React.Component {
                     </div>
                 </div>
             );
+        // calls profile component
         if (this.state.popUpBar === "profile")
             return (
                 <div>
@@ -88,6 +89,7 @@ class FriendList extends React.Component {
                     </div>
                 </div>
             );
+        // calls warning deletion div
         if (this.state.popUpBar === "delete")
             return (
                 <div>
@@ -172,6 +174,7 @@ class FriendList extends React.Component {
 
     showStatus(Boolean) {
         if (Boolean) {
+            // when user is online, the user symbol is green
             return (
                 <span className="userStatus">
                     <div className='userStatus_block'></div>
@@ -179,6 +182,7 @@ class FriendList extends React.Component {
                     <div className='userStatus_body lightGreen'></div>
                 </span>
             )
+            // when user is offline, the user symbol is gray
         } else return (
             <span className="userStatus">
                 <div className='userStatus_block'></div>
@@ -397,6 +401,7 @@ class FriendList extends React.Component {
         )
     }
 
+    // send chat message to the user messaging
     async sendChatMessage(message, friendId) {
         const isValidMessage = (message !== "") && (message !== null);
         if (isValidMessage) {
