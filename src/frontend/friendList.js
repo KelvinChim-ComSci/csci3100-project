@@ -1,3 +1,12 @@
+/*
+This is the component for friend list, it will be triggered once user clicks on "Friend List" in main.js.
+This component allows user to view their friends, click chat to open a chat box to interact with friends,
+click gift to send stamina to friends, and click receive gifts to gain stamina if available.
+This component updates periodically to receive upcoming events from database in real time.
+Clicking the x button on the top right closes this component.
+Clicking the gold colored round rectangle symbol opens addfriend.js.
+Last updated: 29/4/2022 by Chim Ka Chun
+*/
 import React from 'react';
 import AddFriend from './Main_button_component/addFriend';
 import Profile from "./Main_button_component/profile";

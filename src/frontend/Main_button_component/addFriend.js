@@ -1,3 +1,13 @@
+/*
+This is the component for adding friend, it will be triggered once user clicks on the gold round rectangle button in friendList.js.
+This component allows user to add friends either by inputting the desired user's username, or from recommended list.
+Checks the input username and determine the outcome. Pending requests will be accepted directly if a request is sent to the other user requesting user.
+Invalid inputs and self username will fail to send request.
+Recommended list is purely random.
+Clicking the x button on the top right closes this component.
+Last updated: 29/4/2022 by Chim Ka Chun
+*/
+
 import React from "react";
 import Profile from "../Main_button_component/profile";
 import { statRetrievebyId } from '../statUpdater/statRetrievebyId.js';

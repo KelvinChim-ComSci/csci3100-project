@@ -3,6 +3,7 @@ This component is activated after clicking the if there are exam after the mainE
 Users chooses answer of questions, which are multiple choice questions read from script in ../EventScript.
 The data is then passed back to main.js for further process of the data.
 The current pop up window will be closed and return the user to page of main.js.
+Last Updated: 29/4/2022 by Ho Cheuk Hin.
 ****************************************************************************************/
 
 import React from "react";
