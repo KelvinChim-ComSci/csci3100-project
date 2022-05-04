@@ -30,6 +30,7 @@ class AddFriend extends React.Component {
         this.getRecommendation = this.getRecommendation.bind(this);
     }
 
+    // Recommend friends for user to add after component is mounted
     componentDidMount() {
         this.getRecommendation();
         this.mounted = 1;
@@ -39,6 +40,7 @@ class AddFriend extends React.Component {
         this.mounted = 0;
     }
 
+    // Display pop up box to show the profile of user
     popUp() {
         if (this.state.popUpBar === "profile")
             return (
@@ -54,6 +56,7 @@ class AddFriend extends React.Component {
         return;
     }
 
+    //Send friend request to database
     async createFriendRequest(friendName) {
         let inputFriendName = friendName || document.getElementsByName("friendName")[0].value;
         if (this.isEmpty(inputFriendName)) return toast.warn("Friend name cannot be empty.");
@@ -84,6 +87,7 @@ class AddFriend extends React.Component {
         request.length > 1 ? request[1].remove() : request[0].remove();
     }
 
+    // Fetch Recommend friends from the database
     async getRecommendation() {
         this.setState({ loading: true });
         await fetch(process.env.REACT_APP_BASE_URL + "/user/findRandomUsers", {
@@ -133,13 +137,13 @@ class AddFriend extends React.Component {
         }
     }
 
+    // Show the profile of user function
     async showFriendProfile(data) {
         this.setState({ loading: true });
         const stat = await statRetrievebyId(data.id);
         this.setState({ popUpBar: "profile", targetStatistic: stat, target: data, loading: false });
         this.props.setOverflow(0);
     }
-
 
     isEmpty(input) {
         return (input === "" || input === null) ? 1 : 0;
