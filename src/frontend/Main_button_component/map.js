@@ -1,3 +1,18 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Explore CUHK!" button at the right corner in main page.
+
+This component provides the CUHK campus map for user to visit different places in CUHK. It will show
+where the users are pointing to the place on the campus map. The users can click to different places
+and see a detail description of a particular place. It consists of the full name and the description
+of the places. 
+
+By clicking the “GO TO XXX” button, the system will show a new window. The users can visit to the 
+different places and explore more about CUHK. On the same time, they may trigger the side events 
+according to their corresponding statistics, school year and semester.
+
+Last updated: 29/4/2022 by Wong Yi Oi
+****************************************************************************************/
+
 import React from "react";
 import { withRouter } from '../withRouter.js';
 import 'bootstrap/dist/css/bootstrap.css';
