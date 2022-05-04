@@ -1,3 +1,12 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Forgot Password" button in the login page.
+By clicking the "Forgot Password" button, the system will route to the next page and request 
+user to input username and it will send email to user for changing password after 
+clicking the "Send email" button.
+
+Last updated: 1/5/2022 by Au Tsz Nga
+****************************************************************************************/
+
 import React from 'react';
 import { withRouter } from '../withRouter.js';
 import { toast } from 'react-toastify';
@@ -29,6 +38,7 @@ class ChangePassword extends React.Component {
         this.resetEmailSent = this.resetEmailSent.bind(this);
     }
 
+    // Get the vaileURL for reset password
     async componentDidMount() {
         await fetch(process.env.REACT_APP_BASE_URL + "/resetpassword/" + this.props.params.id, {
             method: "GET",
@@ -80,7 +90,7 @@ class ChangePassword extends React.Component {
         }
     }
 
-
+    // Update the reset password to the database
     async resetPassword(event) {
         event.preventDefault();
 
@@ -130,6 +140,7 @@ class ChangePassword extends React.Component {
         }
     }
 
+    // To send the email to user for password reset
     resetEmailSent() {
         if (this.state.reset) return <NotificationBox message={this.state.message} login={false} />
     }
