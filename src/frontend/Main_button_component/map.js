@@ -22,8 +22,10 @@ import ImageMapper from 'react-img-mapper';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+//declare image 
 var URL = img;
+
+//declare the coordinate, description and full name of places
 var MAP = {
     name: "my-map",
     areas: [
@@ -31,7 +33,6 @@ var MAP = {
     place: "New Asia College (NA)",
     describe: "It is a college which aims at preserving Chinese culture and balancing it with Western culture. The famous facilities in New Aisa is Pavilion of Harmony.",
     coords: [397.63,81.29,397.63,108.38,421.34,114.48,445.05,132.77,468.76,144.28,497.21,142.25,572.40,118.54,586.62,74.51,472.14,57.58,431.50,66.38]},
-   // { name: "5", shape: "circle", coords: [170, 100, 25 ] },
     { name: "U Lib", shape: "poly",fillColor: "rgba(187, 151, 196, 0.2)", 
     place: "The Chinese University of Hong Kong University Library (U Lib)",
     describe: "The University Library has extensive collections. It is the largest out of all the CUHK Libraries and have different facilities.",
@@ -98,6 +99,7 @@ class Map extends React.Component {
         };
     }
 
+    //control user not to visit many places
     navigator() {
         if (!this.props.available) {
             toast.warn("You cannot visit other places during event!");
@@ -113,6 +115,7 @@ class Map extends React.Component {
         this.props.handlePopClose();
     }
 
+    //Display the description of places
     displayDescription(area) {
     document.getElementById("detail").innerText ="Place Details";
     document.getElementById("detail").className = "tdT";
@@ -123,7 +126,8 @@ class Map extends React.Component {
     document.getElementById("places").innerText = "Go to\u00a0" + area.name + "\u00a0!";
     document.getElementById("places").className = "link";
     }
-    
+
+    //Show the name of palces where users pointing to
     showHover(area) {
     document.getElementById("hover").innerText = area.name;
     }
