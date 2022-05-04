@@ -1,4 +1,9 @@
-// use node index.js to run
+/*
+This is the main backend server. To run it, input "node index.js" in terminal.
+It connects the mongoDB server via express.
+Every Handler.js file is just exports of functions according to what schema they are in account of.
+Last Updated: 4/5/2022 by Chim Ka Chun.
+*/
 
 const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
