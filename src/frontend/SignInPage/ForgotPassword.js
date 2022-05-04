@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Forgot Password" button in the login page.
+By clicking the "Forgot Password" button, the system will route to the next page for 
+changing password.
+
+Last updated: 1/5/2022 by Au Tsz Nga
+****************************************************************************************/
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox';
@@ -18,8 +26,12 @@ class ForgotPassword extends React.Component {
 
     async sendEmail(event) {
         event.preventDefault();
+        
+        // Declare the input username
         let inputUsername = document.getElementById("usernameid").value;
         this.setState({ loading: true })
+
+        // Send the request for changing password to the database
         await fetch(process.env.REACT_APP_BASE_URL + "/email/forgetpassword", {
             method: "POST",
             headers: new Headers({

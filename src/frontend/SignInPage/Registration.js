@@ -1,3 +1,12 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Register now!" button in the login page. 
+By clicking the button, the system will route to the next page for register a new account.
+The user have to input username, email, password and confirm password for registration.
+After registration, the user will proceed to the verification stage.
+
+Last updated: 29/4/2022 by Chim Ka Chun
+****************************************************************************************/
+
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import NotificationBox from '../NotficationBox';
@@ -109,6 +118,7 @@ class Registration extends React.Component {
         await this.checkPassword();
         await this.checkConfirmPassword();
 
+        //If all input data are correct, update database for the information of the new user
         if (!(this.state.emailError || this.state.passwordError || this.state.usernameError || this.state.confirmPasswordError)) {
             this.setState({ loading: true });
             await fetch(process.env.REACT_APP_BASE_URL + "/register", {
