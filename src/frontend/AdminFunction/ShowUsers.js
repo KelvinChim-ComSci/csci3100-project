@@ -1,3 +1,18 @@
+/**************************************************************************************** 
+This component is activated after clicking the "Show user" button at the right corner in main page.
+Only admin can use this function, so the button is appeared only when the user is an admin.
+
+After clicking the "Show user" button, the system will list all users in the CU simulator. It shows
+the User ID, Username, Display Name and Email of users. This component provides function for 
+admin to see the profile of users by clicking to the particular user.
+
+The component also provides function for admin to reset user password. This function is activated
+by clicking the "Reset Password" button at right hand side. Admin have to input "New Password"
+and "Confirm New Password" in order to change password.
+
+Last updated: 29/4/2022 by Au Tsz Nga
+****************************************************************************************/
+
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import Profile from "../Main_button_component/profile";
@@ -29,6 +44,7 @@ class ShowUsers extends React.Component {
         this.getUserList();
     }
 
+    // Fetch all user from the database
     async getUserList() {
         await fetch(process.env.REACT_APP_BASE_URL + "/admin/getusers", {
             method: "GET",
@@ -46,6 +62,7 @@ class ShowUsers extends React.Component {
             });
     }
 
+    // Display all user in a list
     displayUserList() {
         //const userList = this.state.userList;
         if (this.state.userList.length !== 0) {
@@ -81,12 +98,14 @@ class ShowUsers extends React.Component {
     }
 
 
+    // Show the user profile
     async showUserProfile(data) {
         this.setState({ loading: true });
         const stat = await statRetrievebyId(data._id);
         this.setState({ popUpBar: "profile", targetStatistic: stat, target: data, loading: false });
     }
 
+    // Reset user password
     resetUserPassword(e, data) {
         e.stopPropagation()
         this.setState({ popUpBar: "resetPassword", target: data });
@@ -100,7 +119,7 @@ class ShowUsers extends React.Component {
         this.setState({ popUpBar: "" });
     }
 
-
+    // Handle the display of show profile and reset password
     popUp() {
         if (this.state.popUpBar === "profile") {
             return (
