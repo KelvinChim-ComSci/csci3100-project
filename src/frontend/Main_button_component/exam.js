@@ -1,10 +1,10 @@
-/**************************************************************************************** 
-This component is activated after clicking the if there are exam after the mainEvent.
-Users chooses answer of questions, which are multiple choice questions read from script in ../EventScript.
-The data is then passed back to main.js for further process of the data.
-The current pop up window will be closed and return the user to page of main.js.
-Last Updated: 29/4/2022 by Ho Cheuk Hin.
-****************************************************************************************/
+/*
+This component is activated after finish filling in and confirm the schedule .
+This component handles all main events, including script reading, choice pop ups and event logics.
+Exam will be pop up in some (year, sem).
+The cuurent pop up window closes after the main event is done.
+Last updated: 29/4/2022 by Ho Cheuk Hin
+*/
 
 import React from "react";
 import { toast } from 'react-toastify';
@@ -124,7 +124,7 @@ class Exam extends React.Component {
         if (this.state.lineFinished && dia_line[0] === "#") {
             let line = dia_line.substring(1).split(',');
             let wrong_count = this.state.question_count-this.state.correct_count;
-            // should be [0,0,0,0] for all exam, change num corr. to gpa to correct counut
+            // should be [0,0,0,0] for all exam, change num corr. to gpa to correct count
             if (this.state.correct_count >= wrong_count){
                 line[0] = this.state.correct_count;
             }else{
