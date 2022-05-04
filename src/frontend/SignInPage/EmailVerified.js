@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+This component is activated after clicking the link which is sent in the email 
+verification in the stage of registration. The system will update to the database for 
+the status of verification.
+
+Last updated: 29/4/2022 by Au Tsz Nga
+****************************************************************************************/
+
 import React from 'react';
 import { withRouter } from '../withRouter.js';
 import Loading from '../Loader.js';
@@ -11,6 +19,7 @@ class EmailVerified extends React.Component {
         }
     }
 
+    //Fetch the status of verification from the database
     async componentDidMount() {
         await fetch(process.env.REACT_APP_BASE_URL + "/email/confirm/" + this.props.params.id, {
             method: "GET",
