@@ -1,3 +1,9 @@
+/**************************************************************************************** 
+This is a profile handler in the backend server. This file is in charge of retrieving or 
+updating the image in profile. It links to the corresponding collections in database.
+
+Last updated: 29/4/2022 by Wong Yi Oi
+****************************************************************************************/
 
 var mongoose = require('mongoose');
 var fs = require('fs');
@@ -10,6 +16,7 @@ var ProfileImgSchema = new mongoose.Schema({
 
 var ProfileImg = mongoose.model('ProfileImg', ProfileImgSchema);
 
+//Fetch the profile image of the user
 module.exports.profileImgRetrieve = async function (req, res) {
 	ProfileImg.findOne({ user: req.params.userId }) // req.params.userId 
         .then((data) => {
@@ -26,7 +33,7 @@ module.exports.profileImgRetrieve = async function (req, res) {
         });
 }
 
-
+//Update the profile image of the user
 module.exports.profileImgPost = async function (req, res) {	
 	const user = JSON.parse(JSON.stringify(req.body)).userId; 
 

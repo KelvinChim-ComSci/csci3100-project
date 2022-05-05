@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+This is a message handler in the backend server. This file is in charge of fetching,
+sending and deleting the messages in chatroom. It links to the corresponding collections 
+in database.
+
+Last updated: 29/4/2022 by Chim Ka Chun
+****************************************************************************************/
+
 const mongoose = require('mongoose');
 
 var MessageSchema = mongoose.Schema({
@@ -9,6 +17,7 @@ var MessageSchema = mongoose.Schema({
 });
 var Message = mongoose.model('Message', MessageSchema);
 
+// find the message records and display it
 module.exports.fetchPreviousMessages = async function (req, res) {
     try {
         const friendId = req.body.friendId;
@@ -37,6 +46,7 @@ module.exports.fetchPreviousMessages = async function (req, res) {
     } catch (error) { console.log(error) };
 };
 
+// Send the message to friends
 module.exports.sendMessage = async function (req, res) {
     try {
         const friendId = req.body.friendId;
@@ -57,6 +67,7 @@ module.exports.sendMessage = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// delete all the message in chatroom
 module.exports.deleteAllMessage = async function (userId, friendId) {
     try {
         const deletedMessages = await Message.deleteMany({
