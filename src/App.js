@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+This component is activated when the system is required to navigate to different URL 
+which links to different react component. It also provides function for setting state
+and getting some window session storage.
+
+Last updated: 5/5/2022 by Wong Yi Oi
+****************************************************************************************/
+
 import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -35,7 +43,7 @@ class App extends React.Component {
     this.handleSessionRefresh = this.handleSessionRefresh.bind(this);
   }
 
-
+  //handle the login status of the user when refreshing
   handleSessionRefresh() {
     this.setState({
       displayName: window.sessionStorage.getItem("displayName"),
@@ -48,6 +56,7 @@ class App extends React.Component {
     });
   }
 
+  //handle the login status of the user
   handleLogin(displayName, user, userId, checkAdmin, aboutMe) {
     this.setState({
       displayName: displayName,
@@ -67,6 +76,7 @@ class App extends React.Component {
     window.sessionStorage.setItem("isLoggedIn", 1);
   }
 
+  //get the displayname of the user
   handleDisplayName(newDisplayName) {
     this.setState({
       displayName: newDisplayName
@@ -74,6 +84,7 @@ class App extends React.Component {
     window.sessionStorage.setItem("displayName", newDisplayName);
   }
 
+  //get the about me of the user
   handleAboutMe(newDescription) {
     this.setState({
       aboutMe: newDescription
@@ -81,6 +92,7 @@ class App extends React.Component {
     window.sessionStorage.setItem("aboutMe", newDescription);
   }
 
+  //handle the logout status of the user
   handleLogout() {
     this.setState({
       displayName: "",
