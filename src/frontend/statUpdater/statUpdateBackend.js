@@ -1,3 +1,10 @@
+/**************************************************************************************** 
+This component is activated when the user statistics have to be updated to backend.
+
+Last updated: 5/5/2022 by Ho Cheuk Hin
+****************************************************************************************/
+
+//update statistics to database by userID
 export function statBackendUpdate(newStat) {
     fetch(process.env.REACT_APP_BASE_URL + "/stat/update", {
         method: "POST",

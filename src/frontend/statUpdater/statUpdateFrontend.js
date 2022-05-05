@@ -1,3 +1,10 @@
+/**************************************************************************************** 
+This component is activated when the user statistics have to be updated in the frontend
+after the schedule have done.
+
+Last updated: 5/5/2022 by Ho Cheuk Hin
+****************************************************************************************/
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -54,6 +61,7 @@ export function statScheduleUpdate(newStat, plan) {
         }
     }
 
+    //can't add statistics after schedule if stamina is not enough
     if (newStat.stamina < 0) {
         toast.error("Oh no! You didn't have enough rest and became exhausted! The schedule will be ineffective.");
         newStat = {
@@ -75,6 +83,7 @@ export function statScheduleUpdate(newStat, plan) {
             sem: newStat.sem+1,
         }
     }
+    //handle the display of statistics updated
     toast.success("Your statistics has been updated!");
     toast.success(`GPA: +${String(parseFloat((newStat.gpa - original_stat.gpa)/150*4).toFixed(2))}`);
     toast.success(`Sports: +${String(newStat.sports - original_stat.sports)}`);
