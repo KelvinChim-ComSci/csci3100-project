@@ -5,6 +5,7 @@ Every Handler.js file is just exports of functions according to what schema they
 Last Updated: 4/5/2022 by Chim Ka Chun.
 */
 
+//Import the required file
 const accountHandling = require('./accountHandler.js');
 const statisticHandling = require('./statisticHandler.js');
 const friendHandling = require('./friendHandler.js');
@@ -12,6 +13,7 @@ const achievementHandling = require('./achievementHandler.js');
 const messageHandling = require('./messageHandler.js');
 const profileHandling = require('./profileHandler.js');
 
+//Set up mongoose and express
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
@@ -23,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
+// Import multer, body-parser and public folder for saving image
 var bodyParser = require('body-parser');
 //var fs = require('fs');
 //var path = require('path');
@@ -43,6 +46,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
+//Connect to mongoose
 mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

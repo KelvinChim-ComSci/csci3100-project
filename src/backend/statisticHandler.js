@@ -1,3 +1,11 @@
+/**************************************************************************************** 
+This is a statistic handler in the backend server. This file is in charge of retrieving,
+updating, initializing and resetting the statistics of user. It links to the 
+corresponding collections in database.
+
+Last updated: 29/4/2022 by Wong Yi Oi
+****************************************************************************************/
+
 const mongoose = require('mongoose');
 
 var StatSchema = mongoose.Schema({
@@ -12,6 +20,7 @@ var StatSchema = mongoose.Schema({
 });
 var Statistic = mongoose.model('Statistic', StatSchema);
 
+//update the statistics of the user
 module.exports.statUpdate = async function (req, res) {
     try {
         Statistic.findOneAndUpdate({ user: req.body.userId }, {
@@ -33,6 +42,7 @@ module.exports.statUpdate = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//retrieve the statistics of the user
 module.exports.stat = async function (req, res) {
     Statistic.findOne({ user: req.params.userId })
         .then((data) => {
@@ -63,6 +73,7 @@ module.exports.initalizeStat = async function (userId) {
         })
 }
 
+//reset the statistics of the user
 module.exports.resetStat = async function (req, res) { // not yet in frontend
     await Statistic.findOneAndUpdate({ user: req.body.userId }, { gpa: 1, sports: 0, happiness: 0, money: 0, sem: 1, stamina: 100, year: 1 },
         async function (err, response) {

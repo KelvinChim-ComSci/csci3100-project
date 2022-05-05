@@ -1,3 +1,12 @@
+/**************************************************************************************** 
+This is a friend handler in the backend server. This file is in charge of adding friends,
+checking friend status, getting friend list, sending or receiving gift, checking or 
+managing incoming request. It links to the corresponding collections 
+in database.
+
+Last updated: 29/4/2022 by Chim Ka Chun
+****************************************************************************************/
+
 const mongoose = require('mongoose');
 const accountHandling = require('./accountHandler.js');
 const messageHandling = require('./messageHandler.js');
@@ -13,7 +22,7 @@ var FriendListSchema = mongoose.Schema({
 });
 var FriendList = mongoose.model('FriendList', FriendListSchema);
 
-
+// Send friend request
 module.exports.sendRequest = async function (req, res) {
     try {
         let friendData = await accountHandling.findFriendId(req.body.friendName);
@@ -44,6 +53,7 @@ module.exports.sendRequest = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// Check friend request status
 module.exports.checkRequestCondition = async function (userId, friendId) {
     try {
         if (friendId === userId) return { message: "You cannot add yourself as friend!" };
@@ -70,8 +80,7 @@ module.exports.checkRequestCondition = async function (userId, friendId) {
     } catch (error) { console.log(error) };
 }
 
-
-
+// Get friend list
 module.exports.getFriendList = async function (req, res) {
     try {
         FriendList.find({
@@ -109,6 +118,7 @@ module.exports.getFriendList = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// Send gift to friend
 module.exports.sendGiftToFriend = async function (req, res) {
     try {
         const userId = req.body.userId;
@@ -150,6 +160,7 @@ module.exports.sendGiftToFriend = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// Receive gift from friend
 module.exports.receivedGift = async function (req, res) {
     try {
         const userId = req.body.userId;
@@ -178,7 +189,7 @@ module.exports.receivedGift = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
-
+// Checking incoming friend request
 module.exports.checkIncomingRequest = async function (req, res) {
     try {
         FriendList.find({
@@ -194,6 +205,7 @@ module.exports.checkIncomingRequest = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+// Managing incoming friend request
 module.exports.manageIncomingRequest = async function (req, res) {
     try {
         if (req.body.action === "accept") {
