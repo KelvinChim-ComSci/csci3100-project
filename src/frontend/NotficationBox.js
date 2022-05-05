@@ -1,3 +1,10 @@
+/**************************************************************************************** 
+This component is activated when the notification box is required. It is to notify user
+about some return messages.
+
+Last updated: 5/5/2022 by Wong Yi Oi
+****************************************************************************************/
+
 import React from "react";
 
 const NotificationBox = props => {
@@ -11,6 +18,7 @@ const NotificationBox = props => {
 
   require("./NotificationBox.css");
 
+  //notify user about some return messages
   return (
     <div id="notificationBox">
       <div className="container">

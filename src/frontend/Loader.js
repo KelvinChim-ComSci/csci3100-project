@@ -1,3 +1,10 @@
+/**************************************************************************************** 
+This component is activated when the loader spinner is required. It is to inform user
+that the system is still loading.
+
+Last updated: 5/5/2022 by Au Tsz Nga
+****************************************************************************************/
+
 import React from "react";
 import * as Loader from "react-loader-spinner";
 
