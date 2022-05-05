@@ -1,3 +1,12 @@
+/**************************************************************************************** 
+This is a account handler in the backend server. This file is in charge of sending 
+verification and forget password email, user registration, email verify validation,
+update login status, handle user logout, find the userId of friend, change display
+name and about me. It links to the corresponding collections in database.
+
+Last updated: 29/4/2022 by Chim Ka Chun
+****************************************************************************************/
+
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const mailer = require('./emailsender.js');
@@ -40,6 +49,7 @@ function sendVerifyMail(mail, username, id) {
     }
 }
 
+//send forget password email
 function sendforgetPasswordMail(mail, username, id) {
     let context = "Dear " + username + ",\n\n"
         + "You have received this email because you have forgotten your CU Simulator password. "
@@ -144,6 +154,7 @@ module.exports.confirmEmail = async function (req, res) {
     };
 }
 
+//Update login status
 module.exports.login = async function (req, res) {
     let inputUsername = req.body.username;
     let inputPassword = req.body.password;
@@ -170,6 +181,7 @@ module.exports.login = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//Handle user logout
 module.exports.logout = async function (req, res) {
     let inputUsername = req.body.username;
     try {
@@ -199,6 +211,7 @@ module.exports.email = async function (req, res) {
     }
 }
 
+//Find the userId of corresponding friend
 module.exports.findFriendId = async function (username) {
     try {
         const user = await User.findOne({ username: username });
@@ -297,6 +310,7 @@ module.exports.resetPassword = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//Find a random user
 module.exports.findRandomUsers = async function (req, res) {
     try {
         let userId = req.body.userId;
@@ -336,7 +350,7 @@ module.exports.listAllUsers = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
-
+//Change display name of user
 module.exports.changeDisplayName = async function (req, res) {
     try {
         const userId = req.body.userId;
@@ -353,6 +367,7 @@ module.exports.changeDisplayName = async function (req, res) {
     } catch (error) { console.log(error) };
 }
 
+//Change about me in the profile
 module.exports.changeAboutMe = async function (req, res) {
     try {
         const userId = req.body.userId;

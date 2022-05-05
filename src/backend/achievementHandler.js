@@ -1,3 +1,12 @@
+/**************************************************************************************** 
+This is an achievement handler in the backend server. This file is in charge of retrieving,
+updating and initializing the achievement of user. It links to the corresponding 
+collections in database.
+
+Last updated: 29/4/2022 by Wong Yi Oi
+****************************************************************************************/
+
+
 const mongoose = require('mongoose');
 
 var AchievementSchema = mongoose.Schema({
@@ -12,10 +21,10 @@ var AchievementSchema = mongoose.Schema({
     emotionalDamage: { type:Boolean,required: true }, //end with 0 happiness
 });
 var Achievement = mongoose.model('Achievement', AchievementSchema);
-  
+ 
+//update the achievement of the user
 module.exports.achievementUpdate = async function (req, res) {
 
-   // array = [sociable,fxxxboy,happyjai,nerd,tooStronk4u,whoEvenStudies,futureSecurityGuard, emotionalDamage];
    let array = ["sociable","fxxxboy","happyjai","nerd","tooStronk4u","whoEvenStudies","futureSecurityGuard", "emotionalDamage"];
   
     for (let index = 0; index < array.length; index++) {
@@ -38,6 +47,7 @@ module.exports.achievementUpdate = async function (req, res) {
     })
 }
 
+//Fetch the achievement  of the user
 module.exports.achievement = async function (req, res) {
     Achievement.findOne({user:req.params.userId}) //req.params.userId 
         .then((data) => {
